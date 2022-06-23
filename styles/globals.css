@@ -1,0 +1,429 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Poppins';
+  src: url(../public/fonts/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: 'Poppins-medium';
+  src: url(../public/fonts/Poppins-Medium.ttf);
+}
+@font-face {
+  font-family: 'Poppins-bold';
+  src: url(../public/fonts/Poppins-Bold.ttf);
+}
+@font-face {
+  font-family: 'Poppins-extrabold';
+  src: url(../public/fonts/Poppins-ExtraBold.ttf);
+}
+
+
+:root{
+  --lightGreyColor: #f7f7f7;
+  --lightGreyColor-1: #F9F9F9;
+  --textColorLight-1: #5C5C5C;
+  --textColorLight-2: #787878;
+  --purpleColor: #8000FF;
+  --purpleColorHover: rgb(128 0 255 / 75%);
+  --fontFamily-normal: 'Poppins';
+  --fontFamily-bold: 'Poppins-bold';
+  --fontFamily-500: 'Poppins-medium';
+  --fontFamily-extrabold: 'Poppins-extrabold';
+  --font22: 1.375rem;
+  --font30: 1.875rem;
+  --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  --list-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+  --border: 0.0625rem solid;
+  --form-border-color: #999999;
+  --form-border-light: #dadada;
+  --radius: 0.4375rem;
+  --letter--wide: 0.25rem;
+}
+
+button, 
+a, 
+input[type="submit"],
+input[type="reset"],
+input[type="button"]{
+  @apply duration-300;
+}
+
+.boldFont{
+  font-family: var(--fontFamily-bold);
+}
+
+.extraBoldFont{
+  font-family: var(--fontFamily-extrabold);
+}
+
+.text--center{
+  @apply text-center;
+}
+
+.h-52{
+  height: 3.25rem;
+}
+
+.h-62{
+  height: 3.875rem;
+}
+
+.mt--12{
+  @apply mt-12;
+}
+
+.px-90{
+  padding-left: 5.625rem;
+  padding-right: 5.625rem;
+}
+
+.transform--center{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.transformY{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form--border{
+  border-bottom: var(--border);
+  border-color: var(--form-border-color);
+}
+
+.btn{
+  background: var(--purpleColor);
+  border-radius: var(--radius);
+  @apply w-full justify-center flex items-center text-white text-sm h-52 mt-6 boldFont;
+}
+
+.btn:hover{
+  background: var(--purpleColorHover);
+}
+
+body{
+  background-color: var(--lightGreyColor);
+  background-image: url(../public/images/bg.png);
+  font-family: var(--fontFamily-normal);
+  @apply bg-no-repeat bg-bottom bg-contain min-h-screen break-words pt-12 pb-6 leading-normal;
+}
+
+.site--form--container {
+  max-width: 85.875rem;
+  max-height: calc(100vh - 6rem);
+  background: var(--lightGreyColor-1);
+  box-shadow: var(--box-shadow);
+  @apply mx-auto overflow-y-auto;
+}
+
+.form--site--logo {
+  width: 9.0625rem;
+  @apply mb-6;
+}
+
+.left--form--layout {
+  @apply py-12 px-90 bg-white;
+}
+
+.signUp--page .left--form--layout{
+  @apply py-8;
+}
+
+.form--grid--wrapper {
+  @apply grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form--title {
+  font-size: var(--font30);
+  letter-spacing: -0.0361910625rem;
+  @apply extraBoldFont;
+}
+
+.form--content{
+  color: var(--textColorLight-1);
+  @apply mt-2;
+}
+
+.form--content a{
+  @apply underline;
+}
+
+.form--content a:hover{
+  @apply no-underline;
+}
+
+.site--form{
+  @apply mt-10;
+}
+
+.form--item{
+  @apply mb-6 mt-8 relative;
+}
+
+.form--label{
+  @apply absolute opacity-0 duration-300 left-0;
+}
+
+.form--control{
+  @apply w-full pb-2 form--border outline-0;
+}
+
+.form--control:focus{
+  border-color: var(--purpleColor);
+}
+
+.form--control:focus + .form--label{
+  @apply opacity-100;
+  top: -1.5rem;
+}
+
+.forgot--pwd{
+  @apply text-right;
+}
+
+.form--actions button{
+  @apply h-62 text-base;
+}
+
+.form--bottom--content{
+  color: var(--textColorLight-1);
+  @apply text-center mt-5;
+}
+
+p a{
+  color: var(--purpleColor);
+  @apply font-bold;
+}
+p a:hover{
+  color: var(--purpleColorHover);
+}
+
+.center--block {
+  @apply bg-white absolute py-10 px-90 transform--center w-full overflow-y-auto;
+  max-width: 43.1875rem;
+  max-height: 95vh;
+  border-radius: var(--radius);
+}
+
+.block--title {
+  @apply relative;
+  font-size: var(--font22);
+  font-family: var(--fontFamily-bold);
+}
+
+.block--info {
+  @apply pt-1 px-8 mt-10;
+  min-height: 11.625rem;
+  border-radius: var(--radius);
+  box-shadow: var(--box-shadow);
+}
+
+.info--title {
+  font-size: var(--font22);
+  @apply flex gap-4 items-center mb-4;
+}
+
+.info--title span:first-child{
+  font-size: var(--font30);
+  font-family: var(--fontFamily-extrabold);
+  color: var(--purpleColor);
+}
+
+.info--text {
+  color: var(--textColorLight-1);
+}
+
+.info--button .btn {
+  @apply mt-8;
+}
+
+.checkout--options {
+  @apply mt-6;
+}
+
+p.option-title {
+  @apply mb-4;
+  font-family: var(--fontFamily-500);
+}
+
+.option--list li {
+  box-shadow: var(--list-box-shadow);
+  border-radius: var(--radius);
+  @apply duration-300;
+}
+
+.option--list li:hover{
+  box-shadow: var(--box-shadow);
+}
+
+.option--list li:not(:last-child) {
+  @apply mb-6;
+}
+
+.option--list li a {
+  @apply p-5 flex justify-between items-center text-lg;
+  font-family: var(--fontFamily-500);
+}
+
+span.option--img {
+  width: 8.25rem;
+}
+
+.block--card--img {
+  @apply mt-3 mb-4;
+}
+
+form.card--form .form--label {
+  @apply opacity-100 mb-2 block;
+  position: inherit;
+  font-family: var(--fontFamily-500);
+}
+
+.card--form .form--control {
+  border: var(--border);
+  border-color: var(--form-border-light);
+  padding: 0.625rem;
+  border-radius: var(--radius);
+  letter-spacing: var(--letter--wide);
+}
+
+.form--group {
+  @apply grid;
+  gap: 2%;
+  grid-template-columns: 65% 33%;
+}
+
+form.card--form .form--item {
+  @apply mt-0;
+}
+
+form.card--form .form--actions .btn{
+  @apply mt-0;
+}
+
+.back--link{
+  @apply absolute transformY w-6 h-6 bg-no-repeat bg-center;
+  left: -3rem;
+  background-image: url(../public/images/back-arrow.svg);
+  background-size: 95%;
+}
+
+.email--image {
+  @apply my-12 mx-auto;
+  width: 6.25rem;
+}
+
+.info--text span{
+  @apply block;
+  font-family: var(--fontFamily-bold);
+}
+
+.block--content p span{
+  font-family: var(--fontFamily-bold);
+}
+
+.form--group.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+}
+
+.otp--page .form--control{
+  @apply text-center;
+  font-size: var(--font30);
+  font-family: var(--fontFamily-bold);
+  border-bottom-width: 0.125rem;
+  border-color: var(--purpleColor);
+}
+
+.otp--page .block--content{
+  @apply text-lg mt-4;
+}
+
+.tick--image{
+  width: 3.6875rem;
+  @apply mx-auto my-8;
+}
+
+.email--sent--block{
+  max-width: 39rem;
+  @apply pb-20;
+}
+
+.email--sent--cnf{
+  @apply text-2xl text-black;
+}
+
+.welcome--layout{
+  @apply items-center;
+}
+
+.welcome-content p{
+  @apply flex gap-2 items-center justify-center my-10 text-xl text-black;
+}
+
+.tick--image--small{
+  @apply w-6;
+}
+
+.right--form--layout{
+  @apply flex items-end mb-20;
+  min-height: 75vh;
+}
+
+.login--icons{
+  width: 7.625rem;
+  @apply mx-auto mb-20 relative;
+}
+
+.icons{
+  width: 2.5625rem;
+  @apply absolute transform--center;
+}
+
+.purple--bg-circle--transparent {
+  width: 7.625rem;
+  box-shadow: 0 0 80px rgb(128 0 255 / 40%);
+  @apply relative rounded-full;
+}
+
+.purple--bg-circle {
+  width: 4.875rem;
+  @apply absolute transform--center;
+}
+
+.right--layout--content {
+  max-width: 32rem;
+  @apply mx-auto;
+}
+
+.right--content {
+  @apply text-lg mb-20 mt-12;
+  color: var(--textColorLight-2);
+}
+
+.bottom--actions {
+  @apply flex justify-between items-center;
+  color: var(--purpleColor);
+}
+
+.icon--dots {
+  @apply flex gap-1;
+}
+
+.icon--dots span {
+  @apply block w-2 h-2 rounded-full cursor-pointer;
+  background-color: var(--form-border-light);
+}
+
+.icon--dots span.active{
+  background-color: var(--purpleColor);
+}
+
+.next--btn span{
+  @apply cursor-pointer;
+}
