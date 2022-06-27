@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
+import Footer from "../components/Footer/Footer";
 
 export default function Subscription() {
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function Subscription() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

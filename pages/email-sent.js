@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import Footer from "../components/Footer/Footer";
 
 export default function EmailSent() {
   useEffect(() => {
@@ -19,6 +20,7 @@ export default function EmailSent() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

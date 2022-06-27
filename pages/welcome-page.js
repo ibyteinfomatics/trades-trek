@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import Image from 'next/image'
 import Link from "next/link"
+import Footer from "../components/Footer/Footer"
 
 export default function LoginForm() {
   useEffect(() => {
@@ -37,6 +38,7 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   )
 }

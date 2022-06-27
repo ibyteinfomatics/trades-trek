@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
+import Footer from "../components/Footer/Footer";
 
 export default function OtpProcess() {
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function OtpProcess() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

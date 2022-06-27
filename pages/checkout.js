@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import Footer from "../components/Footer/Footer";
 
 export default function Checkout() {
     useEffect(() => {
@@ -75,6 +76,7 @@ export default function Checkout() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

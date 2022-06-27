@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import Footer from "../components/Footer/Footer";
 
 export default function ForgotPassword() {
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function ForgotPassword() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

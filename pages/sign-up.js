@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link"
+import SignupSlider from "../components/SignupSlider/SignupSlider";
+import Footer from "../components/Footer/Footer";
 
 export default function LoginForm() {
   useEffect(() => {
@@ -61,46 +62,12 @@ export default function LoginForm() {
           </div>
           <div className="right--form--layout">
             <div className="right--layout--content text--center">
-              <div className="login--icons">
-                <div className="purple--bg-circle--transparent">
-                  <Image src="/images/purple-circle-transparent.svg" layout="responsive" width={122} height={122} alt="" />
-                  <div className="purple--bg-circle">
-                    <Image src="/images/purple-circle.svg" layout="responsive" width={78} height={78} alt="" />
-                  </div>
-                </div>
-                
-                <div className="portfolio--icon icons">
-                  <Image
-                    src="/images/portfolio-icon.svg"
-                    layout="responsive"
-                    width={41}
-                    height={38}
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="form--title">
-                <h1>Portfolio</h1>
-              </div>
-              <div className="right--content">
-                <p>On teada-tuntud fakt, et lehe kujunduse vaatamisel juhib selle loetav sisu lugeja tähelepanu kõrvale.</p>
-              </div>
-              <div className="bottom--actions">
-                <div className="icon--dots">
-                  <span className="active"></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <div className="next--btn">
-                  <span>Next</span>
-                </div>
-              </div>
+              <SignupSlider />
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   )
 }

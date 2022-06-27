@@ -19,7 +19,6 @@
   src: url(../public/fonts/Poppins-ExtraBold.ttf);
 }
 
-
 :root{
   --lightGreyColor: #f7f7f7;
   --lightGreyColor-1: #F9F9F9;
@@ -38,10 +37,39 @@
   --border: 0.0625rem solid;
   --form-border-color: #999999;
   --form-border-light: #dadada;
+  --form-border-light-2: #ebebeb;
   --radius: 0.4375rem;
   --letter--wide: 0.25rem;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--purpleColor);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--purpleColorHover);
+}
+
+.w-18{
+  width: 4.5rem;
+}
+.ml-18{
+  margin-left: 4.5rem;
+}
+
+svg path,
 button, 
 a, 
 input[type="submit"],
@@ -109,15 +137,20 @@ body{
   background-color: var(--lightGreyColor);
   background-image: url(../public/images/bg.png);
   font-family: var(--fontFamily-normal);
-  @apply bg-no-repeat bg-bottom bg-contain min-h-screen break-words pt-12 pb-6 leading-normal;
+  @apply bg-no-repeat bg-bottom bg-contain min-h-screen break-words pb-6 leading-normal;
 }
 
-.site--form--container {
+.site--form--container{
+  @apply pt-12
+}
+
+.site--form--container .form--grid--wrapper{
   max-width: 85.875rem;
   max-height: calc(100vh - 6rem);
   background: var(--lightGreyColor-1);
   box-shadow: var(--box-shadow);
-  @apply mx-auto overflow-y-auto;
+  @apply mx-auto overflow-y-auto grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .form--site--logo {
@@ -131,11 +164,6 @@ body{
 
 .signUp--page .left--form--layout{
   @apply py-8;
-}
-
-.form--grid--wrapper {
-  @apply grid;
-  grid-template-columns: repeat(2, 1fr);
 }
 
 .form--title {
@@ -372,12 +400,12 @@ form.card--form .form--actions .btn{
 
 .right--form--layout{
   @apply flex items-end mb-20;
-  min-height: 75vh;
+  min-height: calc(100vh - 12rem);
 }
 
 .login--icons{
   width: 7.625rem;
-  @apply mx-auto mb-20 relative;
+  @apply mx-auto mb-20 relative mt-20;
 }
 
 .icons{
@@ -398,32 +426,186 @@ form.card--form .form--actions .btn{
 
 .right--layout--content {
   max-width: 32rem;
-  @apply mx-auto;
+  @apply mx-auto relative w-full;
 }
 
 .right--content {
-  @apply text-lg mb-20 mt-12;
+  @apply text-lg mb-32 mt-12;
   color: var(--textColorLight-2);
 }
 
-.bottom--actions {
-  @apply flex justify-between items-center;
+button.slick-arrow.slick-prev{
+  display: none !important;
+}
+button.slick-arrow.slick-next{
+  @apply absolute bottom-0 right-0;
   color: var(--purpleColor);
 }
 
-.icon--dots {
-  @apply flex gap-1;
+ul.slick-dots{
+  @apply absolute bottom-0 left-0 gap-2;
+  display: flex !important;
 }
 
-.icon--dots span {
-  @apply block w-2 h-2 rounded-full cursor-pointer;
-  background-color: var(--form-border-light);
+ul.slick-dots li{
+  @apply leading-none;
 }
 
-.icon--dots span.active{
+ul.slick-dots li button{
+  @apply w-2 h-2 rounded-full overflow-hidden indent-96;
+  background: var(--form-border-light);
+}
+
+ul.slick-dots li.slick-active button{
   background-color: var(--purpleColor);
 }
 
-.next--btn span{
-  @apply cursor-pointer;
+.site--footer {
+  @apply absolute text-center text-sm left-0 right-0 bottom-3;
+  color: var(--textColorLight-2);
+}
+
+/* Side-bar Mneu items */
+
+.sideBar--nav {
+  @apply bg-white w-80 fixed inset-y-0 py-12 overflow-x-hidden overflow-y-auto duration-300 z-20;
+}
+
+.sideBar--nav.collapse--menu{
+  @apply w-18;
+}
+
+.sideBar--nav.collapse--menu:hover{
+  @apply w-80;
+}
+
+.burger--menu{
+  @apply absolute right-3 justify-center cursor-pointer z-40 w-6 grid flex-wrap gap-1;
+}
+
+.sideBar--nav.collapse--menu .burger--menu{
+  left: 1.75rem;
+}
+
+.sideBar--nav.collapse--menu:hover .burger--menu{
+  left: inherit;
+}
+
+.sideBar--nav:not(.collapse--menu) .burger--menu{
+  @apply justify-end;
+}
+
+.burger--menu span{
+  @apply h-1 w-6 ml-auto block bg-black;
+}
+
+.sideBar--nav.collapse--menu:hover .burger--menu span:nth-child(2),
+.sideBar--nav:not(.collapse--menu) .burger--menu span:nth-child(2){
+  @apply w-4/5;
+}
+
+.sideBar--nav.collapse--menu:hover .burger--menu span:last-child,
+.sideBar--nav:not(.collapse--menu) .burger--menu span:last-child{
+  @apply w-3/5;
+}
+
+.sideBar--nav .form--site--logo{
+  width: 12.875rem;
+  @apply ml-4;
+}
+
+.sideBar--nav.collapse--menu .form--site--logo{
+  @apply opacity-0;
+}
+
+.sideBar--nav.collapse--menu:hover .form--site--logo{
+  @apply opacity-100;
+}
+
+ul.menu__list{
+  @apply w-80;
+}
+
+li.menu__list--item {
+  @apply py-2 my-4 relative;
+  border-left: 0.1875rem solid transparent;
+}
+
+li.menu__list--item.active--menu{
+  border-left-color: var(--purpleColor);
+}
+
+li.menu__list--item a {
+  @apply flex pl-6 leading-none gap-6 text-lg items-center;
+}
+
+.sideBar--nav.collapse--menu li.menu__list--item a{
+  @apply gap-8;
+}
+
+.sideBar--nav.collapse--menu:hover li.menu__list--item a{
+  @apply gap-6;
+}
+
+li.menu__list--item a:hover,
+li.menu__list--item.active--menu a{
+  color: var(--purpleColor);
+}
+
+li.menu__list--item a:hover svg path,
+li.menu__list--item.active--menu a svg path{
+  fill: var(--purpleColor);
+}
+
+span.noti--status {
+  @apply absolute right-4 rounded-xl text-white py-1 px-2 text-xs;
+  background: var(--purpleColor);
+}
+
+/* Site content */
+.site--content {
+  @apply ml-80 py-8 px-12 duration-300;
+}
+
+.sideBar--nav.collapse--menu + .site--content{
+  @apply ml-18;
+}
+
+.sideBar--nav.collapse--menu:hover + .site--content{
+  @apply ml-80;
+}
+
+.card--style {
+  @apply bg-white p-4;
+}
+
+.card--style.card--with--border {
+  border-radius: var(--radius);
+  border: var(--border) var(--form-border-light-2);
+}
+
+.card--style.card--with--border ul{
+  @apply flex gap-6 justify-around;
+}
+
+.card--style.card--with--border ul li{
+  @apply flex gap-2 items-center;
+}
+
+.trade--image {
+  @apply w-10;
+}
+
+p.trade--name {
+  @apply font-semibold text-black leading-none;
+}
+
+p.trade--position {
+  @apply text-xs;
+}
+
+@media screen and (min-height: 640px) {
+  .site__nav--bottom {
+    @apply absolute bottom-0 inset-x-0;
+  }
 }
