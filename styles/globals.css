@@ -499,7 +499,7 @@ ul.slick-dots li.slick-active button{
   @apply bg-white w-18 fixed inset-y-0 py-12 overflow-x-hidden overflow-y-auto duration-300 z-20;
 }
 
-.sideBar--nav:hover{
+.sideBar--nav.collapse--menu:hover{
   @apply w-80;
 }
 

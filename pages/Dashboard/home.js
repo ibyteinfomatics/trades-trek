@@ -26,7 +26,7 @@ export default function Home(){
           <div className="card--wrapper">
             <div className="wrapper--text card--grid card--grid--60-40">
               <div className="welcome--image">
-                <Image src="/images/welcome--image.jpg" layout="responsive" width={775} height={365} alt="" />
+                <Image src="/images/home--page.jpg" layout="responsive" width={775} height={365} alt="" />
               </div> 
               <div className="card--style portfolio--card">
                 <div className="card--title">
