@@ -587,7 +587,7 @@ li.menu__list--item a span.noti--status {
 }
 
 .card--wrapper{
-  @apply mt-8;
+  @apply mt-10;
 }
 
 .wrapper--hgroup{
@@ -625,7 +625,7 @@ li.menu__list--item a span.noti--status {
 
 .card--grid .card--style,
 .card--grid .wrapper--col{
-  @apply mt-6;
+  /* @apply mt-6; */
 }
 
 .card--style {
@@ -801,7 +801,7 @@ td.sector--gain {
 
 @media screen and (min-width: 48rem){
   .card--grid{
-    @apply grid gap-6;
+    @apply grid gap-6 mt-0;
   }  
   .card--grid--4{
     grid-template-columns: repeat(2, 1fr);
