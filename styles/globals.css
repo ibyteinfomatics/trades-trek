@@ -11,6 +11,10 @@
   src: url(../public/fonts/Poppins-Medium.ttf);
 }
 @font-face {
+  font-family: 'Poppins-semibold';
+  src: url(../public/fonts/Poppins-SemiBold.ttf);
+}
+@font-face {
   font-family: 'Poppins-bold';
   src: url(../public/fonts/Poppins-Bold.ttf);
 }
@@ -24,12 +28,16 @@
   --lightGreyColor-1: #F9F9F9;
   --textColorLight-1: #5C5C5C;
   --textColorLight-2: #787878;
+  --orangeColor: #F45531;
   --purpleColor: #8000FF;
   --purpleColorHover: rgb(128 0 255 / 75%);
+  --purpleColorLight: #E6CCFF;
+  --textColorGreen: #00FFA0;
   --fontFamily-normal: 'Poppins';
   --fontFamily-bold: 'Poppins-bold';
   --fontFamily-500: 'Poppins-medium';
   --fontFamily-extrabold: 'Poppins-extrabold';
+  --fontFamily-semibold: 'Poppins-semibold';
   --font22: 1.375rem;
   --font30: 1.875rem;
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
@@ -38,6 +46,7 @@
   --form-border-color: #999999;
   --form-border-light: #dadada;
   --form-border-light-2: #ebebeb;
+  --form-border-light-3: #d8d8d8;
   --radius: 0.4375rem;
   --letter--wide: 0.25rem;
 }
@@ -45,6 +54,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
+  height: 2px;
 }
 
 /* Track */
@@ -68,6 +78,12 @@
 .ml-18{
   margin-left: 4.5rem;
 }
+.font-13{
+  font-size: 0.8125rem;
+}
+.font-15{
+  font-size: 0.9375rem;
+}
 
 svg path,
 button, 
@@ -76,6 +92,18 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"]{
   @apply duration-300;
+}
+
+.regularFont{
+  font-family: var(--fontFamily-normal);
+}
+
+.mediumFont{
+  font-family: var(--fontFamily-500);
+}
+
+.semiBoldFont{
+  font-family: var(--fontFamily-semibold);
 }
 
 .boldFont{
@@ -468,14 +496,10 @@ ul.slick-dots li.slick-active button{
 /* Side-bar Mneu items */
 
 .sideBar--nav {
-  @apply bg-white w-80 fixed inset-y-0 py-12 overflow-x-hidden overflow-y-auto duration-300 z-20;
+  @apply bg-white w-18 fixed inset-y-0 py-12 overflow-x-hidden overflow-y-auto duration-300 z-20;
 }
 
-.sideBar--nav.collapse--menu{
-  @apply w-18;
-}
-
-.sideBar--nav.collapse--menu:hover{
+.sideBar--nav:hover{
   @apply w-80;
 }
 
@@ -499,26 +523,12 @@ ul.slick-dots li.slick-active button{
   @apply h-1 w-6 ml-auto block bg-black;
 }
 
-.sideBar--nav.collapse--menu:hover .burger--menu span:nth-child(2),
-.sideBar--nav:not(.collapse--menu) .burger--menu span:nth-child(2){
-  @apply w-4/5;
-}
-
-.sideBar--nav.collapse--menu:hover .burger--menu span:last-child,
-.sideBar--nav:not(.collapse--menu) .burger--menu span:last-child{
-  @apply w-3/5;
-}
-
 .sideBar--nav .form--site--logo{
   width: 12.875rem;
-  @apply ml-4;
+  @apply ml-4 opacity-0;
 }
 
-.sideBar--nav.collapse--menu .form--site--logo{
-  @apply opacity-0;
-}
-
-.sideBar--nav.collapse--menu:hover .form--site--logo{
+.sideBar--nav:hover .form--site--logo{
   @apply opacity-100;
 }
 
@@ -539,6 +549,14 @@ li.menu__list--item a {
   @apply flex pl-6 leading-none gap-6 text-lg items-center;
 }
 
+li.menu__list--item a > span{
+  @apply w-6;
+}
+
+li.menu__list--item a > span svg{
+  @apply w-full h-auto;
+}
+
 .sideBar--nav.collapse--menu li.menu__list--item a{
   @apply gap-8;
 }
@@ -557,35 +575,72 @@ li.menu__list--item.active--menu a svg path{
   fill: var(--purpleColor);
 }
 
-span.noti--status {
-  @apply absolute right-4 rounded-xl text-white py-1 px-2 text-xs;
+
+li.menu__list--item a span.noti--status {
+  @apply absolute right-4 rounded-xl text-white py-1 px-2 text-xs w-auto;
   background: var(--purpleColor);
 }
 
 /* Site content */
 .site--content {
-  @apply ml-80 py-8 px-12 duration-300;
+  @apply ml-18 py-8 px-12 duration-300;
 }
 
-.sideBar--nav.collapse--menu + .site--content{
-  @apply ml-18;
+.card--wrapper{
+  @apply mt-8;
 }
 
-.sideBar--nav.collapse--menu:hover + .site--content{
-  @apply ml-80;
+.wrapper--hgroup{
+  @apply flex justify-between mb-4 items-center;
+}
+
+.readmore--link{
+  color: var(--purpleColor);
+  @apply mediumFont text-xl cursor-pointer duration-300;
+}
+
+.readmore--link:hover{
+  color: var(--purpleColorHover);
+}
+
+.readMore--btn a {
+  @apply text-center py-3 px-6 w-full mt-12 mx-auto text-sm semiBoldFont block;
+  border: var(--border) #000;
+  max-width: 21.5rem;
+  border-radius: 0.25rem;
+}
+
+.readMore--btn a:hover{
+  color: var(--purpleColor);
+  border-color: var(--purpleColor);
+}
+
+.wrapper--title h3 {
+  @apply text-xl semiBoldFont;
+}
+
+.card--grid{
+  @apply mt-6;
+}
+
+.card--grid .card--style,
+.card--grid .wrapper--col{
+  @apply mt-6;
 }
 
 .card--style {
   @apply bg-white p-4;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--radius);
 }
 
 .card--style.card--with--border {
-  border-radius: var(--radius);
+  @apply shadow-none;
   border: var(--border) var(--form-border-light-2);
 }
 
 .card--style.card--with--border ul{
-  @apply flex gap-6 justify-around;
+  @apply flex gap-6 flex-wrap;
 }
 
 .card--style.card--with--border ul li{
@@ -597,15 +652,208 @@ span.noti--status {
 }
 
 p.trade--name {
-  @apply font-semibold text-black leading-none;
+  @apply semiBoldFont text-black leading-none;
 }
 
 p.trade--position {
   @apply text-xs;
 }
 
+.card--data{
+  @apply grid gap-2;
+}
+
+.card--row ul{
+  @apply grid gap-3;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card--title--label{
+  @apply text-black opacity-40 text-xs mb-2;
+}
+
+.card--title{
+  @apply text-black text-sm semiBoldFont;
+}
+
+.card--style.card--list--style{
+  @apply p-0 overflow-x-auto overflow-y-auto;
+  height: 36rem;
+}
+
+.card--list--style ul li {
+  @apply p-6 flex gap-2 justify-between;
+  border-bottom: var(--border) var(--form-border-light-3);
+}
+
+.light--purple--circle {
+  @apply w-10 h-10 rounded-full;
+  background: var(--purpleColorLight);
+}
+
+.stock--detail {
+  @apply uppercase flex items-center gap-3;
+}
+
+p.stock--title {
+  @apply semiBoldFont;
+}
+
+p.stock--sub--title {
+  @apply text-sm;
+}
+
+.stock--positions {
+  color: var(--textColorGreen);
+  @apply text-right flex items-end gap-3;
+}
+
+.loser--stock--position{
+  color: var(--orangeColor);
+}
+
+.stock--dat {
+  @apply text-black;
+}
+
+p.stock--position {
+  @apply semiBoldFont text-base;
+}
+
+p.stock--subposition {
+  @apply font-13;
+}
+
+table{
+  @apply w-full;
+}
+
+th {
+  @apply uppercase align-top text-left semiBoldFont;
+}
+
+th, td {
+  @apply p-4;
+  border-bottom: var(--border) var(--form-border-light-3);
+  padding: 1rem;
+}
+
+td {
+  @apply whitespace-nowrap;
+}
+
+td.sector--loss {
+  color: var(--orangeColor);
+}
+
+td.sector--gain {
+  color: var(--textColorGreen);
+}
+
+.label--purple{
+  color: var(--purpleColor);
+  @apply opacity-100;
+}
+
+.newsTitle{
+  @apply font-15;
+  max-width: 17.5rem;
+}
+
+.welcome--image{
+  border-radius: var(--radius);
+  @apply overflow-hidden;
+}
+
+.welcome--image span{
+  @apply min-h-full;
+}
+
+.card--style.portfolio--card {
+  @apply p-6 mt-0;
+}
+
+.card--title h1{
+  @apply text-2xl boldFont;
+}
+
+.portfolio--card .option--list{
+  @apply mt-3;
+}
+
+.portfolio--card .card--list{
+  @apply mt-10;
+}
+
+.portfolio--card .card--list .card--title{
+  @apply regularFont;
+}
+
+.portfolio--card .option--list li{
+  @apply p-6 flex justify-between gap-3 items-center semiBoldFont;
+}
+
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;
+  }
+}
+
+@media screen and (min-width: 48rem){
+  .card--grid{
+    @apply grid gap-6;
+  }  
+  .card--grid--4{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 60rem){
+  .card--grid--60-40 {
+    grid-template-columns: calc(60% - 0.75rem) calc(40% - 0.75rem);
+  }
+  .sideBar--nav{
+    @apply w-80;
+  }
+  .sideBar--nav.collapse--menu{
+    @apply w-18;
+  }
+  .site--content {
+    @apply ml-80;
+  }  
+  .sideBar--nav.collapse--menu + .site--content{
+    @apply ml-18;
+  }  
+  .sideBar--nav.collapse--menu:hover + .site--content{
+    @apply ml-80;
+  }
+  .sideBar--nav .form--site--logo{
+    @apply ml-4 opacity-100;
+  }
+  .sideBar--nav.collapse--menu .form--site--logo{
+    @apply opacity-0;
+  }
+  .sideBar--nav.collapse--menu:hover .form--site--logo{
+    @apply opacity-100;
+  }
+  .sideBar--nav:not(.collapse--menu) .burger--menu span:nth-child(2){
+    @apply w-4/5;
+  }  
+  .sideBar--nav:not(.collapse--menu) .burger--menu span:last-child{
+    @apply w-3/5;
+  }
+}
+@media screen and (min-width: 80rem){
+  html{
+    font-size: 0.833333vw;
+  }
+  .card--style.card--with--border ul{
+    @apply justify-between;
+  }
+  .card--grid--3{
+    grid-template-columns: repeat(3, 1fr);
+    @apply gap-10;
+  }
+  .card--grid--4{
+    grid-template-columns: repeat(4, 1fr);
   }
 }

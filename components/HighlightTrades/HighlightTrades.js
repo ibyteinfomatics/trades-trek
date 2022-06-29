@@ -9,10 +9,10 @@ export default function HighlightTrades() {
       <div className="card--style card--with--border">
         <ul>
           {HighlightTradeLists.map((data, index) => {
-            if(index <= 8){
+            if(index <= 7){
             return (
               <>
-                <TradeLists key={index} listData={data} name="test" />
+                <TradeLists key={index} listData={data} />
               </>
             );
             }
