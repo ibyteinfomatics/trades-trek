@@ -1,24 +1,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Sidebar(){
+  const router = useRouter();
   const [menuCollapse, setMenuCollapse] = useState(false);
   return (
     <div className={menuCollapse ? "sideBar--nav collapse--menu" : "sideBar--nav"}>
       <div className="burger--menu" onClick={() => setMenuCollapse(!menuCollapse)}>
-        {/* <svg
-          width="20"
-          height="16"
-          viewBox="0 0 20 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 0.731753V2.52687H20V0.731689L0 0.731753ZM3 7.01462V8.80974H20V7.01462H3ZM7 14.1951V15.9902H20V14.1951H7Z"
-            fill="black"
-          />
-        </svg> */}
         <span></span>
         <span></span>
         <span></span>
@@ -34,8 +24,8 @@ export default function Sidebar(){
       </div>
       <div className="site__nav">
         <ul className="menu__list">
-          <li className="menu__list--item active--menu">
-            <Link href="javascript:void(0)">
+          <li className={router.pathname == '/Dashboard/home' ? "menu__list--item active--menu" : "menu__list--item"}>
+            <Link href="/Dashboard/home">
               <a>
                 <span>
                   <svg
@@ -78,8 +68,8 @@ export default function Sidebar(){
               </a>
             </Link>
           </li>
-          <li className="menu__list--item">
-            <Link href="javascript:void(0)">
+          <li className={router.pathname == '/Dashboard/trade-stocks' ? "menu__list--item active--menu" : "menu__list--item"}>
+            <Link href="/Dashboard/trade-stocks">
               <a>
                 <span>
                   <svg

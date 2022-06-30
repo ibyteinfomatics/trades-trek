@@ -55,7 +55,7 @@ export default function LoginForm() {
                 <button className="btn" type="submit">Sign Up</button>
               </div>
               <div className="form--bottom--content">
-                <p>Already have an account? <Link href="/login"><a>Login</a></Link>
+                <p>Already have an account? <Link href="/"><a>Login</a></Link>
                 </p>
               </div>
             </form>

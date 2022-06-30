@@ -28,6 +28,7 @@
   --lightGreyColor-1: #F9F9F9;
   --textColorLight-1: #5C5C5C;
   --textColorLight-2: #787878;
+  --textColorLight-3: #afafaf;
   --orangeColor: #F45531;
   --purpleColor: #8000FF;
   --purpleColorHover: rgb(128 0 255 / 75%);
@@ -154,7 +155,13 @@ input[type="button"]{
 .btn{
   background: var(--purpleColor);
   border-radius: var(--radius);
-  @apply w-full justify-center flex items-center text-white text-sm h-52 mt-6 boldFont;
+  @apply w-full justify-center flex items-center px-4 text-white text-sm h-52 mt-6 boldFont;
+}
+
+.reset--btn{
+  @apply bg-transparent boldFont;
+  color: var(--textColorLight-3);
+  border: var(--border) var(--textColorLight-3);
 }
 
 .btn:hover{
@@ -426,9 +433,17 @@ form.card--form .form--actions .btn{
   @apply w-6;
 }
 
+.site--form--container .form--grid--wrapper.welcome--layout{
+  @apply bg-white;
+}
+
 .right--form--layout{
-  @apply flex items-end mb-20;
+  @apply flex items-end;
   min-height: calc(100vh - 12rem);
+}
+
+.right--form--layout .welocme-image{
+  @apply w-full h-full;
 }
 
 .login--icons{
@@ -778,7 +793,7 @@ td.sector--gain {
 }
 
 .portfolio--card .option--list{
-  @apply mt-3;
+  @apply mt-3 relative left-0 top-0 max-w-full;
 }
 
 .portfolio--card .card--list{
@@ -791,7 +806,168 @@ td.sector--gain {
 
 .portfolio--card .option--list li{
   @apply p-6 flex justify-between gap-3 items-center semiBoldFont;
+  box-shadow: var(--box-shadow);
 }
+
+
+
+/* Tradestek CSS */
+/* .font-25{
+  font-size: 1.563rem;
+  @apply font-bold
+} */
+/* .font-15{
+  font-size: 0.938rem;
+}
+.font-20{
+  font-size: 1.25rem;
+} */
+.grid--2{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.btn-white button{
+  color: #AFAFAF;
+  border: 1px solid #AFAFAF;
+  min-width: 21.438rem;
+}
+.card-no-gap{
+  @apply bg-white;
+  border-radius: 0.438rem;
+}
+.react-tabs ul {
+  @apply flex items-center justify-start;
+  padding: 0.688rem 0;
+}
+.react-tabs ul li{
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-left: 2.563rem;
+  padding-right: 2.563rem;
+  @apply cursor-pointer;
+}
+/* .font-normal{
+  font-weight: 400;
+}
+.font-bold{
+  font-weight: 700;
+} */
+.data-title{
+  @apply flex gap-12;
+}
+.data-title span {
+  @apply boldFont;
+}
+/* .mt-30{
+  margin-top: 1.875rem;
+} 
+.mb-20{
+  margin-bottom: 1.25rem;
+} */
+.status-summary {
+  background: #E6CCFF;
+  padding: 0.875rem;
+  @apply flex items-center;
+}
+.grid--3{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.react-tabs ul .react-tabs__tab--selected{
+  color: #8000FF;
+  border-bottom: 0.179rem solid #8000FF;
+}
+.stocks-form {
+  padding: 0 2.563rem 2rem; 
+}
+.status-summary svg {
+  @apply mr-3;
+}
+.right-align{
+  @apply flex items-center justify-end;
+}
+.beginner-option{
+  @apply flex gap-12 items-center;
+}
+.beginner-option .btn{
+  min-width: 17.188rem;
+  @apply px-4 text-white justify-start mt-0 flex gap-16;
+  border-radius: var(--radius);
+}
+:focus-visible {
+  outline: none;
+}
+.btn-blue {
+  @apply flex items-center font-normal;
+  color: #8000FF;
+  font-size: 0.938rem;
+}
+.grid-block-right {
+  position: relative;
+}
+.option--list {
+  max-width: 18rem;
+  left: 29rem;
+  top: 4rem;
+  @apply bg-white w-full absolute;
+}
+.option--list ul{
+  @apply pl-4
+}
+.option--list li{
+  box-shadow: none
+}
+/* .btn--group div:nth-child(2){
+  margin-left: 0.813rem;
+}
+.btn-white button{
+  color: #AFAFAF;
+  border: 0.063rem solid #AFAFAF;
+  min-width: 21.438rem;
+  border-radius: 0.438rem;
+  padding: 2.2rem;
+  @apply bg-white;
+}
+.btn-gray button{
+  background: #AFAFAF;
+  border: 0.063rem solid #AFAFAF;
+  min-width: 21.438rem;
+  border-radius: 0.438rem;
+  padding: 2.2rem;
+} */
+
+.stocks--form--group {
+  @apply relative pr-40 grid gap-x-6;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stocks--form--group .readmore--link {
+  @apply text-sm flex gap-4 items-center absolute right-0;
+}
+
+.stocks--form--group .form--item{
+  @apply mt-0;
+  position: inherit;
+}
+
+.stocks--form--group .form--label{
+  @apply opacity-100 relative mb-2 block;
+}
+
+.btn--group{
+  @apply flex items-center gap-6 pr-40;
+}
+
+.stocks-form .form--actions .btn{
+  @apply text-sm;
+  height: 3.25rem;
+  max-width: 22rem;
+}
+
+.top--value--bar{
+  @apply mt-8 mb-6 flex gap-12 flex-wrap;
+}
+
 
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
@@ -857,3 +1033,5 @@ td.sector--gain {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+

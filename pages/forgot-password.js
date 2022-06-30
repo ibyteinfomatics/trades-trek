@@ -34,7 +34,7 @@ export default function ForgotPassword() {
             </Link>
           </div>
           <div className="form--bottom--content">
-            <p>Already have an account? <Link href="/login"><a>Log In</a></Link>
+            <p>Already have an account? <Link href="/"><a>Log In</a></Link>
             </p>
           </div>
         </div>
