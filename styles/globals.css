@@ -575,7 +575,11 @@ li.menu__list--item a > span{
   @apply w-6;
 }
 
-li.menu__list--item a > span svg{
+li.menu__list--item a > span.menu--icons--hover{
+  @apply hidden;
+}
+
+li.menu__list--item a > span img{
   @apply w-full h-auto;
 }
 
@@ -590,6 +594,16 @@ li.menu__list--item a > span svg{
 li.menu__list--item a:hover,
 li.menu__list--item.active--menu a{
   color: var(--purpleColor);
+}
+
+li.menu__list--item a:hover > span.menu--icons,
+li.menu__list--item.active--menu a > span.menu--icons{
+  @apply hidden;
+}
+
+li.menu__list--item a:hover > span.menu--icons--hover,
+li.menu__list--item.active--menu a > span.menu--icons--hover{
+  @apply block;
 }
 
 li.menu__list--item a:hover svg path,
