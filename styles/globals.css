@@ -445,6 +445,10 @@ form.card--form .form--actions .btn{
   min-height: calc(100vh - 12rem);
 }
 
+.welcome--layout .right--form--layout{
+  @apply pb-0;
+}
+
 .right--form--layout .welocme-image{
   @apply w-full h-full;
 }
