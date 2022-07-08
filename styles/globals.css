@@ -235,7 +235,10 @@ body{
 .form--control{
   @apply w-full pb-2 form--border outline-0;
 }
-
+.reset--btn:hover{
+  background: #AFAFAF;
+  @apply text-white;
+}
 .form--control:focus{
   border-color: var(--purpleColor);
 }
@@ -324,8 +327,8 @@ p.option-title {
   box-shadow: var(--box-shadow);
 }
 
-.option--list li:not(:last-child) {
-  @apply mb-6;
+.option--list li {
+  @apply my-6;
 }
 
 .option--list li a {
@@ -438,8 +441,12 @@ form.card--form .form--actions .btn{
 }
 
 .right--form--layout{
-  @apply flex items-end;
+  @apply flex items-end pb-12;
   min-height: calc(100vh - 12rem);
+}
+
+.welcome--layout .right--form--layout{
+  @apply pb-0;
 }
 
 .right--form--layout .welocme-image{
@@ -568,7 +575,11 @@ li.menu__list--item a > span{
   @apply w-6;
 }
 
-li.menu__list--item a > span svg{
+li.menu__list--item a > span.menu--icons--hover{
+  @apply hidden;
+}
+
+li.menu__list--item a > span img{
   @apply w-full h-auto;
 }
 
@@ -585,6 +596,16 @@ li.menu__list--item.active--menu a{
   color: var(--purpleColor);
 }
 
+li.menu__list--item a:hover > span.menu--icons,
+li.menu__list--item.active--menu a > span.menu--icons{
+  @apply hidden;
+}
+
+li.menu__list--item a:hover > span.menu--icons--hover,
+li.menu__list--item.active--menu a > span.menu--icons--hover{
+  @apply block;
+}
+
 li.menu__list--item a:hover svg path,
 li.menu__list--item.active--menu a svg path{
   fill: var(--purpleColor);
@@ -598,7 +619,7 @@ li.menu__list--item a span.noti--status {
 
 /* Site content */
 .site--content {
-  @apply ml-18 py-8 px-12 duration-300;
+  @apply ml-18 py-8 px-4 duration-300;
 }
 
 .card--wrapper{
@@ -836,8 +857,7 @@ td.sector--gain {
   border-radius: 0.438rem;
 }
 .react-tabs ul {
-  @apply flex items-center justify-start;
-  padding: 0.688rem 0;
+  @apply flex items-center justify-start pt-3;
 }
 .react-tabs ul li{
   font-size: 1.25rem;
@@ -874,8 +894,9 @@ td.sector--gain {
   grid-template-columns: repeat(3, 1fr);
 }
 .react-tabs ul .react-tabs__tab--selected{
-  color: #8000FF;
   border-bottom: 0.179rem solid #8000FF;
+  color: var(--purpleColor);
+  @apply pb-2;
 }
 .stocks-form {
   padding: 0 2.563rem 2rem; 
@@ -884,15 +905,24 @@ td.sector--gain {
   @apply mr-3;
 }
 .right-align{
-  @apply flex items-center justify-end;
+  @apply flex items-center justify-start;
 }
 .beginner-option{
-  @apply flex gap-12 items-center;
+  @apply flex gap-x-6 gap-y-2 items-center flex-wrap w-full;
 }
 .beginner-option .btn{
-  min-width: 17.188rem;
-  @apply px-4 text-white justify-start mt-0 flex gap-16;
+  max-width: 20rem;
+  @apply px-4 text-white justify-start mt-0 flex gap-16 relative;
   border-radius: var(--radius);
+}
+.beginner-option .btn::after{
+  content: "";
+  @apply absolute w-4 h-4;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('../public/images/down-arrow.png');
+  background-repeat: no-repeat;
 }
 :focus-visible {
   outline: none;
@@ -906,10 +936,10 @@ td.sector--gain {
   position: relative;
 }
 .option--list {
-  max-width: 18rem;
-  left: 29rem;
-  top: 4rem;
-  @apply bg-white w-full absolute;
+  max-width: 20rem;
+  top: 100%;
+  box-shadow: var(--box-shadow);
+  @apply bg-white w-full right-0 absolute;
 }
 .option--list ul{
   @apply pl-4
@@ -937,9 +967,14 @@ td.sector--gain {
 } */
 
 .stocks--form--group {
-  @apply relative pr-40 grid gap-x-6;
-  grid-template-columns: repeat(3, 1fr);
+  @apply relative grid gap-x-6 pt-12;
+  grid-template-columns: repeat(1, 1fr);
 }
+
+.stocks--form--group + .stocks--form--group{
+  @apply pt-0;
+}
+
 
 .stocks--form--group .readmore--link {
   @apply text-sm flex gap-4 items-center absolute right-0;
@@ -955,13 +990,14 @@ td.sector--gain {
 }
 
 .btn--group{
-  @apply flex items-center gap-6 pr-40;
+  @apply flex items-center gap-6 flex-wrap;
 }
-
+.confirm-box-width .form--actions{
+  @apply pr-0;
+}
 .stocks-form .form--actions .btn{
   @apply text-sm;
   height: 3.25rem;
-  max-width: 22rem;
 }
 
 .top--value--bar{
@@ -969,9 +1005,267 @@ td.sector--gain {
 }
 
 
+/* New Css */
+
+.logoArea {
+  @apply flex items-center;
+}
+.logoArea img {
+  @apply w-8;
+}
+.titleRow .font-16{
+  font-size: 1rem;
+  @apply font-bold;
+}
+.titleRow .font-16 span.font-12{
+  @apply flex;
+  white-space: nowrap;
+  color: #757575;
+  font-size: 0.9rem;
+}
+.logoArea .brandName h4 {
+  font-size: 2rem;
+  @apply ml-2 font-bold
+}
+.titleRow .font-30 {
+  @apply font-bold;
+  line-height: 1;
+}
+.titleRow .font-30 span sub {
+  color: #42B7A4;
+}
+.currentData {
+  @apply flex items-center justify-between;
+}
+.logoArea .brandName h4 span {
+  @apply flex items-center font-bold;
+  font-size: 1rem;
+  color: #757575;
+}
+.innerRow.grid--2 {
+  grid-column-gap: 2rem;
+}
+.font-17{
+  font-size: 1.063rem;
+}
+.currentData .font-16{
+  font-weight: 600;
+}
+.currentData .font-15{
+  font-size: 0.938rem;
+  @apply font-normal;
+}
+.currentData{
+  @apply py-5;
+  border-bottom: 1px solid #ddd;
+}
+.titleRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-column-gap: 1rem;
+  @apply mt-6 items-center;
+}
+.font-30{
+  font-size: 1.875rem;
+}
+.font-18{
+  font-size: 1.125rem;
+}
+.titleRow .font-16 span.font-12.selected{
+  color: #FFA724;
+}
+.text-gray{
+  color: #757575;
+}
+.titleRow .font-18{
+  font-weight: 600;
+}
+.table-row-gap{
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+.mt-33{
+  margin-top: 2.063rem;
+}
+.mb-26{
+  margin-bottom: 1.625rem;
+}
+.order-table .order-time {
+  @apply flex items-center;
+}
+.order-table tr th:first-child, .order-table tr th:last-child, .order-table tr td:first-child, .order-table tr td:last-child {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+.titleRow .font-12{
+  font-size: 0.9rem;
+  color: #757575;
+  line-height: 3;
+  @apply font-normal flex;
+  text-transform: uppercase;
+}
+.font--bold{
+  @apply font-bold;
+}
+.row-block {
+  @apply flex items-center justify-between mb-4;
+}
+.confirm-box-width {
+  max-width: 90%;
+  @apply w-full bg-white m-auto absolute;
+  border-radius: 0.438rem;
+  padding: 3.438rem 2.188rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.confirm-box-width .form--actions button {
+  min-width: 15rem;
+}
+.click-here{
+  color: var(--purpleColor);
+}
+.success-data {
+  padding: 1.438rem 2.5rem;
+}
+.font-semi-bold{
+  font-weight: 600;
+}
+.mt-16{
+  @apply mt-4;
+}
+.order-status .status-summary{
+  background: #CCFFEC;
+}
+.btn-cancel.border-purple{
+  color: var(--purpleColor);
+  border: 1px solid #8000FF;
+  border-radius: 0.438rem;
+  @apply flex items-center justify-evenly;
+  min-width: 7.75rem;
+  padding: 0.45rem;
+  font-size: 0.813rem;
+}
+.bg-purple-block{
+  border: 1px solid #E6CCFF;
+  background: #E6CCFF;
+}
+.mt-31{
+  margin-top: 1.938rem;
+}
+.mb-31{
+  margin-bottom: 1.938rem;
+}
+.bg-purple-block ul {
+  @apply block pl-8;
+}
+.bg-purple-block{
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+.mt-26{
+  margin-top: 1.625rem;
+}
+.mb-26{
+  margin-bottom: 1.625rem;
+}
+.bg-purple-block ul li{
+  @apply my-4;
+}
+.bg-purple-block ul li {
+  @apply font-normal pl-0;
+  font-size: 0.875rem;
+  list-style: initial;
+}
+.show-data .btn--group{
+  @apply pr-0 mt-6;
+}
+.show-data .form--actions .btn{
+  min-width: 21.438rem;
+  @apply m-0;
+}
+.pb-26{
+  padding-bottom: 1.625rem;
+}
+.confirm-box-width.cancel-dialog .dialog-body{
+  padding: 3.125rem;
+  @apply text-center;
+}
+.confirm-box-width.cancel-dialog .dialog-body .btn--group {
+  @apply pr-0;
+  border-top: 1px solid #000;
+}
+.confirm-box-width.cancel-dialog .btn--group .form--submit {
+  @apply bg-transparent text-black;
+}
+.confirm-box-width.cancel-dialog .btn--group .reset--btn {
+  color: var(--purpleColor);
+  @apply border-0;
+}
+.confirm-box-width.cancel-dialog {
+  @apply p-0;
+}
+.confirm-box-width.cancel-dialog .btn--group.form--actions {
+  border-top: 1px solid #ddd;
+  gap: 0;
+  @apply pr-0;
+}
+.confirm-box-width.cancel-dialog .btn--group.form--actions button:nth-child(1) {
+  border-right: 1px solid #ddd;
+}
+.table-row-gap .font-18{
+  @apply font-bold;
+}
+.font-17{
+  font-size: 1.063rem;
+  @apply font-semi-bold;
+}
+.confirm-box-width.cancel-dialog .btn--group.form--actions button {
+  @apply m-0 font-normal ;
+  border-radius: 0;
+  font-size: 0.875rem;
+}
+.gridColLeft.showMaxData{
+  @apply overflow-hidden mb-8;
+}
+.titleRow sub {
+  font-size: 0.75rem;
+}
+.showMax .grid--2 {
+  @apply items-center;
+  grid-column-gap: 1rem;
+}
+.companies-slider.card--grid--4 {
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+}
+.px-24{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.py-16{
+  @apply py-4;
+}
+.mb-14{
+  margin-bottom: 0.875rem;
+}
+.page--title--block .grid--2 {
+  grid-template-columns: repeat(1, 1fr);
+  @apply gap-6;
+}
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;
+  }
+}
+@media screen and (min-width: 40rem) {
+  .confirm-box-width .form--actions button{
+    max-width: calc(50% - 0.75rem);
+  }
+  .stocks-form .form--actions .btn{
+    width: calc(50% - 0.75rem);
+    max-width: inherit;
   }
 }
 
@@ -981,6 +1275,18 @@ td.sector--gain {
   }  
   .card--grid--4{
     grid-template-columns: repeat(2, 1fr);
+  }
+  .confirm-box-width.cancel-dialog .btn--group {
+    flex-wrap: wrap;
+  }
+  .stocks--form--group{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .show-data{
+    @apply flex items-center justify-between;
+  }
+  .show-data .btn--group{
+    @apply mt-0;
   }
 }
 @media screen and (min-width: 60rem){
@@ -1017,6 +1323,25 @@ td.sector--gain {
   .sideBar--nav:not(.collapse--menu) .burger--menu span:last-child{
     @apply w-3/5;
   }
+  .confirm-box-width.cancel-dialog .btn--group {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (min-width: 62.5rem){
+  .page--title--block .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .right-align{
+    @apply justify-end;
+  }
+  .confirm-box-width{
+    max-width: 45.813rem;
+  }
+}
+@media screen and (min-width: 75rem){
+  .stocks--form--group, .btn--group{
+    @apply pr-40 pt-0;
+  }
 }
 @media screen and (min-width: 80rem){
   html{
@@ -1032,6 +1357,28 @@ td.sector--gain {
   .card--grid--4{
     grid-template-columns: repeat(4, 1fr);
   }
+  .confirm-box-width.cancel-dialog .btn--group {
+    flex-wrap: inherit;
+    padding-right: 0;
+  }
+  .stocks-form .form--actions .btn{
+    max-width: 22rem;
+  }
+  .site--content{
+    @apply px-12;
+  }
+  .stocks--form--group{
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .beginner-option{
+    @apply gap-12 flex-nowrap;
+    max-width: 30rem;
+  }
 }
 
 
+.trade-stock-icon{
+  width: 2rem;
+  height: 2.5rem;
+  position: relative;
+}

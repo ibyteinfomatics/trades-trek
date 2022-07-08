@@ -19,7 +19,7 @@ const nextConfig = {
     apiUrl:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3000' // development api
-        : 'https://api.keyless.ae', // production api
+        : 'http://tradesapi.ibyteworkshop.com', // production api
   },
 };
 
