@@ -31,12 +31,12 @@ export default function Sidebar() {
         <ul className="menu__list">
           <li
             className={
-              router.pathname == '/Dashboard/home'
+              router.pathname == '/dashboard/home'
                 ? 'menu__list--item active--menu'
                 : 'menu__list--item'
             }
           >
-            <Link href="/Dashboard/home">
+            <Link href="/dashboard/home">
               <a>
                 <span className="menu--icons">
                   <Image
@@ -86,12 +86,12 @@ export default function Sidebar() {
           </li>
           <li
             className={
-              router.pathname == '/Dashboard/trade-stocks'
+              router.pathname == '/dashboard/trade-stocks'
                 ? 'menu__list--item active--menu'
                 : 'menu__list--item'
             }
           >
-            <Link href="/Dashboard/trade-stocks">
+            <Link href="/dashboard/trade-stocks">
               <a>
                 <span className="menu--icons">
                   <Image
