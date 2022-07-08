@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import Image from 'next/image';
-import "slick-carousel/slick/slick.css";
-import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import Slider from 'react-slick';
 
 export default function SignupSlider() {
-
-  const sliderRef = useState(null)
-
   const settings = {
-    fade: true ,
+    fade: true,
     dots: true,
     speed: 500, // ms
     autoplay: true,
     initialSlide: 0,
     lazyLoad: true,
-    autoplaySpeed: 2000
+    autoplaySpeed: 2000,
   };
   return (
     <>
-      <Slider ref={sliderRef} {...settings}>
+      <Slider {...settings}>
         <div>
           <div className="login--icons">
             <div className="purple--bg-circle--transparent">
