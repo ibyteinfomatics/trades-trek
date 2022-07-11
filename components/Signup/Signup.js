@@ -109,7 +109,7 @@ export default function Signup() {
                   type="email"
                   id="email"
                   placeholder="Email Address"
-                  {...register('email', { required: true, maxLength: 20 })}
+                  {...register('email', { required: true })}
                 />
                 <label className="form--label" htmlFor="email">
                   Email Address
