@@ -16,9 +16,6 @@ export default function Otp() {
   const [emailAddress, setEmailAddress] = useState();
   const [btnStatus, setBtnStatus] = useState(false);
   const [isLoaderActive, setLoaderStatus] = useState(false);
-  const { initialMinute = 0, initialSeconds = 0 } = props;
-  const [minutes, setMinutes] = useState(initialMinute);
-  const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
     let email = localStorage.getItem('email');
