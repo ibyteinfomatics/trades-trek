@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { userService } from '../../services';
@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
 export default function Otp() {
   const router = useRouter();
+  const toastId = useRef(null);
   const [input1, setInput1] = useState(null);
   const [input2, setInput2] = useState(null);
   const [input3, setInput3] = useState(null);
@@ -15,9 +16,13 @@ export default function Otp() {
   const [emailAddress, setEmailAddress] = useState();
   const [btnStatus, setBtnStatus] = useState(false);
   const [isLoaderActive, setLoaderStatus] = useState(false);
+  const { initialMinute = 0, initialSeconds = 0 } = props;
+  const [minutes, setMinutes] = useState(initialMinute);
+  const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
     let email = localStorage.getItem('email');
+
     if (email) {
       setEmailAddress(email);
     }
@@ -27,7 +32,7 @@ export default function Otp() {
     } else {
       setError('Otp is required');
     }
-  }, [input1, input2, input3, input4]);
+  }, []);
 
   const verifyOtp = async (e) => {
     e.preventDefault();
@@ -61,13 +66,17 @@ export default function Otp() {
       } else if (response.success === false) {
         setBtnStatus(false);
         setLoaderStatus(false);
-        toast.error(response.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.error(response.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
       } else {
-        toast.error(response.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.error(response.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
         setBtnStatus(false);
         setLoaderStatus(false);
       }
@@ -126,12 +135,16 @@ export default function Otp() {
           setMinutes(1);
           setSeconds(59);
         } else if (res?.success === false) {
-          toast.error(res.message);
+          if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error(res.message);
+          }
           setResendOtpClassActive(false);
         }
       })
       .catch((error) => {
-        toast.error(error);
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.error(error);
+        }
       });
   };
   return (

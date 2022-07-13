@@ -3,6 +3,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { userService } from '../services';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -28,7 +30,11 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
-  return <Component {...pageProps} />;
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
 export default MyApp;

@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SignupSlider from '../SignupSlider/SignupSlider';
@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
+  const toastId = useRef(null);
   const router = useRouter();
   const {
     register,
@@ -28,23 +29,30 @@ export default function Signup() {
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          localStorage.setItem('otp', data.email);
           router.push('/otp');
         } else if (res?.success === false) {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
           setBtnStatus(false);
         } else {
-          toast.error(res, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
           setBtnStatus(false);
         }
       })
       .catch((error) => {
-        toast.error(error, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.error(error, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
         setBtnStatus(false);
       });
   };
@@ -91,7 +99,11 @@ export default function Signup() {
                   type="text"
                   id="fName"
                   placeholder="Full Name"
-                  {...register('fullName', { required: true, maxLength: 20 })}
+                  {...register('fullName', {
+                    required: true,
+                    maxLength: 20,
+                    minLength: 3,
+                  })}
                 />
                 <label className="form--label" htmlFor="fName">
                   Full Name
@@ -99,6 +111,10 @@ export default function Signup() {
                 <div className="invalid-feedback">
                   {errors.fullName?.type === 'required' &&
                     'Fullname is required'}
+                  {errors.fullName?.type === 'minLength' &&
+                    'Fullname should be atleast 3 characters'}
+                  {errors.fullName?.type === 'maxLength' &&
+                    'Fullname should be less than 20 characters'}
                 </div>
               </div>
               <div className="form--item">
@@ -123,12 +139,14 @@ export default function Signup() {
                   className={`form--control ${
                     errors.phone ? 'is-invalid' : ''
                   }`}
-                  type="number"
+                  type="tel"
                   id="phnum"
                   placeholder="Phone Number"
                   {...register('phone', {
                     required: true,
-                    maxLength: 20,
+                    maxLength: 10,
+                    minLength: 10,
+                    pattern: /^[0-9]+/,
                   })}
                 />
                 <label className="form--label" htmlFor="phnum">
@@ -137,6 +155,11 @@ export default function Signup() {
                 <div className="invalid-feedback">
                   {errors.phone?.type === 'required' &&
                     'Phone number is required'}
+                  {errors.phone?.type === 'minLength' &&
+                    'Phone number must be atleast 10 digit'}
+                  {errors.phone?.type === 'maxLength' &&
+                    'Phone number must be atleast 10 digit'}
+                  {errors.phone?.type === 'pattern' && 'Only digits allow'}
                 </div>
               </div>
               <div className="form--item">
@@ -147,7 +170,11 @@ export default function Signup() {
                   type="text"
                   id="username"
                   placeholder="username"
-                  {...register('username', { required: true, maxLength: 20 })}
+                  {...register('username', {
+                    required: true,
+                    maxLength: 20,
+                    minLength: 3,
+                  })}
                 />
                 <label className="form--label" htmlFor="username">
                   username
@@ -155,6 +182,10 @@ export default function Signup() {
                 <div className="invalid-feedback">
                   {errors.username?.type === 'required' &&
                     'Username is required'}
+                  {errors.username?.type === 'minLength' &&
+                    'Username should be atleast 3 characters'}
+                  {errors.username?.type === 'maxLength' &&
+                    'Username should be less than 20 characters'}
                 </div>
               </div>
               <div className="form--item">
@@ -165,7 +196,11 @@ export default function Signup() {
                   type="password"
                   id="pwd"
                   placeholder="Password"
-                  {...register('password', { required: true, maxLength: 20 })}
+                  {...register('password', {
+                    required: true,
+                    maxLength: 15,
+                    minLength: 8,
+                  })}
                 />
                 <label className="form--label" htmlFor="pwd">
                   Password
@@ -173,6 +208,10 @@ export default function Signup() {
                 <div className="invalid-feedback">
                   {errors.password?.type === 'required' &&
                     'Password is required'}
+                  {errors.password?.type === 'minLength' &&
+                    'Password should be atleast 8 characters'}
+                  {errors.password?.type === 'maxLength' &&
+                    'Password should be less than 15 characters'}
                 </div>
               </div>
               <div className="form--item">

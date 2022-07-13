@@ -1,15 +1,15 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SignupSlider from '../SignupSlider/SignupSlider';
 import { useForm } from 'react-hook-form';
 import { userService } from '../../services';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
 
 export default function Login() {
   const [btnStatus, setBtnStatus] = useState(false);
+  const toastId = useRef(null);
   const router = useRouter();
   const {
     register,
@@ -36,21 +36,27 @@ export default function Login() {
           localStorage.setItem('email', data.email);
           router.push('/otp');
         } else if (res?.success === false) {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
           setBtnStatus(false);
         } else {
-          toast.error(res, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
           setBtnStatus(false);
         }
       })
       .catch((error) => {
-        toast.error(error, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.error(error, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
         setBtnStatus(false);
       });
   };
@@ -65,8 +71,7 @@ export default function Login() {
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        draggable
-        pauseOnHover
+        pauseOnHover={false}
       />
       <div className="site--form--container">
         <div className="form--grid--wrapper">
@@ -98,7 +103,7 @@ export default function Login() {
                   type="email"
                   id="email"
                   placeholder="Email"
-                  {...register('email', { required: true, maxLength: 20 })}
+                  {...register('email', { required: true })}
                 />
                 <label className="form--label" htmlFor="email">
                   Email

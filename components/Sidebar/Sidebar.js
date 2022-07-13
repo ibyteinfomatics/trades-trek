@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Stocks } from '../../actions/stocks';
+import socketIOClient from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStockLists } from '../../actions/stocks';
+const ENDPOINT = 'http://localhost:3232';
 
 export default function Sidebar() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [menuCollapse, setMenuCollapse] = useState(false);
+  let { loginSpinner } = useSelector((state) => state.stockWrapper);
+
+  useEffect(() => {
+    console.log(loginSpinner);
+
+    //const socket = socketIOClient(ENDPOINT);
+    // socket.on('FromAPI', (data) => {
+    //   console.log(data);
+    //   dispatch(setStockLists(data));
+    // });
+  }, []);
+
+  const Login = async () => {};
   return (
     <div
       className={menuCollapse ? 'sideBar--nav collapse--menu' : 'sideBar--nav'}
@@ -36,7 +55,7 @@ export default function Sidebar() {
                 : 'menu__list--item'
             }
           >
-            <Link href="/dashboard/home">
+            <Link href="#">
               <a>
                 <span className="menu--icons">
                   <Image
@@ -45,6 +64,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Home'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -54,9 +74,11 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Home'}
                   />
                 </span>{' '}
                 Home
+                <p onClick={() => Login()}>Time {loginSpinner}</p>
               </a>
             </Link>
           </li>
@@ -70,6 +92,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Portfolio'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -78,6 +101,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Portfolio'}
                   />
                 </span>{' '}
                 Portfolio
@@ -99,6 +123,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Trade'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -107,6 +132,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Trade'}
                   />
                 </span>{' '}
                 Trade
@@ -122,6 +148,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Learning'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -130,6 +157,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Learning'}
                   />
                 </span>{' '}
                 Learning
@@ -145,6 +173,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Competition'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -153,6 +182,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Competition'}
                   />
                 </span>{' '}
                 Competition
@@ -173,6 +203,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Notification'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -181,6 +212,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Notification'}
                   />
                 </span>
                 Notifications
@@ -197,6 +229,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Profile'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -206,6 +239,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Profile'}
                   />
                 </span>
                 Profile
@@ -221,6 +255,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Logout'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -229,6 +264,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
+                    alt={'Logout'}
                   />
                 </span>
                 Logout
