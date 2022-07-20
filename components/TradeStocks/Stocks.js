@@ -1,10 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import LineChart from '../Chart/LineChart';
+import {stockService} from '../../services/stock.service';
 
 export default function Stocks() {
   const [showMax, setShowMax] = useState(false);
+
+  useEffect(()=>{
+    stockService.getAllStock()
+  },[])
   return (
     <>
       <div className="stocks-form">

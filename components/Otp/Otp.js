@@ -59,7 +59,7 @@ export default function Otp() {
         toast.success(response.message, {
           position: toast.POSITION.TOP_RIGHT,
         });
-        router.push('/dashboard');
+        router.push('/subscription');
       } else if (response.success === false) {
         setBtnStatus(false);
         setLoaderStatus(false);

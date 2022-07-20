@@ -32,6 +32,11 @@ export default function Subscription() {
                 <a className="btn">Continue Checkout</a>
             </Link>
           </div>
+          <div className="info--button">
+            <Link href="/dashboard">
+                <a className="btn">Skip</a>
+            </Link>
+          </div>
         </div>
       </div>
       <Footer />
