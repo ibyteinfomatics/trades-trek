@@ -9,8 +9,9 @@ import { useRouter } from 'next/router';
 
 export default function Login() {
   const [btnStatus, setBtnStatus] = useState(false);
-  const toastId = useRef(null);
   const router = useRouter();
+  const [validate,setValidate]=useState(false)
+  const [error,setError]=useState()
   const {
     register,
     handleSubmit,
@@ -19,60 +20,45 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setBtnStatus(true);
-    userService
+    console.log(data)
+    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
+      userService
       .login(data)
       .then((res) => {
         if (res?.success === true) {
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          setValidate(true)
+
+          setError(res.message)
           router.push('/dashboard');
         } else if (res?.success === false && res?.profileStatus === 0) {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          setValidate(true)
+          
+          setError(res.message)
           setBtnStatus(false);
           localStorage.setItem('email', data.email);
           router.push('/otp');
         } else if (res?.success === false) {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-            });
-          }
-          setBtnStatus(false);
+            setValidate(true)
+            setError(res.message)
         } else {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-            });
-          }
-          setBtnStatus(false);
+          setValidate(true)
+          setError('Something went wrong')
         }
       })
       .catch((error) => {
-        if (!toast.isActive(toastId.current)) {
-          toastId.current = toast.error(error, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        }
-        setBtnStatus(false);
+        setValidate(true)
+        setError(error.message)
+        
       });
+    }else{
+      setValidate(true)
+      setError('Please Fill Valid Email')
+    }
   };
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        pauseOnHover={false}
-      />
+      
       <div className="site--form--container">
         <div className="form--grid--wrapper">
           <div className="left--form--layout">
@@ -94,6 +80,9 @@ export default function Login() {
                 tipografia e della stampa.
               </p>
             </div>
+            {validate &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
+              <p style={{textAlign:'center',padding:'10px',color:'red'}}>{error}</p>
+          </div>}
             <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form--item">
                 <input
@@ -131,7 +120,7 @@ export default function Login() {
                 </div>
               </div>
               <div className="forgot--pwd">
-                <Link href="javascript:void(0)">
+                <Link href="/forgot-password">
                   <a>Forgot Password?</a>
                 </Link>
               </div>

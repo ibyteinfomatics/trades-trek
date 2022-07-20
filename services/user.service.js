@@ -64,6 +64,43 @@ function verifyLoginOtp(email, otp) {
       return error;
     });
 }
+
+// forgot password ...................     
+function forgot_password(email) {
+  return fetchWrapper
+    .post(`${baseUrl}/user/forgotPasswordSendOtp`, {
+      email: email,
+     
+    })
+    .then((res) => {
+      if (res.success) {
+        userSubject.next(res.token);
+        localStorage.setItem('token', res.token);
+      }
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+
+
+// reset password .............. 
+function reset_password(data) {
+  return fetchWrapper
+    .patch(`${baseUrl}/user/resetPassword`, data
+    )
+    .then((res) => {
+      if (res.success) {
+        userSubject.next(res.token);
+        localStorage.setItem('token', res.token);
+      }
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 //Logout Function
 function logout() {
   // remove user from local storage, publish null to user subscribers and redirect to login page
@@ -91,6 +128,8 @@ function resendOtp(email, otp) {
     });
 }
 
+
+
 export const userService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -101,4 +140,6 @@ export const userService = {
   signup,
   verifyLoginOtp,
   resendOtp,
+  forgot_password,
+  reset_password
 };

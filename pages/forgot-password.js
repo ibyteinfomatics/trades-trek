@@ -1,20 +1,59 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer/Footer';
+import {userService} from '../services/user.service'
+import { useRouter } from 'next/router';
 
 export default function ForgotPassword() {
+  const [email,setEmail]=useState();
+  const [emailValid,setEmailValid]=useState(false)
+  const [error,setError]=useState()
+  const router = useRouter();
+
   useEffect(() => {
     document.body.classList.remove('signUp--page');
     document.body.classList.remove('otp--page');
   }, []);
+  const SubmitForgot=()=>{
+    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+      userService
+      .forgot_password(email)
+      .then((res) => {
+        if (res?.success === true) {
+          router.push({
+            pathname:"/resetPassword",
+            query:{email:email}
+          })
+    
+        } else{
+      setEmailValid(true)
+
+       setError(res.message)
+
+        }
+      })
+      .catch((error) => {
+      setEmailValid(true)
+
+        setError(error.message)
+        
+      });
+    
+    }else{
+      setEmailValid(true)
+      setError("Please Fill Valid Email")
+    }
+    
+
+  }
   return (
     <>
       <div className="center--block">
         <div className="small--block">
           <div className="block--title block--back--link text--center">
             <Link href="/subscription">
-              <a className="back--link"></a>
+              <a  className="back--link"></a>
             </Link>
             <h1>Forgot Password</h1>
           </div>
@@ -24,6 +63,9 @@ export default function ForgotPassword() {
               We’ll send you password reset link.
             </p>
           </div>
+         {emailValid &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
+              <p style={{textAlign:'center',padding:'10px',color:'red'}}>{error}</p>
+          </div>}
           <form className="site--form">
             <div className="form--item">
               <input
@@ -31,6 +73,7 @@ export default function ForgotPassword() {
                 id="email"
                 placeholder="Email"
                 className="form--control"
+                onChange={(e)=>setEmail(e.target.value)}
               />
               <label htmlFor="email" className="form--label">
                 Email
@@ -38,9 +81,9 @@ export default function ForgotPassword() {
             </div>
           </form>
           <div className="info--button mt--12">
-            <Link href="javascript:void(0)">
-              <a className="btn">Submit</a>
-            </Link>
+            {/* <Link href="/"> */}
+              <a onClick={SubmitForgot} style={{cursor:'pointer'}} className="btn">Submit</a>
+            {/* </Link> */}
           </div>
           <div className="form--bottom--content">
             <p>
