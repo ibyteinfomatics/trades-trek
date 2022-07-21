@@ -312,6 +312,10 @@ p a:hover {
   @apply mt-6;
 }
 
+.checkout--options .option--list ul{
+  @apply pl-0;
+}
+
 p.option-title {
   @apply mb-4;
   font-family: var(--fontFamily-500);
@@ -328,11 +332,11 @@ p.option-title {
 }
 
 .option--list li {
-  @apply my-6;
+  @apply my-4;
 }
 
 .option--list li a {
-  @apply p-5 flex justify-between items-center text-lg;
+  @apply p-4 flex justify-between items-center text-lg;
   font-family: var(--fontFamily-500);
 }
 
@@ -568,7 +572,7 @@ li.menu__list--item.active--menu {
 }
 
 li.menu__list--item a {
-  @apply flex pl-6 leading-none gap-6 text-lg items-center;
+  @apply flex pl-0 leading-none gap-4 text-base items-center;
 }
 
 li.menu__list--item a > span {
@@ -618,7 +622,7 @@ li.menu__list--item a span.noti--status {
 
 /* Site content */
 .site--content {
-  @apply ml-18 py-8 px-4 duration-300;
+  @apply ml-0 py-8 px-4 duration-300;
 }
 
 .card--wrapper {
@@ -660,7 +664,7 @@ li.menu__list--item a span.noti--status {
 
 .card--grid .card--style,
 .card--grid .wrapper--col {
-  /* @apply mt-6; */
+  @apply mb-6;
 }
 
 .card--style {
@@ -687,7 +691,7 @@ li.menu__list--item a span.noti--status {
 }
 
 p.trade--name {
-  @apply semiBoldFont text-black leading-none;
+  @apply semiBoldFont text-black leading-none text-xs;
 }
 
 p.trade--position {
@@ -813,8 +817,9 @@ td.sector--gain {
   @apply text-2xl boldFont;
 }
 
-.portfolio--card .option--list {
-  @apply mt-3 relative left-0 top-0 max-w-full;
+.portfolio--card .option--list,
+.checkout--options .option--list {
+  @apply mt-3 relative left-0 top-0 max-w-full shadow-none;
 }
 
 .portfolio--card .card--list {
@@ -942,9 +947,9 @@ td.sector--gain {
 .option--list ul {
   @apply pl-4;
 }
-.option--list li {
+/* .option--list li {
   box-shadow: none;
-}
+} */
 /* .btn--group div:nth-child(2){
   margin-left: 0.813rem;
 }
@@ -1253,12 +1258,111 @@ td.sector--gain {
   grid-template-columns: repeat(1, 1fr);
   @apply gap-6;
 }
+
+.desktop--menu{
+  @apply hidden;
+}
+.mobile--menu {
+  @apply p-6 bg-white flex justify-between items-center;
+  box-shadow: var(--box-shadow);
+}
+
+.mobile--menu .form--site--logo {
+  @apply mb-0 w-48;
+}
+
+.mobile--menu .form--site--logo + div{
+  @apply relative w-10 h-10 flex justify-center items-center;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: absolute;
+  width: 36px;
+  height: 30px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #a90000;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  top: 0;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  @apply bg-white pt-10 px-4;
+  box-shadow: var(--box-shadow);
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: var(--textColorLight-1);
+}
+
+.bm-item-list a svg path{
+  fill: var(--textColorLight-1);
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+html{
+  font-size: 3.25vw;
+}
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;
   }
 }
-@media screen and (min-width: 40rem) {
+@media screen and (min-width: 480px){ 
+  html{
+    @apply text-base;
+  }
+}
+@media screen and (min-width: 640px) {
   .confirm-box-width .form--actions button {
     max-width: calc(50% - 0.75rem);
   }
@@ -1268,9 +1372,13 @@ td.sector--gain {
   }
 }
 
-@media screen and (min-width: 48rem) {
+@media screen and (min-width: 768px) {
   .card--grid {
     @apply grid gap-6 mt-0;
+  }
+  .card--grid .card--style,
+  .card--grid .wrapper--col{
+    @apply mb-0;
   }
   .card--grid--4 {
     grid-template-columns: repeat(2, 1fr);
@@ -1288,9 +1396,28 @@ td.sector--gain {
     @apply mt-0;
   }
 }
-@media screen and (min-width: 60rem) {
-  .card--grid--60-40 {
-    grid-template-columns: calc(60% - 0.75rem) calc(40% - 0.75rem);
+@media screen and (min-width: 960px) {
+  .confirm-box-width.cancel-dialog .btn--group {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .page--title--block .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .right-align {
+    @apply justify-end;
+  }
+  .confirm-box-width {
+    max-width: 45.813rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .desktop--menu{
+    @apply block;
+  }
+  .mobile--menu{
+    @apply hidden;
   }
   .sideBar--nav {
     @apply w-80;
@@ -1322,30 +1449,20 @@ td.sector--gain {
   .sideBar--nav:not(.collapse--menu) .burger--menu span:last-child {
     @apply w-3/5;
   }
-  .confirm-box-width.cancel-dialog .btn--group {
-    flex-wrap: wrap;
+  li.menu__list--item a{
+    @apply gap-6 pl-6 text-lg;
   }
-}
-@media screen and (min-width: 62.5rem) {
-  .page--title--block .grid--2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .right-align {
-    @apply justify-end;
-  }
-  .confirm-box-width {
-    max-width: 45.813rem;
-  }
-}
-@media screen and (min-width: 75rem) {
   .stocks--form--group,
   .btn--group {
     @apply pr-40 pt-0;
   }
 }
-@media screen and (min-width: 80rem) {
+@media screen and (min-width: 1280px) {
   html {
     font-size: 0.833333vw;
+  }
+  .card--grid--60-40 {
+    grid-template-columns: calc(60% - 0.75rem) calc(40% - 0.75rem);
   }
   .card--style.card--with--border ul {
     @apply justify-between;
@@ -1373,6 +1490,9 @@ td.sector--gain {
   .beginner-option {
     @apply gap-12 flex-nowrap;
     max-width: 30rem;
+  }
+  p.trade--name{
+    @apply text-base;
   }
 }
 .trade-stock-icon {
