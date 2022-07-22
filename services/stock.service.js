@@ -14,8 +14,6 @@ function getAllStock() {
       .get(`${baseUrl}/user/stock/all`)
   
       .then((res) => {
-        // console.log(res);
-        // publish user to subscribers and store in local storage to stay logged in between page refreshes
         if (res.success) {
         }
         return res;
