@@ -24,12 +24,12 @@ export default function Login() {
 
   const onSubmit = (data) => {
     console.log(data)
-    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
+    // if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
       userService
       .login(data)
       .then((res) => {
         if (res?.success === true) {
-          setValidate(true)
+          setValidate(false)
 
           setError(res.message)
           dispatch(setUser(res.user));
@@ -54,10 +54,10 @@ export default function Login() {
         setError(error.message)
         
       });
-    }else{
-      setValidate(true)
-      setError('Please Fill Valid Email')
-    }
+    // }else{
+    //   setValidate(true)
+    //   setError('Please Fill Valid Email')
+    // }
   };
 
   return (
@@ -93,13 +93,13 @@ export default function Login() {
                   className={`form--control ${
                     errors.email ? 'is-invalid' : ''
                   }`}
-                  type="email"
+                  type="text"
                   id="email"
-                  placeholder="Email"
+                  placeholder="Email/Username"
                   {...register('email', { required: true })}
                 />
                 <label className="form--label" htmlFor="email">
-                  Email
+                  Email/Username
                 </label>
                 <div className="invalid-feedback">
                   {errors.email?.type === 'required' && 'Email is required'}
