@@ -31,12 +31,12 @@ function getAllStock() {
 function orderStock(data) {
     return fetchWrapper
       .post(`${baseUrl}/user/order/create`,{
-        Symbol:data.Symbol,
-        Quantity:Number(data.quantity),
-        Rate:data.Last,
-        Duration:data.duration,
-        OrderType:data.orderType,
-        Action:data.action
+        symbol:data.Symbol,
+        quantity:Number(data.quantity),
+        rate:data.Last,
+        duration:data.duration,
+        orderType:data.orderType,
+        action:data.action
       })
   
       .then((res) => {

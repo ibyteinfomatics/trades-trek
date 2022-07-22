@@ -36,10 +36,14 @@ export default function Sidebar() {
             : "sideBar--nav desktop--menu"
         }
       >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+        <div
+          className="burger--menu"
+          onClick={() => setMenuCollapse(!menuCollapse)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       <div className="form--site--logo">
         <Image
           src="/images/purple--logo.svg"
@@ -197,6 +201,88 @@ export default function Sidebar() {
             </Link>
           </li>
         </ul>
+      </div>
+      <div className="site__nav--bottom">
+          <ul className="menu__list">
+            <li className="menu__list--item">
+              <Link href="javascript:void(0)">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/notification-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={"Notification"}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      src="/images/notification-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={"Notification"}
+                    />
+                  </span>
+                  Notifications
+                  <span className="noti--status">New</span>
+                </a>
+              </Link>
+            </li>
+            <li className="menu__list--item">
+              <Link href="javascript:void(0)">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/profile-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={"Profile"}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      className="menu--icons--hover"
+                      src="/images/profile-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={"Profile"}
+                    />
+                  </span>
+                  Profile
+                </a>
+              </Link>
+            </li>
+            <li className="menu__list--item">
+              <Link href="logout">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/logout-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={"Logout"}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      src="/images/logout-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={"Logout"}
+                    />
+                  </span>
+                  Logout
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div className="mobile--menu">

@@ -10,19 +10,13 @@ import {orderService} from '../../services/order.service';
 export default function Portfolio() {
 
   const [beginnerOption, setBeginnerOption] = useState(false);
-  const [allOrder,setAllOrder]=useState();
   const [holdingOrder,setHoldingOrder]=useState();
   const [openOrder,setOpenOrder]=useState()
   const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","PROCESSED AT","EXPIRE ON","ORDER #","ACTION"]
   useEffect(()=>{
 
-    // get all orders ..............   
-    orderService.getAllOrder().then((res)=>{
-      setAllOrder(res.UserOrders.docs)
-    }).catch((err)=>{
-      console.log(err)
-    }
-    )
+    
+    
 
     // get holding order .....................  
     orderService.getHoldingOrder().then((res)=>{
@@ -95,25 +89,11 @@ export default function Portfolio() {
             <div className="trade-data">
               <Tabs>
                 <TabList>
-                  <Tab>All Order</Tab>
                   <Tab>Open Order</Tab>
                   <Tab>Holding Order</Tab>
                 </TabList>
 
-                <TabPanel>
-                <div className="tab-data order-status">
-                    <div className="status-summary font-18">
-                      <span>
-                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="12.5" cy="12.5" r="12.5" fill="#00FFA0" />
-                          <path d="M19.7244 7.70177L19.6227 7.60791L19.521 7.70177L10.8422 15.71L7.3851 12.5235L7.38444 12.5228L7.04211 12.2035L6.94035 12.1085L6.83807 12.2029L6.14828 12.8394L6.02815 12.9502L6.14889 13.0604L6.49503 13.3763L6.49569 13.3769L10.7405 17.2972L10.8422 17.3911L10.9439 17.2972L20.4142 8.55874L20.5337 8.4485L20.4142 8.33826L19.7244 7.70177Z" fill="white" stroke="white" stroke-width="0.3" />
-                        </svg>
-                      </span>
-                      Market is open.  Opens in 3hr, 53min
-                    </div>
-                   {allOrder&& <TradeOrderTable columns={columns} rows={allOrder}/>}
-                  </div>
-                </TabPanel>
+                
                 <TabPanel>
                   <div className="tab-data order-status">
                     <div className="status-summary font-18">

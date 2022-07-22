@@ -6,19 +6,30 @@ import { useRouter } from 'next/router';
 
 function PreviewModal({modelOpened,setModelOpened,data}) {
   const router = useRouter();
+  const [error,setError]=useState('something went wrong');
+  const [errorStatus,setErrorStatus]=useState(false)
 
   const theme = useMantineTheme();
     const submitOrder=()=>{
         stockService.orderStock(data).then((res)=>{
-            console.log(res)
-            router.push({
+          if(res.success){
+              router.push({
                 pathname:"/dashboard/portfolio",
               })
             setModelOpened(false)
 
-
+          } else if(res.success===false){
+            setError(res.message)
+            setErrorStatus(true)
+          } else{
+            setError(res)
+            setErrorStatus(true)
+          }
+           
            }).catch((err)=>{
-            console.log(err)
+            
+            setError(err)
+            setErrorStatus(true)
            }
            )
     }
@@ -30,9 +41,17 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
       overlayBlur={3}
       opened={modelOpened}
       size='35%'
-      onClose={()=>setModelOpened(false)}
+      onClose={()=>{
+        setError()
+        setErrorStatus(false)
+        setModelOpened(false)
+      }}
     >
+      
       <div className=''>
+      {errorStatus &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
+              <p style={{textAlign:'center',padding:'10px',color:'red'}}>{error}</p>
+          </div>}
         <div className='box-align'>
             <div className='row-block'>
                 <p className='font-18'>Stock: {data?.action}</p>
@@ -64,7 +83,11 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
             </div>
             <div className=''>
                 <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button>
-                <button type='reset' className='btn reset--btn' onClick={()=>setModelOpened(false)}>CHANGE ORDER</button>
+                <button type='reset' className='btn reset--btn' onClick={()=>{
+                  setError()
+        setErrorStatus(false)
+        setModelOpened(false)
+        }}>CHANGE ORDER</button>
             </div>
             </div>
         </div>

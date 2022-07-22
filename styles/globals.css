@@ -1428,10 +1428,10 @@ html{
   .site--content {
     @apply ml-80;
   }
-  .sideBar--nav.collapse--menu + .site--content {
+  .sideBar--nav.collapse--menu ~ .site--content {
     @apply ml-18;
   }
-  .sideBar--nav.collapse--menu:hover + .site--content {
+  .sideBar--nav.collapse--menu:hover ~ .site--content {
     @apply ml-80;
   }
   .sideBar--nav .form--site--logo {

@@ -26,14 +26,14 @@ export default function TradeOrderTable({columns,rows}) {
               {DataConvert(item.createdAt)} <span className="order-time">{TimeConverter(item.createdAt)}</span>
             </td>
             
-            <td>{item.Symbol}</td>
-            <td>Pending</td>
+            <td>{item.symbol}</td>
+            <td>{item.status===0?"Pending":"Running"}</td>
             <td>
               Option: Buy to Open
               <span className="order-time">at Market Open</span>
             </td>
-            <td>{item.Quantity}</td>
-            <td>n/o</td>
+            <td>{item.quantity}</td>
+            <td>{item.rate}</td>
             <td>
               May 19, 2022
               <span className="order-time">03:00:03 AM</span>
