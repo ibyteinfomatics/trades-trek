@@ -20,12 +20,12 @@ export default function Sidebar() {
   
 
   useEffect(() => {
-    // userService.userInfo().then((res)=>{
-    //   dispatch(setUser(res.user));
+    userService.userInfo().then((res)=>{
+      dispatch(setUser(res.message));
 
-    // }).catch((err)=>{
-    //   console.log(err)
-    // })
+    }).catch((err)=>{
+      console.log(err)
+    })
 
   }, []);
 

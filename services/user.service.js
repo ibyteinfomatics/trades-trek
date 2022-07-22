@@ -112,7 +112,7 @@ function logout() {
 
 function userInfo(){
   return fetchWrapper
-      .get(`${baseUrl}/user/userdetail`)
+      .get(`${baseUrl}/user/get/info`)
   
       .then((res) => {
         if (res.success) {
