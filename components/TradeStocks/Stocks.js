@@ -3,13 +3,52 @@ import Link from 'next/link';
 import React, { useState ,useEffect} from 'react';
 import LineChart from '../Chart/LineChart';
 import {stockService} from '../../services/stock.service';
+import Select, { AriaOnFocus } from 'react-select';
+import PreviewModal from '../Modal/PreviewModal';
 
 export default function Stocks() {
   const [showMax, setShowMax] = useState(false);
+  const [stockAllData,setStockAllData]=useState([])
+  const [ariaFocusMessage, setAriaFocusMessage] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [stockData,setStockData]=useState()
+  const [modelOpened,setModelOpened]=useState(false);
+  const [action,setAction]=useState('Buy');
+  const [quantity,setQuantity]=useState(0);
+  const [duration,setDuration]=useState('Day only');
+  const [orderType,setOrderType]=useState('Market')
+ 
 
+
+
+    // const onFocus = ({ focused, isDisabled }) => {
+    //   setStockData(focused)
+    //   const msg = `You are currently focused on option ${focused.Symbol}${
+    //     isDisabled ? ', disabled' : ''
+    //   }`;
+    //   setAriaFocusMessage(msg);
+    //   return msg;
+    // };
+
+  // set selected stock 
+  const onchange=(selectedOptions)=>{
+    setStockData(selectedOptions)
+    setShowMax(true)
+  }
+  
+  // get all stock .....
   useEffect(()=>{
-    stockService.getAllStock()
+ stockService.getAllStock().then((res)=>{
+  setStockAllData(res)
+ }).catch((err)=>{
+  setStockAllData([])
+ }
+ )
+  
   },[])
+  const onMenuOpen = () => setIsMenuOpen(true);
+  const onMenuClose = () => setIsMenuOpen(false);
+  console.log(quantity)
   return (
     <>
       <div className="stocks-form">
@@ -18,6 +57,7 @@ export default function Stocks() {
             <div
               className="readmore--link"
               onClick={() => setShowMax(!showMax)}
+              style={{display:stockData?"block":'none'}}
             >
               <svg
                 width="23"
@@ -37,18 +77,32 @@ export default function Stocks() {
               <label className="form--label" htmlFor="email">
                 Symbol
               </label>
-              <input
+              <Select
+        aria-labelledby="aria-label"
+        // ariaLiveMessages={{
+        //   onFocus
+        // }}
+        onChange={onchange}
+        inputId="aria-example-input"
+        name="aria-live-color"
+        onMenuOpen={onMenuOpen}
+        onMenuClose={onMenuClose}
+        options={stockAllData}
+        isClearable={stockData?false:true}
+        getOptionLabel={(option) => option.Name}
+      />
+              {/* <input
                 className="form--control"
                 type="email"
                 id="email"
                 placeholder="Look up Symbol/Company Name"
-              />
+              /> */}
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
                 Action
               </label>
-              <select className="form--control">
+              <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setAction(e.target.value)} >
                 <option>Buy</option>
                 <option>Sell</option>
                 <option>Shorts</option>
@@ -61,9 +115,10 @@ export default function Stocks() {
               </label>
               <input
                 className="form--control"
-                type="email"
-                id="email"
-                placeholder="0"
+                type="number"
+              value={quantity}
+                disabled={stockData?false:true}
+                onChange={(e)=>setQuantity(e.target.value)}
               />
             </div>
           </div>
@@ -84,14 +139,14 @@ export default function Stocks() {
                     </div>
                     <div className="brandName">
                       <h4>
-                        Apple Inc
-                        <span>AAPL NASDAQ</span>
+                        {stockData?.Name}
+                        <span>{stockData?.Symbol}</span>
                       </h4>
                     </div>
                   </div>
                   <div className="titleRow">
                     <h3 className="font-30">
-                      149.24<sub>USD</sub>
+                      {stockData?.Last}<sub>{stockData?.Currency}</sub>
                       <span>
                         <sub>+3.70(+2.54%)</sub>
                       </span>
@@ -103,23 +158,23 @@ export default function Stocks() {
                       No trade
                       <span className="font-12 selected">+Pre Market</span>
                     </h3>
-                    <h3 className="font-16">
+                    {/* <h3 className="font-16">
                       August 2<span className="font-12">Upcoming Earning</span>
-                    </h3>
+                    </h3> */}
                     <h3 className="font-16">
-                      6.20
+                      {stockData?.EPS.toFixed(3)}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
-                      2.1465
+                      {stockData?.MktCap?.toFixed(3) || 0}
                       <span className="font-12">Market Cap</span>
                     </h3>
-                    <h3 className="font-16">
+                    {/* <h3 className="font-16">
                       2.1465
                       <span className="font-12">Div Yield</span>
-                    </h3>
+                    </h3> */}
                     <h3 className="font-16">
-                      2.1465
+                      {stockData?.PE?.toFixed(3)||0}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -127,29 +182,29 @@ export default function Stocks() {
                     <div className="volumeDataLeft">
                       <div className="currentData">
                         <p className="font-16">Volume(current)</p>
-                        <p className="font-14">12.66677k</p>
+                        <p className="font-14">{stockData?.Volume}</p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s High($)</p>
-                        <p className="font-14">12.666</p>
+                        <p className="font-14">{stockData?.High?.toFixed(3)}</p>
                       </div>
                       <div className="currentData">
-                        <p className="font-16">Day&apos;s High($)</p>
-                        <p className="font-14">12.6667</p>
+                        <p className="font-16">Day&apos;s LOW($)</p>
+                        <p className="font-14">{stockData?.Low?.toFixed(3)}</p>
                       </div>
                     </div>
                     <div className="volumeDataRight">
                       <div className="currentData">
                         <p className="font-16">52 Week High($)</p>
-                        <p className="font-14">12.66677k</p>
+                        <p className="font-14">{stockData?.High52Week?.toFixed(3)}</p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Bid/Ask price($)</p>
-                        <p className="font-14">12.666</p>
+                        <p className="font-14">{((stockData?.Bid||0)/(stockData?.Ask||1)).toFixed(3)}</p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">52 Week Low($)</p>
-                        <p className="font-14">12.6667</p>
+                        <p className="font-14">{stockData?.Low52Week?.toFixed(3)}</p>
                       </div>
                     </div>
                   </div>
@@ -168,18 +223,18 @@ export default function Stocks() {
               <label className="form--label" htmlFor="email">
                 Duration
               </label>
-              <select className="form--control">
+              <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setDuration(e.target.value)}>
                 <option>Day only</option>
-                <option>Night only</option>
+                <option>Goods Until Canceled</option>
               </select>
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
                 Order Type
               </label>
-              <select className="form--control">
+              <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setOrderType(e.target.value)}>
                 <option>Market</option>
-                <option>Market only</option>
+                <option>Limit</option>
               </select>
             </div>
           </div>
@@ -187,12 +242,17 @@ export default function Stocks() {
                         <img src="/images/graph.png" alt="Graph Image" />
                     </div> */}
           <div className="btn--group form--actions">
-            <button type="reset" className="btn reset--btn">
+            <button type="reset" className="btn reset--btn" onClick={()=>{
+              setStockData();
+              setShowMax(false)
+              
+            }}>
               Clear
             </button>
-            <Link href="/dashboard/confirm-dialog-box">
-              <a className="btn form--submit">Preview Order</a>
-            </Link>
+            {/* <Link href="/dashboard/confirm-dialog-box"> */}
+             {stockData && <a className="btn form--submit"  style={{cursor:'pointer'}} onClick={()=>setModelOpened(true)}>Preview Order</a>}
+              <PreviewModal modelOpened={modelOpened} setModelOpened={setModelOpened}  data={{...stockData,duration,quantity,action,orderType}} />
+            {/* </Link> */}
           </div>
         </form>
       </div>

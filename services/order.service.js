@@ -1,7 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import getConfig from 'next/config';
 import { fetchWrapper } from '../helpers';
-import Router from 'next/router';
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}`;
@@ -9,9 +8,9 @@ const userSubject = new BehaviorSubject(
   process.browser && localStorage.getItem('token')
 );
 
-function getAllStock() {
+function getAllOrder() {
     return fetchWrapper
-      .get(`${baseUrl}/user/stock/all`)
+      .get(`${baseUrl}/user/order/all`)
   
       .then((res) => {
         // console.log(res);
@@ -28,16 +27,29 @@ function getAllStock() {
       });
   }
 
-function orderStock(data) {
+function getOpenOrder() {
     return fetchWrapper
-      .post(`${baseUrl}/user/order/create`,{
-        Symbol:data.Symbol,
-        Quantity:Number(data.quantity),
-        Rate:data.Last,
-        Duration:data.duration,
-        OrderType:data.orderType,
-        Action:data.action
+      .get(`${baseUrl}/user/order/openOrders`)
+  
+      .then((res) => {
+        // console.log(res);
+        // publish user to subscribers and store in local storage to stay logged in between page refreshes
+        if (res.success) {
+        }
+        return res;
       })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+
+
+  function getHoldingOrder() {
+    return fetchWrapper
+      .get(`${baseUrl}/user/order/holdings`)
   
       .then((res) => {
         // console.log(res);
@@ -56,11 +68,13 @@ function orderStock(data) {
 
 
 
-export const stockService ={
+
+export const orderService ={
     user: userSubject.asObservable(),
     get userValue() {
       return userSubject.value;
     },
-    getAllStock,
-    orderStock
+    getAllOrder,
+    getOpenOrder,
+    getHoldingOrder
   };
