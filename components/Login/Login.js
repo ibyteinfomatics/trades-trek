@@ -6,12 +6,15 @@ import { useForm } from 'react-hook-form';
 import { userService } from '../../services';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../actions/users';
 
 export default function Login() {
   const [btnStatus, setBtnStatus] = useState(false);
   const router = useRouter();
   const [validate,setValidate]=useState(false)
-  const [error,setError]=useState()
+  const [error,setError]=useState();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -29,6 +32,8 @@ export default function Login() {
           setValidate(true)
 
           setError(res.message)
+          // localStorage.setItem('user',{...res.user})
+          dispatch(setUser(res.user));
           router.push('/dashboard');
         } else if (res?.success === false && res?.profileStatus === 0) {
           setValidate(true)

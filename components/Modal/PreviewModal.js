@@ -2,17 +2,23 @@ import { Modal, useMantineTheme } from '@mantine/core';
 import { useState } from 'react';
 import {stockService} from '../../services/stock.service';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../actions/users'
 
 
 function PreviewModal({modelOpened,setModelOpened,data}) {
   const router = useRouter();
   const [error,setError]=useState('something went wrong');
   const [errorStatus,setErrorStatus]=useState(false)
+  const dispatch = useDispatch();
+
 
   const theme = useMantineTheme();
     const submitOrder=()=>{
         stockService.orderStock(data).then((res)=>{
           if(res.success){
+            console.log(res)
+            dispatch(setUser(res.user));
               router.push({
                 pathname:"/dashboard/portfolio",
               })
@@ -66,20 +72,23 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
                 <p className='font-18'>{data?.duration}</p>
             </div>
             <div className='row-block'>
-                <p className='font-18'>Estimate Price</p>
-                <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(3)}</p>
+                <p className='font-18'>Stock Rate</p>
+                <p className='font-18'>{(data.orderType == 'Market' ? data?.Last : data.rate )}</p>
             </div>
             <div className='row-block'>
                 <p className='font-18'>Quantity</p>
                 <p className='font-18'>{data?.quantity}</p>
             </div>
-            <div className='row-block'>
+            {/* <div className='row-block'>
                 <p className='font-18'>Commission</p>
                 <p className='font-18'>$29.95</p>
-            </div>
+            </div> */}
             <div className='row-block'>
                 <p className='font-18'>Estimate Total</p>
-                <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)+29.95).toFixed(3)}</p>
+                {data?.orderType == 'Market' &&
+                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(3)}</p>
+                 }
+                {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)).toFixed(3)}</p>}
             </div>
             <div className=''>
                 <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button>

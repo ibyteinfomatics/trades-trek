@@ -5,12 +5,16 @@ import SignupSlider from '../SignupSlider/SignupSlider';
 import { useForm } from 'react-hook-form';
 import { userService } from '../../services';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../actions/users';
+
 
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
   const router = useRouter();
   const [validate,setValidate]=useState(false)
   const [error,setError]=useState()
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -25,21 +29,20 @@ export default function Signup() {
     .signup(data)
     .then((res) => {
       if (res?.success === true) {
-    setValidate(true)
-
+        setValidate(true)
         localStorage.setItem('email', data.email);
         setError(res.message)
         localStorage.setItem('otp', data.email);
+        localStorage.setItem('user',res.user)
+        dispatch(setUser(res.user));
         router.push('/otp');
       } else if (res?.success === false) {
-    setValidate(true)
-
+        setValidate(true)
         setError(res.message)
         setBtnStatus(false);
       } else {
-    setValidate(true)
-
-        setError('Something went wrong')
+        setValidate(true)
+        setError(res)
         setBtnStatus(false);
       }
     })
@@ -54,6 +57,7 @@ export default function Signup() {
     setError('Please Fill Valid Email')
    }
   };
+ 
   return (
     <>
     
@@ -125,7 +129,9 @@ export default function Signup() {
                   {errors.email?.type === 'required' && 'Email is required'}
                 </div>
               </div>
-              <div className="form--item">
+              <div className="form--item phoneNumber">
+                <div className='inputGroup'>
+                <span>+234</span>
                 <input
                   className={`form--control ${
                     errors.phone ? 'is-invalid' : ''
@@ -135,11 +141,12 @@ export default function Signup() {
                   placeholder="Phone Number"
                   {...register('phone', {
                     required: true,
-                    maxLength: 10,
-                    minLength: 10,
+                    maxLength: 11,
+                    minLength: 11,
                     pattern: /^[0-9]+/,
                   })}
                 />
+                </div>
                 <label className="form--label" htmlFor="phnum">
                   Phone Number
                 </label>
@@ -147,9 +154,9 @@ export default function Signup() {
                   {errors.phone?.type === 'required' &&
                     'Phone number is required'}
                   {errors.phone?.type === 'minLength' &&
-                    'Phone number must be atleast 10 digit'}
+                    'Phone number must be atleast 11 digit'}
                   {errors.phone?.type === 'maxLength' &&
-                    'Phone number must be atleast 10 digit'}
+                    'Phone number must be atleast 11 digit'}
                   {errors.phone?.type === 'pattern' && 'Only digits allow'}
                 </div>
               </div>

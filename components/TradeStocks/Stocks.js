@@ -16,11 +16,10 @@ export default function Stocks() {
   const [action,setAction]=useState('Buy');
   const [quantity,setQuantity]=useState(0);
   const [duration,setDuration]=useState('Day only');
-  const [orderType,setOrderType]=useState('Market')
- 
-
-
-
+  const [orderType,setOrderType]=useState('Market');
+  const [rate,setRate]=useState(0); 
+  const [quantityError,setQuantityError]=useState(null); 
+  const [rateError,setRateError]=useState(null); 
     // const onFocus = ({ focused, isDisabled }) => {
     //   setStockData(focused)
     //   const msg = `You are currently focused on option ${focused.Symbol}${
@@ -48,6 +47,19 @@ export default function Stocks() {
   },[])
   const onMenuOpen = () => setIsMenuOpen(true);
   const onMenuClose = () => setIsMenuOpen(false);
+  const checkLimitPrice = () => {
+    if(quantity <= 0){
+      setModelOpened(false);
+      setQuantityError("Quantity must be greater than 0");
+    }else if(orderType == 'Limit' && rate <= 0){
+      setModelOpened(false);
+      setRateError("Price must be greater than 0");
+    }else{
+      setRateError(null);
+      setQuantityError(null);
+    }
+  }
+
   return (
     <>
       <div className="stocks-form">
@@ -104,8 +116,8 @@ export default function Stocks() {
               <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setAction(e.target.value)} >
                 <option>Buy</option>
                 <option>Sell</option>
-                <option>Shorts</option>
-                <option>Buy to Cover</option>
+                {/* <option>Shorts</option>
+                <option>Buy to Cover</option> */}
               </select>
             </div>
             <div className="form--item">
@@ -115,10 +127,13 @@ export default function Stocks() {
               <input
                 className="form--control"
                 type="number"
-              value={quantity}
+                value={quantity}
                 disabled={stockData?false:true}
                 onChange={(e)=>setQuantity(e.target.value)}
               />
+              {quantityError &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
+                <p style={{textAlign:'center',padding:'10px',color:'red'}}>{quantityError}</p>
+            </div>}
             </div>
           </div>
           {/*ShowMax Data Block*/}
@@ -127,7 +142,7 @@ export default function Stocks() {
               <div className="grid--2">
                 <div className="gridColLeft showMaxData">
                   <div className="logoArea">
-                    <div className="trade-stock-icon">
+                    {/* <div className="trade-stock-icon">
                       <Image
                         src="/images/Apple_logo_black.png"
                         layout="responsive"
@@ -135,7 +150,7 @@ export default function Stocks() {
                         height={40}
                         alt="Logo"
                       />
-                    </div>
+                    </div> */}
                     <div className="brandName">
                       <h4>
                         {stockData?.Name}
@@ -236,6 +251,24 @@ export default function Stocks() {
                 <option>Limit</option>
               </select>
             </div>
+            {orderType == 'Limit' &&
+            <div className="form--item">
+              <label className="form--label" htmlFor="email">
+                Price
+              </label>
+              <input
+                className="form--control"
+                type="number"
+                value={rate}
+                disabled={stockData?false:true}
+                onChange={(e)=>setRate(e.target.value)}
+                min={1}
+              />
+              {rateError &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
+                <p style={{textAlign:'center',padding:'10px',color:'red'}}>{rateError}</p>
+            </div>}
+              </div>
+            }
           </div>
           {/* <div className='dummy-block'>
                         <img src="/images/graph.png" alt="Graph Image" />
@@ -249,8 +282,8 @@ export default function Stocks() {
               Clear
             </button>
             {/* <Link href="/dashboard/confirm-dialog-box"> */}
-             {stockData && <a className="btn form--submit"  style={{cursor:'pointer'}} onClick={()=>setModelOpened(true)}>Preview Order</a>}
-              <PreviewModal modelOpened={modelOpened} setModelOpened={setModelOpened}  data={{...stockData,duration,quantity,action,orderType}} />
+             {stockData && <a className="btn form--submit"  style={{cursor:'pointer'}} onClick={()=>{setModelOpened(true);checkLimitPrice()}}>Preview Order</a>}
+              <PreviewModal modelOpened={modelOpened} setModelOpened={setModelOpened}  data={{...stockData,duration,quantity,action,orderType,rate}} />
             {/* </Link> */}
           </div>
         </form>

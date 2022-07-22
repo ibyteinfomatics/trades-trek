@@ -31,7 +31,7 @@ function orderStock(data) {
       .post(`${baseUrl}/user/order/create`,{
         symbol:data.Symbol,
         quantity:Number(data.quantity),
-        rate:data.Last,
+        rate: (data.orderType == 'Market') ? parseFloat(data.Last) : parseFloat(data.rate),
         duration:data.duration,
         orderType:data.orderType,
         action:data.action

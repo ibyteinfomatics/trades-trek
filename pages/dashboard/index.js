@@ -16,6 +16,8 @@ import LoserView, { LoserView2 } from '../../components/TopLosers/LoserView';
 import WatchListData, {
   WatchListData2,
 } from '../../components/WatchList/WatchListData';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -23,6 +25,8 @@ export default function Home() {
   const [showLosersList, setShowLosersList] = useState(false);
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
+  let { user } = useSelector((state) => state.userWrapper);
+  
   return (
     <>
       <Sidebar />
@@ -44,7 +48,7 @@ export default function Home() {
             </div>
             <div className="card--style portfolio--card">
               <div className="card--title">
-                <h1>Welcome, John Adams</h1>
+                <h1>Welcome, {user && user.fullName}</h1>
               </div>
               <div className="card--list">
                 <div className="card--title">
@@ -53,7 +57,7 @@ export default function Home() {
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦100,000.00</span>
+                    <span>₦{user && user.currentAmount?.toFixed(3)}</span>
                   </li>
                   <li>
                     <span>Today's Change</span>

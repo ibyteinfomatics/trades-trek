@@ -35,15 +35,6 @@ export default function TradeOrderTable({columns,rows}) {
             <td>{item.quantity}</td>
             <td>{item.rate}</td>
             <td>
-              May 19, 2022
-              <span className="order-time">03:00:03 AM</span>
-            </td>
-            <td>
-              May 19, 2022
-              <span className="order-time">04:35:00 PM</span>
-            </td>
-            <td>5787799</td>
-            <td>
               <button type="button" className="btn-cancel border-purple">
                 <svg
                   width="13"

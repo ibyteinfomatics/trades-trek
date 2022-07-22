@@ -1352,6 +1352,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
 html{
   font-size: 3.25vw;
 }
+.phoneNumber {
+}
+.phoneNumber input {
+  @apply pl-4;
+}
+.inputGroup input {
+  @apply border-0;
+}
+.inputGroup {
+  border-bottom: 1px solid #999999;
+  @apply flex items-center w-full;
+}
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;

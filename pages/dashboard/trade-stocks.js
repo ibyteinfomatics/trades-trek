@@ -4,9 +4,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Stocks from '../../components/TradeStocks/Stocks';
 import TradeOrderStatus from '../../components/TradeStocks/TradeOrderStatus';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export default function TradesTrek() {
   const [beginnerOption, setBeginnerOption] = useState(false);
+  let { user } = useSelector((state) => state.userWrapper);
+
   return (
     <>
       <Sidebar />
@@ -14,7 +18,7 @@ export default function TradesTrek() {
         <div className="page--title--block">
           <div className="grid--2">
             <div className="grid-block-left wrapper--title">
-              <h3>Welcome, John Adams</h3>
+              <h3>Welcome, {user && user.fullName}</h3>
             </div>
             <div className="grid-block-right right-align">
               <div className="beginner-option">
@@ -41,18 +45,18 @@ export default function TradesTrek() {
             <div className="col-block">
               <p className="data-title">
                 Account Value{" "}
-                <span className="font-20 font-bold">₦100,000.00</span>
+                <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
               </p>
             </div>
             <div className="col-block">
               <p className="data-title">
                 Buying Power{" "}
-                <span className="font-20 font-bold">₦100,000.00</span>
+                <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
               </p>
             </div>
             <div className="col-block">
               <p className="data-title">
-                Cash <span className="font-20 font-bold">₦100,000.00</span>
+                Cash <span className="font-20 font-bold">₦{user && user.investedAmount?.toFixed(3)}</span>
               </p>
             </div>
           </div>

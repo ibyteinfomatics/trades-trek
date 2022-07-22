@@ -6,13 +6,17 @@ import TradeOrderTable from '../../components/Table/Table';
 import Stocks from '../../components/TradeStocks/Stocks';
 import TradeOrderStatus from '../../components/TradeStocks/TradeOrderStatus';
 import {orderService} from '../../services/order.service';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export default function Portfolio() {
 
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [holdingOrder,setHoldingOrder]=useState();
   const [openOrder,setOpenOrder]=useState()
-  const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","PROCESSED AT","EXPIRE ON","ORDER #","ACTION"]
+  let { user } = useSelector((state) => state.userWrapper);
+
+  const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","ACTION"]
   useEffect(()=>{
 
     
@@ -43,7 +47,7 @@ export default function Portfolio() {
         <div className="page--title--block">
           <div className="grid--2">
             <div className="grid-block-left wrapper--title">
-              <h3>Welcome, John Adams</h3>
+              <h3>Welcome, {user && user.fullName}</h3>
             </div>
             <div className="grid-block-right right-align">
               <div className="beginner-option">
@@ -70,18 +74,18 @@ export default function Portfolio() {
             <div className="col-block">
               <p className="data-title">
                 Account Value{" "}
-                <span className="font-20 font-bold">₦100,000.00</span>
+                <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
               </p>
             </div>
             <div className="col-block">
               <p className="data-title">
                 Buying Power{" "}
-                <span className="font-20 font-bold">₦100,000.00</span>
+                <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
               </p>
             </div>
             <div className="col-block">
               <p className="data-title">
-                Cash <span className="font-20 font-bold">₦100,000.00</span>
+                Cash <span className="font-20 font-bold">₦{user && user.investedAmount?.toFixed(3)}</span>
               </p>
             </div>
           </div>

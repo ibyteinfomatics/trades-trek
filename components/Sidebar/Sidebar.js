@@ -13,11 +13,12 @@ export default function Sidebar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [menuCollapse, setMenuCollapse] = useState(false);
-  let { loginSpinner } = useSelector((state) => state.stockWrapper);
+  let { user } = useSelector((state) => state.userWrapper);
 
   useEffect(() => {
-    console.log(loginSpinner);
-
+    // console.log(user);
+    // let user = localStorage.getItem('user');
+    // console.log(user)
     //const socket = socketIOClient(ENDPOINT);
     // socket.on('FromAPI', (data) => {
     //   console.log(data);
@@ -85,7 +86,7 @@ export default function Sidebar() {
                   />
                 </span>{' '}
                 Home
-                <p onClick={() => Login()}>Time {loginSpinner}</p>
+                {/* <p onClick={() => Login()}>Time </p> */}
               </a>
             </Link>
           </li>
@@ -257,7 +258,7 @@ export default function Sidebar() {
               </Link>
             </li>
             <li className="menu__list--item">
-              <Link href="logout">
+              <Link href="/logout">
                 <a>
                   <span className="menu--icons">
                     <Image
@@ -327,7 +328,7 @@ export default function Sidebar() {
                     />
                   </span>{" "}
                   Home
-                  <p onClick={() => Login()}>Time {loginSpinner}</p>
+                  <p onClick={() => Login()}>Time</p>
                 </a>
               </Link>
             </li>
