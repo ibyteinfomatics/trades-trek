@@ -110,6 +110,24 @@ function logout() {
   Router.push('/');
 }
 
+function userInfo(){
+  return fetchWrapper
+      .get(`${baseUrl}/user/userdetail`)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+
+}
+
 //Resend Otp
 function resendOtp(email, otp) {
   return fetchWrapper
@@ -142,5 +160,6 @@ export const userService = {
   verifyLoginOtp,
   resendOtp,
   forgot_password,
-  reset_password
+  reset_password,
+  userInfo
 };

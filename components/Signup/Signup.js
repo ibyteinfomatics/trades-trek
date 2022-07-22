@@ -33,7 +33,6 @@ export default function Signup() {
         localStorage.setItem('email', data.email);
         setError(res.message)
         localStorage.setItem('otp', data.email);
-        localStorage.setItem('user',res.user)
         dispatch(setUser(res.user));
         router.push('/otp');
       } else if (res?.success === false) {

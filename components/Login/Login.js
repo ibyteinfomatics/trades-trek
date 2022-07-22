@@ -32,7 +32,6 @@ export default function Login() {
           setValidate(true)
 
           setError(res.message)
-          // localStorage.setItem('user',{...res.user})
           dispatch(setUser(res.user));
           router.push('/dashboard');
         } else if (res?.success === false && res?.profileStatus === 0) {

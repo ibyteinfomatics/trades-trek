@@ -82,7 +82,7 @@ export default function Stocks() {
                   fill="black"
                 />
               </svg>
-              Show Max
+              {showMax?"Hide Max":"Show Max"}
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">

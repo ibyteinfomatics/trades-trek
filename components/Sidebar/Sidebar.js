@@ -7,6 +7,9 @@ import socketIOClient from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStockLists } from '../../actions/stocks';
 import { slide as Menu } from 'react-burger-menu';
+import { setUser } from '../../actions/users';
+import {userService} from '../../services/user.service'
+
 const ENDPOINT = 'http://localhost:3232';
 
 export default function Sidebar() {
@@ -14,16 +17,16 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const [menuCollapse, setMenuCollapse] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
+  
 
   useEffect(() => {
-    // console.log(user);
-    // let user = localStorage.getItem('user');
-    // console.log(user)
-    //const socket = socketIOClient(ENDPOINT);
-    // socket.on('FromAPI', (data) => {
-    //   console.log(data);
-    //   dispatch(setStockLists(data));
-    // });
+    // userService.userInfo().then((res)=>{
+    //   dispatch(setUser(res.user));
+
+    // }).catch((err)=>{
+    //   console.log(err)
+    // })
+
   }, []);
 
   const Login = async () => {};
