@@ -162,7 +162,11 @@ export default function Stocks() {
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
+<<<<<<< HEAD
                       {stockData?.EPS.toFixed(3)}
+=======
+                      {stockData?.EPS?.toFixed(3) ||0}
+>>>>>>> cf28bfa54954d3e00cc4c4bbd03b7756c5aeebd5
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
