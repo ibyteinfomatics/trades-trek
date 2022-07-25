@@ -102,7 +102,7 @@ export default function Login() {
                   Email/Username
                 </label>
                 <div className="invalid-feedback">
-                  {errors.email?.type === 'required' && 'Email is required'}
+                  {errors.email?.type === 'required' && 'Email/Username is required'}
                 </div>
               </div>
               <div className="form--item">

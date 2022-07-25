@@ -1,23 +1,22 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import HighlightTrades from '../../components/HighlightTrades/HighlightTrades';
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+import HighlightTrades from "../../components/HighlightTrades/HighlightTrades";
 import NewsListData, {
   NewsListData2,
-} from '../../components/NewsList/NewsListView';
+} from "../../components/NewsList/NewsListView";
 import LeaderView, {
   LeaderView2,
-} from '../../components/SectorLeaders/LeaderView';
-import Sidebar from '../../components/Sidebar/Sidebar';
+} from "../../components/SectorLeaders/LeaderView";
+import Sidebar from "../../components/Sidebar/Sidebar";
 import GainerView, {
   GainerView2,
-} from '../../components/TopGainers/GainerView';
-import LoserView, { LoserView2 } from '../../components/TopLosers/LoserView';
+} from "../../components/TopGainers/GainerView";
+import LoserView, { LoserView2 } from "../../components/TopLosers/LoserView";
 import WatchListData, {
   WatchListData2,
-} from '../../components/WatchList/WatchListData';
-import { useDispatch, useSelector } from 'react-redux';
-
+} from "../../components/WatchList/WatchListData";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -26,7 +25,7 @@ export default function Home() {
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
-  console.log(user)
+  console.log(user);
   return (
     <>
       <Sidebar />
@@ -208,9 +207,14 @@ export default function Home() {
           )}
 
           <div className="readMore--btn">
-            <Link href="javascript:void(0)">
-              <a>Show More News</a>
-            </Link>
+            {/* <Link href="javascript:void(0)"> */}
+            <a
+              style={{ cursor: "pointer" }}
+              onClick={() => setShowNewsList(!showNewsList)}
+            >
+              Show {showNewsList ? "Less" : "More"} News
+            </a>
+            {/* </Link> */}
           </div>
         </div>
       </div>

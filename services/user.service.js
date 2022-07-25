@@ -110,6 +110,7 @@ function logout() {
   Router.push('/');
 }
 
+// user info ............................................. 
 function userInfo(){
   return fetchWrapper
       .get(`${baseUrl}/user/get/info`)
@@ -147,6 +148,24 @@ function resendOtp(email, otp) {
     });
 }
 
+// Change password .........................  
+
+function changePassword(data){
+  console.log(data)
+  return fetchWrapper
+  .patch(`${baseUrl}/user/changePassword`, data)
+  .then((res) => {
+    if (res.success) {
+      userSubject.next(res.token);
+      localStorage.setItem('token', res.token);
+    }
+    return res;
+  })
+  .catch(function (error) {
+    return error;
+  });
+}
+
 
 
 export const userService = {
@@ -161,5 +180,6 @@ export const userService = {
   resendOtp,
   forgot_password,
   reset_password,
-  userInfo
+  userInfo,
+  changePassword
 };
