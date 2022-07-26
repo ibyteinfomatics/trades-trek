@@ -55,8 +55,12 @@ export default function Stocks() {
       setQuantityError("Quantity must be greater than 0");
     } else if (quantity >= stockData.Volume) {
       setModelOpened(false);
-      setQuantityError("Quantity must be less then volume");
-    } else if (orderType == "Limit" && rate <= 0) {
+      setQuantityError(`Quantity must be less then ${stockData.Volume}`);
+    }else if(orderType == "Limit" && rate > stockData.Last){
+      setModelOpened(false);
+      setRateError(`Price must be less than ${stockData.Last}`);
+    }
+     else if (orderType == "Limit" && rate <= 0) {
       setModelOpened(false);
       setRateError("Price must be greater than 0");
     } else {

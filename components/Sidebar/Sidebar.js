@@ -11,7 +11,7 @@ import { setUser } from "../../actions/users";
 import { userService } from "../../services/user.service";
 import LogOutModal from "../Modal/LogoutModal";
 
-const ENDPOINT = "http://localhost:3232";
+// const ENDPOINT = "http://localhost:3232";
 
 export default function Sidebar() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function Sidebar() {
       });
   }, []);
 
-  const Login = async () => {};
+  // const Login = async () => {};
 
   return (
     <>

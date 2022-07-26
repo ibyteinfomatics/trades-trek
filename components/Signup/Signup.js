@@ -29,7 +29,7 @@ export default function Signup() {
     .signup(data)
     .then((res) => {
       if (res?.success === true) {
-        setValidate(true)
+        setValidate(false)
         localStorage.setItem('email', data.email);
         setError(res.message)
         localStorage.setItem('otp', data.email);
