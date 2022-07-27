@@ -66,7 +66,7 @@ export default function Home() {
                   </li>
                 </ul>
                 <div className="view--btn">
-                  <Link href="javascript:void(0)">
+                  <Link href="/dashboard/portfolio/">
                     <a className="btn">View Portfolio</a>
                   </Link>
                 </div>

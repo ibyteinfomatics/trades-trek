@@ -15,7 +15,7 @@ export default function Stocks() {
   const [modelOpened, setModelOpened] = useState(false);
   const [action, setAction] = useState("Buy");
   const [quantity, setQuantity] = useState(0);
-  const [duration, setDuration] = useState("Day only");
+  const [duration, setDuration] = useState("Day Only");
   const [orderType, setOrderType] = useState("Market");
   const [rate, setRate] = useState(0);
   const [quantityError, setQuantityError] = useState(null);
@@ -277,8 +277,8 @@ export default function Stocks() {
                 disabled={stockData ? false : true}
                 onClick={(e) => setDuration(e.target.value)}
               >
-                <option>Day only</option>
-                <option>Goods Until Canceled</option>
+                <option>Day Only</option>
+                <option>Good Until Cancelled</option>
               </select>
             </div>
             <div className="form--item">

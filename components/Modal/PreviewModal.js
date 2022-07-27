@@ -11,7 +11,7 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
   const [error,setError]=useState('something went wrong');
   const [errorStatus,setErrorStatus]=useState(false)
   const dispatch = useDispatch();
-
+console.log(data)
 
   const theme = useMantineTheme();
     const submitOrder=()=>{
@@ -60,35 +60,44 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
           </div>}
         <div className='box-align'>
             <div className='row-block'>
-                <p className='font-18'>Stock: {data?.action}</p>
-                <p className='font-18'>Quality</p>
-            </div>
-            <div className='row-block'>
+                <p className='font-18 '>Stock: </p>
                 <p className='font-18 font--bold'>{data?.Name}</p>
+            </div>
+            {/* <div className='row-block'> */}
+                {/* <p className='font-18 font--bold'>{data?.Name}</p> */}
                 {/* <p className='font-18 font--bold'>{data?.quantity}</p> */}
+            {/* </div> */}
+            <div className='row-block'>
+                <p className='font-18 '>Order Type:</p>
+                <p className='font-18 '>{data?.orderType}</p>
             </div>
             <div className='row-block'>
-                <p className='font-18'>Duration</p>
+                <p className='font-18'>Quantity:</p>
+                <p className='font-18'>{data?.quantity}</p>
+            </div>
+            <div className='row-block'>
+                <p className='font-18'>Duration:</p>
                 <p className='font-18'>{data?.duration}</p>
             </div>
             <div className='row-block'>
-                <p className='font-18'>Stock Rate</p>
-                <p className='font-18'>{(data.orderType == 'Market' ? data?.Last : data.rate )}</p>
-            </div>
-            <div className='row-block'>
-                <p className='font-18'>Quantity</p>
-                <p className='font-18'>{data?.quantity}</p>
+                <p className='font-18'>Estimated Price:</p>
+                <p className='font-18'>${Number((data?.quantity)*(data.orderType == 'Market' ? data?.Last : data.rate )).toFixed(3)}</p>
             </div>
             {/* <div className='row-block'>
+                <p className='font-18'>Stock Rate</p>
+                <p className='font-18'>{(data.orderType == 'Market' ? data?.Last : data.rate )}</p>
+            </div> */}
+           
+            <div className='row-block'>
                 <p className='font-18'>Commission</p>
                 <p className='font-18'>$29.95</p>
-            </div> */}
+            </div>
             <div className='row-block'>
                 <p className='font-18'>Estimate Total</p>
                 {data?.orderType == 'Market' &&
-                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(3)}</p>
+                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)+29.95).toFixed(3)}</p>
                  }
-                {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)).toFixed(3)}</p>}
+                {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(3)}</p>}
             </div>
             <div className=''>
                 <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button>

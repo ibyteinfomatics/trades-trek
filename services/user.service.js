@@ -5,6 +5,7 @@ import Router from 'next/router';
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}`;
+
 const userSubject = new BehaviorSubject(
   process.browser && localStorage.getItem('token')
 );
