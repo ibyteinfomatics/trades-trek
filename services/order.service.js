@@ -69,7 +69,7 @@ function getOpenOrder() {
   // cancel order by id .........................    
   function cancelOrder(id) {
     return fetchWrapper
-      .patch(`${baseUrl}/user/order/cancelBuyOrder/${id}`)
+      .patch(`${baseUrl}/user/order/cancelOrder/${id}`)
   
       .then((res) => {
         

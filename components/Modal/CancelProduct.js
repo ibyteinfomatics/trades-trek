@@ -8,7 +8,7 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
   const theme = useMantineTheme();
  const cancelOrder=(id)=>{
    orderService.cancelOrder(id).then((res)=>{
-    console.log(res)
+    // console.log(res)
     setModelOpened(false);
    }).catch((err)=>{
     console.log(err)
