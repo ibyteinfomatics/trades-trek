@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mantine/core": "^4.2.12",
+    "@mantine/hooks": "^4.2.12",
     "chart.js": "^3.8.0",
     "connected-react-router": "^6.9.3",
     "mdb-react-ui-kit": "^4.1.0",
