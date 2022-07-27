@@ -52,9 +52,9 @@ export default function ForgotPassword() {
       <div className="center--block">
         <div className="small--block">
           <div className="block--title block--back--link text--center">
-            <Link href="/subscription">
-              <a  className="back--link"></a>
-            </Link>
+            {/* <Link href="/subscription"> */}
+              <a  className="back--link" onClick={()=>router.back()}></a>
+            {/* </Link> */}
             <h1>Forgot Password</h1>
           </div>
           <div className="info--text mt--12">
