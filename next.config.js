@@ -18,7 +18,7 @@ const nextConfig = {
   publicRuntimeConfig: {
     apiUrl:
       process.env.NODE_ENV === 'development'
-        ? 'http://localhost:5000' // development api
+        ? 'http://tradesapi.ibyteworkshop.com' // development api
         : 'http://tradesapi.ibyteworkshop.com', // production api
   },
 };
