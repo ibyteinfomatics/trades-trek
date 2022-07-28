@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { Stocks } from "../../actions/stocks";
-import socketIOClient from "socket.io-client";
-import { useDispatch, useSelector } from "react-redux";
-import { setStockLists } from "../../actions/stocks";
-import { slide as Menu } from "react-burger-menu";
-import { setUser } from "../../actions/users";
-import { userService } from "../../services/user.service";
-import LogOutModal from "../Modal/LogoutModal";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Stocks } from '../../actions/stocks';
+import socketIOClient from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStockLists } from '../../actions/stocks';
+import { slide as Menu } from 'react-burger-menu';
+import { setUser } from '../../actions/users';
+import { userService } from '../../services/user.service';
+import LogOutModal from '../Modal/LogoutModal';
 
 // const ENDPOINT = "http://localhost:3232";
 
@@ -38,8 +38,8 @@ export default function Sidebar() {
       <div
         className={
           menuCollapse
-            ? "sideBar--nav collapse--menu desktop--menu"
-            : "sideBar--nav desktop--menu"
+            ? 'sideBar--nav collapse--menu desktop--menu'
+            : 'sideBar--nav desktop--menu'
         }
       >
         <div
@@ -63,9 +63,9 @@ export default function Sidebar() {
           <ul className="menu__list">
             <li
               className={
-                router.pathname == "/dashboard/home"
-                  ? "menu__list--item active--menu"
-                  : "menu__list--item"
+                router.pathname == '/dashboard/home'
+                  ? 'menu__list--item active--menu'
+                  : 'menu__list--item'
               }
             >
               <Link href="/dashboard">
@@ -77,7 +77,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Home"}
+                      alt={'Home'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -87,9 +87,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Home"}
+                      alt={'Home'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Home
                   {/* <p onClick={() => Login()}>Time </p> */}
                 </a>
@@ -97,9 +97,9 @@ export default function Sidebar() {
             </li>
             <li
               className={
-                router.pathname == "/dashboard/portfolio"
-                  ? "menu__list--item active--menu"
-                  : "menu__list--item"
+                router.pathname == '/dashboard/portfolio'
+                  ? 'menu__list--item active--menu'
+                  : 'menu__list--item'
               }
             >
               <Link href="/dashboard/portfolio">
@@ -111,7 +111,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Portfolio"}
+                      alt={'Portfolio'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -120,18 +120,18 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Portfolio"}
+                      alt={'Portfolio'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Portfolio
                 </a>
               </Link>
             </li>
             <li
               className={
-                router.pathname == "/dashboard/trade-stocks"
-                  ? "menu__list--item active--menu"
-                  : "menu__list--item"
+                router.pathname == '/dashboard/trade-stocks'
+                  ? 'menu__list--item active--menu'
+                  : 'menu__list--item'
               }
             >
               <Link href="/dashboard/trade-stocks">
@@ -142,7 +142,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Trade"}
+                      alt={'Trade'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -151,9 +151,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Trade"}
+                      alt={'Trade'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Trade
                 </a>
               </Link>
@@ -167,7 +167,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Learning"}
+                      alt={'Learning'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -176,9 +176,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Learning"}
+                      alt={'Learning'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Learning
                 </a>
               </Link>
@@ -192,7 +192,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Competition"}
+                      alt={'Competition'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -201,9 +201,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Competition"}
+                      alt={'Competition'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Competition
                 </a>
               </Link>
@@ -221,7 +221,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Notification"}
+                      alt={'Notification'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -230,7 +230,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Notification"}
+                      alt={'Notification'}
                     />
                   </span>
                   Notifications
@@ -247,7 +247,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Profile"}
+                      alt={'Profile'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -257,7 +257,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Profile"}
+                      alt={'Profile'}
                     />
                   </span>
                   Profile
@@ -267,7 +267,7 @@ export default function Sidebar() {
             <li className="menu__list--item">
               {/* <Link href="/logout"> */}
               <a
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   setModelOpened(true);
                 }}
@@ -278,7 +278,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
-                    alt={"Logout"}
+                    alt={'Logout'}
                   />
                 </span>
                 <span className="menu--icons--hover">
@@ -287,7 +287,7 @@ export default function Sidebar() {
                     layout="responsive"
                     width={24}
                     height={24}
-                    alt={"Logout"}
+                    alt={'Logout'}
                   />
                 </span>
                 Logout
@@ -316,9 +316,9 @@ export default function Sidebar() {
           <ul className="menu__list">
             <li
               className={
-                router.pathname == "/dashboard/home"
-                  ? "menu__list--item active--menu"
-                  : "menu__list--item"
+                router.pathname == '/dashboard/home'
+                  ? 'menu__list--item active--menu'
+                  : 'menu__list--item'
               }
             >
               <Link href="#">
@@ -330,7 +330,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Home"}
+                      alt={'Home'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -340,9 +340,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Home"}
+                      alt={'Home'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Home
                   <p onClick={() => Login()}>Time</p>
                 </a>
@@ -358,7 +358,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Portfolio"}
+                      alt={'Portfolio'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -367,18 +367,18 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Portfolio"}
+                      alt={'Portfolio'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Portfolio
                 </a>
               </Link>
             </li>
             <li
               className={
-                router.pathname == "/dashboard/trade-stocks"
-                  ? "menu__list--item active--menu"
-                  : "menu__list--item"
+                router.pathname == '/dashboard/trade-stocks'
+                  ? 'menu__list--item active--menu'
+                  : 'menu__list--item'
               }
             >
               <Link href="/dashboard/trade-stocks">
@@ -389,7 +389,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Trade"}
+                      alt={'Trade'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -398,9 +398,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Trade"}
+                      alt={'Trade'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Trade
                 </a>
               </Link>
@@ -414,7 +414,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Learning"}
+                      alt={'Learning'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -423,9 +423,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Learning"}
+                      alt={'Learning'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Learning
                 </a>
               </Link>
@@ -439,7 +439,7 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Competition"}
+                      alt={'Competition'}
                     />
                   </span>
                   <span className="menu--icons--hover">
@@ -448,9 +448,9 @@ export default function Sidebar() {
                       layout="responsive"
                       width={24}
                       height={24}
-                      alt={"Competition"}
+                      alt={'Competition'}
                     />
-                  </span>{" "}
+                  </span>{' '}
                   Competition
                 </a>
               </Link>

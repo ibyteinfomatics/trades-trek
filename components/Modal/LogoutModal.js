@@ -1,21 +1,20 @@
-import { Modal, useMantineTheme } from "@mantine/core";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { Modal, useMantineTheme } from '@mantine/core';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 function LogOutModal({ modelOpened, setModelOpened }) {
   const router = useRouter();
 
   const theme = useMantineTheme();
-  const LogoutUser=()=>{
-    router.push("/logout");
-  }
-  
+  const LogoutUser = () => {
+    router.push('/logout');
+  };
 
   return (
     <Modal
       withCloseButton={false}
       overlayColor={
-        theme.colorScheme === "dark"
+        theme.colorScheme === 'dark'
           ? theme.colors.dark[9]
           : theme.colors.gray[2]
       }
@@ -37,15 +36,15 @@ function LogOutModal({ modelOpened, setModelOpened }) {
           <button
             onClick={() => {
               setModelOpened(false);
-              LogoutUser()
+              LogoutUser();
             }}
-            style={{ margin: "20px" }}
+            style={{ margin: '20px' }}
           >
             Yes
           </button>
           <button
             onClick={() => setModelOpened(false)}
-            style={{ margin: "20px" }}
+            style={{ margin: '20px' }}
           >
             Cancel
           </button>
