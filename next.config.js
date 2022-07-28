@@ -22,5 +22,5 @@ const nextConfig = {
         : 'http://tradesapi.ibyteworkshop.com', // production api
   },
 };
-
+// http://localhost:5000
 module.exports = nextConfig;
