@@ -23,6 +23,7 @@ export default function Home() {
   const [showLosersList, setShowLosersList] = useState(false);
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
+
   return (
     <>
       <Sidebar />
