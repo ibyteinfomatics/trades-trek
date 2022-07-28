@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Stocks from '../../components/TradeStocks/Stocks';
 import TradeOrderStatus from '../../components/TradeStocks/TradeOrderStatus';
 import { useDispatch, useSelector } from 'react-redux';
+import NigerianTimeZone from '../../helpers/Negerian-TimeZone';
+import moment from 'moment-timezone';
 
 
 export default function TradesTrek() {
   const [beginnerOption, setBeginnerOption] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
+  const [openTime,setOpenTime]=useState();
+  const [openMarket,setMarketOpen]=useState();
+  const [closeMarket,setCloseMarket]=useState()
 
+  useEffect(()=>{
+   const temp= NigerianTimeZone()
+     const formatDate = moment(temp).format('h:mm:ss')
+    //  if()
+   console.log(typeof formatDate)
+  },[])
+ 
   return (
     <>
       <Sidebar />

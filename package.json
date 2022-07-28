@@ -7,13 +7,14 @@
     "build": "next build;next export",
     "start": "next start",
     "lint": "next lint",
-    "prod":"next export"
+    "prod": "next export"
   },
   "dependencies": {
     "@mantine/core": "^4.2.12",
     "chart.js": "^3.8.0",
     "connected-react-router": "^6.9.3",
     "mdb-react-ui-kit": "^4.1.0",
+    "moment-timezone": "^0.5.34",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-burger-menu": "^3.0.8",
