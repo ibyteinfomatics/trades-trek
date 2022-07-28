@@ -103,6 +103,9 @@ export default function Signup() {
                     required: true,
                     maxLength: 20,
                     minLength: 3,
+                    pattern: {
+                      value: /^[a-z,A-Z][A-Z,a-z\s]*$/,
+                    },
                   })}
                 />
                 <label className="form--label" htmlFor="fName">
@@ -115,6 +118,8 @@ export default function Signup() {
                     'Fullname should be atleast 3 characters'}
                   {errors.fullName?.type === 'maxLength' &&
                     'Fullname should be less than 20 characters'}
+                  {errors.fullName?.type === 'pattern' &&
+                    'Only alphabets is allowed'}
                 </div>
               </div>
               <div className="form--item">
@@ -125,7 +130,10 @@ export default function Signup() {
                   type="email"
                   id="email"
                   placeholder="Email Address"
-                  {...register('email', { required: true })}
+                  {...register('email', {
+                    required: true,
+                    maxLength: 50,
+                  })}
                 />
                 <label className="form--label" htmlFor="email">
                   Email Address
@@ -146,7 +154,7 @@ export default function Signup() {
                     required: true,
                     maxLength: 10,
                     minLength: 10,
-                    pattern: /^[0-9]+/,
+                    pattern: { value: /^[0-9]*$/ },
                   })}
                 />
                 <label className="form--label" htmlFor="phnum">
@@ -174,6 +182,9 @@ export default function Signup() {
                     required: true,
                     maxLength: 20,
                     minLength: 3,
+                    pattern: {
+                      value: /^[A-Z,a-z,0-9]*$/,
+                    },
                   })}
                 />
                 <label className="form--label" htmlFor="username">
@@ -186,6 +197,8 @@ export default function Signup() {
                     'Username should be atleast 3 characters'}
                   {errors.username?.type === 'maxLength' &&
                     'Username should be less than 20 characters'}
+                  {errors.username?.type === 'pattern' &&
+                    'White space is not allowed'}
                 </div>
               </div>
               <div className="form--item">
@@ -200,6 +213,9 @@ export default function Signup() {
                     required: true,
                     maxLength: 15,
                     minLength: 8,
+                    pattern: {
+                      value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                    },
                   })}
                 />
                 <label className="form--label" htmlFor="pwd">
@@ -212,6 +228,8 @@ export default function Signup() {
                     'Password should be atleast 8 characters'}
                   {errors.password?.type === 'maxLength' &&
                     'Password should be less than 15 characters'}
+                  {errors.password?.type === 'pattern' &&
+                    'White space is not allowed'}
                 </div>
               </div>
               <div className="form--item">

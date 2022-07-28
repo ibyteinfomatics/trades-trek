@@ -17,11 +17,11 @@ export default function Sidebar() {
   useEffect(() => {
     console.log(loginSpinner);
 
-    //const socket = socketIOClient(ENDPOINT);
-    // socket.on('FromAPI', (data) => {
-    //   console.log(data);
-    //   dispatch(setStockLists(data));
-    // });
+    const socket = socketIOClient(ENDPOINT);
+    socket.on('FromAPI', (data) => {
+      console.log(data);
+      dispatch(setStockLists(data));
+    });
   }, []);
 
   const Login = async () => {};
