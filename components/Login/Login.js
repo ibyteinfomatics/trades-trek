@@ -6,11 +6,15 @@ import { useForm } from 'react-hook-form';
 import { userService } from '../../services';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../actions/users';
 
 export default function Login() {
   const [btnStatus, setBtnStatus] = useState(false);
-  const toastId = useRef(null);
   const router = useRouter();
+  const [validate,setValidate]=useState(false)
+  const [error,setError]=useState();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -19,60 +23,45 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setBtnStatus(true);
-    userService
+    // if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
+      userService
       .login(data)
       .then((res) => {
         if (res?.success === true) {
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          setValidate(false)
+
+          setError(res.message)
+          dispatch(setUser(res.user));
           router.push('/dashboard');
         } else if (res?.success === false && res?.profileStatus === 0) {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          setValidate(true)
+          
+          setError(res.message)
           setBtnStatus(false);
           localStorage.setItem('email', data.email);
           router.push('/otp');
         } else if (res?.success === false) {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-            });
-          }
-          setBtnStatus(false);
+            setValidate(true)
+            setError(res.message)
         } else {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-            });
-          }
-          setBtnStatus(false);
+          setValidate(true)
+          setError('Something went wrong')
         }
       })
       .catch((error) => {
-        if (!toast.isActive(toastId.current)) {
-          toastId.current = toast.error(error, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        }
-        setBtnStatus(false);
+        setValidate(true)
+        setError(error.message)
+        
       });
+    // }else{
+    //   setValidate(true)
+    //   setError('Please Fill Valid Email')
+    // }
   };
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        pauseOnHover={false}
-      />
+      
       <div className="site--form--container">
         <div className="form--grid--wrapper">
           <div className="left--form--layout">
@@ -94,22 +83,25 @@ export default function Login() {
                 tipografia e della stampa.
               </p>
             </div>
+            {validate &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
+              <p style={{textAlign:'center',padding:'10px',color:'red'}}>{error}</p>
+          </div>}
             <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form--item">
                 <input
                   className={`form--control ${
                     errors.email ? 'is-invalid' : ''
                   }`}
-                  type="email"
+                  type="text"
                   id="email"
-                  placeholder="Email"
+                  placeholder="Email/Username"
                   {...register('email', { required: true })}
                 />
                 <label className="form--label" htmlFor="email">
-                  Email
+                  Email/Username
                 </label>
                 <div className="invalid-feedback">
-                  {errors.email?.type === 'required' && 'Email is required'}
+                  {errors.email?.type === 'required' && 'Email/Username is required'}
                 </div>
               </div>
               <div className="form--item">
@@ -131,7 +123,7 @@ export default function Login() {
                 </div>
               </div>
               <div className="forgot--pwd">
-                <Link href="javascript:void(0)">
+                <Link href="/forgot-password">
                   <a>Forgot Password?</a>
                 </Link>
               </div>

@@ -1352,6 +1352,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
 html{
   font-size: 3.25vw;
 }
+.phoneNumber {
+}
 .phoneNumber input {
   @apply pl-4;
 }
@@ -1512,34 +1514,4 @@ html{
 }
 .invalid-feedback {
   color: red;
-}
-
-
-/* Css fixes */
-.right--form--layout{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-.order--table--responsive {
-  width: 100%;
-  overflow-x: auto;
-}
-.site--form--container .form--grid--wrapper{
-  grid-template-columns: 50% 50%;;
-}
-
-@media screen and (max-width: 1199.5px){
-  .site--form--container{
-    padding-top: 0;
-  }
-  .site--form--container .form--grid--wrapper{
-    display: block;
-    max-height: calc(100vh - 4rem);
-  }
-}
-@media screen and (max-width: 767.5px) {
-  .show-data .form--actions .btn{
-    max-width: 100%;
-    min-width: inherit;
-  }
 }

@@ -4,14 +4,16 @@ import Link from 'next/link';
 import SignupSlider from '../SignupSlider/SignupSlider';
 import { useForm } from 'react-hook-form';
 import { userService } from '../../services';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../actions/users';
 
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
-  const toastId = useRef(null);
   const router = useRouter();
+  const [validate, setValidate] = useState(false);
+  const [error, setError] = useState();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -20,55 +22,42 @@ export default function Signup() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setBtnStatus(true);
-    userService
-      .signup(data)
-      .then((res) => {
-        if (res?.success === true) {
-          localStorage.setItem('email', data.email);
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-          localStorage.setItem('otp', data.email);
-          router.push('/otp');
-        } else if (res?.success === false) {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-            });
+    // setBtnStatus(true);
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
+      userService
+        .signup(data)
+        .then((res) => {
+          if (res?.success === true) {
+            setValidate(false);
+            localStorage.setItem('email', data.email);
+            setError(res.message);
+            localStorage.setItem('otp', data.email);
+            dispatch(setUser(res.user));
+            router.push('/otp');
+          } else if (res?.success === false) {
+            setValidate(true);
+            setError(res.message);
+            setBtnStatus(false);
+          } else {
+            setValidate(true);
+            setError(res);
+            setBtnStatus(false);
           }
+        })
+        .catch((error) => {
+          setValidate(true);
+
+          setError(error.message);
           setBtnStatus(false);
-        } else {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-            });
-          }
-          setBtnStatus(false);
-        }
-      })
-      .catch((error) => {
-        if (!toast.isActive(toastId.current)) {
-          toastId.current = toast.error(error, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        }
-        setBtnStatus(false);
-      });
+        });
+    } else {
+      setValidate(true);
+      setError('Please Fill Valid Email');
+    }
   };
+
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <div className="site--form--container">
         <div className="form--grid--wrapper">
           <div className="left--form--layout">
@@ -90,6 +79,18 @@ export default function Signup() {
                 Cancel anytime before then, to halt payment.
               </p>
             </div>
+            {validate && (
+              <div
+                className=""
+                style={{ border: '1px solid red', margin: '20px' }}
+              >
+                <p
+                  style={{ textAlign: 'center', padding: '10px', color: 'red' }}
+                >
+                  {error}
+                </p>
+              </div>
+            )}
             <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form--item">
                 <input
@@ -142,21 +143,24 @@ export default function Signup() {
                   {errors.email?.type === 'required' && 'Email is required'}
                 </div>
               </div>
-              <div className="form--item">
-                <input
-                  className={`form--control ${
-                    errors.phone ? 'is-invalid' : ''
-                  }`}
-                  type="tel"
-                  id="phnum"
-                  placeholder="Phone Number"
-                  {...register('phone', {
-                    required: true,
-                    maxLength: 10,
-                    minLength: 10,
-                    pattern: { value: /^[0-9]*$/ },
-                  })}
-                />
+              <div className="form--item phoneNumber">
+                <div className="inputGroup">
+                  <span>+234</span>
+                  <input
+                    className={`form--control ${
+                      errors.phone ? 'is-invalid' : ''
+                    }`}
+                    type="tel"
+                    id="phnum"
+                    placeholder="Phone Number"
+                    {...register('phone', {
+                      required: true,
+                      maxLength: 11,
+                      minLength: 11,
+                      pattern: /^[0-9]+/,
+                    })}
+                  />
+                </div>
                 <label className="form--label" htmlFor="phnum">
                   Phone Number
                 </label>
@@ -164,9 +168,9 @@ export default function Signup() {
                   {errors.phone?.type === 'required' &&
                     'Phone number is required'}
                   {errors.phone?.type === 'minLength' &&
-                    'Phone number must be atleast 10 digit'}
+                    'Phone number must be atleast 11 digit'}
                   {errors.phone?.type === 'maxLength' &&
-                    'Phone number must be atleast 10 digit'}
+                    'Phone number must be atleast 11 digit'}
                   {errors.phone?.type === 'pattern' && 'Only digits allow'}
                 </div>
               </div>
@@ -253,7 +257,7 @@ export default function Signup() {
                   Confirm Password
                 </label>
                 <div className="invalid-feedback">
-                  {console.log(errors)}
+                  {/* {console.log(errors)} */}
                   {errors.confirmPassword?.type === 'required' &&
                     'Confirm password is required'}
                   {errors.confirmPassword?.type === 'validate' &&
