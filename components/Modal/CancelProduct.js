@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import {orderService} from '../../services/order.service'
 
 function CancelProduct({ modelOpened, setModelOpened,id }) {
+  console.log(id)
   const router = useRouter();
   const theme = useMantineTheme();
  const cancelOrder=(id)=>{

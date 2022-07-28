@@ -61,7 +61,7 @@ export default function TradeOrderTable({columns,rows}) {
                 </svg>
                 Sell
               </button>}
-              <CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} id={item._id}/>
+              {modelOpened &&<CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} key={item._id} id={item._id}/>}
             </td>
           </tr>
           })}
