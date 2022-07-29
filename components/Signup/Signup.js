@@ -8,12 +8,11 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../actions/users';
 
-
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
   const router = useRouter();
-  const [validate,setValidate]=useState(false)
-  const [error,setError]=useState()
+  const [validate, setValidate] = useState(false);
+  const [error, setError] = useState();
   const dispatch = useDispatch();
   const {
     register,
@@ -24,42 +23,41 @@ export default function Signup() {
 
   const onSubmit = (data) => {
     // setBtnStatus(true);
-   if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
-    userService
-    .signup(data)
-    .then((res) => {
-      if (res?.success === true) {
-        setValidate(false)
-        localStorage.setItem('email', data.email);
-        setError(res.message)
-        localStorage.setItem('otp', data.email);
-        dispatch(setUser(res.user));
-        router.push('/otp');
-      } else if (res?.success === false) {
-        setValidate(true)
-        setError(res.message)
-        setBtnStatus(false);
-      } else {
-        setValidate(true)
-        setError(res)
-        setBtnStatus(false);
-      }
-    })
-    .catch((error) => {
-    setValidate(true)
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
+      userService
+        .signup(data)
+        .then((res) => {
+          if (res?.success === true) {
+            setValidate(false);
+            localStorage.setItem('email', data.email);
+            setError(res.message);
+            localStorage.setItem('otp', data.email);
+            dispatch(setUser(res.user));
+            router.push('/otp');
+          } else if (res?.success === false) {
+            setValidate(true);
+            setError(res.message);
+            setBtnStatus(false);
+          } else {
+            setValidate(true);
+            setError(res);
+            setBtnStatus(false);
+          }
+        })
+        .catch((error) => {
+          setValidate(true);
 
-      setError(error.message)
-      setBtnStatus(false);
-    });
-   }else{
-    setValidate(true)
-    setError('Please Fill Valid Email')
-   }
+          setError(error.message);
+          setBtnStatus(false);
+        });
+    } else {
+      setValidate(true);
+      setError('Please Fill Valid Email');
+    }
   };
- 
+
   return (
     <>
-    
       <div className="site--form--container">
         <div className="form--grid--wrapper">
           <div className="left--form--layout">
@@ -81,9 +79,18 @@ export default function Signup() {
                 Cancel anytime before then, to halt payment.
               </p>
             </div>
-            {validate &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
-              <p style={{textAlign:'center',padding:'10px',color:'red'}}>{error}</p>
-          </div>}
+            {validate && (
+              <div
+                className=""
+                style={{ border: '1px solid red', margin: '20px' }}
+              >
+                <p
+                  style={{ textAlign: 'center', padding: '10px', color: 'red' }}
+                >
+                  {error}
+                </p>
+              </div>
+            )}
             <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form--item">
                 <input
@@ -97,6 +104,9 @@ export default function Signup() {
                     required: true,
                     maxLength: 20,
                     minLength: 3,
+                    pattern: {
+                      value: /^[a-z,A-Z][A-Z,a-z\s]*$/,
+                    },
                   })}
                 />
                 <label className="form--label" htmlFor="fName">
@@ -109,6 +119,8 @@ export default function Signup() {
                     'Fullname should be atleast 3 characters'}
                   {errors.fullName?.type === 'maxLength' &&
                     'Fullname should be less than 20 characters'}
+                  {errors.fullName?.type === 'pattern' &&
+                    'Only alphabets is allowed'}
                 </div>
               </div>
               <div className="form--item">
@@ -119,7 +131,10 @@ export default function Signup() {
                   type="email"
                   id="email"
                   placeholder="Email Address"
-                  {...register('email', { required: true })}
+                  {...register('email', {
+                    required: true,
+                    maxLength: 50,
+                  })}
                 />
                 <label className="form--label" htmlFor="email">
                   Email Address
@@ -129,22 +144,22 @@ export default function Signup() {
                 </div>
               </div>
               <div className="form--item phoneNumber">
-                <div className='inputGroup'>
-                <span>+234</span>
-                <input
-                  className={`form--control ${
-                    errors.phone ? 'is-invalid' : ''
-                  }`}
-                  type="tel"
-                  id="phnum"
-                  placeholder="Phone Number"
-                  {...register('phone', {
-                    required: true,
-                    maxLength: 11,
-                    minLength: 11,
-                    pattern: /^[0-9]+/,
-                  })}
-                />
+                <div className="inputGroup">
+                  <span>+234</span>
+                  <input
+                    className={`form--control ${
+                      errors.phone ? 'is-invalid' : ''
+                    }`}
+                    type="tel"
+                    id="phnum"
+                    placeholder="Phone Number"
+                    {...register('phone', {
+                      required: true,
+                      maxLength: 11,
+                      minLength: 11,
+                      pattern: /^[0-9]+/,
+                    })}
+                  />
                 </div>
                 <label className="form--label" htmlFor="phnum">
                   Phone Number
@@ -171,6 +186,9 @@ export default function Signup() {
                     required: true,
                     maxLength: 20,
                     minLength: 3,
+                    pattern: {
+                      value: /^[A-Z,a-z,0-9]*$/,
+                    },
                   })}
                 />
                 <label className="form--label" htmlFor="username">
@@ -183,6 +201,8 @@ export default function Signup() {
                     'Username should be atleast 3 characters'}
                   {errors.username?.type === 'maxLength' &&
                     'Username should be less than 20 characters'}
+                  {errors.username?.type === 'pattern' &&
+                    'White space is not allowed'}
                 </div>
               </div>
               <div className="form--item">
@@ -197,6 +217,9 @@ export default function Signup() {
                     required: true,
                     maxLength: 15,
                     minLength: 8,
+                    pattern: {
+                      value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                    },
                   })}
                 />
                 <label className="form--label" htmlFor="pwd">
@@ -209,6 +232,8 @@ export default function Signup() {
                     'Password should be atleast 8 characters'}
                   {errors.password?.type === 'maxLength' &&
                     'Password should be less than 15 characters'}
+                  {errors.password?.type === 'pattern' &&
+                    'White space is not allowed'}
                 </div>
               </div>
               <div className="form--item">
@@ -232,7 +257,7 @@ export default function Signup() {
                   Confirm Password
                 </label>
                 <div className="invalid-feedback">
-                  {console.log(errors)}
+                  {/* {console.log(errors)} */}
                   {errors.confirmPassword?.type === 'required' &&
                     'Confirm password is required'}
                   {errors.confirmPassword?.type === 'validate' &&

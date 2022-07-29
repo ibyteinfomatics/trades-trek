@@ -34,7 +34,7 @@ export default function Stocks() {
     setStockData(selectedOptions);
     setShowMax(true);
   };
-  console.log(stockData);
+  // console.log(stockData);
 
   // get all stock .....
   useEffect(() => {

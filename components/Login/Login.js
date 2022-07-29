@@ -23,7 +23,6 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data)
     // if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
       userService
       .login(data)
