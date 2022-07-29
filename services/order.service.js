@@ -85,6 +85,24 @@ function getOpenOrder() {
   }
 
 
+// show max ..................................................   
+
+function showMax(rate,action,symbol){
+  // console.log(data)
+  
+  return fetchWrapper
+  .post(`${baseUrl}/user/order/showMax`, {rate:rate,action:action,symbol:symbol})
+  .then((res) => {
+    if (res.success) {
+      userSubject.next(res.token);
+      localStorage.setItem('token', res.token);
+    }
+    return res;
+  })
+  .catch(function (error) {
+    return error;
+  });
+}
 
 
 
@@ -96,5 +114,6 @@ export const orderService ={
     getOpenOrder,
     getHoldingOrder,
     getCancelOrder,
-    cancelOrder
+    cancelOrder,
+    showMax
   };

@@ -888,7 +888,7 @@ td.sector--gain {
   margin-bottom: 1.25rem;
 } */
 .status-summary {
-  background: #e6ccff;
+  background: #ccffec;
   padding: 0.875rem;
   @apply flex items-center;
 }

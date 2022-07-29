@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import LineChart from "../Chart/LineChart";
 import { stockService } from "../../services/stock.service";
+import { orderService } from "../../services/order.service";
 import Select, { AriaOnFocus } from "react-select";
 import PreviewModal from "../Modal/PreviewModal";
 
@@ -32,7 +33,9 @@ export default function Stocks() {
   // set selected stock
   const onchange = (selectedOptions) => {
     setStockData(selectedOptions);
-    setShowMax(true);
+    setShowMax(false);
+    setQuantity(0)
+  
   };
   // console.log(stockData);
 
@@ -53,10 +56,8 @@ export default function Stocks() {
     if (quantity <= 0) {
       setModelOpened(false);
       setQuantityError("Quantity must be greater than 0");
-    } else if (quantity >= stockData.Volume) {
-      setModelOpened(false);
-      setQuantityError(`Quantity must be less then ${stockData.Volume}`);
-    }else if(orderType == "Limit" && rate > stockData.Last){
+    }
+    else if(orderType == "Limit" && rate > stockData.Last){
       setModelOpened(false);
       setRateError(`Price must be less than ${stockData.Last}`);
     }
@@ -69,6 +70,25 @@ export default function Stocks() {
     }
   };
 
+  const handlerShowMax=()=>{
+    if(showMax){
+      setQuantity(0)
+      setShowMax(false)
+    }else{
+      orderService
+      .showMax(stockData?.Last,action,stockData?.Symbol)
+      .then((res) => {
+        setQuantity(res?.showMax)
+        setShowMax(true)
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
+    }
+  }
+
   return (
     <>
       <div className="stocks-form">
@@ -76,7 +96,7 @@ export default function Stocks() {
           <div className="stocks--form--group">
             <div
               className="readmore--link"
-              onClick={() => setShowMax(!showMax)}
+              onClick={handlerShowMax}
               style={{ display: stockData ? "block" : "none" }}
             >
               <svg
@@ -125,7 +145,7 @@ export default function Stocks() {
               <select
                 className="form--control"
                 disabled={stockData ? false : true}
-                onClick={(e) => setAction(e.target.value)}
+                onClick={(e) => {setAction(e.target.value);setShowMax(false);setQuantity(0)}}
               >
                 <option>Buy</option>
                 <option>Sell</option>
@@ -163,7 +183,7 @@ export default function Stocks() {
             </div>
           </div>
           {/*ShowMax Data Block*/}
-          {showMax && (
+          {stockData && (
             <div className="showMax">
               <div className="grid--2">
                 <div className="gridColLeft showMaxData">

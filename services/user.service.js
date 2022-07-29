@@ -169,6 +169,7 @@ function changePassword(data){
 
 
 
+
 export const userService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -183,4 +184,5 @@ export const userService = {
   reset_password,
   userInfo,
   changePassword
+  
 };

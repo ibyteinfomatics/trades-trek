@@ -1,8 +1,7 @@
 import moment from 'moment-timezone';
 
-const NigerianTimeZone=()=>{
+const NigerianTimeZone=(originTime)=>{
     const inputTz = "Africa/Lagos"
-    const originTime = new Date()
     const time = moment.tz(originTime, inputTz)
    
    return time
