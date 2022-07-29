@@ -1,64 +1,73 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState ,useEffect} from 'react';
-import LineChart from '../Chart/LineChart';
-import {stockService} from '../../services/stock.service';
-import Select, { AriaOnFocus } from 'react-select';
-import PreviewModal from '../Modal/PreviewModal';
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import LineChart from "../Chart/LineChart";
+import { stockService } from "../../services/stock.service";
+import Select, { AriaOnFocus } from "react-select";
+import PreviewModal from "../Modal/PreviewModal";
 
 export default function Stocks() {
   const [showMax, setShowMax] = useState(false);
-  const [stockAllData,setStockAllData]=useState([])
-  const [ariaFocusMessage, setAriaFocusMessage] = useState('');
+  const [stockAllData, setStockAllData] = useState([]);
+  const [ariaFocusMessage, setAriaFocusMessage] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [stockData,setStockData]=useState()
-  const [modelOpened,setModelOpened]=useState(false);
-  const [action,setAction]=useState('Buy');
-  const [quantity,setQuantity]=useState(0);
-  const [duration,setDuration]=useState('Day only');
-  const [orderType,setOrderType]=useState('Market');
-  const [rate,setRate]=useState(0); 
-  const [quantityError,setQuantityError]=useState(null); 
-  const [rateError,setRateError]=useState(null); 
-    // const onFocus = ({ focused, isDisabled }) => {
-    //   setStockData(focused)
-    //   const msg = `You are currently focused on option ${focused.Symbol}${
-    //     isDisabled ? ', disabled' : ''
-    //   }`;
-    //   setAriaFocusMessage(msg);
-    //   return msg;
-    // };
+  const [stockData, setStockData] = useState();
+  const [modelOpened, setModelOpened] = useState(false);
+  const [action, setAction] = useState("Buy");
+  const [quantity, setQuantity] = useState(0);
+  const [duration, setDuration] = useState("Day Only");
+  const [orderType, setOrderType] = useState("Market");
+  const [rate, setRate] = useState(0);
+  const [quantityError, setQuantityError] = useState(null);
+  const [rateError, setRateError] = useState(null);
+  // const onFocus = ({ focused, isDisabled }) => {
+  //   setStockData(focused)
+  //   const msg = `You are currently focused on option ${focused.Symbol}${
+  //     isDisabled ? ', disabled' : ''
+  //   }`;
+  //   setAriaFocusMessage(msg);
+  //   return msg;
+  // };
 
-  // set selected stock 
-  const onchange=(selectedOptions)=>{
-    setStockData(selectedOptions)
-    setShowMax(true)
-  }
-  
+  // set selected stock
+  const onchange = (selectedOptions) => {
+    setStockData(selectedOptions);
+    setShowMax(true);
+  };
+  console.log(stockData);
+
   // get all stock .....
-  useEffect(()=>{
- stockService.getAllStock().then((res)=>{
-  setStockAllData(res)
- }).catch((err)=>{
-  setStockAllData([])
- }
- )
-  
-  },[])
+  useEffect(() => {
+    stockService
+      .getAllStock()
+      .then((res) => {
+        setStockAllData(res);
+      })
+      .catch((err) => {
+        setStockAllData([]);
+      });
+  }, []);
   const onMenuOpen = () => setIsMenuOpen(true);
   const onMenuClose = () => setIsMenuOpen(false);
   const checkLimitPrice = () => {
-    if(quantity <= 0){
+    if (quantity <= 0) {
       setModelOpened(false);
       setQuantityError("Quantity must be greater than 0");
-    }else if(orderType == 'Limit' && rate <= 0){
+    } else if (quantity >= stockData.Volume) {
+      setModelOpened(false);
+      setQuantityError(`Quantity must be less then ${stockData.Volume}`);
+    }else if(orderType == "Limit" && rate > stockData.Last){
+      setModelOpened(false);
+      setRateError(`Price must be less than ${stockData.Last}`);
+    }
+     else if (orderType == "Limit" && rate <= 0) {
       setModelOpened(false);
       setRateError("Price must be greater than 0");
-    }else{
+    } else {
       setRateError(null);
       setQuantityError(null);
     }
-  }
+  };
 
   return (
     <>
@@ -68,7 +77,7 @@ export default function Stocks() {
             <div
               className="readmore--link"
               onClick={() => setShowMax(!showMax)}
-              style={{display:stockData?"block":'none'}}
+              style={{ display: stockData ? "block" : "none" }}
             >
               <svg
                 width="23"
@@ -82,26 +91,26 @@ export default function Stocks() {
                   fill="black"
                 />
               </svg>
-              {showMax?"Hide Max":"Show Max"}
+              {showMax ? "Hide Max" : "Show Max"}
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
                 Symbol
               </label>
               <Select
-        aria-labelledby="aria-label"
-        // ariaLiveMessages={{
-        //   onFocus
-        // }}
-        onChange={onchange}
-        inputId="aria-example-input"
-        name="aria-live-color"
-        onMenuOpen={onMenuOpen}
-        onMenuClose={onMenuClose}
-        options={stockAllData}
-        isClearable={stockData?false:true}
-        getOptionLabel={(option) => option.Name}
-      />
+                aria-labelledby="aria-label"
+                // ariaLiveMessages={{
+                //   onFocus
+                // }}
+                onChange={onchange}
+                inputId="aria-example-input"
+                name="aria-live-color"
+                onMenuOpen={onMenuOpen}
+                onMenuClose={onMenuClose}
+                options={stockAllData}
+                isClearable={stockData ? false : true}
+                getOptionLabel={(option) => option.Name}
+              />
               {/* <input
                 className="form--control"
                 type="email"
@@ -113,7 +122,11 @@ export default function Stocks() {
               <label className="form--label" htmlFor="email">
                 Action
               </label>
-              <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setAction(e.target.value)} >
+              <select
+                className="form--control"
+                disabled={stockData ? false : true}
+                onClick={(e) => setAction(e.target.value)}
+              >
                 <option>Buy</option>
                 <option>Sell</option>
                 {/* <option>Shorts</option>
@@ -128,12 +141,25 @@ export default function Stocks() {
                 className="form--control"
                 type="number"
                 value={quantity}
-                disabled={stockData?false:true}
-                onChange={(e)=>setQuantity(e.target.value)}
+                disabled={stockData ? false : true}
+                onChange={(e) => setQuantity(e.target.value)}
               />
-              {quantityError &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
-                <p style={{textAlign:'center',padding:'10px',color:'red'}}>{quantityError}</p>
-            </div>}
+              {quantityError && (
+                <div
+                  className=""
+                  style={{ border: "1px solid red", margin: "20px" }}
+                >
+                  <p
+                    style={{
+                      textAlign: "center",
+                      padding: "10px",
+                      color: "red",
+                    }}
+                  >
+                    {quantityError}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           {/*ShowMax Data Block*/}
@@ -160,7 +186,8 @@ export default function Stocks() {
                   </div>
                   <div className="titleRow">
                     <h3 className="font-30">
-                      {stockData?.Last}<sub>{stockData?.Currency}</sub>
+                      {stockData?.Last}
+                      <sub>{stockData?.Currency}</sub>
                       <span>
                         <sub>+3.70(+2.54%)</sub>
                       </span>
@@ -176,7 +203,7 @@ export default function Stocks() {
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {stockData?.EPS?.toFixed(3) ||0}
+                      {stockData?.EPS?.toFixed(3) || 0}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
@@ -188,7 +215,7 @@ export default function Stocks() {
                       <span className="font-12">Div Yield</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {stockData?.PE?.toFixed(3)||0}
+                      {stockData?.PE?.toFixed(3) || 0}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -210,15 +237,23 @@ export default function Stocks() {
                     <div className="volumeDataRight">
                       <div className="currentData">
                         <p className="font-16">52 Week High($)</p>
-                        <p className="font-14">{stockData?.High52Week?.toFixed(3)}</p>
+                        <p className="font-14">
+                          {stockData?.High52Week?.toFixed(3)}
+                        </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Bid/Ask price($)</p>
-                        <p className="font-14">{((stockData?.Bid||0)/(stockData?.Ask||1)).toFixed(3)}</p>
+                        <p className="font-14">
+                          {(
+                            (stockData?.Bid || 0) / (stockData?.Ask || 1)
+                          ).toFixed(3)}
+                        </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">52 Week Low($)</p>
-                        <p className="font-14">{stockData?.Low52Week?.toFixed(3)}</p>
+                        <p className="font-14">
+                          {stockData?.Low52Week?.toFixed(3)}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -237,53 +272,99 @@ export default function Stocks() {
               <label className="form--label" htmlFor="email">
                 Duration
               </label>
-              <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setDuration(e.target.value)}>
-                <option>Day only</option>
-                <option>Goods Until Canceled</option>
+              <select
+                className="form--control"
+                disabled={stockData ? false : true}
+                onClick={(e) => setDuration(e.target.value)}
+              >
+                <option>Day Only</option>
+                <option>Good Until Cancelled</option>
               </select>
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
                 Order Type
               </label>
-              <select className="form--control" disabled={stockData?false:true} onClick={(e)=>setOrderType(e.target.value)}>
+              <select
+                className="form--control"
+                disabled={stockData ? false : true}
+                onClick={(e) => setOrderType(e.target.value)}
+              >
                 <option>Market</option>
                 <option>Limit</option>
               </select>
             </div>
-            {orderType == 'Limit' &&
-            <div className="form--item">
-              <label className="form--label" htmlFor="email">
-                Price
-              </label>
-              <input
-                className="form--control"
-                type="number"
-                value={rate}
-                disabled={stockData?false:true}
-                onChange={(e)=>setRate(e.target.value)}
-                min={1}
-              />
-              {rateError &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
-                <p style={{textAlign:'center',padding:'10px',color:'red'}}>{rateError}</p>
-            </div>}
+            {orderType == "Limit" && (
+              <div className="form--item">
+                <label className="form--label" htmlFor="email">
+                  Price
+                </label>
+                <input
+                  className="form--control"
+                  type="number"
+                  value={rate}
+                  disabled={stockData ? false : true}
+                  onChange={(e) => setRate(e.target.value)}
+                  min={1}
+                />
+                {rateError && (
+                  <div
+                    className=""
+                    style={{ border: "1px solid red", margin: "20px" }}
+                  >
+                    <p
+                      style={{
+                        textAlign: "center",
+                        padding: "10px",
+                        color: "red",
+                      }}
+                    >
+                      {rateError}
+                    </p>
+                  </div>
+                )}
               </div>
-            }
+            )}
           </div>
           {/* <div className='dummy-block'>
                         <img src="/images/graph.png" alt="Graph Image" />
                     </div> */}
           <div className="btn--group form--actions">
-            <button type="reset" className="btn reset--btn" onClick={()=>{
-              setStockData();
-              setShowMax(false)
-              
-            }}>
+            <button
+              type="reset"
+              className="btn reset--btn"
+              onClick={() => {
+                setStockData();
+                setShowMax(false);
+              }}
+            >
               Clear
             </button>
             {/* <Link href="/dashboard/confirm-dialog-box"> */}
-             {stockData && <a className="btn form--submit"  style={{cursor:'pointer'}} onClick={()=>{setModelOpened(true);checkLimitPrice()}}>Preview Order</a>}
-              <PreviewModal modelOpened={modelOpened} setModelOpened={setModelOpened}  data={{...stockData,duration,quantity,action,orderType,rate}} />
+            {stockData && (
+              <a
+                className="btn form--submit"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setModelOpened(true);
+                  checkLimitPrice();
+                }}
+              >
+                Preview Order
+              </a>
+            )}
+            <PreviewModal
+              modelOpened={modelOpened}
+              setModelOpened={setModelOpened}
+              data={{
+                ...stockData,
+                duration,
+                quantity,
+                action,
+                orderType,
+                rate,
+              }}
+            />
             {/* </Link> */}
           </div>
         </form>

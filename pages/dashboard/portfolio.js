@@ -32,7 +32,7 @@ export default function Portfolio() {
 
     // get open order .................................. 
     orderService.getOpenOrder().then((res)=>{
-      setOpenOrder(res.openOrders.docs)
+      setOpenOrder(res.orders.docs)
      }).catch((err)=>{
        console.log(err)
      }

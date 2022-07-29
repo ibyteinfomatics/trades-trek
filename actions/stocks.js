@@ -1,6 +1,6 @@
 export const LOGIN_P_SET_LOGIN_SPINNER_STATUS =
-  'LOGIN_P_SET_LOGIN_SPINNER_STATUS';
-export const SET_STOCKS = 'SET_STOCKS';
+  "LOGIN_P_SET_LOGIN_SPINNER_STATUS";
+export const SET_STOCKS = "SET_STOCKS";
 
 export function setloginSpinner(flag) {
   return {

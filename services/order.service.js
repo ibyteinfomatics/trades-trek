@@ -4,6 +4,7 @@ import { fetchWrapper } from '../helpers';
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}`;
+
 const userSubject = new BehaviorSubject(
   process.browser && localStorage.getItem('token')
 );
@@ -17,8 +18,7 @@ function getOpenOrder() {
       .then((res) => {
         // console.log(res);
         // publish user to subscribers and store in local storage to stay logged in between page refreshes
-        if (res.success) {
-        }
+        
         return res;
       })
       .catch((error) => {
@@ -37,8 +37,43 @@ function getOpenOrder() {
       .then((res) => {
         // console.log(res);
         // publish user to subscribers and store in local storage to stay logged in between page refreshes
-        if (res.success) {
+       
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
         }
+        return error;
+      });
+  }
+
+  // get cancel Order .........................     
+  function getCancelOrder() {
+    return fetchWrapper
+      .get(`${baseUrl}/user/order/cancelOrders`)
+  
+      .then((res) => {
+        
+        
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+
+  // cancel order by id .........................    
+  function cancelOrder(id) {
+    return fetchWrapper
+      .patch(`${baseUrl}/user/order/cancelBuyOrder/${id}`)
+  
+      .then((res) => {
+        
+        
         return res;
       })
       .catch((error) => {
@@ -52,11 +87,14 @@ function getOpenOrder() {
 
 
 
+
 export const orderService ={
     user: userSubject.asObservable(),
     get userValue() {
       return userSubject.value;
     },
     getOpenOrder,
-    getHoldingOrder
+    getHoldingOrder,
+    getCancelOrder,
+    cancelOrder
   };
