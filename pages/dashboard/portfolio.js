@@ -102,13 +102,13 @@ export default function Portfolio() {
                 <TabPanel>
                   <div className="tab-data order-status">
                     <MarketOpenClose />
-                    {openOrder&& <TradeOrderTable columns={columns} rows={openOrder}/>}
+                    {openOrder&& <TradeOrderTable columns={columns} rows={openOrder} tableStatus='openOrder'/>}
                   </div>
                 </TabPanel>
                 <TabPanel>
                   <div className="tab-data order-status">
                   <MarketOpenClose />
-                    {holdingOrder&& <TradeOrderTable columns={columns} rows={holdingOrder}/>}
+                    {holdingOrder&& <TradeOrderTable columns={columns} rows={holdingOrder} tableStatus='holding'/>}
                   </div>
                 </TabPanel>
               </Tabs>

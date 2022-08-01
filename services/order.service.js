@@ -93,11 +93,24 @@ function showMax(rate,action,symbol){
   return fetchWrapper
   .post(`${baseUrl}/user/order/showMax`, {rate:rate,action:action,symbol:symbol})
   .then((res) => {
-    if (res.success) {
-      userSubject.next(res.token);
-      localStorage.setItem('token', res.token);
-    }
+   
     return res;
+  })
+  .catch(function (error) {
+    return error;
+  });
+}
+
+
+
+function StockDetail(symbol){
+  // console.log(data)
+  
+  return fetchWrapper
+  .post(`${baseUrl}/user/order/stockDetail`, {symbol:symbol})
+  .then((res) => {
+    
+    return res[0];
   })
   .catch(function (error) {
     return error;
@@ -115,5 +128,6 @@ export const orderService ={
     getHoldingOrder,
     getCancelOrder,
     cancelOrder,
-    showMax
+    showMax,
+    StockDetail
   };

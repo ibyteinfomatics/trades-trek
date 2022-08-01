@@ -6,6 +6,8 @@ import { stockService } from "../../services/stock.service";
 import { orderService } from "../../services/order.service";
 import Select, { AriaOnFocus } from "react-select";
 import PreviewModal from "../Modal/PreviewModal";
+import { useSelector,useDispatch } from "react-redux";
+import { setSelectedStock } from "../../actions/setStock";
 
 export default function Stocks() {
   const [showMax, setShowMax] = useState(false);
@@ -21,6 +23,14 @@ export default function Stocks() {
   const [rate, setRate] = useState(0);
   const [quantityError, setQuantityError] = useState(null);
   const [rateError, setRateError] = useState(null);
+  const dispatch = useDispatch();
+  let { selectedStock } = useSelector((state) => state.selectedStockReducer);
+  
+  useEffect(()=>{
+    setStockData(selectedStock)
+  },[selectedStock])
+  console.log(stockData)
+  
   // const onFocus = ({ focused, isDisabled }) => {
   //   setStockData(focused)
   //   const msg = `You are currently focused on option ${focused.Symbol}${
@@ -32,7 +42,8 @@ export default function Stocks() {
 
   // set selected stock
   const onchange = (selectedOptions) => {
-    setStockData(selectedOptions);
+    // setStockData(selectedOptions);
+    dispatch(setSelectedStock(selectedOptions))
     setShowMax(false);
     setQuantity(0)
   
