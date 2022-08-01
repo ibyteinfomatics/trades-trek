@@ -53,7 +53,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
             <td>{item.quantity}</td>
             <td>{item.rate}</td>
             <td>
-             {tableStatus!=='holding'? <button onClick={()=>{setModelOpened(true);setId(item._id)} }  type="button" className="btn-cancel border-purple">
+             {item.status===2?<div style={{color:'red',padding:'5px 10px',border:'1px solid red' ,textAlign:'center'}}>Failed</div>:<div>{tableStatus!=='holding'? <button onClick={()=>{setModelOpened(true);setId(item._id)} }  type="button" className="btn-cancel border-purple">
                 <svg
                   width="13"
                   height="14"
@@ -76,7 +76,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
                 
                - Sell
               </button>
-                </div>}
+                </div>}</div>}
              
             </td>
             {modelOpened &&<CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} id={Id}/>}
