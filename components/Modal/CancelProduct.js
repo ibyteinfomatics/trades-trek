@@ -2,13 +2,20 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {orderService} from '../../services/order.service'
+import { useDispatch } from "react-redux";
+import { setOpenStock } from "../../actions/openOrder";
 
 function CancelProduct({ modelOpened, setModelOpened,id }) {
 
   const router = useRouter();
   const theme = useMantineTheme();
+  const dispatch=useDispatch()
  const cancelOrder=(id)=>{
    orderService.cancelOrder(id).then((res)=>{
+    orderService.getOpenOrder().then((res)=>{
+      dispatch(setOpenStock(res.orders.docs))
+      
+    }).catch((err)=>console.log(err))
     
     // console.log(res)
     setModelOpened(false);

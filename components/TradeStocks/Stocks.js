@@ -24,7 +24,7 @@ export default function Stocks() {
   const [quantityError, setQuantityError] = useState(null);
   const [rateError, setRateError] = useState(null);
   const dispatch = useDispatch();
-  let { selectedStock } = useSelector((state) => state.selectedStockReducer);
+  let { selectedStock } = useSelector((state) => state.selectedStockWrapper);
   
   useEffect(()=>{
     setStockData(selectedStock)

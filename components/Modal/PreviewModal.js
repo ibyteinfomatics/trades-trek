@@ -4,6 +4,7 @@ import {stockService} from '../../services/stock.service';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../actions/users'
+import { setSelectedStock } from '../../actions/setStock';
 
 
 function PreviewModal({modelOpened,setModelOpened,data}) {
@@ -22,6 +23,7 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
               router.push({
                 pathname:"/dashboard/portfolio",
               })
+              dispatch(setSelectedStock(null))
             setModelOpened(false)
 
           } else if(res.success===false){

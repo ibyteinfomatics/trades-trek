@@ -1,12 +1,16 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { setHoldingStock } from "../../actions/holdingOrder";
+import { setOpenStock } from "../../actions/openOrder";
 import { orderService } from "../../services/order.service";
 import TradeOrderTable from "../Table/Table";
 export default function TradeOrderStatus() {
-  const [openOrder, setOpenOrder] = useState();
+  const [openOrders, setOpenOrders] = useState();
   const dispatch=useDispatch()
+  const {openOrder}=useSelector((state) => state.openOrderWrapper)
+  
+
   const [cancelOrder, setCancelOrder] = useState();
   const columns = [
     "ORDER DATE & TIME",
@@ -17,13 +21,16 @@ export default function TradeOrderStatus() {
     "ORDER PRICE",
     "ACTION",
   ];
+  useEffect(()=>{
+    setOpenOrders(openOrder)
+  },[openOrder])
   useEffect(() => {
     // get open order ..................................
     orderService
       .getOpenOrder()
       .then((res) => {
-        dispatch(setHoldingStock(res.orders.docs))
-        setOpenOrder(res.orders.docs);
+        dispatch(setOpenStock(res.orders.docs))
+        // setOpenOrder(res.orders.docs);
       })
       .catch((err) => {
         console.log(err);
