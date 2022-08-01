@@ -5,6 +5,8 @@ import CancelProduct from '../Modal/CancelProduct';
 
 export default function TradeOrderTable({columns,rows}) {
   const [modelOpened,setModelOpened]=useState(false)
+  const [Id,setId]=useState()
+  console.log(Id)
   
   return (
     <div className="trade-order-status">
@@ -32,7 +34,7 @@ export default function TradeOrderTable({columns,rows}) {
             <td>{item.quantity}</td>
             <td>{item.rate}</td>
             <td>
-             {item.status===0? <button onClick={()=>setModelOpened(true)} type="button" className="btn-cancel border-purple">
+             {item.status===0? <button onClick={()=>{setModelOpened(true);setId(item._id)} }  type="button" className="btn-cancel border-purple">
                 <svg
                   width="13"
                   height="14"
@@ -61,8 +63,9 @@ export default function TradeOrderTable({columns,rows}) {
                 </svg>
                 Sell
               </button>}
-              {modelOpened &&<CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} key={item._id} id={item._id}/>}
+             
             </td>
+            {modelOpened &&<CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} id={Id}/>}
           </tr>
           })}
         </table>
