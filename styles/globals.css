@@ -926,6 +926,10 @@ td.sector--gain {
 .grid--3{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.flexBox.endBlock {
+  @apply justify-end;
 }
 .react-tabs ul .react-tabs__tab--selected{
   border-bottom: 0.179rem solid #8000FF;
@@ -1448,6 +1452,12 @@ td.sector--gain {
 .pt-20{
   padding-top: 1.25rem;
 }
+.pt-32{
+  @apply pt-8;
+}
+.connectionBlock .btn--right .borderBtnPurple a {
+  @apply w-full;
+}
 .performance .table-purple-heading{
   background: #E6CCFF;
 }
@@ -1506,8 +1516,12 @@ td.sector--gain {
   @apply flex justify-evenly items-center py-1 px-2 cursor-pointer;
 }
 .flexBox{
-  @apply flex items-center;
+  @apply flex items-center gap-8;
 }
+.py-16{
+  @apply py-4;
+}
+
 .table-view {
   overflow-x: auto;
 }
@@ -1610,14 +1624,62 @@ td.sector--gain {
   padding: 1.5rem 1rem;
   min-width: 16.7rem;
 }
+.userList.flexBox {
+  @apply justify-between;
+}
+.competation-page .learning-research .summeryData table tr {
+  @apply p-0;
+}
+.competation-page .myConn .p-32 {
+  @apply p-8;
+}
+.competation-page .card--wrapper ul li {
+  @apply px-4 mx-2;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.179rem solid transparent;
+}
+.competation-page .learning-research table tr th {
+  padding: 1rem 1.75rem;
+}
+.summeryData .col-40 {
+  padding-left: 2.35rem;
+}
+.summeryData .col-40 .form--item {
+  margin-top: 1.25rem;
+}
+.competation-page .learning-research .summeryData table tr td .btn--group{
+  @apply pr-0;
+}
+
+.competation-page .learning-research .summeryData table tr td {
+}
+.competation-page .learning-research table tr td {
+  padding: 1rem 1.25rem;
+}
+.myConn p {
+  font-size: 1rem;
+  @apply font-normal text-gray;
+}
+.competation-page .card--wrapper ul li.react-tabs__tab--selected{
+  border-bottom: 0.179rem solid #8000FF;
+}
+.competation-page .learning-research table tr td:last-child{
+  @apply text-center;
+}
+.border-bottom {
+  border-bottom: 0.0625rem solid #8000ff;
+}
 .mr-12{
   margin-right: 0.75rem;
 }
 .competation-rules.flexBox {
   @apply justify-between;
 }
-.myConn .grid--2 {
-  border-bottom: 1px solid #ddd;
+.myConn .connectionBlock {
+  border-bottom: 0.0625rem solid #ddd;
+}
+.pb-32{
+  @apply pb-8;
 }
 .btn--right .borderBtnPurple a {
   min-width: 21.5rem;
@@ -1666,7 +1728,229 @@ td.sector--gain {
   overflow-x: auto;
 }
 /* Css 24 July End */
+.switch_box{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	max-width: 200px;
+	min-width: 200px;
+	height: 200px;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
 
+/* Switch 1 Specific Styles Start */
+
+input[type="checkbox"].switch_1{
+	font-size: 30px;
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+	width: 1em;
+	height: 0.5em;
+	background: #DFDFDF;
+	border-radius: 3em;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+  }
+.form--item.toggle {
+  @apply flex justify-between;
+}
+input[type="checkbox"].switch_1:after{
+  background: #8000FF;
+}
+input[type="checkbox"].switch_1:checked{
+  background: #E6CCFF;
+}
+.competation-page .react-tabs ul {
+  background: #fff;
+  border-top-left-radius: 0.438rem;
+  border-top-right-radius: 0.438rem;
+}
+.gap--4{
+  @apply gap-4;
+}
+.connectionBlock .btn--right .borderBtnPurple {
+  min-width: 21.5rem;
+}
+.innerTable {
+  @apply mt-4;
+}
+.summeyTable {
+  @apply bg-white;
+}
+.innerBlock .myConn p{
+  @apply text-black;
+}
+.competation-page .tab-content-gap .summeryData{
+  background: #fff;
+  border-bottom-left-radius: 0.438rem;
+  border-bottom-right-radius: 0.438rem;
+  padding-top: 0.12rem;
+}
+.joinCompetation thead.no-bg tr th {
+  @apply bg-transparent;
+  white-space: nowrap;
+}
+.competation-page .tab-content-gap .myConn{
+  background: #fff;
+  border-bottom-left-radius: 0.438rem;
+  border-bottom-right-radius: 0.438rem;
+}
+  input[type="checkbox"].switch_1:after{
+	position: absolute;
+	content: "";
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 50%;
+  background: #AFAFAF;
+	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	-webkit-transform: scale(.7);
+	transform: scale(.7);
+	left: 0;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+  }
+  
+  input[type="checkbox"].switch_1:checked:after{
+	left: calc(100% - 0.5em);
+  background: #8000FF;
+  }
+
+.competation-confirm-popup .btn--group.form--actions {
+  @apply p-0 gap-0;
+}
+.font--semi--bold{
+  @apply font-semi-bold;
+}
+.popupBottom .title{
+  @apply font--semi--bold;
+  font-size: 1rem;
+}
+.popupHeader {
+  @apply flex items-center justify-between;
+  padding: 1.563rem 1.563rem 0 1.563rem;
+}
+.p-32{
+  @apply p-8;
+}
+.grid__2 {
+  grid-template-columns: repeat(2, 1fr);
+  @apply grid items-center gap-12;
+}
+.createCompeation{
+  @apply pb-6;
+}
+.createCompeation .grid__2 {
+  @apply items-start;
+}
+.createCompeation .form--item label{
+  position: inherit;
+}
+.createCompeation .form--item label {
+  opacity: 1;
+  font-size: 1rem;
+  @apply font-normal text-black;
+}
+.createCompeation .form--item input::placeholder{
+  color: var(--textColorLight-3);
+}
+.form--item.error-msg {
+  @apply relative;
+}
+.form--label.withIcon {
+  @apply flex items-center;
+}
+.px-32{
+  @apply px-8;
+}
+.form--label.withIcon svg {
+  @apply ml-4;
+}
+.trendingBlock {
+  border-bottom: 0.0625rem solid #ddd;
+  @apply pt-8;
+}
+.site--form .trendingBlock:nth-child(3){
+  border: none;
+}
+.form--item.error-msg input::placeholder {
+  color: #F45531;
+}
+.form--item.error-msg p {
+  color: #F45531;
+  margin-top: 0.625rem;
+}
+.site--form .trendingBlock:first-child {
+  padding-top: 1.25rem;
+}
+.createCompeation .form--control{
+  @apply mt-3;
+}
+.createCompeation .form--actions{
+  @apply px-8;
+  max-width: 32rem;
+}
+.mb-16{
+  @apply mb-4;
+}
+.mt-16{
+  @apply mt-4;
+}
+.popupTop .rowBlock {
+  margin-bottom: 0.875rem;
+}
+.textTitle{
+  @apply font--normal;
+  font-size: 1rem;
+}
+.rowBlock {
+  margin-bottom: 2.125rem;
+}
+.textTitle.bold{
+  @apply font--semi--bold;
+  font-size: 1rem;
+}
+.textBlock{
+  @apply flex items-center justify-between;
+  margin: 0.563rem 0;
+}
+.popupBottom{
+  padding: 1.563rem;
+}
+.borderBlock{
+  border-bottom: 0.0625rem solid #ddd;
+  @apply pt-6;
+}
+.popupTop {
+  padding: 0 1.563rem;
+}
+.competation-confirm-popup {
+  max-width: 34.688rem;
+  border-radius: 0.438rem;
+  @apply bg-white my-20 mx-auto w-full;
+}
+.competation-confirm-popup .grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.competation-confirm-popup .grid--2 {
+  @apply mt-4;
+}
+/* .popupBottom .rowBlock:first-child {
+  border-top: 0.0625rem solid #ddd;
+  padding-top: 1rem;
+} */
 .block--wrapper.card--grid--4 {
   display: grid;
   gap: 1.5rem;
@@ -1774,7 +2058,7 @@ td.sector--gain {
   border-radius: 50%;
   top: -0.5rem;
   right: -0.75rem;
-  border: 1px solid #fff;
+  border: 0.0625rem solid #fff;
   @apply absolute w-6 h-6 flex items-center justify-center;
 }
 .learning-research .btn--group.form--actions .btn {
@@ -1908,7 +2192,7 @@ html{
   @apply border-0;
 }
 .inputGroup {
-  border-bottom: 1px solid #999999;
+  border-bottom: 0.0625rem solid #999999;
   @apply flex items-center w-full;
 }
 .grid--2 {
