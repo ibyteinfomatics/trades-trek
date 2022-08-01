@@ -1,0 +1,213 @@
+import React from 'react'
+import Link from 'next/link';
+
+export default function JoinCompetation() {
+    return (
+        <>
+            <div className="col-40">
+                <div className="form--item">
+                    <label>Competition Lookup</label>
+                    <input className="form--control" type="text" placeholder="Look up competition name or creator" />
+                    <span className="search">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" >
+                            <path d="M7.12927 0.0878906C10.8191 0.0878906 13.8233 3.09206 13.8233 6.7819C13.8233 8.35662 13.2538 9.79189 12.3357 10.9366L19.7386 18.3395L18.6927 19.3971L11.284 11.9884C10.1392 12.9065 8.70399 13.4759 7.12927 13.4759C3.43942 13.4759 0.435253 10.4717 0.435253 6.7819C0.435253 3.09206 3.43942 0.0878906 7.12927 0.0878906ZM7.12927 1.57545C4.24712 1.57545 1.92281 3.89976 1.92281 6.7819C1.92281 9.66405 4.24712 11.9884 7.12927 11.9884C10.0114 11.9884 12.3357 9.66405 12.3357 6.7819C12.3357 3.89976 10.0114 1.57545 7.12927 1.57545Z" fill="#AFAFAF"></path></svg>
+                    </span>
+                </div>
+            </div>
+            <div className="status-summary noRadius font-18 summery-table joinCompetation table-view">
+                <table>
+                    <thead className='no-bg'>
+                        <tr>
+                            <th>Game Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>No of Players</th>
+                            <th>Starting Cash</th>
+                            <th>Actions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>Competition Name<span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>
+                                    <div className='flexBox'>Competition Name  &nbsp;
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                            <path d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z" fill="#8000FF" />
+                                        </svg>
+                                    </div>
+                                    <span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>Competition Name<span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>
+                                    <div className='flexBox'>Competition Name  &nbsp;
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                            <path d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z" fill="#8000FF" />
+                                        </svg>
+                                    </div>
+                                    <span className='flexBox font--bold font-14'>by TradesTrek</span>
+                                </div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>Competition Name<span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>
+                                    <div className='flexBox'>Competition Name  &nbsp;
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                            <path d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z" fill="#8000FF" />
+                                        </svg>
+                                    </div>
+                                    <span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>Competition Name<span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className='font--normal font-16'>
+                                    <div className='flexBox'>Competition Name  &nbsp;
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                            <path d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z" fill="#8000FF" />
+                                        </svg>
+                                    </div>
+                                    <span className='flexBox font--bold font-14'>by TradesTrek</span></div>
+                            </td>
+                            <td>May 21, 2022</td>
+                            <td>June 21, 2022</td>
+                            <td>991,266</td>
+                            <td>$10,000.00</td>
+                            <td>
+                                <Link href="#"><a className='border-bottom text--purple'>View Details</a></Link>
+                            </td>
+                            <td>
+                                <div className='btn--group form--actions'>
+                                    <Link href="#">
+                                        <a className='btn form--submit'>JOIN COMPETITION</a>
+                                    </Link>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </>
+    )
+}
