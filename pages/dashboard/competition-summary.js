@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Link from 'next/link';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import CompetationSummeryView from '../../components/Competation/CompetationSummeryView';
-import MyCompetationView from '../../components/Competation/MyCompetationView';
-import JoinCompetation from '../../components/Competation/JoinCompetation';
-import CreateCompetation from '../../components/Competation/CreateCompetation';
+import CompetationSummeryView from '../../components/Competition/CompetitionSummaryView';
+import MyCompetationView from '../../components/Competition/MyCompetitionView';
+import JoinCompetation from '../../components/Competition/JoinCompetition';
+import CreateCompetation from '../../components/Competition/CreateCompetition';
 
 export default function CompetationSummery() {
     const [beginnerOption, setBeginnerOption] = useState(false);

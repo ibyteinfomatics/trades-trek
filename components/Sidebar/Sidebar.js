@@ -183,8 +183,14 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
-            <li className="menu__list--item">
-              <Link href="javascript:void(0)">
+            <li 
+              className={
+                router.pathname == '/dashboard/competition-summary'
+                  ? 'menu__list--item active--menu'
+                  : 'menu__list--item'
+              }
+            >
+              <Link href="/dashboard/competition-summary">
                 <a>
                   <span className="menu--icons">
                     <Image
