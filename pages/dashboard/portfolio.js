@@ -8,16 +8,24 @@ import TradeOrderStatus from '../../components/TradeStocks/TradeOrderStatus';
 import {orderService} from '../../services/order.service';
 import { useDispatch, useSelector } from 'react-redux';
 import MarketOpenClose from '../../components/MarketOpenClose/MarketOpenClose';
+import { setOpenStock } from '../../actions/openOrder';
 
 
 export default function Portfolio() {
 
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [holdingOrder,setHoldingOrder]=useState();
-  const [openOrder,setOpenOrder]=useState()
+  const [openOrders,setOpenOrders]=useState([])
   let { user } = useSelector((state) => state.userWrapper);
+  let {openOrder}=useSelector((state)=>state.openOrderWrapper)
+  const dispatch=useDispatch()
 
   const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","ACTION"]
+  useEffect(()=>{
+    console.log(openOrder)
+    setOpenOrders(openOrder)
+  },[openOrder])
+  
   useEffect(()=>{
 
     
@@ -33,7 +41,8 @@ export default function Portfolio() {
 
     // get open order .................................. 
     orderService.getOpenOrder().then((res)=>{
-      setOpenOrder(res.orders.docs)
+      setOpenOrders(res.orders.docs)
+      dispatch(setOpenStock(res.orders.docs))
      }).catch((err)=>{
        console.log(err)
      }
@@ -102,7 +111,7 @@ export default function Portfolio() {
                 <TabPanel>
                   <div className="tab-data order-status">
                     <MarketOpenClose />
-                    {openOrder&& <TradeOrderTable columns={columns} rows={openOrder} tableStatus='openOrder'/>}
+                    {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>}
                   </div>
                 </TabPanel>
                 <TabPanel>

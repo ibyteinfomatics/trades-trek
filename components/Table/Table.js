@@ -79,7 +79,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
                 </svg>
                 Cancel
               </button>: <div>
-              <button type="button" className="btn-cancel border-purple" onClick={()=>handledMoreBuy(item)}>
+              <button type="button" className="btn-cancel border-purple"  onClick={()=>handledMoreBuy(item)}>
                 
                 + Buy More
               </button>

@@ -23,7 +23,13 @@ export default function TradeOrderStatus() {
   ];
   useEffect(()=>{
     setOpenOrders(openOrder)
+    orderService.getCancelOrder().then((res)=>{
+      setCancelOrder(res.canceledOrders.docs)
+  }).catch((err)=>{
+    console.log(err)
+  })
   },[openOrder])
+
   useEffect(() => {
     // get open order ..................................
     orderService
@@ -48,7 +54,14 @@ export default function TradeOrderStatus() {
   }, []);
   return (
     <div className="trade-order-status">
-      {openOrder && <TradeOrderTable columns={columns} rows={openOrder} />}
+      <div className="table-row-gap">
+        <h4 className="font-18 font-bold">Open Trades</h4>
+        <p className="font-16 font-gray">
+          Note: &lsquo;Volume At Open&lsquo; is the volume recorded at the time
+          the trade is executed.
+        </p>
+      </div>
+      {openOrder.length>0&& <TradeOrderTable columns={columns} rows={openOrder} />}
 
       <div className="bg-purple-block mt-31 mb-31">
         <ul>

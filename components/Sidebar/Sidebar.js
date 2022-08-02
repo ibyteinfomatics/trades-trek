@@ -19,6 +19,7 @@ export default function Sidebar() {
   const [menuCollapse, setMenuCollapse] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
   const [modelOpened, setModelOpened] = useState(false);
+  const {openOrder}=useSelector((state)=>state.openOrderWrapper)
 
   useEffect(() => {
     userService
@@ -29,7 +30,7 @@ export default function Sidebar() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [openOrder]);
 
   // const Login = async () => {};
 

@@ -13,7 +13,13 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
  const cancelOrder=(id)=>{
    orderService.cancelOrder(id).then((res)=>{
     orderService.getOpenOrder().then((res)=>{
-      dispatch(setOpenStock(res.orders.docs))
+      if(res.success){
+        dispatch(setOpenStock(res.orders.docs))
+        
+
+      }else{
+        dispatch(setOpenStock([]))
+      }
       
     }).catch((err)=>console.log(err))
     
