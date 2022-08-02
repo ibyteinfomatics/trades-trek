@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Link from 'next/link';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import JoinCompetation from '../../components/Competation/JoinCompetation';
-import MyCompetationView from '../../components/Competation/MyCompetationView';
-import CreateCompetation from '../../components/Competation/CreateCompetation';
+import JoinCompetation from '../../components/Competition/JoinCompetition';
+import MyCompetationView from '../../components/Competition/MyCompetitionView';
+import CreateCompetation from '../../components/Competition/CreateCompetition';
 
 export default function CompetationSummeryUserList() {
     const [beginnerOption, setBeginnerOption] = useState(false);
