@@ -15,7 +15,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
   const dispatch=useDispatch()
   const handledMoreBuy=(stock)=>{
     orderService.StockDetail(stock.symbol).then((res)=>{
-       dispatch(setSelectedStock(res))
+       dispatch(setSelectedStock({...res,action:'Buy'}))
 
     router.push('/dashboard/trade-stocks/')
       // console.log(res)
@@ -24,6 +24,17 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
     })
    
  
+  }
+
+  const handleSell=(stock)=>{
+    orderService.StockDetail(stock.symbol).then((res)=>{
+      dispatch(setSelectedStock({...res,action:'Sell'}))
+
+   router.push('/dashboard/trade-stocks/')
+     // console.log(res)
+   }).catch((err)=>{
+     console.log(err)
+   })
   }
   // console.log(Id)
   
@@ -72,7 +83,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
                 
                 + Buy More
               </button>
-              <button disabled type="button" className="btn-cancel border-purple">
+              <button  type="button" className="btn-cancel border-purple" onClick={()=>handleSell(item)}>
                 
                - Sell
               </button>

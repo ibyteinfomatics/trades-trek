@@ -28,8 +28,13 @@ export default function Stocks() {
   
   useEffect(()=>{
     setStockData(selectedStock)
+    if(selectedStock){
+      setAction(selectedStock.action)
+
+    }
   },[selectedStock])
-  console.log(stockData)
+  console.log(action)
+  // console.log(stockData)
   
   // const onFocus = ({ focused, isDisabled }) => {
   //   setStockData(focused)
@@ -43,7 +48,7 @@ export default function Stocks() {
   // set selected stock
   const onchange = (selectedOptions) => {
     // setStockData(selectedOptions);
-    dispatch(setSelectedStock(selectedOptions))
+    dispatch(setSelectedStock({...selectedOptions,action:action}))
     setShowMax(false);
     setQuantity(0)
   
@@ -165,8 +170,8 @@ export default function Stocks() {
                 disabled={stockData ? false : true}
                 onClick={(e) => {setAction(e.target.value);setShowMax(false);setQuantity(0)}}
               >
-                <option>Buy</option>
-                <option>Sell</option>
+                <option selected={action=='Buy'?true:false}>Buy</option>
+                <option selected={action=='Sell'?true:false}>Sell</option>
                 {/* <option>Shorts</option>
                 <option>Buy to Cover</option> */}
               </select>

@@ -79,11 +79,11 @@ export default function TradeOrderStatus() {
         <p className="font-16">
           Showing the most recent failed trades from the last 30 days
         </p>
-        <div className="btn--group form--actions">
+        {/* <div className="btn--group form--actions">
           <Link href="/dashboard/confirm-dialog-box">
             <a className="btn form--submit">Preview Order</a>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
