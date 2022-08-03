@@ -17,7 +17,7 @@ export default function Stocks() {
   const [stockData, setStockData] = useState();
   const [modelOpened, setModelOpened] = useState(false);
   const [action, setAction] = useState("Buy");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [duration, setDuration] = useState("Day Only");
   const [orderType, setOrderType] = useState("Market");
   const [rate, setRate] = useState(0);
@@ -50,7 +50,7 @@ export default function Stocks() {
     // setStockData(selectedOptions);
     dispatch(setSelectedStock({...selectedOptions,action:action}))
     setShowMax(false);
-    setQuantity(0)
+    setQuantity(1)
   
   };
   // console.log(stockData);
