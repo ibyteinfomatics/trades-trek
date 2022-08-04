@@ -117,6 +117,18 @@ function StockDetail(symbol){
   });
 }
 
+function profitOrLoss(){
+  return fetchWrapper
+  .post(`${baseUrl}/user/order/profitOrLoss`)
+  .then((res) => {
+ 
+    
+    return res.data;
+  })
+  .catch(function (error) {
+    return error;
+  });
+}
 
 
 export const orderService ={
@@ -129,5 +141,6 @@ export const orderService ={
     getCancelOrder,
     cancelOrder,
     showMax,
-    StockDetail
+    StockDetail,
+    profitOrLoss
   };

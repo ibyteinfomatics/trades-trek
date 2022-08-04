@@ -9,6 +9,9 @@ import {orderService} from '../../services/order.service';
 import { useDispatch, useSelector } from 'react-redux';
 import MarketOpenClose from '../../components/MarketOpenClose/MarketOpenClose';
 import { setOpenStock } from '../../actions/openOrder';
+import HoldingTable from '../../components/Table/HoldingTable';
+import HoldingInfo from '../../components/Table/HoldingInfo';
+import { AccountValue } from '../../helpers/UserAccount';
 
 
 export default function Portfolio() {
@@ -31,9 +34,10 @@ export default function Portfolio() {
     
     
 
-    // get holding order .....................  
-    orderService.getHoldingOrder().then((res)=>{
-      setHoldingOrder(res.userHoldings.docs)
+    // get holding order with profit or loss .....................  
+    orderService.profitOrLoss().then((res)=>{
+      setHoldingOrder(res)
+      console.log(res)
      }).catch((err)=>{
        console.log(err)
      }
@@ -84,7 +88,7 @@ export default function Portfolio() {
             <div className="col-block">
               <p className="data-title">
                 Account Value{" "}
-                <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
+                <span className="font-20 font-bold">₦{user && AccountValue(user.currentAmount,user.investedAmount,user.profitOrLassTotal)}</span>
               </p>
             </div>
             <div className="col-block">
@@ -117,7 +121,9 @@ export default function Portfolio() {
                 <TabPanel>
                   <div className="tab-data order-status">
                   <MarketOpenClose />
-                    {holdingOrder&& <TradeOrderTable columns={columns} rows={holdingOrder} tableStatus='holding'/>}
+                  <HoldingInfo />
+
+                    {holdingOrder&& <HoldingTable  rows={holdingOrder} tableStatus='holding'/>}
                   </div>
                 </TabPanel>
               </Tabs>

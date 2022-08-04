@@ -8,6 +8,7 @@ import Select, { AriaOnFocus } from "react-select";
 import PreviewModal from "../Modal/PreviewModal";
 import { useSelector,useDispatch } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
+import { StockChangePercent } from "../../helpers/StockChangePercent";
 
 export default function Stocks() {
   const [showMax, setShowMax] = useState(false);
@@ -232,7 +233,7 @@ export default function Stocks() {
                       {stockData?.Last}
                       <sub>{stockData?.Currency}</sub>
                       <span>
-                        <sub>+3.70(+2.54%)</sub>
+                        <sub>{stockData?.Change>=0?`+ ${stockData?.Change}`:`- ${stockData?.Change}`}({StockChangePercent(stockData?.Change,stockData?.Last,stockData?.Open)+'%'}) </sub>
                       </span>
                       <span className="font-12">
                         At Close(As of may 17, 19:59 EDT)
