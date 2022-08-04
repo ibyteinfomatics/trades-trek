@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IncreaseDecrease from "./IncreaseDecrease";
 
-const HoldingInfo = () => {
+const HoldingInfo = ({totalValue,totalChange,setRefresh,refresh}) => {
+  const [totalChanges,setTotalChange]=useState(0)
+  useEffect(()=>{
+  
+   let temp=(totalChange*100)/(totalValue-totalChange)
+    setTotalChange(temp)
+
+  },[totalValue,totalChange])
   return (
     <div style={{ marginBottom: "20px" }}>
+
+      <button style={{marginLeft:'90%',padding:'5px 10px',border:'1px solid black',marginTop:'20px'}} onClick={()=>setRefresh(!refresh)}>Refresh</button>
       <table  >
         <tr>
           <td>TOTAL VALUE</td>
@@ -12,10 +21,10 @@ const HoldingInfo = () => {
         </tr>
         <tr>
           <td>
-            <h1>$2,3333</h1>
+            <h1>${totalValue}</h1>
           </td>
-          {IncreaseDecrease(-2,2)}
-          {IncreaseDecrease(0,2)}
+          {IncreaseDecrease(0,0)}
+          {IncreaseDecrease(totalChange,totalChanges)}
         </tr>
       </table>
     </div>

@@ -19,15 +19,29 @@ export default function Portfolio() {
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [holdingOrder,setHoldingOrder]=useState();
   const [openOrders,setOpenOrders]=useState([])
+  const [refreshHolding,setRefreshHolding]=useState(false)
   let { user } = useSelector((state) => state.userWrapper);
   let {openOrder}=useSelector((state)=>state.openOrderWrapper)
+
   const dispatch=useDispatch()
 
   const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","ACTION"]
   useEffect(()=>{
-    console.log(openOrder)
+    // console.log(openOrder)
     setOpenOrders(openOrder)
   },[openOrder])
+
+
+  // holding order .........................
+  useEffect(()=>{
+    orderService.profitOrLoss().then((res)=>{
+      setHoldingOrder(res)
+      console.log(res)
+     }).catch((err)=>{
+       console.log(err)
+     }
+     )
+  },[refreshHolding])
   
   useEffect(()=>{
 
@@ -99,7 +113,7 @@ export default function Portfolio() {
             </div>
             <div className="col-block">
               <p className="data-title">
-                Cash <span className="font-20 font-bold">₦{user && user.investedAmount?.toFixed(3)}</span>
+                Cash <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
               </p>
             </div>
           </div>
@@ -121,9 +135,8 @@ export default function Portfolio() {
                 <TabPanel>
                   <div className="tab-data order-status">
                   <MarketOpenClose />
-                  <HoldingInfo />
 
-                    {holdingOrder&& <HoldingTable  rows={holdingOrder} tableStatus='holding'/>}
+                    {holdingOrder&& <HoldingTable setRefresh={setRefreshHolding} refresh={refreshHolding} rows={holdingOrder} tableStatus='holding'/>}
                   </div>
                 </TabPanel>
               </Tabs>
