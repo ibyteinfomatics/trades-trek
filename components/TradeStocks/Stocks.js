@@ -34,8 +34,6 @@ export default function Stocks() {
 
     }
   },[selectedStock])
-  console.log(action)
-  // console.log(stockData)
   
   // const onFocus = ({ focused, isDisabled }) => {
   //   setStockData(focused)

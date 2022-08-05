@@ -10,7 +10,6 @@ import HoldingInfo from "./HoldingInfo";
 import IncreaseDecrease from "./IncreaseDecrease";
 
 export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
-  console.log(rows);
   const [modelOpened, setModelOpened] = useState(false);
   const [Id, setId] = useState();
   const router = useRouter();
@@ -35,7 +34,6 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
         dispatch(setSelectedStock({ ...res, action: "Buy" }));
 
         router.push("/dashboard/trade-stocks/");
-        // console.log(res)
       })
       .catch((err) => {
         console.log(err);
@@ -63,13 +61,11 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
         dispatch(setSelectedStock({ ...res, action: "Sell" }));
 
         router.push("/dashboard/trade-stocks/");
-        // console.log(res)
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  // console.log(Id)
 
   return (
     <>

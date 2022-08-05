@@ -26,7 +26,7 @@ const HoldingInfo = ({totalValue,totalChange,setRefresh,refresh,todayChange}) =>
         </tr>
         <tr>
           <td>
-            <h1>${totalValue}</h1>
+            <h1>${totalValue.toFixed(3)}</h1>
           </td>
           {IncreaseDecrease(todayChange,todayPer)}
           {IncreaseDecrease(totalChange,totalChanges)}

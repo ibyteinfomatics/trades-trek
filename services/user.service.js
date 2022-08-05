@@ -35,8 +35,6 @@ function signup(data) {
     .post(`${baseUrl}/user/signup`, data)
 
     .then((res) => {
-      // console.log(res);
-      // publish user to subscribers and store in local storage to stay logged in between page refreshes
       if (res.success) {
       }
       return res;
@@ -152,7 +150,6 @@ function resendOtp(email, otp) {
 // Change password .........................  
 
 function changePassword(data){
-  // console.log(data)
   return fetchWrapper
   .patch(`${baseUrl}/user/changePassword`, data)
   .then((res) => {

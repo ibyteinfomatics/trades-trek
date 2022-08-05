@@ -12,13 +12,11 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
   const [error,setError]=useState('something went wrong');
   const [errorStatus,setErrorStatus]=useState(false)
   const dispatch = useDispatch();
-// console.log(data)
 
   const theme = useMantineTheme();
     const submitOrder=()=>{
         stockService.orderStock(data).then((res)=>{
           if(res.success){
-            // console.log(res)
             dispatch(setUser(res.user));
               router.push({
                 pathname:"/dashboard/portfolio",

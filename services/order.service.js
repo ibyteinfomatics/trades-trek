@@ -16,8 +16,6 @@ function getOpenOrder() {
       .get(`${baseUrl}/user/order/orders`)
   
       .then((res) => {
-        // console.log(res);
-        // publish user to subscribers and store in local storage to stay logged in between page refreshes
         
         return res;
       })
@@ -35,8 +33,6 @@ function getOpenOrder() {
       .get(`${baseUrl}/user/order/holdings`)
   
       .then((res) => {
-        // console.log(res);
-        // publish user to subscribers and store in local storage to stay logged in between page refreshes
        
         return res;
       })
@@ -88,7 +84,6 @@ function getOpenOrder() {
 // show max ..................................................   
 
 function showMax(rate,action,symbol){
-  // console.log(data)
   
   return fetchWrapper
   .post(`${baseUrl}/user/order/showMax`, {rate:rate,action:action,symbol:symbol})
@@ -104,7 +99,6 @@ function showMax(rate,action,symbol){
 
 
 function StockDetail(symbol){
-  // console.log(data)
   
   return fetchWrapper
   .post(`${baseUrl}/user/order/stockDetail`, {symbol:symbol})

@@ -27,7 +27,6 @@ export default function Portfolio() {
 
   const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","ACTION"]
   useEffect(()=>{
-    // console.log(openOrder)
     setOpenOrders(openOrder)
   },[openOrder])
 
@@ -36,7 +35,6 @@ export default function Portfolio() {
   useEffect(()=>{
     orderService.profitOrLoss().then((res)=>{
       setHoldingOrder(res)
-      console.log(res)
      }).catch((err)=>{
        console.log(err)
      }
@@ -51,7 +49,6 @@ export default function Portfolio() {
     // get holding order with profit or loss .....................  
     orderService.profitOrLoss().then((res)=>{
       setHoldingOrder(res)
-      console.log(res)
      }).catch((err)=>{
        console.log(err)
      }

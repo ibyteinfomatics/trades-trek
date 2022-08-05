@@ -257,7 +257,6 @@ export default function Signup() {
                   Confirm Password
                 </label>
                 <div className="invalid-feedback">
-                  {/* {console.log(errors)} */}
                   {errors.confirmPassword?.type === 'required' &&
                     'Confirm password is required'}
                   {errors.confirmPassword?.type === 'validate' &&

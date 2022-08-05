@@ -97,7 +97,6 @@ function authHeader(url) {
   const isLoggedIn = token;
   const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
   if (isLoggedIn && isApiUrl) {
-    //console.log(token,"token");
     return { Authorization: `Bearer ${token}` };
   } else {
     return {};
@@ -108,7 +107,6 @@ function handleResponse(response) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
-      //console.log(response,"token auth");
       if ([401, 403].includes(response.status) && userService.userValue) {
         // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
         userService.logout();

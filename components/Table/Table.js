@@ -18,7 +18,6 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
        dispatch(setSelectedStock({...res,action:'Buy'}))
 
     router.push('/dashboard/trade-stocks/')
-      // console.log(res)
     }).catch((err)=>{
       console.log(err)
     })
@@ -31,12 +30,10 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
       dispatch(setSelectedStock({...res,action:'Sell'}))
 
    router.push('/dashboard/trade-stocks/')
-     // console.log(res)
    }).catch((err)=>{
      console.log(err)
    })
   }
-  // console.log(Id)
   
   return (
     <div className="trade-order-status">

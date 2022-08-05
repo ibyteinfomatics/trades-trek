@@ -23,7 +23,6 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
       
     }).catch((err)=>console.log(err))
     
-    // console.log(res)
     setModelOpened(false);
    }).catch((err)=>{
     console.log(err)
