@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IncreaseDecrease from "./IncreaseDecrease";
 
-const HoldingInfo = ({totalValue,totalChange,setRefresh,refresh,todayChange}) => {
+const HoldingInfo = ({totalValue,totalChange,setRefresh,refresh,todayChange,effect,setEffect}) => {
   const [totalChanges,setTotalChange]=useState(0);
   const [todayPer,setTodayPer]=useState(0)
   useEffect(()=>{
@@ -12,12 +12,21 @@ const HoldingInfo = ({totalValue,totalChange,setRefresh,refresh,todayChange}) =>
     setTodayPer(temp1)
 
   },[totalValue,totalChange,todayChange])
+  const refress=()=>{
+    setEffect(true);
+    setTimeout(() => {
+      setEffect(false)
+      
+    }, 2000);
+
+  }
   return (
     <div style={{    
       marginBottom: '73px',
       padding: '53px',boxShadow: '5px 5px 5px 5px #f7f7f7' }}>
 
-      <button style={{marginLeft:'90%',padding:'5px 10px',border:'1px solid black',marginTop:'20px'}} onClick={()=>setRefresh(!refresh)}>Refresh</button>
+      <button disabled={effect} style={{marginLeft:'90%',padding:'5px 10px',border:'1px solid black',marginTop:'20px'}} onClick={()=>{setRefresh(!refresh),refress()}}>Refresh</button>
+      
       <table  >
         <tr>
           <td>TOTAL VALUE</td>

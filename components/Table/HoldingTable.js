@@ -17,6 +17,8 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
   const [totalValue, setTotalValue] = useState(0);
   const [todayChange, setTodayChange] = useState(0);
   const [totalChange, setTotalChange] = useState(0);
+  const [effect,setEffect]=useState(false)
+
   const columns = [
     "SYMBOL",
     "Current Price",
@@ -69,8 +71,8 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
 
   return (
     <>
-    <HoldingInfo setRefresh={setRefresh} refresh={refresh}  totalValue={totalValue} totalChange={totalChange} todayChange={todayChange}/>
-      <div className="trade-order-status">
+    <HoldingInfo setRefresh={setRefresh} refresh={refresh} effect={effect} setEffect={setEffect}  totalValue={totalValue} totalChange={totalChange} todayChange={todayChange}/>
+      {!effect? <div className="trade-order-status">
         <div className="order--table--responsive">
           <table className="order-table">
             <tr>
@@ -174,7 +176,7 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
             })}
           </table>
         </div>
-      </div>
+      </div>:<div style={{display:'flex' ,width:'100%' ,height:'300px',justifyContent:'center',alignItems:'center'}}>Loading...</div>}
     </>
   );
 }
