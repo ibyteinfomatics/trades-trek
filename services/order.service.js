@@ -123,7 +123,7 @@ function profitOrLoss(){
   .then((res) => {
  
     
-    return res.data;
+    return res?.data;
   })
   .catch(function (error) {
     return error;

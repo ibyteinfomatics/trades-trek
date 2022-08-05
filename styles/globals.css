@@ -33,7 +33,9 @@
   --purpleColor: #8000FF;
   --purpleColorHover: rgb(128 0 255 / 75%);
   --purpleColorLight: #E6CCFF;
-  --textColorGreen: #00FFA0;
+  /* --textColorGreen: #00FFA0; */
+  --textColorGreen:green;
+
   --fontFamily-normal: 'Poppins';
   --fontFamily-bold: 'Poppins-bold';
   --fontFamily-500: 'Poppins-medium';

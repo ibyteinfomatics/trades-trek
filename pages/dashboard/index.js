@@ -17,6 +17,7 @@ import WatchListData, {
   WatchListData2,
 } from '../../components/WatchList/WatchListData';
 import { useDispatch, useSelector } from 'react-redux';
+import { AccountValue } from '../../helpers/UserAccount';
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -55,12 +56,12 @@ export default function Home() {
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦{user && user.currentAmount?.toFixed(3)}</span>
+                    <span>₦{user && AccountValue(user.currentAmount,user.investedAmount,user.profitOrLassTotal)}</span>
                   </li>
                   <li>
                     <span>Today's Change</span>
                     <span>
-                      +₦0.00 <span>(0.00%)</span>
+                      +₦{user && user.profitOrLossDaywise && user.profitOrLossDaywise.toFixed(0)} <span>(0%)</span>
                     </span>
                   </li>
                 </ul>

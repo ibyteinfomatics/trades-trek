@@ -6,6 +6,7 @@ import Stocks from "../../components/TradeStocks/Stocks";
 import TradeOrderStatus from "../../components/TradeStocks/TradeOrderStatus";
 import { useDispatch, useSelector } from "react-redux";
 import MarketOpenClose from "../../components/MarketOpenClose/MarketOpenClose";
+import { AccountValue } from "../../helpers/UserAccount";
 
 export default function TradesTrek() {
   const [beginnerOption, setBeginnerOption] = useState(false);
@@ -45,7 +46,7 @@ export default function TradesTrek() {
               <p className="data-title">
                 Account Value{" "}
                 <span className="font-20 font-bold">
-                  ₦{user && user.currentAmount?.toFixed(3)}
+                  ₦{user && AccountValue(user.currentAmount,user.investedAmount,user.profitOrLassTotal)}
                 </span>
               </p>
             </div>
@@ -61,7 +62,7 @@ export default function TradesTrek() {
               <p className="data-title">
                 Cash{" "}
                 <span className="font-20 font-bold">
-                  ₦{user && user.investedAmount?.toFixed(3)}
+                  ₦{user && user.currentAmount?.toFixed(3)}
                 </span>
               </p>
             </div>

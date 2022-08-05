@@ -43,14 +43,17 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
   };
   useEffect(() => {
     let total=0;
-    let totalCh=0
+    let totalCh=0;
+    let todayCh=0
     rows.map((item) => {
       total+=item.totalValue
       totalCh+=item.totalGainOrLoss
+      todayCh+=item.todayChange
 
     });
     setTotalValue(total)
     setTotalChange(totalCh)
+    setTodayChange(todayCh)
   }, [rows]);
 
   const handleSell = (stock) => {
@@ -70,7 +73,7 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
 
   return (
     <>
-    <HoldingInfo setRefresh={setRefresh} refresh={refresh}  totalValue={totalValue} totalChange={totalChange}/>
+    <HoldingInfo setRefresh={setRefresh} refresh={refresh}  totalValue={totalValue} totalChange={totalChange} todayChange={todayChange}/>
       <div className="trade-order-status">
         <div className="order--table--responsive">
           <table className="order-table">
@@ -92,12 +95,12 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
               Option: Buy to Open
               <span className="order-time">at Market Open</span>
             </td> */}
-                  <td>{item.currentPrice}</td>
+                  <td>{item.currentPrice?.toFixed(3)}</td>
                   {IncreaseDecrease(
                     item.todayChange,
                     item.todayChangePercentage
                   )}
-                  <td>{item.purchasePrice}</td>
+                  <td>{item.purchasePrice.toFixed(3)}</td>
                   <td>{item.quantity}</td>
                   <td>{item.totalValue.toFixed(3)}</td>
 
