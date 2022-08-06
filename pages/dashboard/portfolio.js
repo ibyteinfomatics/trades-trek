@@ -32,14 +32,14 @@ export default function Portfolio() {
 
 
   // holding order .........................
-  useEffect(()=>{
-    orderService.profitOrLoss().then((res)=>{
-      setHoldingOrder(res)
-     }).catch((err)=>{
-       console.log(err)
-     }
-     )
-  },[refreshHolding])
+  // useEffect(()=>{
+  //   orderService.profitOrLoss().then((res)=>{
+  //     setHoldingOrder(res)
+  //    }).catch((err)=>{
+  //      console.log(err)
+  //    }
+  //    )
+  // },[refreshHolding])
   
   useEffect(()=>{
 
@@ -99,18 +99,18 @@ export default function Portfolio() {
             <div className="col-block">
               <p className="data-title">
                 Account Value{" "}
-                <span className="font-20 font-bold">₦{user && AccountValue(user.currentAmount,user.investedAmount,user.profitOrLassTotal)}</span>
+                <span className="font-20 font-bold">₦{user && user.accountValue?.toFixed(3)}</span>
               </p>
             </div>
             <div className="col-block">
               <p className="data-title">
                 Buying Power{" "}
-                <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
+                <span className="font-20 font-bold">₦{user && user.buyingPower?.toFixed(3)}</span>
               </p>
             </div>
             <div className="col-block">
               <p className="data-title">
-                Cash <span className="font-20 font-bold">₦{user && user.currentAmount?.toFixed(3)}</span>
+                Cash <span className="font-20 font-bold">₦{user && user.cash?.toFixed(3)}</span>
               </p>
             </div>
           </div>
@@ -118,22 +118,24 @@ export default function Portfolio() {
             <div className="trade-data">
               <Tabs>
                 <TabList>
+                <Tab>Holding Order</Tab>
+
                   <Tab>Open Order</Tab>
-                  <Tab>Holding Order</Tab>
                 </TabList>
 
                 
-                <TabPanel>
-                  <div className="tab-data order-status">
-                    <MarketOpenClose />
-                    {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>}
-                  </div>
-                </TabPanel>
+               
                 <TabPanel>
                   <div className="tab-data order-status">
                   <MarketOpenClose />
 
                     {holdingOrder&& <HoldingTable setRefresh={setRefreshHolding} refresh={refreshHolding} rows={holdingOrder} tableStatus='holding'/>}
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <div className="tab-data order-status">
+                    <MarketOpenClose />
+                    {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>}
                   </div>
                 </TabPanel>
               </Tabs>

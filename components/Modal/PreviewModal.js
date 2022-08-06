@@ -7,7 +7,7 @@ import { setUser } from '../../actions/users'
 import { setSelectedStock } from '../../actions/setStock';
 
 
-function PreviewModal({modelOpened,setModelOpened,data}) {
+function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
   const router = useRouter();
   const [error,setError]=useState('something went wrong');
   const [errorStatus,setErrorStatus]=useState(false)
@@ -18,9 +18,10 @@ function PreviewModal({modelOpened,setModelOpened,data}) {
         stockService.orderStock(data).then((res)=>{
           if(res.success){
             dispatch(setUser(res.user));
-              router.push({
-                pathname:"/dashboard/portfolio",
-              })
+              // router.push({
+              //   pathname:"/dashboard/portfolio",
+              // })
+              setShowTrade(false)
               dispatch(setSelectedStock(null))
             setModelOpened(false)
 

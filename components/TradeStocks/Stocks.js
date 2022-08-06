@@ -10,7 +10,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
 import { StockChangePercent } from "../../helpers/StockChangePercent";
 
-export default function Stocks() {
+export default function Stocks({setShowTrade,setStockName}) {
   const [showMax, setShowMax] = useState(false);
   const [stockAllData, setStockAllData] = useState([]);
   const [ariaFocusMessage, setAriaFocusMessage] = useState("");
@@ -47,7 +47,9 @@ export default function Stocks() {
   // set selected stock
   const onchange = (selectedOptions) => {
     // setStockData(selectedOptions);
+    
     dispatch(setSelectedStock({...selectedOptions,action:action}))
+    setStockName(selectedOptions.Symbol)
     setShowMax(false);
     setQuantity(1)
   
@@ -398,6 +400,7 @@ export default function Stocks() {
             <PreviewModal
               modelOpened={modelOpened}
               setModelOpened={setModelOpened}
+              setShowTrade={setShowTrade}
               data={{
                 ...stockData,
                 duration,
