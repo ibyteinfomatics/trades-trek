@@ -2,13 +2,13 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import SuggestCard from "./SuggestCard";
 
-const StockConfirmation = ({ stockName, setShowTrade }) => {
+const StockConfirmation = ({ stockName, setShowTrade,stockAction }) => {
   return (
     <div className=" trade_sec">
       <div className="trade_sec--up">
         <h1 className="heading1">Trade Confirmation</h1>
         <h2 className="heading2">
-          Buy Market order for {stockName} received.
+          {stockAction} Market order for {stockName} received.
         </h2>
         <h2 className="heading2">
           Your order has been received by our system and it will be executed

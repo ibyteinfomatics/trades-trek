@@ -23,12 +23,14 @@ const SuggestCard = () => {
                 <ul>
                   <li>
                     <p className="card--title--label">Stock Name</p>
-                    <p className="card--title">Nitesh</p>
+                    <p className="card--title">{item.Symbol}</p>
+                    <p className="card--title">{item.Name}</p>
+
                   </li>
       
                   <li>
                     <p className="card--title--label">Current Price</p>
-                    <p className="card--title">00.00</p>
+                    <p className="card--title">{item.Last?.toFixed(3)}</p>
                   </li>
                 </ul>
               </div>

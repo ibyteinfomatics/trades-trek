@@ -95,12 +95,12 @@ export default function Signup() {
               <div className="form--item">
                 <input
                   className={`form--control ${
-                    errors.fullName ? 'is-invalid' : ''
+                    errors.firstName ? 'is-invalid' : ''
                   }`}
                   type="text"
                   id="fName"
-                  placeholder="Full Name"
-                  {...register('fullName', {
+                  placeholder="First Name"
+                  {...register('firstName', {
                     required: true,
                     maxLength: 20,
                     minLength: 3,
@@ -110,16 +110,47 @@ export default function Signup() {
                   })}
                 />
                 <label className="form--label" htmlFor="fName">
-                  Full Name
+                  First Name
                 </label>
                 <div className="invalid-feedback">
-                  {errors.fullName?.type === 'required' &&
-                    'Fullname is required'}
-                  {errors.fullName?.type === 'minLength' &&
-                    'Fullname should be atleast 3 characters'}
-                  {errors.fullName?.type === 'maxLength' &&
-                    'Fullname should be less than 20 characters'}
-                  {errors.fullName?.type === 'pattern' &&
+                  {errors.firstName?.type === 'required' &&
+                    'First Name is required'}
+                  {errors.firstName?.type === 'minLength' &&
+                    'First Name should be atleast 3 characters'}
+                  {errors.firstName?.type === 'maxLength' &&
+                    'First Name should be less than 20 characters'}
+                  {errors.firstName?.type === 'pattern' &&
+                    'Only alphabets is allowed'}
+                </div>
+              </div>
+              <div className="form--item">
+                <input
+                  className={`form--control ${
+                    errors.lastName ? 'is-invalid' : ''
+                  }`}
+                  type="text"
+                  id="lName"
+                  placeholder="Last Name"
+                  {...register('lastName', {
+                    required: true,
+                    maxLength: 20,
+                    minLength: 3,
+                    pattern: {
+                      value: /^[a-z,A-Z][A-Z,a-z\s]*$/,
+                    },
+                  })}
+                />
+                <label className="form--label" htmlFor="lName">
+                  Last Name
+                </label>
+                <div className="invalid-feedback">
+                  {errors.lastName?.type === 'required' &&
+                    'Last Name is required'}
+                  {errors.lastName?.type === 'minLength' &&
+                    'Last Name should be atleast 3 characters'}
+                  {errors.lastName?.type === 'maxLength' &&
+                    'Last Name should be less than 20 characters'}
+                  {errors.lastName?.type === 'pattern' &&
                     'Only alphabets is allowed'}
                 </div>
               </div>

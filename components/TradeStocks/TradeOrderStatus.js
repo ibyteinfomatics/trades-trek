@@ -19,6 +19,7 @@ export default function TradeOrderStatus() {
     "TRANSACTION",
     "QUANTITY",
     "ORDER PRICE",
+    "Processed at",
     "ACTION",
   ];
   useEffect(()=>{
@@ -92,11 +93,11 @@ export default function TradeOrderStatus() {
         <p className="font-16">
           Showing the most recent failed trades from the last 30 days
         </p>
-        {/* <div className="btn--group form--actions">
-          <Link href="/dashboard/confirm-dialog-box">
-            <a className="btn form--submit">Preview Order</a>
+        <div className="btn--group form--actions">
+          <Link href="/dashboard/portfolio">
+            <a className="btn form--submit">View Holdings</a>
           </Link>
-        </div> */}
+        </div>
       </div>
     </div>
   );

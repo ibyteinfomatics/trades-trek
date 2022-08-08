@@ -10,7 +10,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
 import { StockChangePercent } from "../../helpers/StockChangePercent";
 
-export default function Stocks({setShowTrade,setStockName}) {
+export default function Stocks({setShowTrade,setStockName,setStockAction}) {
   const [showMax, setShowMax] = useState(false);
   const [stockAllData, setStockAllData] = useState([]);
   const [ariaFocusMessage, setAriaFocusMessage] = useState("");
@@ -50,6 +50,7 @@ export default function Stocks({setShowTrade,setStockName}) {
     
     dispatch(setSelectedStock({...selectedOptions,action:action}))
     setStockName(selectedOptions.Symbol)
+    setStockAction(action)
     setShowMax(false);
     setQuantity(1)
   
