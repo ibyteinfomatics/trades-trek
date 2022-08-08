@@ -2463,3 +2463,23 @@ html{
 .css-tlfecz-indicatorContainer svg path{
   fill: #000;
 }
+
+
+/* aakash css .... */
+
+.trade_sec .trade_sec--up{
+  background-color: rgb(105, 103, 103);
+  padding: 16px;
+}
+.trade_sec .trade_sec--up .heading1{
+  font-size: 35px;
+}
+.trade_sec .trade_sec--up .heading2{
+  font-size: 20px;
+  margin-top: 20px;
+}
+.trade_sec .trade_sec--up .list{
+  display: block;
+  list-style-type: disc;
+  margin-left: 16px;
+}

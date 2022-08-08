@@ -8,18 +8,40 @@ import { useDispatch, useSelector } from "react-redux";
 import MarketOpenClose from "../../components/MarketOpenClose/MarketOpenClose";
 import { AccountValue } from "../../helpers/UserAccount";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { userService } from "../../services";
+import StockConfirmation from "../../components/SuggestCard/StockConfirmation";
+import { setUser } from "../../actions/users";
+import { orderService } from "../../services/order.service";
+import { setPopularCompany } from "../../actions/topCompany";
 
 export default function TradesTrek() {
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [showTrade, setShowTrade] = useState(true);
-  const [stockName,setStockName]=useState('')
-  const [userData,setUserData]=useState({})
-  const router=useRouter()
-  let { user } = useSelector((state) => state.userWrapper);
-  useEffect(()=>{
-    setUserData(user)
-  },[])
+  const [stockName, setStockName] = useState("");
+  const [userData, setUserData] = useState({});
+  const dispatch=useDispatch()
 
+  const router = useRouter();
+  let { user } = useSelector((state) => state.userWrapper);
+  useEffect(() => {
+    setUserData(user);
+  }, [user]);
+  useEffect(()=>{
+    userService.userInfo().then((res)=>{
+      setUserData(res.message)
+      dispatch(setUser(res.message))
+    }).catch((err)=>console.log(err))
+  },[showTrade])
+
+  useEffect(()=>{
+   orderService.popularCompanies().then((res)=>{
+    dispatch(setPopularCompany(res))
+   }).catch((err)=>console.log('error'))
+},[])
+
+  
+ 
   return (
     <>
       <Sidebar />
@@ -55,9 +77,7 @@ export default function TradesTrek() {
               <p className="data-title">
                 Account Value{" "}
                 <span className="font-20 font-bold">
-                  ₦
-                  {userData && userData.accountValue?.toFixed(3)
-                   }
+                  ₦{userData && userData.accountValue?.toFixed(3)}
                 </span>
               </p>
             </div>
@@ -90,22 +110,12 @@ export default function TradesTrek() {
                   <div className="tab-data">
                     <MarketOpenClose />
                     {showTrade ? (
-                      <Stocks setShowTrade={setShowTrade} setStockName={setStockName} />
+                      <Stocks
+                        setShowTrade={setShowTrade}
+                        setStockName={setStockName}
+                      />
                     ) : (
-                      <div>
-                        <h1>{stockName}</h1>
-                        Trade Confirmation Buy Market order for META received.
-                        Your order has been received by our system and it will
-                        be executed shortly. To submit another stock order,
-                        click here To return to your portfolio summary, click
-                        here
-                        <button onClick={()=>setShowTrade(true)}>Click to stock</button>
-                        <button onClick={()=>{
-                          router.push({
-                pathname:"/dashboard/portfolio",
-              })
-                        }}>Click to portfolio</button>
-                      </div>
+                     <StockConfirmation  stockName={stockName} setShowTrade={setShowTrade} />
                     )}
                   </div>
                 </TabPanel>

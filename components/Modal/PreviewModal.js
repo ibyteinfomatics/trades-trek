@@ -56,6 +56,9 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
     >
       
       <div className=''>
+        <h1 style={{fontSize: "30px",
+    fontWeight: "bold",
+    marginBottom:" 10px"}}>Preview Order</h1>
       {errorStatus &&  <div className="" style={{border:'1px solid red',margin:'20px'}}>
               <p style={{textAlign:'center',padding:'10px',color:'red'}}>{error}</p>
           </div>}
@@ -91,12 +94,12 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
            
             <div className='row-block'>
                 <p className='font-18'>Commission</p>
-                <p className='font-18'>$29.95</p>
+                <p className='font-18'>$00.00</p>
             </div>
             <div className='row-block'>
                 <p className='font-18'>Estimate Total</p>
                 {data?.orderType == 'Market' &&
-                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)+29.95).toFixed(3)}</p>
+                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(3)}</p>
                  }
                 {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(3)}</p>}
             </div>

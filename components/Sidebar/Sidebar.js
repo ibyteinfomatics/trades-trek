@@ -21,7 +21,17 @@ export default function Sidebar() {
   const [modelOpened, setModelOpened] = useState(false);
   const {openOrder}=useSelector((state)=>state.openOrderWrapper)
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   userService
+  //     .userInfo()
+  //     .then((res) => {
+  //       dispatch(setUser(res.message));
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [openOrder]);
+  useEffect(()=>{
     userService
       .userInfo()
       .then((res) => {
@@ -30,7 +40,7 @@ export default function Sidebar() {
       .catch((err) => {
         console.log(err);
       });
-  }, [openOrder]);
+  },[])
 
   // const Login = async () => {};
 

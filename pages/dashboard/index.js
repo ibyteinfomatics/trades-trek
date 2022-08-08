@@ -56,7 +56,7 @@ export default function Home() {
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦{user && AccountValue(user.currentAmount,user.investedAmount,user.profitOrLassTotal)}</span>
+                    <span>₦{user && user.accountValue}</span>
                   </li>
                   <li>
                     <span>Today's Change</span>

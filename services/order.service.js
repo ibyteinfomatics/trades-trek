@@ -123,6 +123,16 @@ function profitOrLoss(){
     return error;
   });
 }
+function popularCompanies(){
+  return fetchWrapper.get(`${baseUrl}/user/order/popularCompanies`).then((res)=>{
+    // console.log(res.data)
+    return res.data
+  }).catch((errr)=>{
+    console.log('error section ')
+
+    return errr
+  })
+}
 
 
 export const orderService ={
@@ -136,5 +146,7 @@ export const orderService ={
     cancelOrder,
     showMax,
     StockDetail,
-    profitOrLoss
+    profitOrLoss,
+    popularCompanies
+
   };
