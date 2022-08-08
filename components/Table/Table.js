@@ -55,11 +55,14 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
             <td>{item.symbol}</td>
             <td>{item.status===0?"Pending":"Running"}</td>
             <td>
-              Option: Buy to Open
+              {item.action}
               <span className="order-time">at Market Open</span>
             </td>
             <td>{item.quantity}</td>
-            <td>{item.rate}</td>
+            <td>{item.status==2?item.rate:"n/a"}</td>
+            <td>
+              {DataConvert(item.createdAt)} <span className="order-time">{TimeConverter(item.createdAt)}</span>
+            </td>
             <td>
              {item.status===2?<div style={{color:'red',padding:'5px 10px',border:'1px solid red' ,textAlign:'center'}}>Failed</div>:<div>{tableStatus!=='holding'? <button onClick={()=>{setModelOpened(true);setId(item._id)} }  type="button" className="btn-cancel border-purple">
                 <svg
