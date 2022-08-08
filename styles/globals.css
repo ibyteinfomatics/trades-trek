@@ -2469,20 +2469,21 @@ html{
 
 .trade_sec .trade_sec--up{
   background-color: rgb(221, 217, 217);
-  padding: 24px;
+  padding: 1.5rem;
 }
 .trade_sec .trade_sec--up .heading1{
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1rem;
 }
 .trade_sec .trade_sec--up .heading2{
-  font-size: 16px;
-  margin-top: 12px;
+  font-size: 1rem;
+  margin-top: 0.75rem;
 }
 .trade_sec .trade_sec--up .list{
   display: block;
   list-style-type: disc;
-  margin-left: 16px;
+  margin-left: 1rem;
   margin-top: 1rem;
   font-weight: 100;
 }
