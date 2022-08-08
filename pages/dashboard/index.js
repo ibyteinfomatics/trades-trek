@@ -47,7 +47,7 @@ export default function Home() {
             </div>
             <div className="card--style portfolio--card">
               <div className="card--title">
-                <h1>Welcome, {user && user.fullName}</h1>
+                <h1>Welcome, {user && user?.firstName} {user && user?.lastName}</h1>
               </div>
               <div className="card--list">
                 <div className="card--title">

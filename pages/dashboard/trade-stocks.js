@@ -19,6 +19,8 @@ export default function TradesTrek() {
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [showTrade, setShowTrade] = useState(true);
   const [stockName, setStockName] = useState("");
+  const [stockAction,setStockAction]=useState('')
+  // const []
   const [userData, setUserData] = useState({});
   const dispatch=useDispatch()
 
@@ -113,9 +115,10 @@ export default function TradesTrek() {
                       <Stocks
                         setShowTrade={setShowTrade}
                         setStockName={setStockName}
+                        setStockAction={setStockAction}
                       />
                     ) : (
-                     <StockConfirmation  stockName={stockName} setShowTrade={setShowTrade} />
+                     <StockConfirmation stockAction={stockAction}  stockName={stockName} setShowTrade={setShowTrade} />
                     )}
                   </div>
                 </TabPanel>

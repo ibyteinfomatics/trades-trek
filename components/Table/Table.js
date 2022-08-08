@@ -56,10 +56,11 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
             <td>{item.status===0?"Pending":"Running"}</td>
             <td>
               {item.action}
-              <span className="order-time">at Market Open</span>
+              {item.orderType=="Limit"? <span className="order-time">at Limit</span>: <span className="order-time">at Market Open</span>}
+             
             </td>
             <td>{item.quantity}</td>
-            <td>{item.status==2?item.rate:"n/a"}</td>
+            <td>{item.orderType=="Limit"?<span className="order-time">Limit - ₦{item.rate}</span>:"n/a"}</td>
             <td>
               {DataConvert(item.createdAt)} <span className="order-time">{TimeConverter(item.createdAt)}</span>
             </td>
