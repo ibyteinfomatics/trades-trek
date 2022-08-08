@@ -80,7 +80,7 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
                 return <th>{item}</th>;
               })}
             </tr>
-            {rows.map((item) => {
+            {rows && rows.map((item) => {
               return (
                 <tr>
                   {/* <td>
@@ -93,14 +93,14 @@ export default function HoldingTable({ rows, tableStatus ,setRefresh,refresh}) {
               Option: Buy to Open
               <span className="order-time">at Market Open</span>
             </td> */}
-                  <td>{item.currentPrice?.toFixed(3)}</td>
+                  <td>₦{item.currentPrice?.toFixed(3)}</td>
                   {IncreaseDecrease(
                     item.todayChange,
                     item.todayChangePercentage
                   )}
-                  <td>{item.purchasePrice.toFixed(3)}</td>
+                  <td>₦{item.purchasePrice.toFixed(3)}</td>
                   <td>{item.quantity}</td>
-                  <td>{item.totalValue.toFixed(3)}</td>
+                  <td>₦{item.totalValue.toFixed(3)}</td>
 
                   {IncreaseDecrease(
                     item.totalGainOrLoss,

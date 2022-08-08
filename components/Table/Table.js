@@ -46,7 +46,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
             })}
           
           </tr>
-          {rows.map((item)=>{
+          {rows?.map((item)=>{
             return <tr>
               <td>
               {DataConvert(item.createdAt)} <span className="order-time">{TimeConverter(item.createdAt)}</span>

@@ -13,7 +13,7 @@ export default function MyCompetationView() {
                         <div className='grid--2 px-32 pb-32'>
                             <div className='colLeftBlock'>
                                 <p>
-                                    The default game for the Investopedia Simulator. This is a public game with no trade commission and ₦100,000 starting cash. Have fun!
+                                    The default game for the Investopedia Simulator. This is a public game with no trade commission and $100,000 starting cash. Have fun!
                                 </p>
                             </div>
                             <div className='colRightBlock'>
@@ -33,7 +33,7 @@ export default function MyCompetationView() {
                                     </div>
                                     <div className='colBlock'>
                                         <p className='font-17 font--normal'>YOUR ACCOUNT VALUE</p>
-                                        <h2 className='font-17 font--bold text--purple'>₦98,351.00</h2>
+                                        <h2 className='font-17 font--bold text--purple'>$98,351.00</h2>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ export default function MyCompetationView() {
                         <div className='grid--2 px-32 pb-32'>
                             <div className='colLeftBlock'>
                                 <p>
-                                    The default game for the Investopedia Simulator. This is a public game with no trade commission and ₦100,000 starting cash. Have fun!
+                                    The default game for the Investopedia Simulator. This is a public game with no trade commission and $100,000 starting cash. Have fun!
                                 </p>
                             </div>
                             <div className='colRightBlock'>
@@ -100,7 +100,7 @@ export default function MyCompetationView() {
                                     </div>
                                     <div className='colBlock'>
                                         <p className='font-17 font--normal'>YOUR ACCOUNT VALUE</p>
-                                        <h2 className='font-17 font--bold text--purple'>₦98,351.00</h2>
+                                        <h2 className='font-17 font--bold text--purple'>$98,351.00</h2>
                                     </div>
                                 </div>
                             </div>

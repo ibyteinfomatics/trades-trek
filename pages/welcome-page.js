@@ -34,7 +34,7 @@ export default function LoginForm() {
               </p>
 
               <p>
-                You have ₦10,000,000 in virtual cash in TradesTrek Trading Game
+                You have $10,000,000 in virtual cash in TradesTrek Trading Game
               </p>
 
               <p>Discover what you can do on the TradesTrek Simulator</p>

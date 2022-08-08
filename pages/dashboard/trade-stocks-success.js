@@ -42,18 +42,18 @@ export default function TradesTockSuccessk() {
               <div className="col-block">
                 <p className="data-title">
                   Account Value{" "}
-                  <span className="font-20 font-bold">₦100,000.00</span>
+                  <span className="font-20 font-bold">$100,000.00</span>
                 </p>
               </div>
               <div className="col-block">
                 <p className="data-title">
                   Buying Power{" "}
-                  <span className="font-20 font-bold">₦100,000.00</span>
+                  <span className="font-20 font-bold">$100,000.00</span>
                 </p>
               </div>
               <div className="col-block">
                 <p className="data-title">
-                  Cash <span className="font-20 font-bold">₦100,000.00</span>
+                  Cash <span className="font-20 font-bold">$100,000.00</span>
                 </p>
               </div>
             </div>

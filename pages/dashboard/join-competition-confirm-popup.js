@@ -39,7 +39,7 @@ export default function JoinCompetationConfirmPopup() {
                             <div className='colRightBlock'>
                                 <h4 className='font-16 font--normal'>
                                     Starting Cash
-                                    <span className='flexBox font--bold'>₦10,000.00</span>
+                                    <span className='flexBox font--bold'>$10,000.00</span>
                                 </h4>
                             </div>
                         </div>
@@ -97,31 +97,31 @@ export default function JoinCompetationConfirmPopup() {
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Price</p>
-                                <p className='textTitle bold'>₦1.00</p>
+                                <p className='textTitle bold'>$1.00</p>
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Price Short</p>
-                                <p className='textTitle bold'>₦5.00</p>
+                                <p className='textTitle bold'>$5.00</p>
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Stock For Margin</p>
-                                <p className='textTitle bold'>₦5.00</p>
+                                <p className='textTitle bold'>$5.00</p>
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Stock For Margin</p>
-                                <p className='textTitle bold'>₦5.00</p>
+                                <p className='textTitle bold'>$5.00</p>
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Stock For Margin</p>
-                                <p className='textTitle bold'>₦5.00</p>
+                                <p className='textTitle bold'>$5.00</p>
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Stock For Margin</p>
-                                <p className='textTitle bold'>₦5.00</p>
+                                <p className='textTitle bold'>$5.00</p>
                             </div>
                             <div className='textBlock'>
                                 <p className='textTitle'>Minimum Stock For Margin</p>
-                                <p className='textTitle bold'>₦5.00</p>
+                                <p className='textTitle bold'>$5.00</p>
                             </div>
                         </div>
                     </div>

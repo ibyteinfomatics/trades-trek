@@ -18,7 +18,7 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
   const [stockData, setStockData] = useState();
   const [modelOpened, setModelOpened] = useState(false);
   const [action, setAction] = useState("Buy");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   const [duration, setDuration] = useState("Day Only");
   const [orderType, setOrderType] = useState("Market");
   const [rate, setRate] = useState(0);
@@ -52,7 +52,7 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
     setStockName(selectedOptions.Symbol)
     setStockAction(action)
     setShowMax(false);
-    setQuantity(1)
+    setQuantity(0)
   
   };
   // console.log(stockData);

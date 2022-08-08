@@ -63,9 +63,9 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <select className="form--control">
-                    <option>₦100,000</option>
-                    <option>₦110,000</option>
-                    <option>₦112,000</option>
+                    <option>$100,000</option>
+                    <option>$110,000</option>
+                    <option>$112,000</option>
                   </select>
                 </div>
                 <div className="form--item toggle">

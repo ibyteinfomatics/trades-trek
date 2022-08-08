@@ -25,7 +25,7 @@ export default function Portfolio() {
 
   const dispatch=useDispatch()
 
-  const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","ACTION"]
+  const columns=["ORDER DATE & TIME","SYMBOL","STATUS","TRANSACTION","QUANTITY","ORDER PRICE","PROCESSED AT","ACTION"]
   useEffect(()=>{
     setOpenOrders(openOrder)
   },[openOrder])

@@ -20,7 +20,7 @@ export default function Subscription() {
 
           <div className="block--info">
             <div className="info--title">
-                <span>₦10,000</span>
+                <span>$10,000</span>
                 <span>Annual Fee</span>
             </div>
             <div className="info--text">
