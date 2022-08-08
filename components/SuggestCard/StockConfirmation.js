@@ -17,12 +17,12 @@ const StockConfirmation = ({ stockName, setShowTrade }) => {
         <ul className="list">
           <li>
             To submit another stock order,{" "}
-            <button onClick={() => setShowTrade(true)}>Click here</button>
+            <button onClick={() => setShowTrade(true)}><u>Click here</u></button>
           </li>
           <br />
           <li>
             To return to your portfolio summary,{" "}
-            <Link href="/dashboard/portfolio">Click here</Link>
+            <Link className="link" href="/dashboard/portfolio"><button><u>Click here</u></button></Link> 
           </li>
         </ul>
       </div>

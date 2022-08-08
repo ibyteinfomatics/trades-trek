@@ -2468,18 +2468,42 @@ html{
 /* aakash css .... */
 
 .trade_sec .trade_sec--up{
-  background-color: rgb(105, 103, 103);
-  padding: 16px;
+  background-color: rgb(221, 217, 217);
+  padding: 24px;
 }
 .trade_sec .trade_sec--up .heading1{
-  font-size: 35px;
+  font-size: 24px;
+  font-weight: 600;
 }
 .trade_sec .trade_sec--up .heading2{
-  font-size: 20px;
-  margin-top: 20px;
+  font-size: 16px;
+  margin-top: 12px;
 }
 .trade_sec .trade_sec--up .list{
   display: block;
   list-style-type: disc;
   margin-left: 16px;
+  margin-top: 1rem;
+  font-weight: 100;
+}
+.trade_sec .trade_sec--up .list li{
+  line-height: 0.5rem;
+  padding-left: 0;
+}
+.trade_sec .trade_sec--up button{
+  color: blue;
+  
+}
+.explore--comp .explore_flex{
+  display: flex;
+  margin-top: 1rem;
+  width: 100%;
+  overflow-x: scroll;
+}
+.explore--comp .heading3{
+  margin-top: 2rem;
+}
+.explore--comp .explore_flex .card--data{
+  box-shadow: 1px 1px 1px 1px gray;
+  padding: 1rem;
 }
