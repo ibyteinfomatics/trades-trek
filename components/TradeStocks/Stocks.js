@@ -174,7 +174,7 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
               >
                 <option selected={action=='Buy'?true:false}>Buy</option>
                 <option selected={action=='Sell'?true:false}>Sell</option>
-                <option selected={action=='Short'?true:false}>Shorts</option>
+                <option selected={action=='Short'?true:false}>Short</option>
                 <option selected={action=='Buy To Cover'?true:false}>Buy To Cover</option>
               </select>
             </div>

@@ -38,17 +38,17 @@ const SuggestCard = () => {
                 <ul>
                   <li>
                     <p className="card--title--label">Volume</p>
-                    <p className="card--title">2222</p>
+                    <p className="card--title">{item?.Volume}</p>
                   </li>
       
                   <li>
                     <p className="card--title--label">Change</p>
-                    <p className="card--title">{2.2}</p>
+                    <p className="card--title">{item?.Change}</p>
                   </li>
       
                   <li>
                     <p className="card--title--label">%Change</p>
-                    <p className="card--title">3.4%</p>
+                    <p className="card--title">{item?.PerChange}%</p>
                   </li>
                 </ul>
               </div>
