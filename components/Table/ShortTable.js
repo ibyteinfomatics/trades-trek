@@ -33,7 +33,7 @@ export default function ShortTable({ rows, tableStatus ,setRefresh,refresh}) {
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        dispatch(setSelectedStock({ ...res, action: "Shorts" }));
+        dispatch(setSelectedStock({ ...res, action: "Short" }));
 
         router.push("/dashboard/trade-stocks/");
       })

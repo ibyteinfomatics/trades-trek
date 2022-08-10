@@ -52,8 +52,7 @@ export default function Portfolio() {
     orderService.profitOrLoss().then((res)=>{
       setHoldingOrder(res?.holding)
       setShorts(res?.short)
-      console.log(res?.short)
-      // setHoldingOrder(res)
+      
      }).catch((err)=>{
        console.log(err)
      }
