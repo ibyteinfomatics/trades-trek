@@ -53,7 +53,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
             </td>
             
             <td>{item.symbol}</td>
-            <td>{item.status===0?"Pending":"Running"}</td>
+            <td>Pending</td>
             <td>
               {item.action}
               {item.orderType=="Limit"? <span className="order-time">at Limit</span>: <span className="order-time">at Market Open</span>}
@@ -65,7 +65,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
               {DataConvert(item.createdAt)} <span className="order-time">{TimeConverter(item.createdAt)}</span>
             </td>
             <td>
-             {item.status===2?<div style={{color:'red',padding:'5px 10px',border:'1px solid red' ,textAlign:'center'}}>Failed</div>:<div>{tableStatus!=='holding'? <button onClick={()=>{setModelOpened(true);setId(item._id)} }  type="button" className="btn-cancel border-purple">
+            <button onClick={()=>{setModelOpened(true);setId(item._id)} }  type="button" className="btn-cancel border-purple">
                 <svg
                   width="13"
                   height="14"
@@ -79,16 +79,7 @@ export default function TradeOrderTable({columns,rows,tableStatus}) {
                   />
                 </svg>
                 Cancel
-              </button>: <div>
-              <button type="button" className="btn-cancel border-purple"  onClick={()=>handledMoreBuy(item)}>
-                
-                + Buy More
               </button>
-              <button  type="button" className="btn-cancel border-purple" onClick={()=>handleSell(item)}>
-                
-               - Sell
-              </button>
-                </div>}</div>}
              
             </td>
             {modelOpened &&<CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} id={Id}/>}

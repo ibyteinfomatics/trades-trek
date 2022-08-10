@@ -12,12 +12,14 @@ import { setOpenStock } from '../../actions/openOrder';
 import HoldingTable from '../../components/Table/HoldingTable';
 import HoldingInfo from '../../components/Table/HoldingInfo';
 import { AccountValue } from '../../helpers/UserAccount';
+import ShortTable from '../../components/Table/ShortTable';
 
 
 export default function Portfolio() {
 
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [holdingOrder,setHoldingOrder]=useState();
+  const [shorts,setShorts]=useState()
   const [openOrders,setOpenOrders]=useState([])
   const [refreshHolding,setRefreshHolding]=useState(false)
   let { user } = useSelector((state) => state.userWrapper);
@@ -48,7 +50,10 @@ export default function Portfolio() {
 
     // get holding order with profit or loss .....................  
     orderService.profitOrLoss().then((res)=>{
-      setHoldingOrder(res)
+      setHoldingOrder(res?.holding)
+      setShorts(res?.short)
+      console.log(res?.short)
+      // setHoldingOrder(res)
      }).catch((err)=>{
        console.log(err)
      }
@@ -120,7 +125,7 @@ export default function Portfolio() {
                 <TabList>
                 <Tab>Holding Order</Tab>
 
-                  <Tab>Open Order</Tab>
+                  <Tab>Short Order</Tab>
                 </TabList>
 
                 
@@ -135,7 +140,9 @@ export default function Portfolio() {
                 <TabPanel>
                   <div className="tab-data order-status">
                     <MarketOpenClose />
-                    {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>}
+                    {shorts&& <ShortTable setRefresh={setRefreshHolding} refresh={refreshHolding} rows={shorts} tableStatus='holding'/>}
+
+                    {/* {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>} */}
                   </div>
                 </TabPanel>
               </Tabs>

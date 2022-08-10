@@ -56,17 +56,16 @@ export default function TradeOrderStatus() {
   return (
     <div className="trade-order-status">
       <div className="table-row-gap">
-        <h4 className="font-18 font-bold">Open Trades</h4>
-        <p className="font-16 font-gray">
-          Note: &lsquo;Volume At Open&lsquo; is the volume recorded at the time
-          the trade is executed.
+        <h4 className="font-18 " style={{marginTop:'20px',fontSize:'30px',marginBottom:'20px'}}>Open Trades</h4>
+        <p className="font-16 font-gray" >
+          Note: Open trades is a list of all your pendings transactions.
         </p>
       </div>
       {openOrder.length>0&& <TradeOrderTable columns={columns} rows={openOrder} />}
 
       <div className="bg-purple-block mt-31 mb-31">
         <ul>
-          <li>All order times are in Eastern Standard Time.</li>
+          <li>All order times are in West Africa Time.</li>
           <li>
             Market-Open orders can only be cancelled when the markets are
             closed.
@@ -80,7 +79,7 @@ export default function TradeOrderStatus() {
         </ul>
       </div>
       <div className="table-row-gap">
-        <h4 className="font-18 font-bold">Failed Trades</h4>
+        <h4 className="font-18 " style={{marginTop:'20px',fontSize:'30px',marginBottom:'20px'}}>Failed Trades</h4>
         <p className="font-16 font-gray">
           Note: &lsquo;Volume At Fail&lsquo; is the volume recorded at the time
           the trade is executed. It will not be the same as the last volume
@@ -99,6 +98,7 @@ export default function TradeOrderStatus() {
           </Link>
         </div>
       </div>
+      
     </div>
   );
 }
