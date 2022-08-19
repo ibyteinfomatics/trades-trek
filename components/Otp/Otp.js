@@ -25,7 +25,7 @@ export default function Otp() {
     if (input1 && input2 && input3 && input4) {
       setError('');
     } else {
-      setError('Otp is required');
+      // setError('Otp is required');
     }
   }, []);
 
@@ -48,6 +48,7 @@ export default function Otp() {
       setLoaderStatus(false);
       setError('Otp is required');
     } else {
+      setError('');
       const otp = parseInt(`${input1}${input2}${input3}${input4}`);
       let email = localStorage.getItem('email');
       const response = await userService.verifyLoginOtp(email, otp);
@@ -242,7 +243,7 @@ export default function Otp() {
               </button>
             </div>
           </form>
-          <div className="invalid-feedback">{error}</div>
+          <div className="invalid-feedback">{error !== null && error}</div>
           <div className="form--bottom--content">
             <p>
               Don’t get code?{' '}
