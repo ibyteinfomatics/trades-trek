@@ -26,7 +26,7 @@ export default function Otp() {
     e.preventDefault();
     setBtnStatus(true);
     setLoaderStatus(true);
-    if (otp=== '') {
+    if (otp=== '' || otp.length !==4) {
       setBtnStatus(false);
       setLoaderStatus(false);
       setError('Otp is required');
