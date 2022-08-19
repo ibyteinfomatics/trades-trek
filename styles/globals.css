@@ -2068,7 +2068,21 @@ input[type="checkbox"].switch_1:checked{
   min-width: 18.5rem;
   height: 3.25rem;
 }
-
+.form--item.otp--input div {
+  gap: 1rem;
+}
+.otp-group {
+  max-width: 25%;
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+}
+.otp-group input {
+  width: 100% !important;
+}
 /* Competation Page Css Start */
 .competation-page{
 
