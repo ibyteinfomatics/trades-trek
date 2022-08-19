@@ -33,7 +33,7 @@ export default function Otp() {
     } else {
       setError('');
       let email = localStorage.getItem('email');
-      const response = await userService.verifyLoginOtp(email, otp);
+      const response = await userService.verifyLoginOtp(email,Number(otp));
       if (response.success === true) {
         setBtnStatus(false);
         setLoaderStatus(false);
