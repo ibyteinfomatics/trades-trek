@@ -19,11 +19,9 @@ export default function Otp() {
 
   useEffect(() => {
     let email = localStorage.getItem('email');
-
     if (email) {
       setEmailAddress(email);
     }
-
     if (input1 && input2 && input3 && input4) {
       setError('');
     } else {
@@ -121,29 +119,41 @@ export default function Otp() {
     }
   };
 
-  const resendOtp = () => {
+  const resetOtpFields = () => {
+    setInput1(null)
+    setInput2(null)
+    setInput3(null)
+    setInput4(null)
+  }
+  const resendOtp = async () => {
+    resetFormValue();
+    resetOtpFields();
     let email = localStorage.getItem('email');
-    return userService
-      .resendOtp(email)
-      .then((res) => {
-        if (res?.success === true) {
-          toast.success(res.message);
-          setResendOtpClassActive(false);
-          setMinutes(1);
-          setSeconds(59);
-        } else if (res?.success === false) {
-          if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error(res.message);
-          }
-          setResendOtpClassActive(false);
-        }
-      })
-      .catch((error) => {
+    try {
+      const res = await userService
+        .resendOtp(email);
+      if (res?.success === true) {
+        toast.success(res.message);
+        setResendOtpClassActive(false);
+        setMinutes(1);
+        setSeconds(59);
+      } else if (res?.success === false) {
         if (!toast.isActive(toastId.current)) {
-          toastId.current = toast.error(error);
+          toastId.current = toast.error(res.message);
         }
-      });
+        setResendOtpClassActive(false);
+      }
+    } catch (error) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error(error);
+      }
+    }
   };
+
+  const resetFormValue = () => {
+    document.getElementById("create-course-form").reset();
+  }
+
   return (
     <>
       <ToastContainer
@@ -168,13 +178,14 @@ export default function Otp() {
             </p>
           </div>
 
-          <form className="otp--form" onSubmit={(e) => verifyOtp(e)}>
+          <form className="otp--form" onSubmit={(e) => verifyOtp(e)} id="create-course-form">
             <div className="form--group grid--4">
               <div className="form--item">
                 <input
                   type="text"
                   className="form--control"
                   maxLength={1}
+                  value={input1}
                   onChange={(e) => handleChange(e, 'input1', 'input2')}
                   onKeyPress={(event) => onKeyPressFn(event)}
                   onKeyDown={(event) => onKeyDownFn(event)}
@@ -186,6 +197,7 @@ export default function Otp() {
                   type="text"
                   className="form--control"
                   placeholder=""
+                  value={input2}
                   maxLength={1}
                   tabbable="true"
                   onChange={(e) => handleChange(e, 'input2', 'input3')}
@@ -198,6 +210,7 @@ export default function Otp() {
                   type="text"
                   className="form--control"
                   placeholder=""
+                  value={input3}
                   maxLength={1}
                   tabbable="true"
                   onChange={(e) => handleChange(e, 'input3', 'input4')}
@@ -210,6 +223,7 @@ export default function Otp() {
                   type="text"
                   className="form--control"
                   placeholder=""
+                  value={input4}
                   maxLength={1}
                   tabbable="true"
                   onChange={(e) => handleChange(e, 'input4', null)}

@@ -199,9 +199,9 @@ export default function Signup() {
                   {errors.phone?.type === 'required' &&
                     'Phone number is required'}
                   {errors.phone?.type === 'minLength' &&
-                    'Phone number must be atleast 11 digit'}
+                    'Phone number should be at least 11 digit. '}
                   {errors.phone?.type === 'maxLength' &&
-                    'Phone number must be atleast 11 digit'}
+                    'Phone number should contain  11 digit only '}
                   {errors.phone?.type === 'pattern' && 'Only digits allow'}
                 </div>
               </div>
