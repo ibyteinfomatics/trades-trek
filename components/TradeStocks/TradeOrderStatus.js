@@ -4,6 +4,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { setHoldingStock } from "../../actions/holdingOrder";
 import { setOpenStock } from "../../actions/openOrder";
 import { orderService } from "../../services/order.service";
+import FailedOrderTable from "../Table/FailedOrderTable";
 import TradeOrderTable from "../Table/Table";
 export default function TradeOrderStatus() {
   const [openOrders, setOpenOrders] = useState();
@@ -87,7 +88,7 @@ export default function TradeOrderStatus() {
           details.
         </p>
       </div>
-     {cancelOrder && <TradeOrderTable columns={columns} rows={cancelOrder}/>}
+     {cancelOrder && <FailedOrderTable  rows={cancelOrder}/>}
       <div className="table-row-gap show-data mt-26 pb-26">
         <p className="font-16">
           Showing the most recent failed trades from the last 30 days

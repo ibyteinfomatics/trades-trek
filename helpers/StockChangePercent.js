@@ -1,5 +1,5 @@
 export const StockChangePercent=(Change,LastRate)=>{
     let temp=(Change*100)/(LastRate-Change)
   
-    return temp
+    return temp?.toFixed(3)
 }
