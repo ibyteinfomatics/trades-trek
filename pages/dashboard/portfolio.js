@@ -168,7 +168,11 @@ export default function Portfolio() {
                         tableStatus="holding"
                       />
                     )}
-
+<div className="btn--group form--actions" style={{width:"40%",margin:'10px auto'}}>
+                      <Link href="/dashboard/trade-history">
+                        <a className="btn form--submit">TradeHistory</a>
+                      </Link>
+                    </div>
                     {/* {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>} */}
                   </div>
                 </TabPanel>

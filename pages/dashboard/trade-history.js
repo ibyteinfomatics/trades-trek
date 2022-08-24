@@ -1,18 +1,23 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { DataConvert } from "../../helpers/DateTimeConverter";
+import { orderService } from "../../services/order.service";
 
 export default function TradeHistory() {
+  const [tradeHistoryData,setTradeHistoryData]=useState();
+  useEffect(()=>{
+    orderService.tradeHistory().then((res)=>setTradeHistoryData(res.docs)).catch((err)=>console.log(err))
+  },[])
+  console.log(tradeHistoryData)
   const columns = [
-    "SYMBOL",
-    "Current Price",
-    "Today's Change",
-    "Purchage Price",
+    "Date",
+    "Symbol",
+    "Trade Type",
     "QTY",
-    "Total Value",
-    "Total Gain/Loss",
-    "Trade Actions",
+    "Price",
+    "Total Cash Value",
   ];
   return (
     <>
@@ -27,14 +32,29 @@ export default function TradeHistory() {
             </div>
             <div className="trade-order-status">
               <div className="order--table--responsive">
-                <table className="order-table">
+
+               {tradeHistoryData && <table className="order-table">
                   <tr>
                     {columns.map((item) => {
                       return <th>{item}</th>;
                     })}
                   </tr>
+                  {
+                    tradeHistoryData.map((item)=>(
+                      <tr>
+                          <td>{DataConvert(item.createdAt)}</td>
+                          <td>{item.symbol}</td>
+                          <td>{item.action=='Short'?"Short ":''} {item.action=="Buy To Cover"?'Cover ':''}Stock: {item.action=='Buy To Cover'?"Cover":item.action} at {item.orderType=='Limit'?item.orderType:`${item.orderType} Open`}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.rate.toFixed(2)}</td>
+                          <td>{(item.rate * item.quantity).toFixed(2)}</td>
+                      </tr>
+                    ))
+                  }
                   
-                </table>
+                 
+                  
+                </table>}
               </div>
             </div>
           </div>

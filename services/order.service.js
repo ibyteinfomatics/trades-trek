@@ -137,7 +137,7 @@ function popularCompanies(){
 
 // trade history ......................... 
 function tradeHistory(){
-  return fetchWrapper.get(`${baseUrl}/user/order/popularCompanies`).then((res)=>{
+  return fetchWrapper.get(`${baseUrl}/user/order/history`).then((res)=>{
     // console.log(res.data)
     return res.orders
   }).catch((errr)=>{
