@@ -135,6 +135,19 @@ function popularCompanies(){
 }
 
 
+// trade history ......................... 
+function tradeHistory(){
+  return fetchWrapper.get(`${baseUrl}/user/order/popularCompanies`).then((res)=>{
+    // console.log(res.data)
+    return res.orders
+  }).catch((errr)=>{
+    console.log('error section ')
+
+    return errr
+  })
+}
+
+
 export const orderService ={
     user: userSubject.asObservable(),
     get userValue() {
@@ -147,6 +160,7 @@ export const orderService ={
     showMax,
     StockDetail,
     profitOrLoss,
-    popularCompanies
+    popularCompanies,
+    tradeHistory
 
   };
