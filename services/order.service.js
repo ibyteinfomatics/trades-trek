@@ -136,10 +136,10 @@ function popularCompanies(){
 
 
 // trade history ......................... 
-function tradeHistory(){
-  return fetchWrapper.get(`${baseUrl}/user/order/history`).then((res)=>{
+function tradeHistory(page){
+  return fetchWrapper.get(`${baseUrl}/user/order/history?page=${page}`).then((res)=>{
     // console.log(res.data)
-    return res.orders
+    return res
   }).catch((errr)=>{
     console.log('error section ')
 

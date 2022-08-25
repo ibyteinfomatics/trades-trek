@@ -2477,6 +2477,43 @@ html{
 .css-tlfecz-indicatorContainer svg path{
   fill: #000;
 }
+/*  */
+
+.paginationReact >ul{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* margin: 10px; */
+  padding: 10px;
+  font-size: 16px;
+}
+.paginationReact >ul>li>a{
+  margin: 0px 10px;
+  
+  border: 1px solid #8000ff;
+  padding: 12px 20px;
+  border-radius: 50%;
+}
+.paginationReact>ul > .previous >a,.paginationReact>ul > .next >a{
+  border: none;
+  font-size: 40px;
+  color: #8000ff;
+}
+
+.paginationReact>ul > .disabled >a{
+  border: none;
+  font-size: 40px;
+  color: rgb(177, 168, 168);
+  cursor:no-drop;
+}
+.paginationReact >ul>.selected>a{
+  background-color: #8000ff;
+  color: white;
+  /* font-size: 25px; */
+  font-weight: bold;
+}
+
 
 
 /* aakash css .... */

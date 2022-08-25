@@ -14,6 +14,7 @@ import HoldingInfo from "../../components/Table/HoldingInfo";
 import { AccountValue } from "../../helpers/UserAccount";
 import ShortTable from "../../components/Table/ShortTable";
 import Link from "next/link";
+import HighlightTrades from "../../components/HighlightTrades/HighlightTrades";
 
 export default function Portfolio() {
   const [beginnerOption, setBeginnerOption] = useState(false);
@@ -80,7 +81,7 @@ export default function Portfolio() {
         <div className="page--title--block">
           <div className="grid--2">
             <div className="grid-block-left wrapper--title">
-              <h3>Welcome, {user && user.fullName}</h3>
+              <h3>Welcome, {user && `${user.firstName} ${user.lastName}`}</h3>
             </div>
             <div className="grid-block-right right-align">
               <div className="beginner-option">
@@ -103,32 +104,30 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
-          <div className="top--value--bar">
-            <div className="col-block">
-              <p className="data-title">
-                Account Value{" "}
-                <span className="font-20 font-bold">
-                  ₦{user && user.accountValue?.toFixed(3)}
-                </span>
-              </p>
-            </div>
-            <div className="col-block">
-              <p className="data-title">
-                Buying Power{" "}
-                <span className="font-20 font-bold">
-                  ₦{user && user.buyingPower?.toFixed(3)}
-                </span>
-              </p>
-            </div>
-            <div className="col-block">
-              <p className="data-title">
-                Cash{" "}
-                <span className="font-20 font-bold">
-                  ₦{user && user.cash?.toFixed(3)}
-                </span>
-              </p>
-            </div>
+          <div style={{ margin: "30px 0px" }}>
+            <HighlightTrades />
           </div>
+          <div
+            className="btn--group form--actions"
+            style={{ width: "40%", margin: "10px auto" }}
+          >
+            <Link href="/dashboard/performance-history">
+              <a className="btn form--submit">Performance History</a>
+            </Link>
+          </div>
+
+          {/* <div className="top--value--bar">
+              <p>Overview</p>
+              <div>
+                <div>
+                  <div>
+                    <p>Account Value</p>
+                  </div>
+                  <div></div>
+                </div>
+                <div></div>
+              </div>
+            </div> */}
           <div className="card-no-gap">
             <div className="trade-data">
               <Tabs>
@@ -150,7 +149,10 @@ export default function Portfolio() {
                         tableStatus="holding"
                       />
                     )}
-                    <div className="btn--group form--actions" style={{width:"40%",margin:'10px auto'}}>
+                    <div
+                      className="btn--group form--actions"
+                      style={{ width: "40%", margin: "10px auto" }}
+                    >
                       <Link href="/dashboard/trade-history">
                         <a className="btn form--submit">TradeHistory</a>
                       </Link>
@@ -168,7 +170,10 @@ export default function Portfolio() {
                         tableStatus="holding"
                       />
                     )}
-<div className="btn--group form--actions" style={{width:"40%",margin:'10px auto'}}>
+                    <div
+                      className="btn--group form--actions"
+                      style={{ width: "40%", margin: "10px auto" }}
+                    >
                       <Link href="/dashboard/trade-history">
                         <a className="btn form--submit">TradeHistory</a>
                       </Link>

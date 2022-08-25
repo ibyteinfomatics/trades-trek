@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 import { useDispatch,useSelector } from "react-redux";
 import { setHoldingStock } from "../../actions/holdingOrder";
 import { setOpenStock } from "../../actions/openOrder";
@@ -63,6 +64,17 @@ export default function TradeOrderStatus() {
         </p>
       </div>
       {openOrder.length>0&& <TradeOrderTable columns={columns} rows={openOrder} />}
+      {/* <div className="paginationReact tablepaginate">
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel=">"
+                      // onPageChange={handlePageClick}
+                      marginPagesDisplayed={2}
+                      pageCount={10}
+                      previousLabel="<"
+                      renderOnZeroPageCount={null}
+                    />
+                    </div> */}
 
       <div className="bg-purple-block mt-31 mb-31">
         <ul>

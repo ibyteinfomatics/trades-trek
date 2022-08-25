@@ -165,6 +165,26 @@ function changePassword(data){
 }
 
 
+// user performance history ..................... 
+function userPerformanceHistory(page){
+  return fetchWrapper
+      .get(`${baseUrl}/user/performanceHistory?page=${page}`)
+  
+      .then((res) => {
+        // if (res.success) {
+        // }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+
+}
+
+
 
 
 export const userService = {
@@ -180,6 +200,7 @@ export const userService = {
   forgot_password,
   reset_password,
   userInfo,
-  changePassword
+  changePassword,
+  userPerformanceHistory
   
 };

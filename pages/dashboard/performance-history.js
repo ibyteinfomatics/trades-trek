@@ -4,49 +4,46 @@ import ReactPaginate from "react-paginate";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { DataConvert } from "../../helpers/DateTimeConverter";
-import { orderService } from "../../services/order.service";
+import { userService } from "../../services";
 
-export default function TradeHistory() {
-  const [tradeHistoryData, setTradeHistoryData] = useState();
+export default function PerformanceHistory() {
+  const [userHistoryData, setuserHistoryData] = useState([]);
   const [currentPage,setCurrentPage]=useState(1);
   const [allPage,setAllPage]=useState(1)
   useEffect(() => {
-    orderService
-      .tradeHistory(currentPage)
+    userService
+      .userPerformanceHistory(currentPage)
       .then((res) => {
-        if(res.success){
-          console.log('working fine now')
-        setTradeHistoryData(res.orders.docs)
-        setCurrentPage(res.orders.page)
-        setAllPage(res.orders.pages)
-
+        
+        if (res.success) {
+          setCurrentPage(res.history.page)
+          setAllPage(res.history.pages)
+          setuserHistoryData(res.history.docs);
         }
       })
       .catch((err) => console.log(err));
   }, []);
-
   const handlePageClick=({selected})=>{
-    orderService
-    .tradeHistory(selected+1)
+    userService
+    .userPerformanceHistory(selected+1)
     .then((res) => {
       
       if (res.success) {
-        setCurrentPage(res.orders.page)
-        setAllPage(res.orders.pages)
-        setTradeHistoryData(res.orders.docs);
+        setCurrentPage(res.history.page)
+        setAllPage(res.history.pages)
+        setuserHistoryData(res.history.docs);
       }
     })
     .catch((err) => console.log(err));
     // setCurrentPage(selected+1)
   }
-  // console.log(tradeHistoryData);
+  // console.log(userHistoryData);
   const columns = [
     "Date",
-    "Symbol",
-    "Trade Type",
-    "QTY",
-    "Price",
-    "Total Cash Value",
+    "Cash",
+    "Stock Portfolio Value",
+    "Shorted Stock Portfolio Value",
+    "Account Value",
   ];
   return (
     <>
@@ -62,11 +59,14 @@ export default function TradeHistory() {
             </a>
           </Link>
         </div>
+
         <div className="page--title--block">
+          <p style={{ margin: "10px 0px" }}>Performance History</p>
+
           <div className="card-no-gap">
             <div className="trade-order-status">
               <div className="order--table--responsive">
-                {tradeHistoryData ? (
+                {userHistoryData.length>0 ? (
                   <div>
                     <table className="order-table">
                       <tr>
@@ -74,25 +74,13 @@ export default function TradeHistory() {
                           return <th>{item}</th>;
                         })}
                       </tr>
-                      {tradeHistoryData.map((item) => (
+                      {userHistoryData.map((item) => (
                         <tr>
                           <td>{DataConvert(item.createdAt)}</td>
-                          <td>{item.symbol}</td>
-                          <td>
-                            {item.action == "Short" ? "Short " : ""}{" "}
-                            {item.action == "Buy To Cover" ? "Cover " : ""}
-                            Stock:{" "}
-                            {item.action == "Buy To Cover"
-                              ? "Cover"
-                              : item.action}{" "}
-                            at{" "}
-                            {item.orderType == "Limit"
-                              ? item.orderType
-                              : `${item.orderType} Open`}
-                          </td>
-                          <td>{item.quantity}</td>
-                          <td>₦{item.rate.toFixed(2)}</td>
-                          <td>₦{(item.rate * item.quantity).toFixed(2)}</td>
+                          <td>{item.cash.toFixed(2)}</td>
+                          <td>{item.stockPortfolio.toFixed(2)}</td>
+                          <td>{item.shortedPortfolio.toFixed(2)}</td>
+                          <td>{item.accountValue.toFixed(2)}</td>
                         </tr>
                       ))}
                     </table>
@@ -102,7 +90,8 @@ export default function TradeHistory() {
                       nextLabel=">"
                       onPageChange={handlePageClick}
                       marginPagesDisplayed={2}
-                      pageCount={10}
+                      // pageRangeDisplayed={2}
+                      pageCount={allPage}
                       previousLabel="<"
                       renderOnZeroPageCount={null}
                     />
