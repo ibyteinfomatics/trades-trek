@@ -102,7 +102,7 @@ export default function TradeHistory() {
                       nextLabel=">"
                       onPageChange={handlePageClick}
                       marginPagesDisplayed={2}
-                      pageCount={10}
+                      pageCount={allPage}
                       previousLabel="<"
                       renderOnZeroPageCount={null}
                     />

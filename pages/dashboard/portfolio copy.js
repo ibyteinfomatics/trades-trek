@@ -15,7 +15,6 @@ import { AccountValue } from "../../helpers/UserAccount";
 import ShortTable from "../../components/Table/ShortTable";
 import Link from "next/link";
 import HighlightTrades from "../../components/HighlightTrades/HighlightTrades";
-import HoldingTrades from "../../components/Holding-Short-Trades/HoldingTrades";
 
 export default function Portfolio() {
   const [beginnerOption, setBeginnerOption] = useState(false);
@@ -116,9 +115,8 @@ export default function Portfolio() {
               <a className="btn form--submit">Performance History</a>
             </Link>
           </div>
-          <HoldingTrades />
 
-          {/* <div className="top--value--bar">
+          <div className="top--value--bar">
               <p>Overview</p>
               <div>
                 <div>
@@ -129,8 +127,63 @@ export default function Portfolio() {
                 </div>
                 <div></div>
               </div>
-            </div> */}
-          
+            </div>
+          <div className="card-no-gap">
+            <div className="trade-data">
+              <Tabs>
+                <TabList>
+                  <Tab>Holding Order</Tab>
+
+                  <Tab>Short Order</Tab>
+                </TabList>
+
+                <TabPanel>
+                  <div className="tab-data order-status">
+                    <MarketOpenClose />
+
+                    {holdingOrder && (
+                      <HoldingTable
+                        setRefresh={setRefreshHolding}
+                        refresh={refreshHolding}
+                        rows={holdingOrder}
+                        tableStatus="holding"
+                      />
+                    )}
+                    <div
+                      className="btn--group form--actions"
+                      style={{ width: "40%", margin: "10px auto" }}
+                    >
+                      <Link href="/dashboard/trade-history">
+                        <a className="btn form--submit">TradeHistory</a>
+                      </Link>
+                    </div>
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <div className="tab-data order-status">
+                    <MarketOpenClose />
+                    {shorts && (
+                      <ShortTable
+                        setRefresh={setRefreshHolding}
+                        refresh={refreshHolding}
+                        rows={shorts}
+                        tableStatus="holding"
+                      />
+                    )}
+                    <div
+                      className="btn--group form--actions"
+                      style={{ width: "40%", margin: "10px auto" }}
+                    >
+                      <Link href="/dashboard/trade-history">
+                        <a className="btn form--submit">TradeHistory</a>
+                      </Link>
+                    </div>
+                    {/* {openOrders.length>0&& <TradeOrderTable columns={columns} rows={openOrders} tableStatus='openOrder'/>} */}
+                  </div>
+                </TabPanel>
+              </Tabs>
+            </div>
+          </div>
         </div>
       </div>
     </>

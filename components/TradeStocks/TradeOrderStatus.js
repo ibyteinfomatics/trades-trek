@@ -8,6 +8,9 @@ import { orderService } from "../../services/order.service";
 import FailedOrderTable from "../Table/FailedOrderTable";
 import TradeOrderTable from "../Table/Table";
 export default function TradeOrderStatus() {
+
+  const [pendingOrders,setPendingOrders]=useState();
+  const [pendingAllPage,setPendingAllPage]=useState(1)
   const [openOrders, setOpenOrders] = useState();
   const dispatch=useDispatch()
   const {openOrder}=useSelector((state) => state.openOrderWrapper)
@@ -38,7 +41,12 @@ export default function TradeOrderStatus() {
     orderService
       .getOpenOrder()
       .then((res) => {
-        dispatch(setOpenStock(res.orders.docs))
+        console.log(res)
+        if(res.success){
+          setPendingOrders(res.orders.docs)
+
+        }
+        // dispatch(setOpenStock(res.orders.docs))
         // setOpenOrder(res.orders.docs);
       })
       .catch((err) => {
@@ -47,11 +55,11 @@ export default function TradeOrderStatus() {
 
       // get cancel Order .......................  ............  
 
-      orderService.getCancelOrder().then((res)=>{
-          setCancelOrder(res.canceledOrders.docs)
-      }).catch((err)=>{
-        console.log(err)
-      })
+      // orderService.getCancelOrder().then((res)=>{
+      //     setCancelOrder(res.canceledOrders.docs)
+      // }).catch((err)=>{
+      //   console.log(err)
+      // })
 
 
   }, []);
@@ -63,7 +71,7 @@ export default function TradeOrderStatus() {
           Note: Open trades is a list of all your pendings transactions.
         </p>
       </div>
-      {openOrder.length>0&& <TradeOrderTable columns={columns} rows={openOrder} />}
+      {pendingOrders.length>0&& <TradeOrderTable columns={columns} rows={pendingOrders} />}
       {/* <div className="paginationReact tablepaginate">
                     <ReactPaginate
                       breakLabel="..."
