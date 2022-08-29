@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import TradeOrderTable from "../../components/Table/Table";
+import TradeOrderTable from "../../components/Table/TradePendingOrders";
 import Stocks from "../../components/TradeStocks/Stocks";
 import TradeOrderStatus from "../../components/TradeStocks/TradeOrderStatus";
 import { orderService } from "../../services/order.service";

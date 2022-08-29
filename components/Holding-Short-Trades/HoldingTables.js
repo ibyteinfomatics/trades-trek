@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -17,10 +18,12 @@ const HoldingTables = () => {
   const [totalGainOrLoss, setTotalGainOrLoss] = useState(0);
   const [todayChangePer, setTodayChangePer] = useState(0);
   const [totalChangePer, setTotalChangePer] = useState(0);
+  const [isLoading,setIsLoading]=useState(false)
   const router=useRouter()
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setIsLoading(true)
     orderService
       .holdingProfitOrLoss(currentPage)
       .then((res) => {
@@ -41,11 +44,13 @@ const HoldingTables = () => {
               (res.holdingCurrent - res.totalGainOrLoss)
           );
         }
+        setIsLoading(false)
       })
       .catch((err) => console.log(err));
   }, []);
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected + 1);
+    
     orderService
       .holdingProfitOrLoss(selected + 1)
       .then((res) => {
@@ -107,7 +112,7 @@ const HoldingTables = () => {
   };
   return (
     <div>
-      <div
+      {isLoading?<Loader color="red" />:<div
         style={{
           marginBottom: "73px",
           padding: "53px",
@@ -221,7 +226,8 @@ const HoldingTables = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div>}
+      
     </div>
   );
 };

@@ -8,7 +8,6 @@ const SuggestCard = () => {
     useEffect(()=>{
         setTopCompanies(topCompany)
     },[])
-    console.log(topCompanies)
     
    
   return (

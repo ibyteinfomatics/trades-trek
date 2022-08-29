@@ -8,7 +8,6 @@ import Security from "../../components/profileComponent/Security";
 import TermCondition from "../../components/profileComponent/TermCondition";
 import WriteReview from "../../components/profileComponent/WriteReview";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import TradeOrderTable from "../../components/Table/Table";
 
 export default function Profie() {
   return (

@@ -9,9 +9,24 @@ const userSubject = new BehaviorSubject(
   process.browser && localStorage.getItem("token")
 );
 
-function getOpenOrder() {
+function getPendingOrders(page=1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/orders`)
+    .get(`${baseUrl}/user/order/pendings?page=${page}&limit=5`)
+
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
+
+function getFailedOrders(page=1) {
+  return fetchWrapper
+    .get(`${baseUrl}/user/order/failedOrders?page=${page}&limit=5`)
 
     .then((res) => {
       return res;
@@ -173,7 +188,7 @@ export const orderService = {
   get userValue() {
     return userSubject.value;
   },
-  getOpenOrder,
+  getPendingOrders,
   getHoldingOrder,
   getCancelOrder,
   cancelOrder,
@@ -184,4 +199,5 @@ export const orderService = {
   tradeHistory,
   holdingProfitOrLoss,
   shortProfitOrLoss,
+  getFailedOrders
 };

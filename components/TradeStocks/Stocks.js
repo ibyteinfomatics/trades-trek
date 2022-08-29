@@ -9,6 +9,7 @@ import PreviewModal from "../Modal/PreviewModal";
 import { useSelector,useDispatch } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
 import { StockChangePercent } from "../../helpers/StockChangePercent";
+import FormSpinner from "../Spinners/FormSpinner";
 
 export default function Stocks({setShowTrade,setStockName,setStockAction}) {
   const [showMax, setShowMax] = useState(false);
@@ -55,7 +56,6 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
     setQuantity(0)
   
   };
-  // console.log(stockData);
 
   // get all stock .....
   useEffect(() => {

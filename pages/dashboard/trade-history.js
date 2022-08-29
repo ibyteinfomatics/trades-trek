@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -10,15 +11,17 @@ export default function TradeHistory() {
   const [tradeHistoryData, setTradeHistoryData] = useState();
   const [currentPage,setCurrentPage]=useState(1);
   const [allPage,setAllPage]=useState(1)
+  const [isLoading,setIsLoading]=useState(false)
   useEffect(() => {
+    setIsLoading(true)
     orderService
       .tradeHistory(currentPage)
       .then((res) => {
         if(res.success){
-          console.log('working fine now')
         setTradeHistoryData(res.orders.docs)
         setCurrentPage(res.orders.page)
         setAllPage(res.orders.pages)
+        setIsLoading(false)
 
         }
       })
@@ -26,6 +29,7 @@ export default function TradeHistory() {
   }, []);
 
   const handlePageClick=({selected})=>{
+    isLoading(true)
     orderService
     .tradeHistory(selected+1)
     .then((res) => {
@@ -34,6 +38,7 @@ export default function TradeHistory() {
         setCurrentPage(res.orders.page)
         setAllPage(res.orders.pages)
         setTradeHistoryData(res.orders.docs);
+        setIsLoading(false)
       }
     })
     .catch((err) => console.log(err));
@@ -65,7 +70,7 @@ export default function TradeHistory() {
         <div className="page--title--block">
           <div className="card-no-gap">
             <div className="trade-order-status">
-              <div className="order--table--responsive">
+              {isLoading?<Loader color="red" />:<div className="order--table--responsive">
                 {tradeHistoryData ? (
                   <div>
                     <table className="order-table">
@@ -129,7 +134,7 @@ export default function TradeHistory() {
                     </h1>
                   </div>
                 )}
-              </div>
+              </div>}
             </div>
           </div>
         </div>

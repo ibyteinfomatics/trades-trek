@@ -1,88 +1,24 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
-import { useDispatch,useSelector } from "react-redux";
-import { setHoldingStock } from "../../actions/holdingOrder";
-import { setOpenStock } from "../../actions/openOrder";
-import { orderService } from "../../services/order.service";
-import FailedOrderTable from "../Table/FailedOrderTable";
-import TradeOrderTable from "../Table/Table";
+import React from "react";
+
+import TradeFailedOrders from "../Table/TradeFailedOrders";
+import TradePendingOrders from "../Table/TradePendingOrders";
 export default function TradeOrderStatus() {
-
-  const [pendingOrders,setPendingOrders]=useState();
-  const [pendingAllPage,setPendingAllPage]=useState(1)
-  const [openOrders, setOpenOrders] = useState();
-  const dispatch=useDispatch()
-  const {openOrder}=useSelector((state) => state.openOrderWrapper)
-  
-
-  const [cancelOrder, setCancelOrder] = useState();
-  const columns = [
-    "ORDER DATE & TIME",
-    "SYMBOL",
-    "STATUS",
-    "TRANSACTION",
-    "QUANTITY",
-    "ORDER PRICE",
-    "Processed at",
-    "ACTION",
-  ];
-  useEffect(()=>{
-    setOpenOrders(openOrder)
-    orderService.getCancelOrder().then((res)=>{
-      setCancelOrder(res.canceledOrders.docs)
-  }).catch((err)=>{
-    console.log(err)
-  })
-  },[openOrder])
-
-  useEffect(() => {
-    // get open order ..................................
-    orderService
-      .getOpenOrder()
-      .then((res) => {
-        console.log(res)
-        if(res.success){
-          setPendingOrders(res.orders.docs)
-
-        }
-        // dispatch(setOpenStock(res.orders.docs))
-        // setOpenOrder(res.orders.docs);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-      // get cancel Order .......................  ............  
-
-      // orderService.getCancelOrder().then((res)=>{
-      //     setCancelOrder(res.canceledOrders.docs)
-      // }).catch((err)=>{
-      //   console.log(err)
-      // })
-
-
-  }, []);
+ 
   return (
     <div className="trade-order-status">
       <div className="table-row-gap">
-        <h4 className="font-18 " style={{marginTop:'20px',fontSize:'30px',marginBottom:'20px'}}>Open Trades</h4>
-        <p className="font-16 font-gray" >
+        <h4
+          className="font-18 "
+          style={{ marginTop: "20px", fontSize: "30px", marginBottom: "20px" }}
+        >
+          Open Trades
+        </h4>
+        <p className="font-16 font-gray">
           Note: Open trades is a list of all your pendings transactions.
         </p>
       </div>
-      {pendingOrders.length>0&& <TradeOrderTable columns={columns} rows={pendingOrders} />}
-      {/* <div className="paginationReact tablepaginate">
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel=">"
-                      // onPageChange={handlePageClick}
-                      marginPagesDisplayed={2}
-                      pageCount={10}
-                      previousLabel="<"
-                      renderOnZeroPageCount={null}
-                    />
-                    </div> */}
+      <TradePendingOrders />
 
       <div className="bg-purple-block mt-31 mb-31">
         <ul>
@@ -100,7 +36,12 @@ export default function TradeOrderStatus() {
         </ul>
       </div>
       <div className="table-row-gap">
-        <h4 className="font-18 " style={{marginTop:'20px',fontSize:'30px',marginBottom:'20px'}}>Failed Trades</h4>
+        <h4
+          className="font-18 "
+          style={{ marginTop: "20px", fontSize: "30px", marginBottom: "20px" }}
+        >
+          Failed Trades
+        </h4>
         <p className="font-16 font-gray">
           Note: &lsquo;Volume At Fail&lsquo; is the volume recorded at the time
           the trade is executed. It will not be the same as the last volume
@@ -108,7 +49,7 @@ export default function TradeOrderStatus() {
           details.
         </p>
       </div>
-     {cancelOrder && <FailedOrderTable  rows={cancelOrder}/>}
+      <TradeFailedOrders />
       <div className="table-row-gap show-data mt-26 pb-26">
         <p className="font-16">
           Showing the most recent failed trades from the last 30 days
@@ -119,7 +60,6 @@ export default function TradeOrderStatus() {
           </Link>
         </div>
       </div>
-      
     </div>
   );
 }
