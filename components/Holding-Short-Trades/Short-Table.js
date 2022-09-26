@@ -44,8 +44,9 @@ const ShortTable = () => {
             (res.totalGainOrLoss * 100) /
               (res.shortCurrent - res.totalGainOrLoss)
           );
-          setIsLoading(false)
         }
+        setIsLoading(false)
+
       })
       .catch((err) => console.log(err));
   }, []);
@@ -71,8 +72,9 @@ const ShortTable = () => {
             (res.totalGainOrLoss * 100) /
               (res.shortCurrent - res.totalGainOrLoss)
           );
-          setIsLoading(false)
         }
+        setIsLoading(false)
+
       })
       .catch((err) => console.log(err));
   };
@@ -136,7 +138,7 @@ const ShortTable = () => {
             </tr>
           </table>
         )}
-        <hr style={{ marginTop: "50px" }} />
+        {short &&<hr style={{ marginTop: "50px" }} />}
         <div className="tab-data order-status">
           {short ? (
             <div>

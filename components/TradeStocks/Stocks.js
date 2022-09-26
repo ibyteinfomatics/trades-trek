@@ -32,6 +32,7 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
     setStockData(selectedStock)
     if(selectedStock){
       setAction(selectedStock.action)
+      setQuantity(selectedStock.quantity)
 
     }
   },[selectedStock])

@@ -22,8 +22,9 @@ export default function PerformanceHistory() {
           setCurrentPage(res.history.page)
           setAllPage(res.history.pages)
           setuserHistoryData(res.history.docs);
-          setIsLoading(false)
         }
+        setIsLoading(false)
+
       })
       .catch((err) => console.log(err));
   }, []);
@@ -37,8 +38,9 @@ export default function PerformanceHistory() {
         setCurrentPage(res.history.page)
         setAllPage(res.history.pages)
         setuserHistoryData(res.history.docs);
-        setIsLoading(false)
       }
+      setIsLoading(false)
+
     })
     .catch((err) => console.log(err));
     // setCurrentPage(selected+1)

@@ -102,7 +102,7 @@ const HoldingTables = () => {
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        dispatch(setSelectedStock({ ...res, action: "Sell" }));
+        dispatch(setSelectedStock({ ...res, action: "Sell",quantity:stock.quantity }));
 
         router.push("/dashboard/trade-stocks/");
       })
@@ -135,7 +135,7 @@ const HoldingTables = () => {
             </tr>
           </table>
         )}
-        <hr style={{ marginTop: "50px" }} />
+        {holding &&<hr style={{ marginTop: "50px" }} />}
         <div className="tab-data order-status">
           {holding ? (
             <div>

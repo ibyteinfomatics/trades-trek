@@ -21,9 +21,10 @@ export default function TradeHistory() {
         setTradeHistoryData(res.orders.docs)
         setCurrentPage(res.orders.page)
         setAllPage(res.orders.pages)
-        setIsLoading(false)
 
         }
+        setIsLoading(false)
+
       })
       .catch((err) => console.log(err));
   }, []);
@@ -40,6 +41,8 @@ export default function TradeHistory() {
         setTradeHistoryData(res.orders.docs);
         setIsLoading(false)
       }
+      setIsLoading(false)
+
     })
     .catch((err) => console.log(err));
     // setCurrentPage(selected+1)
