@@ -1,81 +1,62 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import Footer from '../components/Footer/Footer';
-import { userService } from '../services/user.service'
-import { useRouter } from 'next/router';
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import Footer from "../components/Footer/Footer";
+import { userService } from "../services/user.service";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 
 export default function ResetPassword() {
-  const [password, setPassword] = useState('');
-  const [cpassword, setCpassword] = useState('');
-  const [otp, setOtp] = useState('')
-  const [validate, setValidate] = useState(false)
-  const [error, setError] = useState()
+
+  const [validate, setValidate] = useState(false);
+  const [error, setError] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCPassword, setShowCPassword] = useState(false);
   const router = useRouter();
-  const { query } = useRouter()
+  const { query } = useRouter();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset
+  } = useForm();
 
   useEffect(() => {
-    document.body.classList.remove('signUp--page');
-    document.body.classList.remove('otp--page');
+    document.body.classList.remove("signUp--page");
+    document.body.classList.remove("otp--page");
   }, []);
-  const SubmitForgot = () => {
-    if (!password && !cpassword && !otp) {
-      setValidate(true)
-      setError("Please Fill All Field")
 
-    } else if (!otp) {
-      setValidate(true)
-      setError("Otp is required.")
-    }
-    else if (!password || !cpassword) {
-      setValidate(true)
-      setError("Password is required.")
-    }
-
-    else if (password?.length < 8 || cpassword?.length < 8) {
-      setValidate(true)
-      setError("Password Should be greater than and equal to 8")
-    }
-    else if ((!password && !cpassword) && password != cpassword) {
-      setValidate(true)
-      setError("Password Not Matched")
-
-    } else {
-
-      userService
-        .reset_password(
-          {
-            "email": query?.email,
-            "otp": Number(otp),
-            "newPassword": password,
-            "confirmNewPassword": cpassword
-          }
-        )
-        .then((res) => {
-          if (res?.success === true) {
-            router.push({
-              pathname: "/dashboard",
-            })
-          } else {
-            setOtp('')
-            setCpassword('')
-            setPassword('')
-            // resetFormValue();
-            setValidate(true)
-            setError(res.message)
-          }
-        })
-        .catch((error) => {
-          setValidate(true)
-          setError(error.message)
-
-        });
-    }
-  }
 
   const resetFormValue = () => {
     document.getElementById("create-course-form").reset();
-  }
+  };
+  const onSubmit = (data) => {
+    userService
+        .reset_password({
+          email: query?.email,
+          otp: Number(data.otp),
+          newPassword: data.password,
+          confirmNewPassword: data.confirmPassword,
+        })
+        .then((res) => {
+          if (res?.success === true) {
+            
+            router.push({
+              pathname: "/",
+            });
+          } else {
+       reset()
+            // resetFormValue();
+            setValidate(true);
+            setError(res.message);
+          }
+        })
+        .catch((error) => {
+          setValidate(true);
+          setError(error.message);
+        });
+  };
   return (
     <>
       <div className="center--block">
@@ -87,72 +68,134 @@ export default function ResetPassword() {
             <h1>Reset Password</h1>
           </div>
           <div className="info--text mt--12">
-            <p>
-              Enter your New Password and Otp
-            </p>
+            <p>Enter your New Password and Otp</p>
           </div>
-          {validate && <div className="" style={{ border: '1px solid red', margin: '20px' }}>
-            <p style={{ textAlign: 'center', padding: '10px', color: 'red' }}>{error}</p>
-          </div>}
-          <form className="site--form" onSubmit={(e) => e.preventDefault()} id="create-course-form">
+          {validate && (
+            <div
+              className=""
+              style={{ border: "1px solid red", margin: "20px" }}
+            >
+              <p style={{ textAlign: "center", padding: "10px", color: "red" }}>
+                {error}
+              </p>
+            </div>
+          )}
+          <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
             <div className="form--item">
               <input
+                className={`form--control ${errors.otp ? "is-invalid" : ""}`}
                 type="text"
                 id="otp"
                 placeholder="Otp"
-                onKeyPress={(event) => {
-                  if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault();
-                  }
-                }}
-                value={otp}
-                className="form--control"
-                onChange={(e) => setOtp(e.target.value)}
+                {...register("otp", {
+                  required: true,
+                  maxLength: 4,
+                  minLength: 4,
+                  pattern: {
+                    value: /^[0-9]*$/,
+                  },
+                })}
               />
-              <label htmlFor="otp" className="form--label">
+              <label className="form--label" htmlFor="otp">
                 Otp
               </label>
+              <div className="invalid-feedback">
+                {errors.otp?.type === "required" && "Otp is required"}
+                {errors.otp?.type === "minLength" &&
+                  "Otp should be atleast 4 characters"}
+                {errors.otp?.type === "maxLength" &&
+                  "Otp should be less than 5 characters"}
+                {errors.otp?.type === "pattern" && "Only Number is Allowed"}
+              </div>
             </div>
+
             <div className="form--item">
               <input
-                type="password"
-                id="password"
-                value={password}
+                className={`form--control ${
+                  errors.password ? "is-invalid" : ""
+                }`}
+                type={showPassword ? "text" : "password"}
+                id="pwd"
                 placeholder="Password"
-                className="form--control"
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password", {
+                  required: true,
+                  maxLength: 15,
+                  minLength: 8,
+
+                  pattern: {
+                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])([a-zA-Z0-9@$!%*?&]{8,})$/,
+                  },
+                })}
               />
-              <label htmlFor="password" className="form--label">
+              <div className="forgot--pwd">
+                <p
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </p>
+              </div>
+              <label className="form--label" htmlFor="pwd">
                 Password
               </label>
+              <div className="invalid-feedback">
+                {errors.password?.type === "required" && "Password is required"}
+                {errors.password?.type === "minLength" &&
+                  "Password should be atleast 8 characters"}
+                {errors.password?.type === "maxLength" &&
+                  "Password should be less than 15 characters"}
+                   {errors.password?.type === "pattern" &&
+                    "must be alphanumeric with at least one special character and one Capital"}
+              </div>
             </div>
             <div className="form--item">
               <input
-                type="password"
-                id="cpassword"
-                value={cpassword}
+                className={`form--control ${errors.cpassword ? "is-invalid" : ""}`}
+                type={showCPassword ? "text" : "password"}
+                id="cnfpwd"
                 placeholder="Confirm Password"
-                className="form--control"
-                onChange={(e) => setCpassword(e.target.value)}
+                {...register("confirmPassword", {
+                  required: true,
+                  validate: (value) => {
+                    if (watch("password") != value) {
+                      return "Confirm password does not match";
+                    }
+                  },
+                })}
               />
-              <label htmlFor="cpassword" className="form--label">
+              <div className="forgot--pwd">
+                <p
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowCPassword(!showCPassword)}
+                >
+                  {showCPassword ? "Hide" : "Show"}
+                </p>
+              </div>
+              <label className="form--label" htmlFor="cnfpwd">
                 Confirm Password
               </label>
+              <div className="invalid-feedback">
+                {errors.confirmPassword?.type === "required" &&
+                  "Confirm password is required"}
+                {errors.confirmPassword?.type === "validate" &&
+                  errors.confirmPassword?.message}
+              </div>
+            </div>
+
+            <div className="form--actions">
+              <button className="btn" type="submit">
+                Submit
+              </button>
+            </div>
+            <div className="form--bottom--content">
+              <p>
+                Already have an account?{" "}
+                <Link href="/">
+                  <a>Login</a>
+                </Link>
+              </p>
             </div>
           </form>
-          <div className="info--button mt--12">
-            {/* <Link href="/"> */}
-            <a onClick={SubmitForgot} style={{ cursor: 'pointer' }} className="btn">Submit</a>
-            {/* </Link> */}
-          </div>
-          <div className="form--bottom--content">
-            <p>
-              Already have an account?{' '}
-              <Link href="/">
-                <a>Log In</a>
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
       <Footer />

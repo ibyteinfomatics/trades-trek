@@ -6,37 +6,38 @@ import { stockService } from "../../services/stock.service";
 import { orderService } from "../../services/order.service";
 import Select, { AriaOnFocus } from "react-select";
 import PreviewModal from "../Modal/PreviewModal";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
 import { StockChangePercent } from "../../helpers/StockChangePercent";
 import FormSpinner from "../Spinners/FormSpinner";
 
-export default function Stocks({setShowTrade,setStockName,setStockAction}) {
+export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
   const [stockAllData, setStockAllData] = useState([]);
+  const [filterStock, setFilterStock] = useState([]);
   const [ariaFocusMessage, setAriaFocusMessage] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [stockData, setStockData] = useState();
   const [modelOpened, setModelOpened] = useState(false);
   const [action, setAction] = useState("Buy");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
   const [duration, setDuration] = useState("Day Only");
   const [orderType, setOrderType] = useState("Market");
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState("");
   const [quantityError, setQuantityError] = useState(null);
   const [rateError, setRateError] = useState(null);
   const dispatch = useDispatch();
+  const [search,setSearch]=useState()
   let { selectedStock } = useSelector((state) => state.selectedStockWrapper);
-  
-  useEffect(()=>{
-    setStockData(selectedStock)
-    if(selectedStock){
-      setAction(selectedStock.action)
-      setQuantity(selectedStock.quantity)
 
+  useEffect(() => {
+    setStockData(selectedStock);
+    if (selectedStock) {
+      setAction(selectedStock.action);
+      // setQuantity(selectedStock.quantity);
     }
-  },[selectedStock])
-  
+  }, [selectedStock]);
+
   // const onFocus = ({ focused, isDisabled }) => {
   //   setStockData(focused)
   //   const msg = `You are currently focused on option ${focused.Symbol}${
@@ -45,17 +46,35 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
   //   setAriaFocusMessage(msg);
   //   return msg;
   // };
-
+  const inputChange = (inputValue) => {
+    setSearch(inputValue)
+    if (inputValue) {
+      let searchData = stockAllData.filter(
+        (item) =>
+          item.Symbol?.toLowerCase()?.includes(
+            inputValue.trim()?.toLowerCase()
+          ) ||
+          item.Name?.toLowerCase()?.includes(inputValue.trim()?.toLowerCase())
+      );
+      setFilterStock(searchData);
+     
+    } else {
+      setFilterStock([]);
+      console.log([]);
+    }
+  };
   // set selected stock
   const onchange = (selectedOptions) => {
     // setStockData(selectedOptions);
-    
-    dispatch(setSelectedStock({...selectedOptions,action:action}))
-    setStockName(selectedOptions.Symbol)
-    setStockAction(action)
-    setShowMax(false);
-    setQuantity(0)
-  
+    console.log(selectedOptions);
+    if (selectedOptions) {
+      setSearch(selectedOptions.Symbol)
+      dispatch(setSelectedStock({ ...selectedOptions, action: action }));
+      setStockName(selectedOptions.Symbol);
+      setStockAction(action);
+      setShowMax(false);
+      setQuantity("");
+    }
   };
 
   // get all stock .....
@@ -72,48 +91,49 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
   const onMenuOpen = () => setIsMenuOpen(true);
   const onMenuClose = () => setIsMenuOpen(false);
   const checkLimitPrice = () => {
+   
+
     if (quantity <= 0) {
-      setModelOpened(false);
       setQuantityError("Quantity must be greater than 0");
-    }else if (orderType == "Limit" && rate <= 0) {
+    } else if (orderType === "Limit" && rate <= 0) {
       setModelOpened(false);
       setRateError("Price must be greater than 0");
-    }
-    else if(orderType == "Limit" ){
-      if( action=='Sell' && rate <= stockData.Last){
-        setModelOpened(false);
-        setRateError(`Price must be greater than ${stockData.Last}`);
-      }else if(action=='Buy' && rate >= stockData.Last){
-        setModelOpened(false);
+    } else if (
+      orderType == "Limit" &&
+      action == "Sell" &&
+      rate <= stockData.Last
+    ) {
+      setRateError(`Price must be greater than ${stockData.Last}`);
+    } else if (
+      orderType == "Limit" &&
+      action == "Buy" &&
+      rate >= stockData.Last
+    ) {
       setRateError(`Price must be less than ${stockData.Last}`);
-      }
-     
-    }
-    
-      else {
+    } else {
       setRateError(null);
       setQuantityError(null);
+      setModelOpened(true);
     }
+
   };
 
-  const handlerShowMax=()=>{
-    if(showMax){
-      setQuantity(0)
-      setShowMax(false)
-    }else{
+  const handlerShowMax = () => {
+    if (showMax) {
+      setQuantity(1);
+      setShowMax(false);
+    } else {
       orderService
-      .showMax(stockData?.Last,action,stockData?.Symbol)
-      .then((res) => {
-        setQuantity(res?.showMax)
-        setShowMax(true)
-        
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    
+        .showMax(stockData?.Last, action, stockData?.Symbol)
+        .then((res) => {
+          setQuantity(res?.showMax);
+          setShowMax(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }
+  };
 
   return (
     <>
@@ -148,14 +168,19 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
                 // ariaLiveMessages={{
                 //   onFocus
                 // }}
+        
+                // isOptionSelected={search}
+                onInputChange={inputChange}
                 onChange={onchange}
                 inputId="aria-example-input"
                 name="aria-live-color"
                 onMenuOpen={onMenuOpen}
                 onMenuClose={onMenuClose}
-                options={stockAllData}
+                options={filterStock}
                 isClearable={stockData ? false : true}
-                getOptionLabel={(option) => option.Name}
+                getOptionLabel={(option) =>
+                  `${option?.Symbol} - ${option.Name}`
+                }
               />
               {/* <input
                 className="form--control"
@@ -171,12 +196,20 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
               <select
                 className="form--control"
                 disabled={stockData ? false : true}
-                onClick={(e) => {setAction(e.target.value);setShowMax(false);setQuantity(0)}}
+                onClick={(e) => {
+                  setAction(e.target.value);
+                  setShowMax(false);
+                  setQuantity(1);
+                }}
               >
-                <option selected={action=='Buy'?true:false}>Buy</option>
-                <option selected={action=='Sell'?true:false}>Sell</option>
-                <option selected={action=='Short'?true:false}>Short</option>
-                <option selected={action=='Buy To Cover'?true:false}>Buy To Cover</option>
+                <option selected={action == "Buy" ? true : false}>Buy</option>
+                <option selected={action == "Sell" ? true : false}>Sell</option>
+                <option selected={action == "Short" ? true : false}>
+                  Short
+                </option>
+                <option selected={action == "Buy To Cover" ? true : false}>
+                  Buy To Cover
+                </option>
               </select>
             </div>
             <div className="form--item">
@@ -186,6 +219,7 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
               <input
                 className="form--control"
                 type="number"
+                min={1}
                 value={quantity}
                 disabled={stockData ? false : true}
                 onChange={(e) => setQuantity(e.target.value)}
@@ -235,7 +269,18 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
                       {stockData?.Last}
                       <sub>{stockData?.Currency}</sub>
                       <span>
-                        <sub>{stockData?.Change>=0?`+ ${stockData?.Change}`:`- ${stockData?.Change}`}({StockChangePercent(stockData?.Change,stockData?.Last,stockData?.Open)+'%'}) </sub>
+                        <sub>
+                          {stockData?.Change >= 0
+                            ? `+ ${stockData?.Change}`
+                            : `- ${stockData?.Change}`}
+                          (
+                          {StockChangePercent(
+                            stockData?.Change,
+                            stockData?.Last,
+                            stockData?.Open
+                          ) + "%"}
+                          ){" "}
+                        </sub>
                       </span>
                       <span className="font-12">
                         At Close(As of may 17, 19:59 EDT)
@@ -348,10 +393,10 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
                 <input
                   className="form--control"
                   type="number"
+                  min={0}
                   value={rate}
                   disabled={stockData ? false : true}
                   onChange={(e) => setRate(e.target.value)}
-                  min={1}
                 />
                 {rateError && (
                   <div
@@ -381,6 +426,9 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
               className="btn reset--btn"
               onClick={() => {
                 setStockData();
+                setQuantity('')
+                setRate('')
+                setOrderType('Market')
                 setShowMax(false);
               }}
             >
@@ -392,7 +440,6 @@ export default function Stocks({setShowTrade,setStockName,setStockAction}) {
                 className="btn form--submit"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  setModelOpened(true);
                   checkLimitPrice();
                 }}
               >

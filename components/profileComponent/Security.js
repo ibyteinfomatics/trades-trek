@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import { userService } from "../../services/user.service";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 
 export default function Security() {
   const [oldPassword, setOldPassword] = useState();
@@ -11,7 +12,17 @@ export default function Security() {
   const [confirmPassword, setConfirmPassword] = useState();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCPassword, setShowCPassword] = useState(false);
+  const [showOldPassword,setShowOldPassword]=useState(false)
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const SubmitForgot = () => {
     if (oldPassword && newPassword && confirmPassword) {
@@ -46,6 +57,31 @@ export default function Security() {
       setErrorMessage("All Field Required");
     }
   };
+  const onSubmit = (data) => {
+    userService
+          .changePassword({
+            oldPassword:data.oldPassword,
+            newPassword:data.password,
+            confirmNewPassword: data.confirmPassword,
+          })
+          .then((res) => {
+            if (res?.success === true) {
+              router.push({
+                pathname: "/",
+              });
+            } else {
+              setError(true);
+              setErrorMessage(res.message);
+            }
+          })
+          .catch((error) => {
+            setError(true);
+
+            setErrorMessage(error.message);
+          });
+    console.log(data);
+  };
+
   return (
     <>
       <div className="center--block">
@@ -64,55 +100,128 @@ export default function Security() {
               </p>
             </div>
           )}
-          <form className="site--form">
+          <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
             <div className="form--item">
               <input
-                type="password"
-                id="password"
+                className={`form--control ${
+                  errors.oldPassword ? "is-invalid" : ""
+                }`}
+                type={showOldPassword?"text":"password"}
+                id="oldPassword"
                 placeholder="Old Password"
-                className="form--control"
-                onChange={(e) => setOldPassword(e.target.value)}
+                {...register("oldPassword", {
+                  required: true,
+                  minLength: 8,
+                  maxLength: 15,
+                  pattern: {
+                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])([a-zA-Z0-9@$!%*?&]{8,})$/,
+                  },
+                })}
               />
-              <label htmlFor="password" className="form--label">
+                <div className="forgot--pwd">
+                <p
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowOldPassword(!showOldPassword)}
+                >
+                  {showOldPassword ? "Hide" : "Show"}
+                </p>
+              </div>
+              <label className="form--label" htmlFor="oldPassword">
                 Old Password
               </label>
+              <div className="invalid-feedback">
+                {errors.oldPassword?.type === "required" &&
+                  "Old Password is required"}
+                {errors.oldPassword?.type === "minLength" &&
+                  "Old Password should be atleast 8 characters"}
+                {errors.oldPassword?.type === "maxLength" &&
+                  "Old Password should be less than 15 characters"}
+                {errors.oldPassword?.type === "pattern" &&
+                  "must be alphanumeric with at least one special character and one Capital"}
+              </div>
             </div>
+
             <div className="form--item">
               <input
-                type="password"
-                id="newPassword"
-                placeholder="New Password"
-                className="form--control"
-                onChange={(e) => setNewPassword(e.target.value)}
+                className={`form--control ${
+                  errors.password ? "is-invalid" : ""
+                }`}
+                type={showPassword ? "text" : "password"}
+                id="pwd"
+                placeholder="Password"
+                {...register("password", {
+                  required: true,
+                  maxLength: 15,
+                  minLength: 8,
+
+                  pattern: {
+                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])([a-zA-Z0-9@$!%*?&]{8,})$/,
+                  },
+                })}
               />
-              <label htmlFor="newPassword" className="form--label">
+              <div className="forgot--pwd">
+                <p
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </p>
+              </div>
+              <label className="form--label" htmlFor="pwd">
                 New Password
               </label>
+              <div className="invalid-feedback">
+                {errors.password?.type === "required" && "Password is required"}
+                {errors.password?.type === "minLength" &&
+                  "Password should be atleast 8 characters"}
+                {errors.password?.type === "maxLength" &&
+                  "Password should be less than 15 characters"}
+                {errors.password?.type === "pattern" &&
+                  "must be alphanumeric with at least one special character and one Capital"}
+              </div>
             </div>
             <div className="form--item">
               <input
-                type="password"
-                id="confirmPassword"
+                className={`form--control ${
+                  errors.cpassword ? "is-invalid" : ""
+                }`}
+                type={showCPassword ? "text" : "password"}
+                id="cnfpwd"
                 placeholder="Confirm Password"
-                className="form--control"
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                {...register("confirmPassword", {
+                  required: true,
+                  validate: (value) => {
+                    if (watch("password") != value) {
+                      return "Confirm password does not match";
+                    }
+                  },
+                })}
               />
-              <label htmlFor="confirmPassword" className="form--label">
+              <div className="forgot--pwd">
+                <p
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowCPassword(!showCPassword)}
+                >
+                  {showCPassword ? "Hide" : "Show"}
+                </p>
+              </div>
+              <label className="form--label" htmlFor="cnfpwd">
                 Confirm Password
               </label>
+              <div className="invalid-feedback">
+                {errors.confirmPassword?.type === "required" &&
+                  "Confirm password is required"}
+                {errors.confirmPassword?.type === "validate" &&
+                  errors.confirmPassword?.message}
+              </div>
+            </div>
+
+            <div className="form--actions">
+              <button className="btn" type="submit">
+                Submit
+              </button>
             </div>
           </form>
-          <div className="info--button mt--12">
-            {/* <Link href="/"> */}
-            <a
-              onClick={SubmitForgot}
-              style={{ cursor: "pointer" }}
-              className="btn"
-            >
-              Submit
-            </a>
-            {/* </Link> */}
-          </div>
         </div>
       </div>
       <Footer />

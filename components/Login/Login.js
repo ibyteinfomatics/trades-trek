@@ -13,6 +13,7 @@ export default function Login() {
   const [btnStatus, setBtnStatus] = useState(false);
   const router = useRouter();
   const [validate,setValidate]=useState(false)
+  const [showPassword,setShowPassword]=useState(false)
   const [error,setError]=useState();
   const dispatch = useDispatch();
   const {
@@ -109,11 +110,15 @@ export default function Login() {
                   className={`form--control ${
                     errors.password ? 'is-invalid' : ''
                   }`}
-                  type="password"
+                  type={showPassword?'text':"password"}
                   id="pwd"
                   placeholder="Password"
                   {...register('password', { required: true, maxLength: 20 })}
                 />
+                 <div className="forgot--pwd">
+                <p style={{cursor:'pointer'}} onClick={()=>setShowPassword(!showPassword)}>{showPassword?'Hide':"Show"}</p>
+                
+              </div>
                 <label className="form--label" htmlFor="pwd">
                   Password
                 </label>
