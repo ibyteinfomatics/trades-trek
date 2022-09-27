@@ -134,7 +134,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
         });
     }
   };
-
+console.log(stockData)
   return (
     <>
       <div className="stocks-form">
@@ -165,6 +165,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               </label>
               <Select
                 aria-labelledby="aria-label"
+                isDisabled={stockAllData.length>0?false:true}
                 // ariaLiveMessages={{
                 //   onFocus
                 // }}
