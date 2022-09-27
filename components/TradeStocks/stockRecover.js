@@ -28,12 +28,24 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [rateError, setRateError] = useState(null);
   const dispatch = useDispatch();
   const [search,setSearch]=useState()
-  useEffect(() => {
-    setShowTrade(true)
-  }, [])
-  
-  
+  let { selectedStock } = useSelector((state) => state.selectedStockWrapper);
 
+  useEffect(() => {
+    setStockData(selectedStock);
+    if (selectedStock) {
+      setAction(selectedStock.action);
+      // setQuantity(selectedStock.quantity);
+    }
+  }, [selectedStock]);
+
+  // const onFocus = ({ focused, isDisabled }) => {
+  //   setStockData(focused)
+  //   const msg = `You are currently focused on option ${focused.Symbol}${
+  //     isDisabled ? ', disabled' : ''
+  //   }`;
+  //   setAriaFocusMessage(msg);
+  //   return msg;
+  // };
   const inputChange = (inputValue) => {
     setSearch(inputValue)
     if (inputValue) {
@@ -53,9 +65,13 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   };
   // set selected stock
   const onchange = (selectedOptions) => {
+    // setStockData(selectedOptions);
+    console.log(selectedOptions);
     if (selectedOptions) {
       setSearch(selectedOptions.Symbol)
-      setStockData(selectedOptions) 
+      dispatch(setSelectedStock({ ...selectedOptions, action: action }));
+      setStockName(selectedOptions.Symbol);
+      setStockAction(action);
       setShowMax(false);
       setQuantity("");
     }
@@ -98,8 +114,6 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
       setRateError(null);
       setQuantityError(null);
       setModelOpened(true);
-      console.log(stockData)
-      setStockName(stockData?.Symbol), setStockAction(stockData.action)
     }
 
   };
@@ -120,6 +134,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
         });
     }
   };
+console.log(stockData)
   return (
     <>
       <div className="stocks-form">

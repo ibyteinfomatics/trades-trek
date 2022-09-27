@@ -111,6 +111,7 @@ export default function TradesTrek() {
                 <TabPanel>
                   <div className="tab-data">
                     <MarketOpenClose />
+                    {/* <Stocks /> */}
                     {showTrade ? (
                       <Stocks
                         setShowTrade={setShowTrade}
@@ -125,7 +126,7 @@ export default function TradesTrek() {
                 <TabPanel>
                   <div className="tab-data order-status">
                     <MarketOpenClose />
-                    <TradeOrderStatus />
+                    <TradeOrderStatus setShowTrade={setShowTrade} />
                   </div>
                 </TabPanel>
               </Tabs>

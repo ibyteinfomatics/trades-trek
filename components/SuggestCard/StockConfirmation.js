@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import SuggestCard from "./SuggestCard";
 
 const StockConfirmation = ({ stockName, setShowTrade,stockAction }) => {
+
+  
   return (
     <div className=" trade_sec">
       <div className="trade_sec--up">

@@ -1,9 +1,12 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 import TradeFailedOrders from "../Table/TradeFailedOrders";
 import TradePendingOrders from "../Table/TradePendingOrders";
-export default function TradeOrderStatus() {
+export default function TradeOrderStatus({setShowTrade}) {
+  useEffect(() => {
+    setShowTrade(true)
+  }, [setShowTrade])
  
   return (
     <div className="trade-order-status">
