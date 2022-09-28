@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 
-export default function TradeFailedOrders() {
+export default function TradeFailedOrders({modelOpened }) {
   const [failedOrders, setfailedOrders] = useState();
   const [failedAllPage, setfailedAllPage] = useState(1);
 
@@ -16,6 +16,7 @@ export default function TradeFailedOrders() {
     "QUANTITY",
     "ORDER PRICE",
     "Processed at",
+    "Order Id"
   ];
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function TradeFailedOrders() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [modelOpened]);
   const handlePageClick = ({ selected }) => {
     orderService
       .getFailedOrders(selected + 1)
@@ -91,6 +92,7 @@ export default function TradeFailedOrders() {
                       {TimeConverter(item.createdAt)}
                     </span>
                   </td>
+                  <td>{item._id}</td>
                 </tr>
               );
             })}

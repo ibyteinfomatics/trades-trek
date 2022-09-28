@@ -1,9 +1,10 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import TradeFailedOrders from "../Table/TradeFailedOrders";
 import TradePendingOrders from "../Table/TradePendingOrders";
 export default function TradeOrderStatus({setShowTrade}) {
+  const [modelOpened, setModelOpened] = useState(false);
   useEffect(() => {
     setShowTrade(true)
   }, [setShowTrade])
@@ -21,7 +22,7 @@ export default function TradeOrderStatus({setShowTrade}) {
           Note: Open trades is a list of all your pendings transactions.
         </p>
       </div>
-      <TradePendingOrders />
+      <TradePendingOrders modelOpened={modelOpened} setModelOpened={setModelOpened}/>
 
       <div className="bg-purple-block mt-31 mb-31">
         <ul>
@@ -52,7 +53,7 @@ export default function TradeOrderStatus({setShowTrade}) {
           details.
         </p>
       </div>
-      <TradeFailedOrders />
+      <TradeFailedOrders modelOpened={modelOpened} setModelOpened={setModelOpened} />
       <div className="table-row-gap show-data mt-26 pb-26">
         <p className="font-16">
           Showing the most recent failed trades from the last 30 days

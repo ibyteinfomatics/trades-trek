@@ -93,8 +93,9 @@ const ShortTable = () => {
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        dispatch(setSelectedStock({ ...res, action: "Buy To Cover" }));
-
+        // dispatch(setSelectedStock({ ...res, action: "Buy To Cover" }));
+        let data={action:'Buy To Cover',quantity:stock.quantity,...res}
+        localStorage.setItem('stock',JSON.stringify(data))
         router.push("/dashboard/trade-stocks/");
       })
       .catch((err) => {
@@ -105,8 +106,9 @@ const ShortTable = () => {
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        dispatch(setSelectedStock({ ...res, action: "Short" }));
-
+        // dispatch(setSelectedStock({ ...res, action: "Short" }));
+        let data={action:'Short',quantity:stock.quantity,...res}
+        localStorage.setItem('stock',JSON.stringify(data))
         router.push("/dashboard/trade-stocks/");
       })
       .catch((err) => {

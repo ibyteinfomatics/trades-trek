@@ -20,6 +20,15 @@ export default function Sidebar() {
   let { user } = useSelector((state) => state.userWrapper);
   const [modelOpened, setModelOpened] = useState(false);
   const {openOrder}=useSelector((state)=>state.openOrderWrapper)
+  useEffect(() => {
+    if(router.asPath!='/dashboard/trade-stocks/'){
+      localStorage.setItem('indexTrade',0)
+    }
+    if(router.asPath!='/dashboard/portfolio/'){
+      localStorage.setItem('indexPort',0)
+    }
+  }, [router.asPath])
+  
 
   // useEffect(() => {
   //   userService
@@ -35,6 +44,7 @@ export default function Sidebar() {
     userService
       .userInfo()
       .then((res) => {
+        
         dispatch(setUser(res.message));
       })
       .catch((err) => {

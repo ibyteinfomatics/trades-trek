@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
-import { setSelectedStock } from "../../actions/setStock";
 import { orderService } from "../../services/order.service";
 import IncreaseDecrease from "../Table/IncreaseDecrease";
 
@@ -20,7 +19,6 @@ const HoldingTables = () => {
   const [totalChangePer, setTotalChangePer] = useState(0);
   const [isLoading,setIsLoading]=useState(false)
   const router=useRouter()
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true)
@@ -87,12 +85,18 @@ const HoldingTables = () => {
   ];
 
   const handledMoreBuy = (stock) => {
+    console.log(stock)
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        dispatch(setSelectedStock({ ...res, action: "Buy" }));
-
-        router.push("/dashboard/trade-stocks/");
+        console.log(res)
+        // dispatch(setSelectedStock({ ...res, action: "Buy" }));
+        let data={action:'Buy',quantity:stock.quantity,...res}
+        console.log(data)
+        localStorage.setItem('stock',JSON.stringify(data))
+        router.push({
+          pathname:'/dashboard/trade-stocks/', 
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -102,8 +106,8 @@ const HoldingTables = () => {
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        dispatch(setSelectedStock({ ...res, action: "Sell",quantity:stock.quantity }));
-
+        let data={action:'Sell',quantity:stock.quantity,...res}
+        localStorage.setItem('stock',JSON.stringify(data))
         router.push("/dashboard/trade-stocks/");
       })
       .catch((err) => {

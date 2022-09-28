@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import MarketOpenClose from "../../components/MarketOpenClose/MarketOpenClose";
 import { AccountValue } from "../../helpers/UserAccount";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { userService } from "../../services";
 import StockConfirmation from "../../components/SuggestCard/StockConfirmation";
 import { setUser } from "../../actions/users";
@@ -20,6 +19,7 @@ export default function TradesTrek() {
   const [showTrade, setShowTrade] = useState(true);
   const [stockName, setStockName] = useState("");
   const [stockAction,setStockAction]=useState('')
+  const [tabIndex, setTabIndex] = useState(0);
   // const []
   const [userData, setUserData] = useState({});
   const dispatch=useDispatch()
@@ -40,9 +40,21 @@ export default function TradesTrek() {
    orderService.popularCompanies().then((res)=>{
     dispatch(setPopularCompany(res))
    }).catch((err)=>console.log('error'))
-},[])
-
   
+},[])
+useEffect(() => {
+ let index=localStorage.getItem('indexTrade')
+ if(index){
+  console.log(typeof index)
+  setTabIndex(Number(index))
+ }
+}, [])
+
+
+const handleTab=(index)=>{
+  setTabIndex(index)
+  localStorage.setItem('indexTrade',index)
+}
  
   return (
     <>
@@ -51,7 +63,7 @@ export default function TradesTrek() {
         <div className="page--title--block">
           <div className="grid--2">
             <div className="grid-block-left wrapper--title">
-              <h3>Welcome, {user && user.fullName}</h3>
+              <h3>Welcome, {user && `${user.firstName} ${user.lastName}`}</h3>
             </div>
             <div className="grid-block-right right-align">
               <div className="beginner-option">
@@ -102,7 +114,7 @@ export default function TradesTrek() {
           </div>
           <div className="card-no-gap">
             <div className="trade-data">
-              <Tabs>
+              <Tabs defaultIndex={0}  selectedIndex={tabIndex} onSelect={(index) => handleTab(index)}>
                 <TabList>
                   <Tab>Stocks</Tab>
                   <Tab>Order Status</Tab>

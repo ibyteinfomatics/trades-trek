@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
 import { StockChangePercent } from "../../helpers/StockChangePercent";
 import FormSpinner from "../Spinners/FormSpinner";
+import { useRouter } from "next/router";
 
 export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
@@ -28,9 +29,24 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [rateError, setRateError] = useState(null);
   const dispatch = useDispatch();
   const [search,setSearch]=useState()
+  const router = useRouter();
+  const data = router.state;
   useEffect(() => {
     setShowTrade(true)
   }, [])
+  useEffect(() => {
+    let data=localStorage.getItem('stock')
+    console.log(data)
+    data=JSON.parse(data)
+    // 
+    if (data) {
+      setAction(data.action);
+      setStockData(data);
+      setQuantity(data.quantity)
+      localStorage.removeItem('stock')
+     
+    }
+  }, []);
   
   
 
@@ -280,11 +296,11 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {stockData?.EPS?.toFixed(3) || 0}
+                      {Number(stockData?.EPS)?.toFixed(3) || 0}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
-                      {stockData?.MktCap?.toFixed(3) || 0}
+                      {Number(stockData?.MktCap)?.toFixed(3) || 0}
                       <span className="font-12">Market Cap</span>
                     </h3>
                     {/* <h3 className="font-16">
@@ -292,7 +308,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       <span className="font-12">Div Yield</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {stockData?.PE?.toFixed(3) || 0}
+                      {Number(stockData?.PE)?.toFixed(3) || 0}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -304,32 +320,32 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s High($)</p>
-                        <p className="font-14">{stockData?.High?.toFixed(3)}</p>
+                        <p className="font-14">{Number(stockData?.High)?.toFixed(3)}</p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s LOW($)</p>
-                        <p className="font-14">{stockData?.Low?.toFixed(3)}</p>
+                        <p className="font-14">{Number(stockData?.Low)?.toFixed(3)}</p>
                       </div>
                     </div>
                     <div className="volumeDataRight">
                       <div className="currentData">
                         <p className="font-16">52 Week High($)</p>
                         <p className="font-14">
-                          {stockData?.High52Week?.toFixed(3)}
+                          {Number(stockData?.High52Week)?.toFixed(3)}
                         </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Bid/Ask price($)</p>
                         <p className="font-14">
                           {(
-                            (stockData?.Bid || 0) / (stockData?.Ask || 1)
+                            (Number(stockData?.Bid) || 0) / (Number(stockData?.Ask) || 1)
                           ).toFixed(3)}
                         </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">52 Week Low($)</p>
                         <p className="font-14">
-                          {stockData?.Low52Week?.toFixed(3)}
+                          {Number(stockData?.Low52Week)?.toFixed(3)}
                         </p>
                       </div>
                     </div>
@@ -411,11 +427,11 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               type="reset"
               className="btn reset--btn"
               onClick={() => {
-                setStockData();
+                // setStockData();
                 setQuantity('')
                 setRate('')
                 setOrderType('Market')
-                setShowMax(false);
+                // setShowMax(false);
               }}
             >
               Clear

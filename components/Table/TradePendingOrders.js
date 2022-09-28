@@ -5,10 +5,9 @@ import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 import CancelProduct from "../Modal/CancelProduct";
 
-export default function TradePendingOrders() {
+export default function TradePendingOrders({setModelOpened,modelOpened}) {
   const [pendingOrders, setPendingOrders] = useState();
   const [pendingAllPage, setPendingAllPage] = useState(1);
-  const [modelOpened, setModelOpened] = useState(false);
   const [Id, setId] = useState();
 
   const columns = [
@@ -22,20 +21,20 @@ export default function TradePendingOrders() {
     "ACTION",
   ];
 
-  useEffect(() => {
-    orderService
-      .getPendingOrders(1)
-      .then((res) => {
-        console.log(res);
-        if (res.success) {
-          setPendingOrders(res.pendings.docs);
-          setPendingAllPage(res.pendings.pages);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   orderService
+  //     .getPendingOrders(1)
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.success) {
+  //         setPendingOrders(res.pendings.docs);
+  //         setPendingAllPage(res.pendings.pages);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   const handlePageClick = ({ selected }) => {
     orderService
       .getPendingOrders(selected + 1)
@@ -50,6 +49,23 @@ export default function TradePendingOrders() {
         console.log(err);
       });
   };
+  useEffect(()=>{
+    orderService
+    .getPendingOrders(1)
+    .then((res) => {
+      console.log(res);
+      if (res.success) {
+        setPendingOrders(res.pendings.docs);
+        setPendingAllPage(res.pendings.pages);
+      }else{
+        setPendingOrders()
+        setPendingAllPage(1)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[modelOpened])
 
   return (
     <div className="trade-order-status">
