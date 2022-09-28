@@ -1,5 +1,7 @@
-export const DataConvert=(date)=>{
+export const DataConvert=(date,par=0)=>{
     let d=new Date(date)
+    d.setDate(d.getDate()+par)
+ 
     return d.toDateString()
   }
  export const TimeConverter=(time)=>{

@@ -9,6 +9,7 @@ export default function TradeFailedOrders({modelOpened }) {
   const [failedAllPage, setfailedAllPage] = useState(1);
 
   const columns = [
+    "Failed On",
     "ORDER DATE & TIME",
     "SYMBOL",
     "STATUS",
@@ -61,6 +62,12 @@ export default function TradeFailedOrders({modelOpened }) {
             {failedOrders?.map((item) => {
               return (
                 <tr>
+                   <td>
+                    {DataConvert(item.updatedAt)}{" "}
+                    <span className="order-time">
+                      {TimeConverter(item.updatedAt)}
+                    </span>
+                  </td>
                   <td>
                     {DataConvert(item.createdAt)}{" "}
                     <span className="order-time">

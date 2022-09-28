@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 import CancelProduct from "../Modal/CancelProduct";
+import OrderExpired from "../OrderExpired/OrderExpired";
 
 export default function TradePendingOrders({setModelOpened,modelOpened}) {
   const [pendingOrders, setPendingOrders] = useState();
@@ -11,14 +12,16 @@ export default function TradePendingOrders({setModelOpened,modelOpened}) {
   const [Id, setId] = useState();
 
   const columns = [
-    "ORDER DATE & TIME",
-    "SYMBOL",
-    "STATUS",
-    "TRANSACTION",
-    "QUANTITY",
-    "ORDER PRICE",
+    "Order Date & Time",
+    "Symbol",
+    "Status",
+    "Transaction",
+    "Quantity",
+    "Order Price",
     "Processed at",
-    "ACTION",
+    // "Expire On",
+    "Order Id",
+    "Action",
   ];
 
   // useEffect(() => {
@@ -111,6 +114,11 @@ export default function TradePendingOrders({setModelOpened,modelOpened}) {
                       {TimeConverter(item.createdAt)}
                     </span>
                   </td>
+                  {/* <td>
+                    <OrderExpired data={item} />
+                  </td> */}
+                  <td>{item._id}</td>
+
                   <td>
                     <button
                       onClick={() => {

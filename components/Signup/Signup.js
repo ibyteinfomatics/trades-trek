@@ -306,6 +306,26 @@ export default function Signup() {
                     errors.confirmPassword?.message}
                 </div>
               </div>
+              {/* <div className="form--item">
+                <input
+                  className={`form--control ${
+                    errors.age ? "is-invalid" : ""
+                  }`}
+                  type="checkbox"
+                  id="age"
+                  {...register("age", {
+                    required: true,
+                    
+                  })}
+                />
+                <label className="form--label" htmlFor="lName">
+                 
+                </label>
+                <div className="invalid-feedback">
+                  {errors.age?.type === "Age "}
+                 
+                </div>
+              </div> */}
               <div className="form--content">
                 <p>
                   By registering, you agree to the{" "}
