@@ -2486,7 +2486,7 @@ html{
   
   /* margin: 10px; */
   padding: 10px;
-  font-size: 16px;
+  font-size: 12px;
 }
 .paginationReact >ul>li>a{
   margin: 0px 10px;
@@ -2558,4 +2558,28 @@ html{
 .explore--comp .explore_flex .card--data{
   box-shadow: 1px 1px 1px 1px gray;
   padding: 1rem;
+}
+
+.popcustom{
+  width:"50%";
+border-right: "0.5px solid #c9cdd1";
+padding:'10px'
+}
+.done:hover{
+background-color: #8000ff;
+color: white;
+font-weight: bold;
+
+}
+.cancel:hover{
+  background-color:#8000ff;
+  color: white;
+  font-weight: bold;
+}
+
+.passwordView{
+  height: 18px;
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
 }

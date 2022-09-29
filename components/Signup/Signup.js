@@ -13,8 +13,8 @@ export default function Signup() {
   const router = useRouter();
   const [validate, setValidate] = useState(false);
   const [error, setError] = useState();
-  const [showPassword,setShowPassword]=useState(false);
-  const [showCPassword,setShowCPassword]=useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCPassword, setShowCPassword] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -24,36 +24,34 @@ export default function Signup() {
   } = useForm();
 
   const onSubmit = (data) => {
-  
-      userService
-        .signup(data)
-        .then((res) => {
-          if (res?.success === true) {
-            setValidate(false);
-            localStorage.setItem("email", data.email);
-            setError(res.message);
-            localStorage.setItem("otp", data.email);
-            dispatch(setUser(res.user));
-            router.push("/otp");
-          } else if (res?.success === false) {
-            setValidate(true);
-            setError(res.message);
-            setBtnStatus(false);
-          } else {
-            setValidate(true);
-            setError(res);
-            setBtnStatus(false);
-          }
-        })
-        .catch((error) => {
+    userService
+      .signup(data)
+      .then((res) => {
+        if (res?.success === true) {
+          setValidate(false);
+          localStorage.setItem("email", data.email);
+          setError(res.message);
+          localStorage.setItem("otp", data.email);
+          dispatch(setUser(res.user));
+          router.push("/otp");
+        } else if (res?.success === false) {
           setValidate(true);
-
-          setError(error.message);
+          setError(res.message);
           setBtnStatus(false);
-        });
-   
+        } else {
+          setValidate(true);
+          setError(res);
+          setBtnStatus(false);
+        }
+      })
+      .catch((error) => {
+        setValidate(true);
+
+        setError(error.message);
+        setBtnStatus(false);
+      });
   };
-  console.log(showPassword)
+  console.log(showPassword);
 
   return (
     <>
@@ -238,29 +236,41 @@ export default function Signup() {
                   {errors.username?.type === "pattern" && "Invalide User Name"}
                 </div>
               </div>
-              <div className="form--item">
-                <input
+              <div className="form--item" >
+               <div style={{ display: "flex" }}>
+               <input
+                  style={{ width: "100%" }}
                   className={`form--control ${
                     errors.password ? "is-invalid" : ""
                   }`}
-                  type={showPassword?'text':"password"}
+                  type={showPassword ? "text" : "password"}
                   id="pwd"
                   placeholder="Password"
                   {...register("password", {
                     required: true,
                     maxLength: 15,
                     minLength: 8,
-                    
+
                     pattern: {
                       value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
                     },
                   })}
-                  
                 />
-                <div className="forgot--pwd">
-                <p style={{cursor:'pointer'}} onClick={()=>setShowPassword(!showPassword)}>{showPassword?'Hide':"Show"}</p>
-                
-              </div>
+                {showPassword ? (
+                  <img
+                    src="/images/view.png"
+                    className="passwordView"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                ) : (
+                  <img
+                    onClick={() => setShowPassword(!showPassword)}
+                    src="/images/invisible.png"
+                    className="passwordView"
+                  />
+                )}
+               </div>
+
                 <label className="form--label" htmlFor="pwd">
                   Password
                 </label>
@@ -276,26 +286,39 @@ export default function Signup() {
                 </div>
               </div>
               <div className="form--item">
-                <input
-                  className={`form--control ${
-                    errors.email ? "is-invalid" : ""
-                  }`}
-                  type={showCPassword?"text":"password"}
-                  id="cnfpwd"
-                  placeholder="Confirm Password"
-                  {...register("confirmPassword", {
-                    required: true,
-                    validate: (value) => {
-                      if (watch("password") != value) {
-                        return "Confirm password does not match";
-                      }
-                    },
-                  })}
-                />
-                <div className="forgot--pwd">
-                <p style={{cursor:'pointer'}} onClick={()=>setShowCPassword(!showCPassword)}>{showCPassword?'Hide':"Show"}</p>
-                
-              </div>
+                <div style={{ display: "flex" }}>
+                  <input
+                    style={{ width: "100%" }}
+                    className={`form--control ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
+                    type={showCPassword ? "text" : "password"}
+                    id="cnfpwd"
+                    placeholder="Confirm Password"
+                    {...register("confirmPassword", {
+                      required: true,
+                      validate: (value) => {
+                        if (watch("password") != value) {
+                          return "Confirm password does not match";
+                        }
+                      },
+                    })}
+                  />
+                  {showCPassword ? (
+                    <img
+                      src="/images/view.png"
+                      className="passwordView"
+                      onClick={() => setShowCPassword(!showCPassword)}
+                    />
+                  ) : (
+                    <img
+                      onClick={() => setShowCPassword(!showCPassword)}
+                      src="/images/invisible.png"
+                      className="passwordView"
+                    />
+                  )}
+                </div>
+
                 <label className="form--label" htmlFor="cnfpwd">
                   Confirm Password
                 </label>
@@ -306,26 +329,26 @@ export default function Signup() {
                     errors.confirmPassword?.message}
                 </div>
               </div>
-              {/* <div className="form--item">
-                <input
-                  className={`form--control ${
-                    errors.age ? "is-invalid" : ""
-                  }`}
+              <div
+                className="form--item"
+               
+              >
+              <div  style={{ display: "flex", alignItems: "center" }}>
+              <input
+                  style={{ height: "10px", width: "30px" }}
+                  className={`form--control ${errors.age ? "is-invalid" : ""}`}
                   type="checkbox"
                   id="age"
                   {...register("age", {
                     required: true,
-                    
                   })}
                 />
-                <label className="form--label" htmlFor="lName">
-                 
-                </label>
+                <span>Are you 18 years old</span>
+              </div>
                 <div className="invalid-feedback">
-                  {errors.age?.type === "Age "}
-                 
+                  {errors.age?.type === "required" && "Are you  18 years old"}
                 </div>
-              </div> */}
+              </div>
               <div className="form--content">
                 <p>
                   By registering, you agree to the{" "}

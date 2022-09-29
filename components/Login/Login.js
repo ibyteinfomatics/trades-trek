@@ -105,8 +105,9 @@ export default function Login() {
                   {errors.email?.type === 'required' && 'Email/Username is required'}
                 </div>
               </div>
-              <div className="form--item">
-                <input
+              <div className="form--item" >
+                <div style={{display:'flex'}}>
+                <input style={{width: "100%"}}
                   className={`form--control ${
                     errors.password ? 'is-invalid' : ''
                   }`}
@@ -115,10 +116,9 @@ export default function Login() {
                   placeholder="Password"
                   {...register('password', { required: true, maxLength: 20 })}
                 />
-                 <div className="forgot--pwd">
-                <p style={{cursor:'pointer'}} onClick={()=>setShowPassword(!showPassword)}>{showPassword?'Hide':"Show"}</p>
-                
-              </div>
+                {showPassword?<img src='/images/view.png' className='passwordView' onClick={()=>setShowPassword(!showPassword)}/>:<img onClick={()=>setShowPassword(!showPassword)} src='/images/invisible.png' className='passwordView'/>}
+                 
+                </div>
                 <label className="form--label" htmlFor="pwd">
                   Password
                 </label>

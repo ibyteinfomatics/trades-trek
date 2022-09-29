@@ -168,6 +168,36 @@ function holdingProfitOrLoss(page = 1) {
     });
 }
 
+// pending holding ...... 
+function pendingHolding(page = 1) {
+  return fetchWrapper
+    .get(`${baseUrl}/user/order/pending-holding?page=${page}&limit=5`)
+    .then((res) => {
+      // console.log(res.data)
+      return res;
+    })
+    .catch((errr) => {
+      console.log("error section ");
+
+      return errr;
+    });
+}
+
+// Pending short ......  
+function pendingShort(page = 1) {
+  return fetchWrapper
+    .get(`${baseUrl}/user/order/pending-short?page=${page}&limit=5`)
+    .then((res) => {
+      // console.log(res.data)
+      return res;
+    })
+    .catch((errr) => {
+      console.log("error section ");
+
+      return errr;
+    });
+}
+
 // short profit or loss ........................
 function shortProfitOrLoss(page = 1) {
   return fetchWrapper
@@ -199,5 +229,7 @@ export const orderService = {
   tradeHistory,
   holdingProfitOrLoss,
   shortProfitOrLoss,
-  getFailedOrders
+  getFailedOrders,
+  pendingHolding,
+  pendingShort
 };

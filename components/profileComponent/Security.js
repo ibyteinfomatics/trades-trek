@@ -102,7 +102,9 @@ export default function Security() {
           )}
           <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
             <div className="form--item">
-              <input
+             <div style={{display:'flex'}}>
+             <input
+             style={{width:'100%'}}
                 className={`form--control ${
                   errors.oldPassword ? "is-invalid" : ""
                 }`}
@@ -118,14 +120,10 @@ export default function Security() {
                   },
                 })}
               />
-                <div className="forgot--pwd">
-                <p
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setShowOldPassword(!showOldPassword)}
-                >
-                  {showOldPassword ? "Hide" : "Show"}
-                </p>
-              </div>
+                {showOldPassword?<img src='/images/view.png' className='passwordView' onClick={()=>setShowOldPassword(!showOldPassword)}/>:<img onClick={()=>setShowOldPassword(!showOldPassword)} src='/images/invisible.png' className='passwordView'/>}
+
+               
+             </div>
               <label className="form--label" htmlFor="oldPassword">
                 Old Password
               </label>
@@ -142,7 +140,8 @@ export default function Security() {
             </div>
 
             <div className="form--item">
-              <input
+             <div style={{display:'flex'}}>
+             <input style={{width:'100%'}}
                 className={`form--control ${
                   errors.password ? "is-invalid" : ""
                 }`}
@@ -159,14 +158,11 @@ export default function Security() {
                   },
                 })}
               />
-              <div className="forgot--pwd">
-                <p
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Hide" : "Show"}
-                </p>
-              </div>
+                {showPassword?<img src='/images/view.png' className='passwordView' onClick={()=>setShowPassword(!showPassword)}/>:<img onClick={()=>setShowPassword(!showPassword)} src='/images/invisible.png' className='passwordView'/>}
+
+             </div>
+
+              
               <label className="form--label" htmlFor="pwd">
                 New Password
               </label>
@@ -181,7 +177,8 @@ export default function Security() {
               </div>
             </div>
             <div className="form--item">
-              <input
+             <div style={{display:'flex'}}>
+             <input style={{width:"100%"}}
                 className={`form--control ${
                   errors.cpassword ? "is-invalid" : ""
                 }`}
@@ -197,14 +194,10 @@ export default function Security() {
                   },
                 })}
               />
-              <div className="forgot--pwd">
-                <p
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setShowCPassword(!showCPassword)}
-                >
-                  {showCPassword ? "Hide" : "Show"}
-                </p>
-              </div>
+                {showCPassword?<img src='/images/view.png' className='passwordView' onClick={()=>setShowCPassword(!showCPassword)}/>:<img onClick={()=>setShowCPassword(!showCPassword)} src='/images/invisible.png' className='passwordView'/>}
+
+             </div>
+              
               <label className="form--label" htmlFor="cnfpwd">
                 Confirm Password
               </label>

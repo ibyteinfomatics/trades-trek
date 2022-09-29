@@ -52,23 +52,24 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
       }}
     >
       <div>
-        <h2>
+        <h2 style={{ textAlign: "center", margin: "20px 10px" }}>
           <b>Do you want to Cancel Product</b>
         </h2>
-        <br />
-        <div>
-          <button
+      
+        <div style={{border: "1px solid #c9cdd1",marginTop:"40px"}}>
+          <button style={{width:"50%",borderRight: "0.5px solid #c9cdd1",padding:'10px'}}
             onClick={() => {
              
               cancelOrder(id)
             }}
-            style={{ margin: "20px" }}
+            className='done'
           >
             Yes
           </button>
           <button
             onClick={() => setModelOpened(false)}
-            style={{ margin: "20px" }}
+            style={{width:"50%",borderRight: "0.5px solid #c9cdd1",padding:'10px'}}
+            className='cancel'
           >
             Cancel
           </button>
