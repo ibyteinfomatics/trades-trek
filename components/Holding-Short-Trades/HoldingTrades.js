@@ -41,7 +41,6 @@ const HoldingTrades = () => {
 
     }
   },[tabIndex])
-  console.log(tableData)
 
   return (
     <>
@@ -68,7 +67,7 @@ const HoldingTrades = () => {
           </Tabs>
         </div>
       </div>
-      {setTableData.length>0 && <div className="card-no-gap">
+      {tableData.length>0 && <div className="card-no-gap">
         <h1 style={{textAlign:'center',marging:'20px 10px',fontSize:'20px'}}>Pending Trades</h1>
         <div className="trade-data">
         <StockPending modelOpened={modelOpened} setModelOpened={setModelOpened} tableData={tableData} />
