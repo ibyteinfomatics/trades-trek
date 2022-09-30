@@ -252,7 +252,7 @@ export default function Signup() {
                     minLength: 8,
 
                     pattern: {
-                      value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
+                      value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
                     },
                   })}
                 />
@@ -282,7 +282,7 @@ export default function Signup() {
                   {errors.password?.type === "maxLength" &&
                     "Password should be less than 15 characters"}
                   {errors.password?.type === "pattern" &&
-                    "must be alphanumeric with at least one special character and one Capital"}
+                    "Password must be alphanumeric with at least one special character"}
                 </div>
               </div>
               <div className="form--item">
@@ -335,7 +335,7 @@ export default function Signup() {
               >
               <div  style={{ display: "flex", alignItems: "center" }}>
               <input
-                  style={{ height: "10px", width: "30px" }}
+                  style={{ height: "20px", width: "30px" ,marginRight:'10px'}}
                   className={`form--control ${errors.age ? "is-invalid" : ""}`}
                   type="checkbox"
                   id="age"
@@ -343,10 +343,10 @@ export default function Signup() {
                     required: true,
                   })}
                 />
-                <span>Are you 18 years old</span>
+                <span>Are you 18 years old -- You should be atleast 18 year old to use this application.</span>
               </div>
                 <div className="invalid-feedback">
-                  {errors.age?.type === "required" && "Are you  18 years old"}
+                  {errors.age?.type === "required" && "Are you 18 years old"}
                 </div>
               </div>
               <div className="form--content">

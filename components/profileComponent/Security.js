@@ -116,7 +116,7 @@ export default function Security() {
                   minLength: 8,
                   maxLength: 15,
                   pattern: {
-                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#_!%*?&]{8,15})$/,
+                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#_!%*?&]{8,15})$/,
                   },
                 })}
               />
@@ -135,7 +135,7 @@ export default function Security() {
                 {errors.oldPassword?.type === "maxLength" &&
                   "Old Password should be less than 15 characters"}
                 {errors.oldPassword?.type === "pattern" &&
-                  "must be alphanumeric with at least one special character and one Capital"}
+                  "Old Password must be alphanumeric with at least one special character"}
               </div>
             </div>
 
@@ -154,7 +154,7 @@ export default function Security() {
                   minLength: 8,
 
                   pattern: {
-                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
+                    value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
                   },
                 })}
               />
@@ -173,7 +173,7 @@ export default function Security() {
                 {errors.password?.type === "maxLength" &&
                   "Password should be less than 15 characters"}
                 {errors.password?.type === "pattern" &&
-                  "must be alphanumeric with at least one special character and one Capital"}
+                  "Password must be alphanumeric with at least one special character"}
               </div>
             </div>
             <div className="form--item">
