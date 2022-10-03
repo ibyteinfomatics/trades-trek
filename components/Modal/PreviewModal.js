@@ -85,7 +85,7 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
             </div>
             <div className='row-block'>
                 <p className='font-18'>Estimated Price:</p>
-                <p className='font-18'>${Number((data?.quantity)*(data.orderType == 'Market' ? data?.Last : data.rate )).toFixed(3)}</p>
+                <p className='font-18'>${Number((data?.quantity)*(data.orderType == 'Market' ? data?.Last : data.rate )).toFixed(2)}</p>
             </div>
             {/* <div className='row-block'>
                 <p className='font-18'>Stock Rate</p>
@@ -99,9 +99,9 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
             <div className='row-block'>
                 <p className='font-18'>Estimate Total</p>
                 {data?.orderType == 'Market' &&
-                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(3)}</p>
+                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(2)}</p>
                  }
-                {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(3)}</p>}
+                {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(2)}</p>}
             </div>
             <div className=''>
                 <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button>

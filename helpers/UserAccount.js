@@ -2,12 +2,12 @@
 // account value ............................
 export const AccountValue=(cash,invested,profit)=>{
   
-    return (cash+invested+profit).toFixed(3)
+    return (cash+invested+profit).toFixed(2)
 }
 
 // Buying Power ................................
 export const BuyingPower=(acc)=>{
-    return acc.toFixed(3)
+    return acc.toFixed(2)
 
 }
 

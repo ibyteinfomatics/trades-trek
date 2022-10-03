@@ -2583,3 +2583,10 @@ font-weight: bold;
   right: 0px;
   cursor: pointer;
 }
+
+.PhoneInputCountryIconUnicode{
+  font-size: 20px !important;
+}
+.PhoneInputCountryIconImg{
+  height: 40 !important;
+}

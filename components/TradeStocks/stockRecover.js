@@ -295,11 +295,11 @@ console.log(stockData)
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {stockData?.EPS?.toFixed(3) || 0}
+                      {stockData?.EPS?.toFixed(2) || 0}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
-                      {stockData?.MktCap?.toFixed(3) || 0}
+                      {stockData?.MktCap?.toFixed(2) || 0}
                       <span className="font-12">Market Cap</span>
                     </h3>
                     {/* <h3 className="font-16">
@@ -307,7 +307,7 @@ console.log(stockData)
                       <span className="font-12">Div Yield</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {stockData?.PE?.toFixed(3) || 0}
+                      {stockData?.PE?.toFixed(2) || 0}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -319,18 +319,18 @@ console.log(stockData)
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s High($)</p>
-                        <p className="font-14">{stockData?.High?.toFixed(3)}</p>
+                        <p className="font-14">{stockData?.High?.toFixed(2)}</p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s LOW($)</p>
-                        <p className="font-14">{stockData?.Low?.toFixed(3)}</p>
+                        <p className="font-14">{stockData?.Low?.toFixed(2)}</p>
                       </div>
                     </div>
                     <div className="volumeDataRight">
                       <div className="currentData">
                         <p className="font-16">52 Week High($)</p>
                         <p className="font-14">
-                          {stockData?.High52Week?.toFixed(3)}
+                          {stockData?.High52Week?.toFixed(2)}
                         </p>
                       </div>
                       <div className="currentData">
@@ -338,13 +338,13 @@ console.log(stockData)
                         <p className="font-14">
                           {(
                             (stockData?.Bid || 0) / (stockData?.Ask || 1)
-                          ).toFixed(3)}
+                          ).toFixed(2)}
                         </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">52 Week Low($)</p>
                         <p className="font-14">
-                          {stockData?.Low52Week?.toFixed(3)}
+                          {stockData?.Low52Week?.toFixed(2)}
                         </p>
                       </div>
                     </div>

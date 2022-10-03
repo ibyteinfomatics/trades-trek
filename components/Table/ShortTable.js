@@ -93,14 +93,14 @@ export default function ShortTable({ rows, tableStatus ,setRefresh,refresh}) {
               Option: Buy to Open
               <span className="order-time">at Market Open</span>
             </td> */}
-                  <td>₦{item.currentPrice?.toFixed(3)}</td>
+                  <td>₦{item.currentPrice?.toFixed(2)}</td>
                   {IncreaseDecrease(
                     item.todayChange,
                     item.todayChangePercentage
                   )}
-                  <td>₦{item.shortPrice.toFixed(3)}</td>
+                  <td>₦{item.shortPrice.toFixed(2)}</td>
                   <td>{item.quantity}</td>
-                  <td>₦{item.totalValue.toFixed(3)}</td>
+                  <td>₦{item.totalValue.toFixed(2)}</td>
 
                   {IncreaseDecrease(
                     item.totalGainOrLoss,

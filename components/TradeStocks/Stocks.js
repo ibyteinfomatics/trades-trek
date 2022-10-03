@@ -11,11 +11,12 @@ import { setSelectedStock } from "../../actions/setStock";
 import { StockChangePercent } from "../../helpers/StockChangePercent";
 import FormSpinner from "../Spinners/FormSpinner";
 import { useRouter } from "next/router";
+import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 
 export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
   const [stockAllData, setStockAllData] = useState([]);
-  const [filterStock, setFilterStock] = useState([]);
+  const [filterStock, setFilterStock] = useState([{Symbol:'Search For Symbol',value:'demo'}]);
   const [ariaFocusMessage, setAriaFocusMessage] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [stockData, setStockData] = useState();
@@ -63,13 +64,14 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
       setFilterStock(searchData);
      
     } else {
-      setFilterStock([]);
-      console.log([]);
+      setFilterStock([{Symbol:'Search For Symbol',value:'demo'}]);
+      
     }
   };
   // set selected stock
   const onchange = (selectedOptions) => {
-    if (selectedOptions) {
+    console.log(selectedOptions)
+    if (selectedOptions?.value!=='demo') {
       setSearch(selectedOptions.Symbol)
       setStockData(selectedOptions) 
       setShowMax(false);
@@ -172,16 +174,19 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                 // }}
         
                 // isOptionSelected={search}
+                placeholder='Search for Symbol'
+               
                 onInputChange={inputChange}
                 onChange={onchange}
                 inputId="aria-example-input"
                 name="aria-live-color"
+              
                 onMenuOpen={onMenuOpen}
                 onMenuClose={onMenuClose}
                 options={filterStock}
                 isClearable={stockData ? false : true}
                 getOptionLabel={(option) =>
-                  `${option?.Symbol} - ${option.Name}`
+                  `${option?.Symbol} ${option.Name?'-':''} ${option.Name ||''}`
                 }
               />
               {/* <input
@@ -285,22 +290,22 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                         </sub>
                       </span>
                       <span className="font-12">
-                        At Close(As of may 17, 19:59 EDT)
+                        At Close {DataConvert(stockData?.PrevCloseDate)} {TimeConverter(stockData?.PrevCloseDate)}
                       </span>
                     </h3>
-                    <h3 className="font-16">
+                    {/* <h3 className="font-16">
                       No trade
                       <span className="font-12 selected">+Pre Market</span>
-                    </h3>
+                    </h3> */}
                     {/* <h3 className="font-16">
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {Number(stockData?.EPS)?.toFixed(3) || 0}
+                      {Number(stockData?.EPS)?.toFixed(2) || 0}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
-                      {Number(stockData?.MktCap)?.toFixed(3) || 0}
+                      {Number(stockData?.MktCap)?.toFixed(2) || 0}
                       <span className="font-12">Market Cap</span>
                     </h3>
                     {/* <h3 className="font-16">
@@ -308,7 +313,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       <span className="font-12">Div Yield</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {Number(stockData?.PE)?.toFixed(3) || 0}
+                      {Number(stockData?.PE)?.toFixed(2) || 0}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -320,18 +325,18 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s High($)</p>
-                        <p className="font-14">{Number(stockData?.High)?.toFixed(3)}</p>
+                        <p className="font-14">{Number(stockData?.High)?.toFixed(2)}</p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s LOW($)</p>
-                        <p className="font-14">{Number(stockData?.Low)?.toFixed(3)}</p>
+                        <p className="font-14">{Number(stockData?.Low)?.toFixed(2)}</p>
                       </div>
                     </div>
                     <div className="volumeDataRight">
                       <div className="currentData">
                         <p className="font-16">52 Week High($)</p>
                         <p className="font-14">
-                          {Number(stockData?.High52Week)?.toFixed(3)}
+                          {Number(stockData?.High52Week)?.toFixed(2)}
                         </p>
                       </div>
                       <div className="currentData">
@@ -339,13 +344,13 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                         <p className="font-14">
                           {(
                             (Number(stockData?.Bid) || 0) / (Number(stockData?.Ask) || 1)
-                          ).toFixed(3)}
+                          ).toFixed(2)}
                         </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">52 Week Low($)</p>
                         <p className="font-14">
-                          {Number(stockData?.Low52Week)?.toFixed(3)}
+                          {Number(stockData?.Low52Week)?.toFixed(2)}
                         </p>
                       </div>
                     </div>

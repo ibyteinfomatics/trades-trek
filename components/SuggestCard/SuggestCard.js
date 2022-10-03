@@ -29,7 +29,7 @@ const SuggestCard = () => {
       
                   <li>
                     <p className="card--title--label">Current Price</p>
-                    <p className="card--title">{item.Last?.toFixed(3)}</p>
+                    <p className="card--title">{item.Last?.toFixed(2)}</p>
                   </li>
                 </ul>
               </div>

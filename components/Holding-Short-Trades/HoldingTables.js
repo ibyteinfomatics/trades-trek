@@ -132,7 +132,7 @@ const HoldingTables = () => {
             </tr>
             <tr>
               <td>
-                <h1>₦{holdingCurrent.toFixed(3)}</h1>
+                <h1>₦{holdingCurrent.toFixed(2)}</h1>
               </td>
               {IncreaseDecrease(totalTodayChange, todayChangePer)}
               {IncreaseDecrease(totalGainOrLoss, totalChangePer)}

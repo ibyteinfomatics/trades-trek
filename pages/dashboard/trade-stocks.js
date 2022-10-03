@@ -91,7 +91,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Account Value{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && userData.accountValue?.toFixed(3)}
+                ₦{userData && userData.accountValue?.toFixed(2)}
                 </span>
               </p>
             </div>
@@ -99,7 +99,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Buying Power{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && userData.buyingPower?.toFixed(3)}
+                ₦{userData && userData.buyingPower?.toFixed(2)}
                 </span>
               </p>
             </div>
@@ -107,7 +107,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Cash{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && userData.cash?.toFixed(3)}
+                ₦{userData && userData.cash?.toFixed(2)}
                 </span>
               </p>
             </div>

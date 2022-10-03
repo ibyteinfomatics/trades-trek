@@ -7,7 +7,10 @@ import { userService } from "../../services";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
-
+import 'react-phone-number-input/style.css'
+import PhoneInput from "react-phone-number-input";
+import axios from "axios";
+// https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=+9190607574241
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
   const router = useRouter();
@@ -15,6 +18,7 @@ export default function Signup() {
   const [error, setError] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+  const [phone,setPhone]=useState()
   const dispatch = useDispatch();
   const {
     register,
@@ -23,35 +27,53 @@ export default function Signup() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    userService
-      .signup(data)
-      .then((res) => {
-        if (res?.success === true) {
-          setValidate(false);
-          localStorage.setItem("email", data.email);
-          setError(res.message);
-          localStorage.setItem("otp", data.email);
-          dispatch(setUser(res.user));
-          router.push("/otp");
-        } else if (res?.success === false) {
-          setValidate(true);
-          setError(res.message);
-          setBtnStatus(false);
-        } else {
-          setValidate(true);
-          setError(res);
-          setBtnStatus(false);
-        }
-      })
-      .catch((error) => {
-        setValidate(true);
 
-        setError(error.message);
+const phoneValidate=async(p)=>{
+  const {data}=await axios.get(`https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=${p}`)
+console.log(data)
+if(data.valid){
+  console.log('kkkk')
+  return true
+}else{
+  return false
+}
+}
+  const onSubmit = async(data) => {
+   
+   if(await phoneValidate(phone)){
+    data.phone=phone
+    userService
+    .signup(data)
+    .then((res) => {
+      if (res?.success === true) {
+        setValidate(false);
+        localStorage.setItem("email", data.email);
+        setError(res.message);
+        localStorage.setItem("otp", data.email);
+        dispatch(setUser(res.user));
+        router.push("/otp");
+      } else if (res?.success === false) {
+        setValidate(true);
+        setError(res.message);
         setBtnStatus(false);
-      });
+      } else {
+        setValidate(true);
+        setError(res);
+        setBtnStatus(false);
+      }
+    })
+    .catch((error) => {
+      setValidate(true);
+
+      setError(error.message);
+      setBtnStatus(false);
+    });
+
+   }else{
+    setError('Invalid Phone Number')
+   }
   };
-  console.log(showPassword);
+  // console.log(phone);
 
   return (
     <>
@@ -176,7 +198,16 @@ export default function Signup() {
                 </div>
               </div>
               <div className="form--item phoneNumber">
-                <div className="inputGroup">
+               <div>
+               <PhoneInput
+                  placeholder="Enter phone number"
+                  value={phone}
+                  onChange={setPhone}
+                  countrySelectProps={{ unicodeFlags: true }}
+                 
+                />
+               </div>
+                {/* <div className="inputGroup">
                   <span>+234</span>
                   <input
                     className={`form--control ${
@@ -192,8 +223,8 @@ export default function Signup() {
                       pattern: /^[0-9]+/,
                     })}
                   />
-                </div>
-                <label className="form--label" htmlFor="phnum">
+                </div> */}
+                {/* <label className="form--label" htmlFor="phnum">
                   Phone Number
                 </label>
                 <div className="invalid-feedback">
@@ -204,7 +235,7 @@ export default function Signup() {
                   {errors.phone?.type === "maxLength" &&
                     "Phone number should contain  11 digit only "}
                   {errors.phone?.type === "pattern" && "Only digits allow"}
-                </div>
+                </div> */}
               </div>
               <div className="form--item">
                 <input
@@ -236,40 +267,40 @@ export default function Signup() {
                   {errors.username?.type === "pattern" && "Invalide User Name"}
                 </div>
               </div>
-              <div className="form--item" >
-               <div style={{ display: "flex" }}>
-               <input
-                  style={{ width: "100%" }}
-                  className={`form--control ${
-                    errors.password ? "is-invalid" : ""
-                  }`}
-                  type={showPassword ? "text" : "password"}
-                  id="pwd"
-                  placeholder="Password"
-                  {...register("password", {
-                    required: true,
-                    maxLength: 15,
-                    minLength: 8,
+              <div className="form--item">
+                <div style={{ display: "flex" }}>
+                  <input
+                    style={{ width: "100%" }}
+                    className={`form--control ${
+                      errors.password ? "is-invalid" : ""
+                    }`}
+                    type={showPassword ? "text" : "password"}
+                    id="pwd"
+                    placeholder="Password"
+                    {...register("password", {
+                      required: true,
+                      maxLength: 15,
+                      minLength: 8,
 
-                    pattern: {
-                      value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
-                    },
-                  })}
-                />
-                {showPassword ? (
-                  <img
-                    src="/images/view.png"
-                    className="passwordView"
-                    onClick={() => setShowPassword(!showPassword)}
+                      pattern: {
+                        value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
+                      },
+                    })}
                   />
-                ) : (
-                  <img
-                    onClick={() => setShowPassword(!showPassword)}
-                    src="/images/invisible.png"
-                    className="passwordView"
-                  />
-                )}
-               </div>
+                  {showPassword ? (
+                    <img
+                      src="/images/view.png"
+                      className="passwordView"
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  ) : (
+                    <img
+                      onClick={() => setShowPassword(!showPassword)}
+                      src="/images/invisible.png"
+                      className="passwordView"
+                    />
+                  )}
+                </div>
 
                 <label className="form--label" htmlFor="pwd">
                   Password
@@ -329,22 +360,28 @@ export default function Signup() {
                     errors.confirmPassword?.message}
                 </div>
               </div>
-              <div
-                className="form--item"
-               
-              >
-              <div  style={{ display: "flex", alignItems: "center" }}>
-              <input
-                  style={{ height: "20px", width: "30px" ,marginRight:'10px'}}
-                  className={`form--control ${errors.age ? "is-invalid" : ""}`}
-                  type="checkbox"
-                  id="age"
-                  {...register("age", {
-                    required: true,
-                  })}
-                />
-                <span>Are you 18 years old -- You should be atleast 18 year old to use this application.</span>
-              </div>
+              <div className="form--item">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <input
+                    style={{
+                      height: "20px",
+                      width: "30px",
+                      marginRight: "10px",
+                    }}
+                    className={`form--control ${
+                      errors.age ? "is-invalid" : ""
+                    }`}
+                    type="checkbox"
+                    id="age"
+                    {...register("age", {
+                      required: true,
+                    })}
+                  />
+                  <span>
+                    Are you 18 years old -- You should be atleast 18 year old to
+                    use this application.
+                  </span>
+                </div>
                 <div className="invalid-feedback">
                   {errors.age?.type === "required" && "Are you 18 years old"}
                 </div>

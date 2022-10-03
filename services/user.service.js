@@ -30,7 +30,7 @@ function login(data) {
 }
 //signup function
 function signup(data) {
-  data.phone = "+234" + data.phone;
+ 
   return fetchWrapper
     .post(`${baseUrl}/user/signup`, data)
 
