@@ -1,87 +1,121 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment-timezone";
 import NigerianTimeZone from "../../helpers/Negerian-TimeZone";
+import { data } from "autoprefixer";
+import { userService } from "../../services";
 const MarketOpenClose = () => {
   const [marketOpen, setmarketOpen] = useState(false);
-  const [showTime, setShowTime] = useState();
-  //   const [currentDateTime,setCurrentDateTime]=useState('')
-  //   const [tomorrowDateTime,setTomorrowDateTime]=useState('')
-  const [openHour, setOpenHour] = useState();
-  const [openMin, setOpenMin] = useState();
+  const [marketMessage, setMarketMessage] = useState("");
+  const [holiday,setHoliday]=useState()
+
   const marketOpenTime = "09:30:00";
   const marketCloseTime = "14:30:00";
-  //   time calculations ...........................
-  const TimeSet = () => {
-    const originTime = new Date();
+  // const holiday = [
+  //   // "2022/10/04",
+  //   "2022/10/05",
+  //   "2022/10/06",
+  //   "2022/10/07",
+  //   "2022/10/10",
+  // ];
 
-    const temp = NigerianTimeZone(originTime);
+
+  function timeDiffCalc(dateFuture, dateNow) {
+    let diffInMilliSeconds = Math.abs(dateFuture - dateNow) / 1000;
+
+    // calculate days
+    const days = Math.floor(diffInMilliSeconds / 86400);
+    diffInMilliSeconds -= days * 86400;
+
+    // calculate hours
+    const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+    diffInMilliSeconds -= hours * 3600;
+
+    // calculate minutes
+    const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
+    diffInMilliSeconds -= minutes * 60;
+
+    let difference = "";
+    if (days > 0) {
+      difference += days === 1 ? `${days} day, ` : `${days} days, `;
+    }
+
+    difference +=
+      hours === 0 || hours === 1 ? `${hours} hour, ` : `${hours} hours, `;
+
+    difference +=
+      minutes === 0 || hours === 1
+        ? `${minutes} minutes`
+        : `${minutes} minutes`;
+
+    return difference;
+  }
+  const timeCount = (holiday) => {
+    var today = new Date();
+    const temp = NigerianTimeZone(today);
     const formatDate = moment(temp).format("HH:mm:ss");
 
-    setShowTime(formatDate);
-// open market ....................  ....................
-    if (formatDate >= marketOpenTime && formatDate <= marketCloseTime) {
-      setmarketOpen(true);
-      var time = 14 - Number(formatDate.slice(0, 2));
-      var min = 30 - Number(formatDate.slice(3, 5));
-      if (time === 0) {
-        setOpenHour(0);
-        setOpenMin(min);
-      } else {
-        if (min < 0) {
-          setOpenHour(time - 1);
-          setOpenMin(min + 60);
-        } else {
-          setOpenHour(time);
-          setOpenMin(min);
-        }
-      }
-    } else { // close market .....................................
-      if (formatDate < marketOpenTime) {
-        // if open is market today .............................................
-        let time = 9 - Number(formatDate.slice(0, 2));
-        let min = 30 - Number(formatDate.slice(3, 5));
+    today = new Date(moment(temp).format("YYYY/MM/DD"));
+    var newDate = new Date(moment(temp).format("YYYY/MM/DD HH:mm:ss"));
 
-        if (time === 0) {
-          setOpenHour(0);
-          setOpenMin(min);
-        } else {
-          if (min < 0) {
-            setOpenHour(time - 1);
-            setOpenMin(min + 60);
-          } else {
-            setOpenHour(time);
-            setOpenMin(min);
-          }
-        }
-      } else {
-        // if open market is tommorow ................................... 
-        let time = 24 - Number(formatDate.slice(0, 2)) + 9;
-        let min = 30 - Number(formatDate.slice(3, 5)) + 30;
-
-        if (time === 0) {
-          setOpenHour(0);
-          setOpenMin(min);
-        } else {
-          if (min < 0) {
-            setOpenHour(time - 1);
-            setOpenMin(min + 60);
-          } else {
-            setOpenHour(time);
-            setOpenMin(min);
-          }
-        }
+    while (holiday.includes(moment(today).format("YYYY/MM/DD"))) {
+      today.setDate(today.getDate() + 1);
+      let day = moment(today).format("dddd");
+      if (day == "Saturday") {
+        today.setDate(today.getDate() + 2);
+      } else if (day == "Sunday") {
+        today.setDate(today.getDate() + 1);
       }
+    }
+   
+    if (
+      marketOpenTime <= formatDate &&
+      marketCloseTime >= formatDate &&
+      moment(today).format("YYYY/MM/DD")   != moment(newDate).format("YYYY/MM/DD")
+    ) {
+      today.setHours(9);
+      today.setMinutes(30);
       setmarketOpen(false);
+      setMarketMessage(timeDiffCalc(newDate, today));
+    } else if (marketOpenTime <= formatDate && marketCloseTime >= formatDate) {
+      today.setHours(14);
+      today.setMinutes(30);
+      setmarketOpen(true);
+      setMarketMessage(timeDiffCalc(newDate, today));
+    } else if (marketOpenTime > formatDate) {
+      today.setHours(9);
+      today.setMinutes(30);
+      setmarketOpen(false);
+      setMarketMessage(timeDiffCalc(newDate, today));
+    } else {
+      today.setDate(today.getDate() + 1);
+      today.setHours(9);
+      today.setMinutes(30);
+      setmarketOpen(false);
+      setMarketMessage(timeDiffCalc(newDate, today));
     }
   };
 
-    setInterval(() => {
-      TimeSet();
-    }, 1000);
-
   useEffect(() => {
-    TimeSet();
-  }, []);
+   if(holiday){
+    setInterval(() => {
+      timeCount(holiday)
+  
+      }, 1000);
+   }
+    // timeCount(holiday)
+  }, [holiday]);
+  const allHoliday=async()=>{
+    userService.getHoliday().then((res)=>{
+      setHoliday(res.data)
+    }).catch((err)=>console.log(err))
+
+  }
+
+  useEffect(()=>{
+
+    allHoliday()
+  },[])
+ 
   return (
     <>
       {marketOpen ? (
@@ -103,7 +137,7 @@ const MarketOpenClose = () => {
               />
             </svg>
           </span>
-          Market is open. Close in {openHour} hours {openMin} minutes
+          Market is open. Close in {marketMessage}
         </div>
       ) : (
         <div className="status-summary font-18">
@@ -121,7 +155,7 @@ const MarketOpenClose = () => {
               />
             </svg>
           </span>
-          Market is closed. Opens in {openHour} hours {openMin} minutes
+          Market is closed. Opens in {marketMessage}
         </div>
       )}
     </>

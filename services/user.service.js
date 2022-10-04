@@ -183,7 +183,23 @@ function userPerformanceHistory(page){
       });
 
 }
+function getHoliday() {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/holiday`)
 
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 
 
@@ -201,6 +217,7 @@ export const userService = {
   reset_password,
   userInfo,
   changePassword,
-  userPerformanceHistory
+  userPerformanceHistory,
+  getHoliday
   
 };
