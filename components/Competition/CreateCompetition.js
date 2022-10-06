@@ -1,11 +1,27 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function CreateCompetation() {
+  const [showPassword,setShowPassword]=useState(false)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      checkbox: false,
+    }
+  });
+  const onSubmit = async (data) => {
+    // alert("data");
+    console.log(data);
+  };
   return (
     <>
       <div className="createCompeation">
-        <from className="site--form">
+        <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
           <div className="trendingBlock">
             <div className="formTitle px-32">
               <h4 className="font-18 font--bold">
@@ -18,36 +34,118 @@ export default function CreateCompetation() {
             </div>
             <div className="grid__2 px-32">
               <div className="colLeftBlock">
-                <div className="form--item error-msg">
+                <div className="form--item">
                   <label className="form--label">Competition Name</label>
+
                   <input
-                    className="form--control"
+                    className={`form--control ${
+                      errors.competitionName ? "is-invalid" : ""
+                    }`}
                     type="text"
+                    id="competitionName"
                     placeholder="Enter competition name here"
+                    {...register("competitionName", {
+                      required: true,
+                      maxLength: 37,
+                      minLength: 10,
+                    })}
                   />
-                  <p>Name must be between 10 and 37 characters.</p>
+
+                  <div className="invalid-feedback">
+                    {errors.competitionName?.type === "required" &&
+                      "Competition Name is required"}
+                    {errors.competitionName?.type === "minLength" &&
+                      "Competition Name should be atleast 10 characters"}
+                    {errors.competitionName?.type === "maxLength" &&
+                      "Competition Name should be less than 37 characters"}
+                  </div>
                 </div>
                 <div className="form--item">
                   <label className="form--label">Competition Description</label>
+
                   <textarea
-                    className="form--control"
-                    rows="5"
-                    placeholder="Enter competition description"
+                    className={`form--control ${
+                      errors.competitionDesc ? "is-invalid" : ""
+                    }`}
+                    type="text"
+                    id="competitionDesc"
+                    placeholder="Enter competition name here"
+                    {...register("competitionDesc", {
+                      required: true,
+                      maxLength: 200,
+                      minLength: 20,
+                    })}
                   />
+
+                  <div className="invalid-feedback">
+                    {errors.competitionDesc?.type === "required" &&
+                      "Competition Description is required"}
+                    {errors.competitionDesc?.type === "minLength" &&
+                      "Competition Description should be atleast 20 characters"}
+                    {errors.competitionDesc?.type === "maxLength" &&
+                      "Competition Description should be less than 200 characters"}
+                  </div>
                 </div>
-                <div className="form--item error-msg">
+              
+
+                {/* {watch("competitionDesc") == "" ? (
+                  <div className="form--item ">
                   <label className="form--label">Password</label>
-                  <input
-                    className="form--control"
-                    type="password"
-                    placeholder="Enter Password"
-                  />
-                </div>
+
+                    <div style={{ display: "flex" }}>
+                      <input
+                        style={{ width: "100%" }}
+                        className={`form--control ${
+                          errors.password ? "is-invalid" : ""
+                        }`}
+                        type={showPassword ? "text" : "password"}
+                        id="pwd"
+                        placeholder="Password"
+                        {...register("password", {
+                          required: true,
+                          maxLength: 15,
+                          minLength: 8,
+
+                          pattern: {
+                            value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/,
+                          },
+                        })}
+                      />
+                      {showPassword ? (
+                        <img
+                          src="/images/view.png"
+                          className="passwordView"
+                          onClick={() => setShowPassword(!showPassword)}
+                        />
+                      ) : (
+                        <img
+                          onClick={() => setShowPassword(!showPassword)}
+                          src="/images/invisible.png"
+                          className="passwordView"
+                        />
+                      )}
+                    </div>
+
+                    
+                    <div className="invalid-feedback">
+                      {errors.password?.type === "required" &&
+                        "Password is required"}
+                      {errors.password?.type === "minLength" &&
+                        "Password should be atleast 8 characters"}
+                      {errors.password?.type === "maxLength" &&
+                        "Password should be less than 15 characters"}
+                      {errors.password?.type === "pattern" &&
+                        "Password must be alphanumeric with at least one special character"}
+                    </div>
+                  </div>
+                ):""} */}
+
+              
               </div>
               <div className="colRightBlock">
                 <div className="form--item">
                   <label className="form--label">Competition Type</label>
-                  <select className="form--control">
+                  <select className="form--control" >
                     <option>Public Competition</option>
                     <option>Private Competition</option>
                   </select>
@@ -381,15 +479,19 @@ export default function CreateCompetation() {
               </div>
             </div>
           </div>
-
           <div className="form--actions">
+            <button className="btn" type="submit">
+              Create Competation
+            </button>
+          </div>
+          {/* <div className="form--actions">
             <Link href="/dashboard/join-competation-confirm-popup">
               <button type="submit" className="btn btnBgBlue">
                 Create Competation
               </button>
             </Link>
-          </div>
-        </from>
+          </div> */}
+        </form>
       </div>
     </>
   );
