@@ -119,10 +119,9 @@ const handleTab=(index)=>{
                   <Tab>Stocks</Tab>
                   <Tab>Order Status</Tab>
                 </TabList>
-
+                <MarketOpenClose />
                 <TabPanel>
                   <div className="tab-data">
-                    <MarketOpenClose />
                     {/* <Stocks /> */}
                     {showTrade ? (
                       <Stocks
@@ -137,7 +136,6 @@ const handleTab=(index)=>{
                 </TabPanel>
                 <TabPanel>
                   <div className="tab-data order-status">
-                    <MarketOpenClose />
                     <TradeOrderStatus setShowTrade={setShowTrade} />
                   </div>
                 </TabPanel>

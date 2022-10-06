@@ -54,10 +54,10 @@ const MarketOpenClose = () => {
     const temp = NigerianTimeZone(today);
     const formatDate = moment(temp).format("HH:mm:ss");
 
-    today = new Date(moment(temp).format("YYYY/MM/DD"));
-    var newDate = new Date(moment(temp).format("YYYY/MM/DD HH:mm:ss"));
+    today = new Date(moment(temp).format("YYYY-MM-DD"));
+    var newDate = new Date(moment(temp).format("YYYY-MM-DD HH:mm:ss"));
 
-    while (holiday.includes(moment(today).format("YYYY/MM/DD"))) {
+    while (holiday.includes(moment(today).format("YYYY-MM-DD"))) {
       today.setDate(today.getDate() + 1);
       let day = moment(today).format("dddd");
       if (day == "Saturday") {
@@ -70,7 +70,7 @@ const MarketOpenClose = () => {
     if (
       marketOpenTime <= formatDate &&
       marketCloseTime >= formatDate &&
-      moment(today).format("YYYY/MM/DD")   != moment(newDate).format("YYYY/MM/DD")
+      moment(today).format("YYYY-MM-DD")   != moment(newDate).format("YYYY-MM-DD")
     ) {
       today.setHours(9);
       today.setMinutes(30);

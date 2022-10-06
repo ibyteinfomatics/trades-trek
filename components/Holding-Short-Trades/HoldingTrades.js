@@ -51,16 +51,15 @@ const HoldingTrades = () => {
               <Tab>Holding Order</Tab>
               <Tab>Short Order</Tab>
             </TabList>
+            <MarketOpenClose />
 
             <TabPanel>
               <div className="tab-data order-status">
-                <MarketOpenClose />
                 <HoldingTables />
               </div>
             </TabPanel>
             <TabPanel>
               <div className="tab-data order-status">
-                <MarketOpenClose />
                 <ShortTable />
               </div>
             </TabPanel>
