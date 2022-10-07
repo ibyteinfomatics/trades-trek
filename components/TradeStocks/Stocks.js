@@ -40,7 +40,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
     console.log(data)
     data=JSON.parse(data)
     // 
-    // localStorage.removeItem('stock')
+    localStorage.removeItem('stock')
 
     if (data) {
       setAction(data.action);
