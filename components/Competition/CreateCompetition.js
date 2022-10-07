@@ -1,9 +1,10 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { gameService } from "../../services/game.service";
 
 export default function CreateCompetation() {
-  const [showPassword,setShowPassword]=useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -11,12 +12,17 @@ export default function CreateCompetation() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      checkbox: false,
-    }
+      startingCash: "100000",
+      marketDelay: 15,
+      endDate:null
+    },
   });
   const onSubmit = async (data) => {
+    gameService.createGame(data).then((res)=>{
+      console.log(res)
+    }).catch((err)=>console.log(err))
     // alert("data");
-    console.log(data);
+    // console.log(data);
   };
   return (
     <>
@@ -65,12 +71,12 @@ export default function CreateCompetation() {
 
                   <textarea
                     className={`form--control ${
-                      errors.competitionDesc ? "is-invalid" : ""
+                      errors.competitionDescription ? "is-invalid" : ""
                     }`}
                     type="text"
-                    id="competitionDesc"
+                    id="competitionDescription"
                     placeholder="Enter competition name here"
-                    {...register("competitionDesc", {
+                    {...register("competitionDescription", {
                       required: true,
                       maxLength: 200,
                       minLength: 20,
@@ -78,19 +84,18 @@ export default function CreateCompetation() {
                   />
 
                   <div className="invalid-feedback">
-                    {errors.competitionDesc?.type === "required" &&
+                    {errors.competitionDescription?.type === "required" &&
                       "Competition Description is required"}
-                    {errors.competitionDesc?.type === "minLength" &&
+                    {errors.competitionDescription?.type === "minLength" &&
                       "Competition Description should be atleast 20 characters"}
-                    {errors.competitionDesc?.type === "maxLength" &&
+                    {errors.competitionDescription?.type === "maxLength" &&
                       "Competition Description should be less than 200 characters"}
                   </div>
                 </div>
-              
 
-                {/* {watch("competitionDesc") == "" ? (
+                {watch("competitionType") == "Private" ? (
                   <div className="form--item ">
-                  <label className="form--label">Password</label>
+                    <label className="form--label">Password</label>
 
                     <div style={{ display: "flex" }}>
                       <input
@@ -126,7 +131,6 @@ export default function CreateCompetation() {
                       )}
                     </div>
 
-                    
                     <div className="invalid-feedback">
                       {errors.password?.type === "required" &&
                         "Password is required"}
@@ -138,16 +142,19 @@ export default function CreateCompetation() {
                         "Password must be alphanumeric with at least one special character"}
                     </div>
                   </div>
-                ):""} */}
-
-              
+                ) : (
+                  ""
+                )}
               </div>
               <div className="colRightBlock">
                 <div className="form--item">
                   <label className="form--label">Competition Type</label>
-                  <select className="form--control" >
-                    <option>Public Competition</option>
-                    <option>Private Competition</option>
+                  <select
+                    {...register("competitionType")}
+                    className="form--control"
+                  >
+                    <option value="Public">Public Competition</option>
+                    <option value="Private">Private Competition</option>
                   </select>
                 </div>
                 <div className="form--item">
@@ -160,10 +167,24 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>$100,000</option>
-                    <option>$110,000</option>
-                    <option>$112,000</option>
+                  <select
+                    {...register("startingCash")}
+                    className="form--control"
+                  >
+                    <option value="1000000">$1,000,000</option>
+
+                    <option value="500000">$500,000</option>
+
+                    <option value="250000">$250,000</option>
+
+                    <option value="100000">$100,000</option>
+
+                    <option value="50000">$50,000</option>
+
+                    <option value="25000">$25,000</option>
+
+                    <option value="10000">$10,000</option>
+                    <option value="1000">$1,000</option>
                   </select>
                 </div>
                 <div className="form--item toggle">
@@ -177,7 +198,11 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <div className="box_1">
-                    <input type="checkbox" className="switch_1" />
+                    <input
+                      {...register("allowTradingWithMargin")}
+                      type="checkbox"
+                      className="switch_1"
+                    />
                   </div>
                 </div>
                 <div className="form--item toggle">
@@ -191,7 +216,11 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <div className="box_1">
-                    <input type="checkbox" className="switch_1" />
+                    <input
+                      {...register("allowShortSelling")}
+                      type="checkbox"
+                      className="switch_1"
+                    />
                   </div>
                 </div>
                 <div className="form--item toggle">
@@ -205,7 +234,11 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <div className="box_1">
-                    <input type="checkbox" className="switch_1" />
+                    <input
+                      {...register("allowTradingOptions")}
+                      type="checkbox"
+                      className="switch_1"
+                    />
                   </div>
                 </div>
               </div>
@@ -219,8 +252,24 @@ export default function CreateCompetation() {
                   Basic game rules can be modified after the game is created.
                 </p>
                 <div className="form--item error-msg">
-                  <label className="form--label">Date Range</label>
-                  <input className="form--control" type="date" />
+                  <label className="form--label">Game Start Date</label>
+                  <input
+                    {...register("startDate", { required: true })}
+                    className="form--control"
+                    type="date"
+                  />
+                  <div className="invalid-feedback">
+                    {errors.startDate?.type === "required" &&
+                      "Start Date is required"}
+                  </div>
+                </div>
+                <div className="form--item error-msg">
+                  <label className="form--label">Game End Date</label>
+                  <input
+                    {...register("endDate")}
+                    className="form--control"
+                    type="date"
+                  />
                 </div>
               </div>
               <div className="colRightBlock">
@@ -235,7 +284,11 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <div className="box_1">
-                    <input type="checkbox" className="switch_1" />
+                    <input
+                      {...register("allowLateEntry")}
+                      type="checkbox"
+                      className="switch_1"
+                    />
                   </div>
                 </div>
                 <div className="form--item toggle">
@@ -249,7 +302,11 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <div className="box_1">
-                    <input type="checkbox" className="switch_1" />
+                    <input
+                      {...register("allowPortfolioViewing")}
+                      type="checkbox"
+                      className="switch_1"
+                    />
                   </div>
                 </div>
                 <div className="form--item toggle">
@@ -263,7 +320,11 @@ export default function CreateCompetation() {
                     </svg>
                   </label>
                   <div className="box_1">
-                    <input type="checkbox" className="switch_1" />
+                    <input
+                      {...register("allowPortfolioResetting")}
+                      type="checkbox"
+                      className="switch_1"
+                    />
                   </div>
                 </div>
               </div>
@@ -289,9 +350,13 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>20 minutes</option>
-                    <option>10 minutes</option>
+                  <select
+                    {...register("marketDelay")}
+                    className="form--control"
+                  >
+                    {Array.from({ length: 20 }, (_, i) => {
+                      return <option value={i + 1}>{i + 1} minutes</option>;
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -304,9 +369,16 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select
+                    {...register("dailyVolume")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 20 }, (_, i) => {
+                      return (
+                        <option value={(i + 1) * 5}>{(i + 1) * 5} %</option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -319,9 +391,16 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>15 minutes</option>
-                    <option>20 minutes</option>
+                  <select {...register("quickSell")} className="form--control">
+                    <option value="Disabled">Disabled</option>
+
+                    {Array.from({ length: 32 }, (_, i) => {
+                      return (
+                        <option value={(i + 1) * 15}>
+                          {(i + 1) * 15} minutes
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -334,9 +413,18 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select
+                    {...register("minimumPrice")}
+                    className="form--control"
+                  >
+                    <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)}>
+                         $ {(i + 1).toFixed(2)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -349,9 +437,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select  {...register("minimumPriceShort")} className="form--control">
+                    <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)}>
+                         $ {(i + 1).toFixed(2)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -364,9 +458,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select  {...register("minimumStockForMargin")}  className="form--control">
+                    <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)}>
+                         $ {(i + 1).toFixed(2)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -379,9 +479,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select {...register("commission")}  className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 30}, (_, i) => {
+                      return (
+                        <option value={(i + 0.99)}>
+                         $ {(i + 0.99).toFixed(2)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
@@ -396,9 +502,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select {...register("commissionOption")} className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 30}, (_, i) => {
+                      return (
+                        <option value={(i + 0.99)}>
+                         $ {(i + 0.99).toFixed(2)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -411,9 +523,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select {...register('commissionPerContract')} className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 20}, (_, i) => {
+                      return (
+                        <option value={(i + 1)/4}>
+                         $ {((i + 1)/4).toFixed(2)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -426,9 +544,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select  {...register('diversification')} className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)*10}>
+                         {((i + 1)*10)} %
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -441,9 +565,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select  {...register('diversificationOption')} className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)*10}>
+                         {((i + 1)*10)} %
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -456,9 +586,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>8%</option>
-                    <option>10%</option>
+                  <select {...register('marginInterest')} className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)*10}>
+                         {((i + 1)*10)} %
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="form--item">
@@ -471,9 +607,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select className="form--control">
-                    <option>Disabled</option>
-                    <option>Enable</option>
+                  <select  {...register('cashInterest')} className="form--control">
+                  <option value='Disabled'>Disabled</option>
+                    {Array.from({ length: 10}, (_, i) => {
+                      return (
+                        <option value={(i + 1)*10}>
+                         {((i + 1)*10)} %
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>

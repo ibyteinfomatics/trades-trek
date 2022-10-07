@@ -67,6 +67,10 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
                 <p className='font-18 '>Stock: </p>
                 <p className='font-18 font--bold'>{data?.Name}</p>
             </div>
+            <div className='row-block'>
+                <p className='font-18 '>Action: </p>
+                <p className='font-18 font--bold'>{data?.action}</p>
+            </div>
             {/* <div className='row-block'> */}
                 {/* <p className='font-18 font--bold'>{data?.Name}</p> */}
                 {/* <p className='font-18 font--bold'>{data?.quantity}</p> */}
