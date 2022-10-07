@@ -10,7 +10,7 @@ const nextConfig = {
   },
   images: {
     loader: 'imgix',
-    path: 'http://tradestrek.ibyteworkshop.com',
+    path: 'http://54.242.152.130',
   },
   env: {
     baseApiUrl: 'https://api.keyless.ae',
