@@ -40,11 +40,12 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
     console.log(data)
     data=JSON.parse(data)
     // 
+    // localStorage.removeItem('stock')
+
     if (data) {
       setAction(data.action);
       setStockData(data);
       setQuantity(data.quantity)
-      localStorage.removeItem('stock')
      
     }
   }, []);
@@ -203,7 +204,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               <select
                 className="form--control"
                 disabled={stockData ? false : true}
-                onClick={(e) => {
+                onChange={(e) => {
                   setAction(e.target.value);
                   setShowMax(false);
                   setQuantity(1);
@@ -373,7 +374,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               <select
                 className="form--control"
                 disabled={stockData ? false : true}
-                onClick={(e) => setDuration(e.target.value)}
+                onChange={(e) => setDuration(e.target.value)}
               >
                 <option>Day Only</option>
                 <option>Good Until Cancelled</option>
@@ -386,7 +387,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               <select
                 className="form--control"
                 disabled={stockData ? false : true}
-                onClick={(e) => setOrderType(e.target.value)}
+                onChange={(e) => setOrderType(e.target.value)}
               >
                 <option>Market</option>
                 <option>Limit</option>
