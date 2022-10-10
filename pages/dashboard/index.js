@@ -105,78 +105,80 @@ export default function Home() {
         </div>
 
         {/* 3 blocks wraps */}
-        <div className="card--wrapper">
-          <div className="wrapper--text card--grid card--grid--3">
-            {/* Top Gainers */}
-            <div className="wrapper--col">
-              <div className="wrapper--hgroup">
-                <div className="wrapper--title">
-                  <h3>Top Gainers</h3>
-                </div>
-                <div className="readmore--link">
-                  {!showGainersList ? (
-                    <span onClick={() => setShowGainersList(!showGainersList)}>
+      {
+        user.subscription==='Premium' &&   <div className="card--wrapper">
+        <div className="wrapper--text card--grid card--grid--3">
+          {/* Top Gainers */}
+          <div className="wrapper--col">
+            <div className="wrapper--hgroup">
+              <div className="wrapper--title">
+                <h3>Top Gainers</h3>
+              </div>
+              <div className="readmore--link">
+                {!showGainersList ? (
+                  <span onClick={() => setShowGainersList(!showGainersList)}>
+                    See All
+                  </span>
+                ) : (
+                  <span onClick={() => setShowGainersList(!showGainersList)}>
+                    See Less
+                  </span>
+                )}
+              </div>
+            </div>
+            {!showGainersList ? <GainerView /> : <GainerView2 />}
+          </div>
+
+          {/* Top Losers */}
+          <div className="wrapper--col">
+            <div className="wrapper--hgroup">
+              <div className="wrapper--title">
+                <h3>Top Losers</h3>
+              </div>
+              <div className="readmore--link">
+                {!showLosersList ? (
+                  <span onClick={() => setShowLosersList(!showLosersList)}>
+                    See All
+                  </span>
+                ) : (
+                  <span onClick={() => setShowLosersList(!showLosersList)}>
+                    See Less
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {!showLosersList ? <LoserView /> : <LoserView2 />}
+          </div>
+
+          {/* Leaders */}
+          <div className="wrapper--col">
+            <div className="wrapper--hgroup">
+              <div className="wrapper--title">
+                <h3>Sector Leaders</h3>
+              </div>
+              {/* <div className="readmore--link">
+                  {!showLeadersList ? (
+                    <span
+                      onClick={() => setShowLeadersList(!showLeadersList)}
+                    >
                       See All
                     </span>
                   ) : (
-                    <span onClick={() => setShowGainersList(!showGainersList)}>
+                    <span
+                      onClick={() => setShowLeadersList(!showLeadersList)}
+                    >
                       See Less
                     </span>
                   )}
-                </div>
-              </div>
-              {!showGainersList ? <GainerView /> : <GainerView2 />}
+                </div> */}
             </div>
 
-            {/* Top Losers */}
-            <div className="wrapper--col">
-              <div className="wrapper--hgroup">
-                <div className="wrapper--title">
-                  <h3>Top Losers</h3>
-                </div>
-                <div className="readmore--link">
-                  {!showLosersList ? (
-                    <span onClick={() => setShowLosersList(!showLosersList)}>
-                      See All
-                    </span>
-                  ) : (
-                    <span onClick={() => setShowLosersList(!showLosersList)}>
-                      See Less
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {!showLosersList ? <LoserView /> : <LoserView2 />}
-            </div>
-
-            {/* Leaders */}
-            <div className="wrapper--col">
-              <div className="wrapper--hgroup">
-                <div className="wrapper--title">
-                  <h3>Sector Leaders</h3>
-                </div>
-                {/* <div className="readmore--link">
-                    {!showLeadersList ? (
-                      <span
-                        onClick={() => setShowLeadersList(!showLeadersList)}
-                      >
-                        See All
-                      </span>
-                    ) : (
-                      <span
-                        onClick={() => setShowLeadersList(!showLeadersList)}
-                      >
-                        See Less
-                      </span>
-                    )}
-                  </div> */}
-              </div>
-
-              {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
-            </div>
+            {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
           </div>
         </div>
+      </div>
+      }
 
         {/* Newslist */}
         <div className="card--wrapper">

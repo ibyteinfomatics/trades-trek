@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Stocks } from '../../actions/stocks';
-import socketIOClient from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStockLists } from '../../actions/stocks';
 import { slide as Menu } from 'react-burger-menu';
 import { setUser } from '../../actions/users';
 import { userService } from '../../services/user.service';
@@ -44,7 +41,7 @@ export default function Sidebar() {
     userService
       .userInfo()
       .then((res) => {
-        
+      
         dispatch(setUser(res.message));
       })
       .catch((err) => {
@@ -179,8 +176,8 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
-            <li className="menu__list--item">
-              <Link href="javascript:void(0)">
+            <li className={`menu__list--item ${user.subscription==='Premium'?"":"notAccess"} `}>
+              <Link  href="javascript:void(0)">
                 <a>
                   <span className="menu--icons">
                     <Image
@@ -207,8 +204,10 @@ export default function Sidebar() {
             <li 
               className={
                 router.pathname == '/dashboard/competition-summary'
-                  ? 'menu__list--item active--menu'
-                  : 'menu__list--item'
+                  ? `menu__list--item active--menu ${user.subscription==='Premium'?"":"notAccess"}`
+                  : `menu__list--item  ${user.subscription==='Premium'?"":"notAccess"}`
+
+
               }
             >
               <Link href="/dashboard/competition-summary">

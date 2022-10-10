@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Link from 'next/link';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
@@ -6,9 +6,20 @@ import CompetationSummeryView from '../../components/Competition/CompetitionSumm
 import MyCompetationView from '../../components/Competition/MyCompetitionView';
 import JoinCompetation from '../../components/Competition/JoinCompetition';
 import CreateCompetation from '../../components/Competition/CreateCompetition';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 export default function CompetationSummery() {
     const [beginnerOption, setBeginnerOption] = useState(false);
+    let { user } = useSelector((state) => state.userWrapper);
+    const router=useRouter()
+    console.log(user)
+    useEffect(() => {
+      if(user.subscription=='Freemium'){
+        router.push('/dashboard')
+      }
+    }, [user])
+    
     return (
         <>
             <Sidebar />

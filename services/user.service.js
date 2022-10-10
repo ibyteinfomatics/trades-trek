@@ -56,7 +56,7 @@ function verifyLoginOtp(email, otp) {
     .then((res) => {
       if (res.success) {
         userSubject.next(res.token);
-        localStorage.setItem('token', res.token);
+        
       }
       return res;
     })
@@ -65,6 +65,24 @@ function verifyLoginOtp(email, otp) {
     });
 }
 
+
+function subscriptionUpdate(email, subscription) {
+  return fetchWrapper
+    .post(`${baseUrl}/user/subscription`, {
+      email,
+      subscription
+    })
+    .then((res) => {
+      if (res.success) {
+        userSubject.next(res.token);
+        localStorage.setItem('token', res.token);
+      }
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 // forgot password ...................     
 function forgot_password(email) {
   return fetchWrapper
@@ -218,6 +236,7 @@ export const userService = {
   userInfo,
   changePassword,
   userPerformanceHistory,
-  getHoliday
+  getHoliday,
+  subscriptionUpdate
   
 };

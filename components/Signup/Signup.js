@@ -7,8 +7,10 @@ import { userService } from "../../services";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
-import 'react-phone-number-input/style.css'
-import PhoneInput from "react-phone-number-input";
+// import 'react-phone-number-input/style.css'
+// import PhoneInput from "react-phone-number-input";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 import axios from "axios";
 // https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=+9190607574241
 export default function Signup() {
@@ -35,6 +37,7 @@ if(data.valid){
   console.log('kkkk')
   return true
 }else{
+  console.log('kkkkkhhhhh')
   return false
 }
 }
@@ -70,6 +73,8 @@ if(data.valid){
     });
 
    }else{
+    console.log('hhh')
+    setValidate(true)
     setError('Invalid Phone Number')
    }
   };
@@ -197,16 +202,16 @@ if(data.valid){
                   {errors.email?.type === "pattern" && "Invalid Email"}
                 </div>
               </div>
-              <div className="form--item phoneNumber">
-               <div>
-               <PhoneInput
+              <div className="form--item ">
+               <PhoneInput 
+               className='form--control'
                   placeholder="Enter phone number"
                   value={phone}
-                  onChange={setPhone}
-                  countrySelectProps={{ unicodeFlags: true }}
+                  defaultCountry="NG"
+                  onChange={(phone)=>setPhone(phone)}
+    
                  
                 />
-               </div>
                 {/* <div className="inputGroup">
                   <span>+234</span>
                   <input

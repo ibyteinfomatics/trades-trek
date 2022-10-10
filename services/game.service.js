@@ -11,13 +11,33 @@ const userSubject = new BehaviorSubject(
 
 
 function createGame(data) {
-  data.dateRange=`${data.startDate}-${data.endDate}`
+  data.dateRange=`${data.startDate} ${data.endDate}`
   data.startingCash=Number(data.startingCash)
   delete data.startDate
   delete data.endDate
   // console
     return fetchWrapper
       .post(`${baseUrl}/game/createGame`,data)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+
+// get all game .....  
+function getAllGame(data) {
+
+  // console
+    return fetchWrapper
+      .get(`${baseUrl}/game`)
   
       .then((res) => {
         if (res.success) {
@@ -40,5 +60,5 @@ export const gameService ={
       return userSubject.value;
     },
     createGame,
-    
+    getAllGame
   };

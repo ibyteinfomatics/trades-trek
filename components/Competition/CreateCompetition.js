@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { gameService } from "../../services/game.service";
 
 export default function CreateCompetation() {
   const [showPassword, setShowPassword] = useState(false);
+ 
+  const router=useRouter()
   const {
     register,
     handleSubmit,
@@ -19,6 +22,9 @@ export default function CreateCompetation() {
   });
   const onSubmit = async (data) => {
     gameService.createGame(data).then((res)=>{
+      if(res.success){
+        router.push("/dashboard/portfolio");
+      }
       console.log(res)
     }).catch((err)=>console.log(err))
     // alert("data");

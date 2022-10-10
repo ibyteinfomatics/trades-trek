@@ -1,13 +1,34 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer/Footer';
+import { userService } from '../services';
 
 export default function Checkout() {
+  const [emailAddress, setEmailAddress] = useState();
+  const router=useRouter()
   useEffect(() => {
     document.body.classList.remove('signUp--page');
     document.body.classList.remove('otp--page');
   }, []);
+  useEffect(() => {
+    let email = localStorage.getItem("email");
+    if (email) {
+      setEmailAddress(email);
+    }
+  }, []);
+  const handlePremium = () => {
+    userService
+      .subscriptionUpdate(emailAddress, "Premium")
+      .then((res) => {
+       router.push('/dashboard')
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
   return (
     <>
       <div className="center--block">
@@ -120,6 +141,11 @@ export default function Checkout() {
                   </li>
                 </ul>
               </div>
+              <Link href='#'  className="form--actions">
+                <button onClick={handlePremium} type="submit" className="btn">
+                  Continue
+                </button>
+              </Link>
             </div>
           </div>
         </div>

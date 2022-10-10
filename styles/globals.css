@@ -2590,3 +2590,13 @@ font-weight: bold;
 .PhoneInputCountryIconImg{
   height: 40 !important;
 }
+
+
+.react-tel-input >input{
+  width: 100% !important;
+  border: none !important;
+}
+.notAccess{
+  pointer-events: none;
+  color: gray !important;
+}

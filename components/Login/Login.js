@@ -39,8 +39,15 @@ export default function Login() {
           
           setError(res.message)
           setBtnStatus(false);
-          localStorage.setItem('email', data.email);
+          localStorage.setItem('email', res.email);
           router.push('/otp');
+        }else if (res?.success === false && res?.subscription === '') {
+          setValidate(true)
+          
+          setError(res.message)
+          setBtnStatus(false);
+          localStorage.setItem('email', res.email);
+          router.push('/subscription');
         } else if (res?.success === false) {
             setValidate(true)
             setError(res.message)
