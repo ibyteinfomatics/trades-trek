@@ -224,7 +224,7 @@ function getHoliday() {
 function getAllSubscription() {
  
   return fetchWrapper
-    .get(`${baseUrl}/subscription/all`)
+    .get(`${baseUrl}/subscription/all-subscription`)
 
     .then((res) => {
       if (res.success) {
@@ -239,6 +239,17 @@ function getAllSubscription() {
     });
 }
 
+function verifyTransaction(data) {
+  return fetchWrapper
+    .post(`${baseUrl}/subscription/verify`,data)
+    .then((res) => {
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 
 
 
@@ -259,6 +270,6 @@ export const userService = {
   userPerformanceHistory,
   getHoliday,
   subscriptionUpdate,
-  getAllSubscription
-  
+  getAllSubscription,
+  verifyTransaction,
 };
