@@ -207,7 +207,8 @@ if(data.valid){
                className='form--control'
                   placeholder="Enter phone number"
                   value={phone}
-                  defaultCountry="NG"
+                  country={'ng'}
+                  // defaultCountry="NG"
                   onChange={(phone)=>setPhone(phone)}
     
                  
