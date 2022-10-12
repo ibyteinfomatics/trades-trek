@@ -50,6 +50,7 @@ export default function Subscription() {
               </p>
             </div>
           </div>
+          
           <div className="info--button">
             <Link href="/checkout">
               <a className="btn">Premimum</a>

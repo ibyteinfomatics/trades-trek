@@ -176,7 +176,7 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
-            <li className={`menu__list--item ${user.subscription==='Premium'?"":"notAccess"} `}>
+            <li className={`menu__list--item ${user?.subscription==='Premium'?"":"notAccess"} `}>
               <Link  href="javascript:void(0)">
                 <a>
                   <span className="menu--icons">
@@ -204,8 +204,8 @@ export default function Sidebar() {
             <li 
               className={
                 router.pathname == '/dashboard/competition-summary'
-                  ? `menu__list--item active--menu ${user.subscription==='Premium'?"":"notAccess"}`
-                  : `menu__list--item  ${user.subscription==='Premium'?"":"notAccess"}`
+                  ? `menu__list--item active--menu ${user?.subscription==='Premium'?"":"notAccess"}`
+                  : `menu__list--item  ${user?.subscription==='Premium'?"":"notAccess"}`
 
 
               }
