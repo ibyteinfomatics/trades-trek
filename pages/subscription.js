@@ -57,7 +57,7 @@ export default function Subscription() {
             </Link>
           </div>
           <div className="info--button">
-            <Link href="#">
+            <Link href="/dashboard">
               <a className="btn" onClick={handleFreemium}>
                 Freemium
               </a>

@@ -56,6 +56,9 @@ function verifyLoginOtp(email, otp) {
     .then((res) => {
       if (res.success) {
         userSubject.next(res.token);
+        localStorage.setItem('token', res.token);
+        Router.push('/dashboard')
+
         
       }
       return res;
@@ -133,8 +136,7 @@ function userInfo(){
       .get(`${baseUrl}/user/get/info`)
   
       .then((res) => {
-        if (res.success) {
-        }
+       
         return res;
       })
       .catch((error) => {
@@ -219,6 +221,25 @@ function getHoliday() {
     });
 }
 
+function getAllSubscription() {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/subscription/all`)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
+
+
 
 
 export const userService = {
@@ -237,6 +258,7 @@ export const userService = {
   changePassword,
   userPerformanceHistory,
   getHoliday,
-  subscriptionUpdate
+  subscriptionUpdate,
+  getAllSubscription
   
 };

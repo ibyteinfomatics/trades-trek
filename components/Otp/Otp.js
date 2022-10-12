@@ -34,14 +34,7 @@ export default function Otp() {
       setError('');
       let email = localStorage.getItem('email');
       const response = await userService.verifyLoginOtp(email,Number(otp));
-      if (response.success === true) {
-        setBtnStatus(false);
-        setLoaderStatus(false);
-        toast.success(response.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        router.push('/subscription');
-      } else if (response.success === false) {
+       if (response.success === false) {
         setBtnStatus(false);
         setLoaderStatus(false);
         if (!toast.isActive(toastId.current)) {
@@ -49,9 +42,10 @@ export default function Otp() {
             position: toast.POSITION.TOP_RIGHT,
           });
         }
+   
       } else {
         if (!toast.isActive(toastId.current)) {
-          toastId.current = toast.error(response.message, {
+          toastId.current = toast.success(response.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
         }

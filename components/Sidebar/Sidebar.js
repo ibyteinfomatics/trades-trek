@@ -38,11 +38,21 @@ export default function Sidebar() {
   //     });
   // }, [openOrder]);
   useEffect(()=>{
+    console.log(router.asPath)
     userService
       .userInfo()
       .then((res) => {
-      
+      if(res.success ){
         dispatch(setUser(res.message));
+
+      }else
+        if(router.asPath=='/dashboard/competition-summary/'){
+          dispatch(setUser(res.message));
+          router.push('/dashboard/subscription')
+        }
+
+      // 
+      
       })
       .catch((err) => {
         console.log(err);
@@ -176,7 +186,7 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
-            <li className={`menu__list--item ${user?.subscription==='Premium'?"":"notAccess"} `}>
+            <li className={`menu__list--item  `}>
               <Link  href="javascript:void(0)">
                 <a>
                   <span className="menu--icons">
@@ -204,8 +214,8 @@ export default function Sidebar() {
             <li 
               className={
                 router.pathname == '/dashboard/competition-summary'
-                  ? `menu__list--item active--menu ${user?.subscription==='Premium'?"":"notAccess"}`
-                  : `menu__list--item  ${user?.subscription==='Premium'?"":"notAccess"}`
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `
 
 
               }
@@ -231,6 +241,39 @@ export default function Sidebar() {
                     />
                   </span>{' '}
                   Competition
+                </a>
+              </Link>
+            </li>
+            <li 
+              className={
+                router.pathname == '/dashboard/subscription'
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `
+
+
+              }
+            >
+              <Link href="/dashboard/subscription">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/competition-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Subscription'}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      src="/images/competition-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Subscription'}
+                    />
+                  </span>{' '}
+                  Subscription
                 </a>
               </Link>
             </li>
@@ -290,6 +333,7 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
+
             <li className="menu__list--item">
               {/* <Link href="/logout"> */}
               <a

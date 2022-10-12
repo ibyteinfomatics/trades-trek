@@ -18,6 +18,7 @@ import WatchListData, {
 } from '../../components/WatchList/WatchListData';
 import { useDispatch, useSelector } from 'react-redux';
 import { AccountValue } from '../../helpers/UserAccount';
+import UpgradePlan from '../../components/UpgradePlan/upgradePlan';
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -31,6 +32,7 @@ export default function Home() {
       <Sidebar />
 
       <div className="site--content">
+        {/* <UpgradePlan /> */}
         <HighlightTrades />
 
         {/* welcome block */}
@@ -105,8 +107,7 @@ export default function Home() {
         </div>
 
         {/* 3 blocks wraps */}
-      {
-        user.subscription==='Premium' &&   <div className="card--wrapper">
+      <div className="card--wrapper">
         <div className="wrapper--text card--grid card--grid--3">
           {/* Top Gainers */}
           <div className="wrapper--col">
@@ -178,7 +179,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      }
+      
 
         {/* Newslist */}
         <div className="card--wrapper">
