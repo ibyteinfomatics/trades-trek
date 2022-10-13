@@ -68,7 +68,7 @@ export default function Sidebar() {
     // }else
     if(router.asPath=='/dashboard/competition-summary/'){
      
-      if( moment(new Date()).format("YYYY-MM-DD")<=moment(user.expiredDate).format("YYYY-MM-DD")){
+      if( moment(new Date()).format("YYYY-MM-DD")<=moment(user?.expiredDate).format("YYYY-MM-DD")){
         console.log('Available subscription')
       }else{
         router.push('/dashboard/subscription') 

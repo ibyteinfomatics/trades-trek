@@ -136,8 +136,20 @@ function userInfo(){
       .get(`${baseUrl}/user/get/info`)
   
       .then((res) => {
+        if(res?.message?.block){
+          
+          localStorage.removeItem('token');
+          userSubject.next(null);
+          Router.push('/')
+        }else if(res.success==false){
+          localStorage.removeItem('token');
+          userSubject.next(null);
+          Router.push('/')
+        }else if(res.success){
+          return res;
+        }
        
-        return res;
+       
       })
       .catch((error) => {
         if (error?.length > 0) {
