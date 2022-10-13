@@ -19,6 +19,7 @@ import WatchListData, {
 import { useDispatch, useSelector } from 'react-redux';
 import { AccountValue } from '../../helpers/UserAccount';
 import UpgradePlan from '../../components/UpgradePlan/upgradePlan';
+import moment from 'moment-timezone';
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -78,7 +79,7 @@ export default function Home() {
         </div>
 
         {/* Watchlist */}
-        <div className="card--wrapper">
+        { moment(new Date()).format("YYYY-MM-DD")<=moment(user.expiredDate).format("YYYY-MM-DD") &&  <div className="card--wrapper">
           <div className="wrapper--hgroup">
             <div className="wrapper--title">
               <h3>Watchlist</h3>
@@ -104,10 +105,10 @@ export default function Home() {
               <WatchListData2 />
             </div>
           )}
-        </div>
+        </div>}
 
         {/* 3 blocks wraps */}
-      <div className="card--wrapper">
+      {moment(new Date()).format("YYYY-MM-DD")<=moment(user.expiredDate).format("YYYY-MM-DD") && <div className="card--wrapper">
         <div className="wrapper--text card--grid card--grid--3">
           {/* Top Gainers */}
           <div className="wrapper--col">
@@ -178,7 +179,7 @@ export default function Home() {
             {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
           </div>
         </div>
-      </div>
+      </div>}
       
 
         {/* Newslist */}

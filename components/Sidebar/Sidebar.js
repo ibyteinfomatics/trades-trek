@@ -7,6 +7,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { setUser } from '../../actions/users';
 import { userService } from '../../services/user.service';
 import LogOutModal from '../Modal/LogoutModal';
+import moment from 'moment-timezone';
 
 // const ENDPOINT = "http://localhost:3232";
 
@@ -38,26 +39,43 @@ export default function Sidebar() {
   //     });
   // }, [openOrder]);
   useEffect(()=>{
-    console.log(router.asPath)
     userService
       .userInfo()
       .then((res) => {
       if(res.success ){
         dispatch(setUser(res.message));
 
-      }else
-        if(router.asPath=='/dashboard/competition-summary/'){
-          dispatch(setUser(res.message));
-          router.push('/dashboard/subscription')
-        }
+      }
+      // else
+      //   if(router.asPath=='/dashboard/competition-summary/'){
+      //     dispatch(setUser(res.message));
+      //     router.push('/dashboard/subscription')
+      //   }
 
-      // 
+      // // 
       
-      })
+      }
+      )
       .catch((err) => {
         console.log(err);
       });
   },[])
+  useEffect(()=>{
+    // console.log(user)
+    // if(user.block){
+    //   localStorage.removeItem('token');
+    //   router.push('/')
+    // }else
+    if(router.asPath=='/dashboard/competition-summary/'){
+     
+      if( moment(new Date()).format("YYYY-MM-DD")<=moment(user.expiredDate).format("YYYY-MM-DD")){
+        console.log('Available subscription')
+      }else{
+        router.push('/dashboard/subscription') 
+      }
+     
+    }
+  },[router.asPath,user])
 
   // const Login = async () => {};
 
