@@ -57,9 +57,13 @@ export default function JoinCompetation() {
           </thead>
           <tbody>
             {allGame?.map((item) => {
-              
+              console.log(user)
+              console.log(item.users.includes(user._id))
+
               return (
+                
                 <tr>
+                  
                   <td>
                     <div className="font--normal font-16">
                     <div className="flexBox">
@@ -88,7 +92,7 @@ export default function JoinCompetation() {
                       ? "No End"
                       : item?.dateRange.split(" ")[1]}
                   </td>
-                  <td>{item?.numberOfPlayers}</td>
+                  <td>{item?.users?.length}</td>
                   <td>${item?.startingCash.toFixed(2)}</td>
                   <td>
                     {/* <Link > */}
@@ -98,7 +102,7 @@ export default function JoinCompetation() {
                   <td>
                     <div className="btn--group form--actions">
                       {/* <Link href="#"> */}
-                        <a className="btn form--submit" onClick={()=> joinGame(item?._id)} >{item.users.includes(user.id)?"Play Game":"Join Game"}</a>
+                        <a className="btn form--submit" onClick={()=> joinGame(item?._id)} >{item.users.includes(user._id)?<button>GO TO GAME</button>:<button>JOIN GAME</button>}</a>
                       {/* </Link> */}
                     </div>
                   </td>
