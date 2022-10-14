@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { gameService } from "../../services/game.service";
 import PreviewGameModel from "../Modal/PreviewGameModel";
+import { useSelector } from "react-redux";
 export default function JoinCompetation() {
   const [allGame, setAllGame] = useState();
   const [modelOpened,setModelOpened]=useState(false)
+  let { user } = useSelector((state) => state.userWrapper);
+
   useEffect(() => {
     gameService
       .getAllGame()
@@ -54,6 +57,7 @@ export default function JoinCompetation() {
           </thead>
           <tbody>
             {allGame?.map((item) => {
+              
               return (
                 <tr>
                   <td>
@@ -94,7 +98,7 @@ export default function JoinCompetation() {
                   <td>
                     <div className="btn--group form--actions">
                       {/* <Link href="#"> */}
-                        <a className="btn form--submit" onClick={()=> joinGame(item?._id)} >JOIN COMPETITION</a>
+                        <a className="btn form--submit" onClick={()=> joinGame(item?._id)} >{item.users.includes(user.id)?"Play Game":"Join Game"}</a>
                       {/* </Link> */}
                     </div>
                   </td>
