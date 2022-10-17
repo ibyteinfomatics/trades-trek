@@ -14,6 +14,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
   const dispatch = useDispatch();
   const [password, setPasswod] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [passwordCorrect,setPasswordCorrect]=useState(false)
   let { user } = useSelector((state) => state.userWrapper);
 
   const theme = useMantineTheme();
@@ -27,21 +28,34 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
       setPasswordError(
         "Password must be alphanumeric with at least one special character and must be 8 characters"
       );
+      setPasswordCorrect(false)
       return false;
     } else {
       setPasswordError("");
+      setPasswordCorrect(true)
       return true;
     }
   };
   const handleJoin = () => {
-    if (data[0].competitionType == "Private") {
-    }
-    // gameService.joinGame({gameId:data[0]._id}).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
+    if (data[0].competitionType == "Private" ) {
+      if(passwordCorrect){
+        gameService.joinGame({gameId:data[0]._id,password:password}).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
+        // console.log(data)
+    
+        setError();
+        setErrorStatus(false);
+        setModelOpened(false);
+
+      }
+    }else{
+     gameService.joinGame({gameId:data[0]._id}).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
     // console.log(data)
 
-    // setError();
-    // setErrorStatus(false);
-    // setModelOpened(false);
+    setError();
+    setErrorStatus(false);
+    setModelOpened(false);
+    }
+
   };
   return (
     <Modal
