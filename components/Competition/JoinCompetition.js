@@ -3,24 +3,39 @@ import Link from "next/link";
 import { gameService } from "../../services/game.service";
 import PreviewGameModel from "../Modal/PreviewGameModel";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 export default function JoinCompetation() {
   const [allGame, setAllGame] = useState();
-  const [modelOpened,setModelOpened]=useState(false)
+  const [modelOpened, setModelOpened] = useState(false);
+  const [selectedData, setSelectedDate] = useState([]);
+  const [search, setSearch] = useState("");
   let { user } = useSelector((state) => state.userWrapper);
-
+  const router = useRouter();
   useEffect(() => {
+    GetAllGame(search);
+  }, [search,modelOpened]);
+  const GetAllGame = (input) => {
     gameService
-      .getAllGame()
+      .getAllGame(input)
       .then((res) => {
         if (res.success) {
           setAllGame(res?.data?.docs);
         }
       })
       .catch((err) => console.log(err));
-  }, []);
-  const joinGame=(id)=>{
-    setModelOpened(true)
-  }
+  };
+  const joinGame = (id) => {
+    const data = allGame.filter((item) => item._id == id);
+    setSelectedDate(data);
+    setModelOpened(true);
+  };
+  const handleJoin = (item) => {
+    if (item.users.includes(user._id)) {
+      router.push("/dashboard/portfolio");
+    } else {
+      joinGame(item._id);
+    }
+  };
 
   return (
     <>
@@ -30,6 +45,8 @@ export default function JoinCompetation() {
           <input
             className="form--control"
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Look up competition name or creator"
           />
           <span className="search">
@@ -57,32 +74,30 @@ export default function JoinCompetation() {
           </thead>
           <tbody>
             {allGame?.map((item) => {
-              console.log(user)
-              console.log(item.users.includes(user._id))
-
               return (
-                
                 <tr>
-                  
                   <td>
                     <div className="font--normal font-16">
-                    <div className="flexBox">
-                    <span className="flexBox font--bold font-14">
-                      {item?.competitionName}
-                      </span> &nbsp;
-                       {item.competitionType=='Private' &&  <svg
-                          width="16"
-                          height="17"
-                          viewBox="0 0 16 17"
-                          fill="none"
-                        >
-                          <path
-                            d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z"
-                            fill="#8000FF"
-                          />
-                        </svg>}
+                      <div className="flexBox">
+                        <span className="flexBox font--bold font-14">
+                          {item?.competitionName}
+                        </span>{" "}
+                        &nbsp;
+                        {item.competitionType == "Private" && (
+                          <svg
+                            width="16"
+                            height="17"
+                            viewBox="0 0 16 17"
+                            fill="none"
+                          >
+                            <path
+                              d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z"
+                              fill="#8000FF"
+                            />
+                          </svg>
+                        )}
                       </div>
-                     
+
                       {item?.username}
                     </div>
                   </td>
@@ -96,13 +111,28 @@ export default function JoinCompetation() {
                   <td>${item?.startingCash.toFixed(2)}</td>
                   <td>
                     {/* <Link > */}
-                      <a  onClick={()=> joinGame(item?._id)} className="border-bottom text--purple">View Details</a>
+                    <a
+                      onClick={() => joinGame(item?._id)}
+                      className="border-bottom text--purple"
+                      style={{ cursor: "pointer" }}
+                    >
+                      View Details
+                    </a>
                     {/* </Link> */}
                   </td>
                   <td>
                     <div className="btn--group form--actions">
                       {/* <Link href="#"> */}
-                        <a className="btn form--submit" onClick={()=> joinGame(item?._id)} >{item.users.includes(user._id)?<button>GO TO GAME</button>:<button>JOIN GAME</button>}</a>
+                      <a
+                        className="btn form--submit"
+                        onClick={() => handleJoin(item)}
+                      >
+                        {item.users.includes(user._id) ? (
+                          <button>GO TO GAME</button>
+                        ) : (
+                          <button>JOIN GAME</button>
+                        )}
+                      </a>
                       {/* </Link> */}
                     </div>
                   </td>
@@ -113,18 +143,11 @@ export default function JoinCompetation() {
         </table>
 
         <PreviewGameModel
-              modelOpened={modelOpened}
-              setModelOpened={setModelOpened}
-            //   setShowTrade={setShowTrade}
-            //   data={{
-            //     ...stockData,
-            //     duration,
-            //     quantity,
-            //     action,
-            //     orderType,
-            //     rate,
-            //   }}
-            />
+          modelOpened={modelOpened}
+          setModelOpened={setModelOpened}
+          //   setShowTrade={setShowTrade}
+          data={selectedData}
+        />
       </div>
     </>
   );

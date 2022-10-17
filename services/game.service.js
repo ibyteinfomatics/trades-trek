@@ -33,11 +33,11 @@ function createGame(data) {
   }
 
 // get all game .....  
-function getAllGame(data) {
+function getAllGame(search) {
 
   // console
     return fetchWrapper
-      .get(`${baseUrl}/game`)
+      .get(`${baseUrl}/game?search=${search}`)
   
       .then((res) => {
         if (res.success) {
@@ -53,6 +53,45 @@ function getAllGame(data) {
   }
 
 
+  function getMYGame(data) {
+
+    // console
+      return fetchWrapper
+        .get(`${baseUrl}/game/myGames`)
+    
+        .then((res) => {
+          if (res.success) {
+          }
+          return res;
+        })
+        .catch((error) => {
+          if (error?.length > 0) {
+            return error[0];
+          }
+          return error;
+        });
+    }
+
+    function joinGame(data) {
+
+      // console
+        return fetchWrapper
+          .post(`${baseUrl}/game/join-game`,data)
+      
+          .then((res) => {
+            if (res.success) {
+            }
+            return res;
+          })
+          .catch((error) => {
+            if (error?.length > 0) {
+              return error[0];
+            }
+            return error;
+          });
+      }
+
+
 
 export const gameService ={
     user: userSubject.asObservable(),
@@ -60,5 +99,7 @@ export const gameService ={
       return userSubject.value;
     },
     createGame,
-    getAllGame
+    getAllGame,
+    getMYGame,
+    joinGame
   };

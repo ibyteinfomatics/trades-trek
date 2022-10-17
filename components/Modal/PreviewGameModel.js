@@ -5,40 +5,44 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
 import { setSelectedStock } from "../../actions/setStock";
+import { gameService } from "../../services/game.service";
 
 function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
   const [error, setError] = useState("something went wrong");
   const [errorStatus, setErrorStatus] = useState(false);
   const dispatch = useDispatch();
+  const [password, setPasswod] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  let { user } = useSelector((state) => state.userWrapper);
 
   const theme = useMantineTheme();
-  //     const submitOrder=()=>{
-  //         stockService.orderStock(data).then((res)=>{
-  //           if(res.success){
-  //             dispatch(setUser(res.user));
-  //               // router.push({
-  //               //   pathname:"/dashboard/portfolio",
-  //               // })
-  //               setShowTrade(false)
-  //               dispatch(setSelectedStock(null))
-  //             setModelOpened(false)
+  const handlePasswod = (e) => {
+    setPasswod(e.target.value);
+    if (
+      !/^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/.test(
+        e.target.value
+      )
+    ) {
+      setPasswordError(
+        "Password must be alphanumeric with at least one special character and must be 8 characters"
+      );
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
+    }
+  };
+  const handleJoin = () => {
+    if (data[0].competitionType == "Private") {
+    }
+    // gameService.joinGame({gameId:data[0]._id}).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
+    // console.log(data)
 
-  //           } else if(res.success===false){
-  //             setError(res.message)
-  //             setErrorStatus(true)
-  //           } else{
-  //             setError(res)
-  //             setErrorStatus(true)
-  //           }
-
-  //            }).catch((err)=>{
-
-  //             setError(err)
-  //             setErrorStatus(true)
-  //            }
-  //            )
-  //     }
+    // setError();
+    // setErrorStatus(false);
+    // setModelOpened(false);
+  };
   return (
     <Modal
       overlayColor={
@@ -49,94 +53,303 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
       overlayOpacity={0.55}
       overlayBlur={3}
       opened={modelOpened}
-      size="35%"
+      size="80%"
+      overflow="inside"
       onClose={() => {
         setError();
         setErrorStatus(false);
         setModelOpened(false);
       }}
     >
-      <div className="">
-        <h1
-          style={{
-            fontSize: "30px",
-            fontWeight: "bold",
-            marginBottom: " 10px",
-          }}
-        >
-          Preview Order
-        </h1>
-        {errorStatus && (
-          <div className="" style={{ border: "1px solid red", margin: "20px" }}>
-            <p style={{ textAlign: "center", padding: "10px", color: "red" }}>
-              {error}
-            </p>
-          </div>
-        )}
-        <div className="box-align">
-          <div className="row-block">
-            <p className="font-18 ">Stock: </p>
-            <p className="font-18 font--bold">{data?.Name}</p>
-          </div>
-          <div className="row-block">
-            <p className="font-18 ">Action: </p>
-            <p className="font-18 font--bold">{data?.action}</p>
-          </div>
-          {/* <div className='row-block'> */}
-          {/* <p className='font-18 font--bold'>{data?.Name}</p> */}
-          {/* <p className='font-18 font--bold'>{data?.quantity}</p> */}
-          {/* </div> */}
-          <div className="row-block">
-            <p className="font-18 ">Order Type:</p>
-            <p className="font-18 ">{data?.orderType}</p>
-          </div>
-          <div className="row-block">
-            <p className="font-18">Quantity:</p>
-            <p className="font-18">{data?.quantity}</p>
-          </div>
-          <div className="row-block">
-            <p className="font-18">Duration:</p>
-            <p className="font-18">{data?.duration}</p>
-          </div>
+      {data.length > 0 && (
+        <div className="" style={{ padding: "10px 20px" }}>
+          <h1
+            style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              marginBottom: " 10px",
+            }}
+          >
+            {data[0]?.competitionName}
+          </h1>
+          <span style={{ fontSize: "18px" }}>by: {data[0]?.username}</span>
 
-          {/* <div className='row-block'>
+          {data[0]?.competitionType == "Private" &&
+            !data[0]?.users.includes(user?._id) && (
+              <div className="form--item">
+                <label className="form--label" htmlFor="email">
+                  PRIVATE GAME
+                </label>
+                <input
+                  className="form--control"
+                  value={password}
+                  onChange={handlePasswod}
+                  style={{
+                    width: "50%",
+                    padding: "5px 10px",
+                    border: " 3px solid #e0e0e0",
+                  }}
+                />
+                {passwordError && (
+                  <div
+                    className=""
+                    style={{ border: "1px solid red", margin: "20px" }}
+                  >
+                    <p
+                      style={{
+                        textAlign: "center",
+                        padding: "10px",
+                        color: "red",
+                      }}
+                    >
+                      {passwordError}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+          {errorStatus && (
+            <div
+              className=""
+              style={{ border: "1px solid red", margin: "20px" }}
+            >
+              <p style={{ textAlign: "center", padding: "10px", color: "red" }}>
+                {error}
+              </p>
+            </div>
+          )}
+          <div className="box-align" style={{ marginTop: "10px" }}>
+            <div className="row-block">
+              <p className="font-18 ">
+                <span className="font--bold">Timing</span>
+                <p>{`${data[0]?.dateRange.split(" ")[0]} - ${
+                  data[0]?.dateRange.split(" ")[1] == "null"
+                    ? "No End"
+                    : data[0]?.dateRange.split(" ")[1]
+                } `}</p>{" "}
+              </p>
+              <p className="font-18 ">
+                <span className="font--bold">NUMBER OF PLAYERS</span>
+                <p>{data[0]?.users?.length}</p>
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">
+                <span className="font--bold"> STARTING CASH</span>
+                <p>{data[0]?.startingCash.toFixed(2)}</p>
+              </p>
+            </div>
+            {!data[0]?.users.includes(user?._id) && (
+              <div
+                className=""
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+
+                  gap: "10px",
+                }}
+              >
+                <button
+                  type="reset"
+                  className="btn reset--btn"
+                  onClick={() => {
+                    setError();
+                    setErrorStatus(false);
+                    setModelOpened(false);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="reset"
+                  className="btn reset--btn"
+                  onClick={handleJoin}
+                >
+                  Confirm Join
+                </button>
+              </div>
+            )}
+
+            <h1
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                margin: "10px 0px",
+              }}
+            >
+              GAME RULES
+            </h1>
+            <h1
+              style={{
+                fontSize: "13px",
+                fontWeight: "bold",
+                margin: "10px 0px",
+              }}
+            >
+              GAME NAME & BASIC TRADING RULES
+            </h1>
+            {/* <hr style={{margin:'0px 10px',width:'10px'}} /> */}
+            <div className="row-block">
+              <p className="font-18 ">Margin Trading </p>
+              <p className="font-18 ">
+                {data[0]?.allowTradingWithMargin ? "Yes" : "No"}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Short Selling </p>
+              <p className="font-18 ">
+                {data[0]?.allowShortSelling ? "Yes" : "No"}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Option Trading </p>
+              <p className="font-18 ">
+                {data[0]?.allowTradingOptions ? "Yes" : "No"}
+              </p>
+            </div>
+            <h1
+              style={{
+                fontSize: "13px",
+                fontWeight: "bold",
+                margin: "10px 0px",
+              }}
+            >
+              BASIC GAME RULES
+            </h1>
+            <div className="row-block">
+              <p className="font-18 ">Late Entry</p>
+              <p className="font-18 ">
+                {data[0]?.allowLateEntry ? "Yes" : "No"}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Portfolio Viewing</p>
+              <p className="font-18 ">
+                {data[0]?.allowPortfolioViewing ? "Yes" : "No"}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Portfolio Resetting</p>
+              <p className="font-18 ">
+                {data[0]?.allowPortfolioResetting ? "Yes" : "No"}
+              </p>
+            </div>
+
+            <h1
+              style={{
+                fontSize: "13px",
+                fontWeight: "bold",
+                margin: "10px 0px",
+              }}
+            >
+              ADVANCED GAME RULES
+            </h1>
+            {/* <div className='row-block'>
                 <p className='font-18'>Stock Rate</p>
                 <p className='font-18'>{(data.orderType == 'Market' ? data?.Last : data.rate )}</p>
             </div> */}
 
-          <div className="row-block">
-            <p className="font-18">Commission</p>
-            <p className="font-18">$00.00</p>
-          </div>
-          <div className="row-block">
-            <p className="font-18">Estimate Total</p>
-            {data?.orderType == "Market" && (
-              <p className="font-18">
-                {((data?.quantity || 0) * (data?.Last || 0)).toFixed(2)}
+            <div className="row-block">
+              <p className="font-18 ">Market Delay</p>
+              <p className="font-18 ">{`${data[0]?.marketDelay} minutes`}</p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Daily Volume</p>
+              <p className="font-18 ">
+                {`${data[0]?.dailyVolume ? data[0]?.dailyVolume : "Disabled"}`}
               </p>
-            )}
-            {data?.orderType == "Limit" && (
-              <p className="font-18">
-                {((data?.quantity || 0) * (data?.rate || 0) + 29.95).toFixed(2)}
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Quick Sell</p>
+              <p className="font-18 ">
+                {`${data[0]?.quickSell ? data[0]?.quickSell : "Disabled"}`}
               </p>
-            )}
-          </div>
-          <div className="">
-            {/* <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button> */}
-            <button
-              type="reset"
-              className="btn reset--btn"
-              onClick={() => {
-                setError();
-                setErrorStatus(false);
-                setModelOpened(false);
-              }}
-            >
-              CHANGE ORDER
-            </button>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Minimum Price</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.minimumPrice ? data[0]?.minimumPrice : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Minimum Price Short</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.minimumPriceShort
+                    ? data[0]?.minimumPriceShort
+                    : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Minimum Stock For Margin</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.minimumStockForMargin
+                    ? data[0]?.minimumStockForMargin
+                    : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Commission</p>
+              <p className="font-18 ">
+                {`${data[0]?.commission ? data[0]?.commission : "Disabled"}`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Commission - Option</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.commissionOption
+                    ? data[0]?.commissionOption
+                    : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Commission - Per Contract</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.commissionPerContract
+                    ? data[0]?.commissionPerContract
+                    : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Diversification</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.diversification
+                    ? data[0]?.diversification
+                    : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Margin Interest</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.marginInterest ? data[0]?.marginInterest : "Disabled"
+                }`}
+              </p>
+            </div>
+            <div className="row-block">
+              <p className="font-18 ">Cash Interest</p>
+              <p className="font-18 ">
+                {`${
+                  data[0]?.cashInterest ? data[0]?.cashInterest : "Disabled"
+                }`}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </Modal>
   );
 }
