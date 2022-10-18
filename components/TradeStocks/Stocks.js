@@ -140,6 +140,30 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
         });
     }
   };
+  const theme = theme => ({
+    ...theme,
+    colors: {
+      ...theme.colors,
+      primary25: "blue",
+      primary: "pink"
+
+    }
+
+  });
+  const colourStyles = {
+    control: styles => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = 'white';
+      return {
+        ...styles,
+        backgroundColor: isDisabled ? 'red' : blue,
+        color: '#FFF',
+        cursor: isDisabled ? 'not-allowed' : 'default',
+      
+      };
+    },
+  
+  };
   return (
     <>
       <div className="stocks-form">
@@ -174,7 +198,8 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                 // ariaLiveMessages={{
                 //   onFocus
                 // }}
-        
+        theme={theme}
+        // styles={colourStyles}
                 // isOptionSelected={search}
                 placeholder='Search for Symbol'
                
