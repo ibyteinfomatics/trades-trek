@@ -43,7 +43,7 @@ export default function Signup() {
 // }
   const onSubmit = async(data) => {
    
-  //  if(await phoneValidate(phone)){
+ 
     data.phone=phone
     userService
     .signup(data)
@@ -73,13 +73,9 @@ export default function Signup() {
     });
 
    
-  // }else{
-  //   console.log('hhh')
-  //   setValidate(true)
-  //   setError('Invalid Phone Number')
-  //  }
+  
   };
-  // console.log(phone);
+
 
   return (
     <>

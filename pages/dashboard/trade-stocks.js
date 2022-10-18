@@ -91,7 +91,8 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Account Value{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && userData.accountValue?.toFixed(2)}
+                {/* ₦{(userData.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} */}
+                ₦{userData && (userData.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -99,7 +100,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Buying Power{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && userData.buyingPower?.toFixed(2)}
+                ₦{userData && (userData.buyingPower?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -107,7 +108,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Cash{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && userData.cash?.toFixed(2)}
+                ₦{userData && (userData.cash?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>

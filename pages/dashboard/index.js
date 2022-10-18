@@ -59,7 +59,7 @@ export default function Home() {
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦{user && user.accountValue}</span>
+                    <span>₦{user && (user.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                   </li>
                   <li>
                     <span>Today's Change</span>
