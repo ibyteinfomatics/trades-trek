@@ -19,7 +19,7 @@ export default function Portfolio() {
         <div className="page--title--block">
           <div className="grid--2">
             <div className="grid-block-left wrapper--title">
-              <h3>Welcome, {user && `${user.firstName} ${user.lastName}`}</h3>
+              <h3>Welcome, {user && `${user.firstName || ""} ${user.lastName || ""}`}</h3>
             </div>
             <div className="grid-block-right right-align">
               <div className="beginner-option">

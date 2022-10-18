@@ -198,7 +198,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                 // ariaLiveMessages={{
                 //   onFocus
                 // }}
-        theme={theme}
+        // theme={theme}
         // styles={colourStyles}
                 // isOptionSelected={search}
                 placeholder='Search for Symbol'
