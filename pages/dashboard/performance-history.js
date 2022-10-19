@@ -73,7 +73,20 @@ export default function PerformanceHistory() {
 
           <div className="card-no-gap">
             <div className="trade-order-status">
-             {isLoading?<Loader color="red" />: <div className="order--table--responsive">
+             {isLoading?
+              <div
+              style={{
+                width: "100%",
+                height: "50vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+               <Loader color="red" />
+            </div>
+            
+             : <div className="order--table--responsive">
                 {userHistoryData.length>0 ? (
                   <div>
                     <table className="order-table">
@@ -92,18 +105,7 @@ export default function PerformanceHistory() {
                         </tr>
                       ))}
                     </table>
-                    <div className="paginationReact">
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel=">"
-                      onPageChange={handlePageClick}
-                      marginPagesDisplayed={2}
-                      // pageRangeDisplayed={2}
-                      pageCount={allPage}
-                      previousLabel="<"
-                      renderOnZeroPageCount={null}
-                    />
-                    </div>
+                    
                   </div>
                 ) : (
                   <div
@@ -127,6 +129,18 @@ export default function PerformanceHistory() {
                   </div>
                 )}
               </div>}
+             {allPage>1 && <div className="paginationReact">
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel=">"
+                      onPageChange={handlePageClick}
+                      marginPagesDisplayed={2}
+                      // pageRangeDisplayed={2}
+                      pageCount={allPage}
+                      previousLabel="<"
+                      renderOnZeroPageCount={null}
+                    />
+                    </div>}
             </div>
           </div>
         </div>

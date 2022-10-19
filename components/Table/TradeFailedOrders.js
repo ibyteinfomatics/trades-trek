@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 
-export default function TradeFailedOrders({modelOpened }) {
+export default function TradeFailedOrders({ modelOpened }) {
   const [failedOrders, setfailedOrders] = useState();
   const [failedAllPage, setfailedAllPage] = useState(1);
 
@@ -17,7 +17,7 @@ export default function TradeFailedOrders({modelOpened }) {
     "QUANTITY",
     "ORDER PRICE",
     "Processed at",
-    "Order Id"
+    "Order Id",
   ];
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function TradeFailedOrders({modelOpened }) {
             {failedOrders?.map((item) => {
               return (
                 <tr>
-                   <td>
+                  <td>
                     {DataConvert(item.updatedAt)}{" "}
                     <span className="order-time">
                       {TimeConverter(item.updatedAt)}
@@ -85,10 +85,10 @@ export default function TradeFailedOrders({modelOpened }) {
                       <span className="order-time">at Market Open</span>
                     )}
                   </td>
-                  <td>{item.quantity}</td>
+                  <td>{item?.quantity?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                   <td>
                     {item.orderType == "Limit" ? (
-                      <span className="order-time">Limit - ₦{item.rate}</span>
+                      <span className="order-time">Limit - ₦{(item?.rate?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     ) : (
                       "n/a"
                     )}
@@ -104,17 +104,19 @@ export default function TradeFailedOrders({modelOpened }) {
               );
             })}
           </table>
-          <div className="paginationReact tablepaginate">
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel=">"
-              onPageChange={handlePageClick}
-              marginPagesDisplayed={2}
-              pageCount={failedAllPage}
-              previousLabel="<"
-              renderOnZeroPageCount={null}
-            />
-          </div>
+          {failedAllPage > 1 && (
+            <div className="paginationReact tablepaginate">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                marginPagesDisplayed={2}
+                pageCount={failedAllPage}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

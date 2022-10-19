@@ -300,13 +300,13 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                   </div>
                   <div className="titleRow">
                     <h3 className="font-30">
-                      {stockData?.Last}
+                      {(stockData?.Last?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                       <sub>{stockData?.Currency}</sub>
                       <span>
                         <sub>
                           {stockData?.Change >= 0
-                            ? `+ ${stockData?.Change}`
-                            : `- ${stockData?.Change}`}
+                            ? `+ ${(stockData?.Change?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                            : `- ${(stockData?.Change?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                           (
                           {StockChangePercent(
                             stockData?.Change,
@@ -328,11 +328,11 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {Number(stockData?.EPS)?.toFixed(2) || 0}
+                      {Number(stockData?.EPS)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
-                      {Number(stockData?.MktCap)?.toFixed(2) || 0}
+                      {Number(stockData?.MktCap)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
                       <span className="font-12">Market Cap</span>
                     </h3>
                     {/* <h3 className="font-16">
@@ -340,7 +340,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       <span className="font-12">Div Yield</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {Number(stockData?.PE)?.toFixed(2) || 0}
+                      {Number(stockData?.PE)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -348,36 +348,36 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                     <div className="volumeDataLeft">
                       <div className="currentData">
                         <p className="font-16">Volume(current)</p>
-                        <p className="font-14">{stockData?.Volume}</p>
+                        <p className="font-14">{stockData?.Volume?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                       </div>
                       <div className="currentData">
-                        <p className="font-16">Day&apos;s High($)</p>
-                        <p className="font-14">{Number(stockData?.High)?.toFixed(2)}</p>
+                        <p className="font-16">Day&apos;s High(₦)</p>
+                        <p className="font-14">{Number(stockData?.High)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}</p>
                       </div>
                       <div className="currentData">
-                        <p className="font-16">Day&apos;s LOW($)</p>
-                        <p className="font-14">{Number(stockData?.Low)?.toFixed(2)}</p>
+                        <p className="font-16">Day&apos;s LOW(₦)</p>
+                        <p className="font-14">{Number(stockData?.Low)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}</p>
                       </div>
                     </div>
                     <div className="volumeDataRight">
                       <div className="currentData">
-                        <p className="font-16">52 Week High($)</p>
+                        <p className="font-16">52 Week High(₦)</p>
                         <p className="font-14">
-                          {Number(stockData?.High52Week)?.toFixed(2)}
+                          {Number(stockData?.High52Week)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}
                         </p>
                       </div>
                       <div className="currentData">
-                        <p className="font-16">Bid/Ask price($)</p>
+                        <p className="font-16">Bid/Ask price(₦)</p>
                         <p className="font-14">
                           {(
                             (Number(stockData?.Bid) || 0) / (Number(stockData?.Ask) || 1)
-                          ).toFixed(2)}
+                          ).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}
                         </p>
                       </div>
                       <div className="currentData">
-                        <p className="font-16">52 Week Low($)</p>
+                        <p className="font-16">52 Week Low(₦)</p>
                         <p className="font-14">
-                          {Number(stockData?.Low52Week)?.toFixed(2)}
+                          {Number(stockData?.Low52Week)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
                         </p>
                       </div>
                     </div>

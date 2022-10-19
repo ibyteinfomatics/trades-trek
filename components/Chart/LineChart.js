@@ -12,10 +12,10 @@ chartjs.register(
 export default function LineChart(){
     
     const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Mon', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [100000, 101000, 108000, 153000, 104000, 105000],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(54, 162, 235, 0.5)',
@@ -46,10 +46,10 @@ export default function LineChart(){
 
     return(
         <>
-            <div style={{width: "80%", marginLeft: 'auto', marginRight: 'auto'}}>
+            <div style={{width: "100%", marginLeft: 'auto', marginRight: 'auto'}}>
                 <Line 
                     data={data}
-                    height={200}
+                    height={100}
                     options={options}
                 />
             </div>

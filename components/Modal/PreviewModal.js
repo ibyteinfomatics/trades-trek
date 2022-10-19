@@ -81,7 +81,7 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
             </div>
             <div className='row-block'>
                 <p className='font-18'>Quantity:</p>
-                <p className='font-18'>{data?.quantity}</p>
+                <p className='font-18'>{data?.quantity?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             </div>
             <div className='row-block'>
                 <p className='font-18'>Duration:</p>
@@ -89,7 +89,7 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
             </div>
             <div className='row-block'>
                 <p className='font-18'>Estimated Price:</p>
-                <p className='font-18'>${Number((data?.quantity)*(data.orderType == 'Market' ? data?.Last : data.rate )).toFixed(2)}</p>
+                <p className='font-18'>₦{Number((data?.quantity)*(data.orderType == 'Market' ? data?.Last : data.rate )).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             </div>
             {/* <div className='row-block'>
                 <p className='font-18'>Stock Rate</p>
@@ -98,14 +98,14 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
            
             <div className='row-block'>
                 <p className='font-18'>Commission</p>
-                <p className='font-18'>$00.00</p>
+                <p className='font-18'>₦00.00</p>
             </div>
             <div className='row-block'>
                 <p className='font-18'>Estimate Total</p>
                 {data?.orderType == 'Market' &&
-                 <p className='font-18'>{((data?.quantity||0)*(data?.Last ||0)).toFixed(2)}</p>
+                 <p className='font-18'>₦{((data?.quantity||0)*(data?.Last ||0)).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                  }
-                {data?.orderType == 'Limit' && <p className='font-18'>{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(2)}</p>}
+                {data?.orderType == 'Limit' && <p className='font-18'>₦{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>}
             </div>
             <div className=''>
                 <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button>

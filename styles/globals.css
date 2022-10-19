@@ -2700,3 +2700,107 @@ font-weight: bold;
   text-align: justify;
 }
 
+
+.profileContainer{
+  height: 50vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    margin-bottom: 40px;
+   
+}
+.profileContainerLeft{
+  width: 40vw;
+  
+  /* background-color: #fff; */
+}
+.profileContainerRight{
+  width: 70vw;
+  background-color: #fff;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.profileContainerAccount{
+  height: 65%;
+  background-color: #fff;
+  margin-bottom: 5%;
+  text-align: left;
+  /* display: flex;
+  align-items: flex-start; */
+
+}
+.profileContainerRank{
+  background-color: #fff;
+  height: 30%;
+ 
+
+}
+.profileContainerAccountblock{
+  padding: 10px;
+  height: 33%;
+}
+.profileContainerAccountblock>span{
+  font-size: 12px;
+}
+.profileContainerAccountblock>p{
+  font-size: 32px;
+  font-weight: bold;
+}
+.profileContainerAccountblock>div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.profileContainerAccountblock>div>div>span{
+  font-size: 12px;
+
+}
+.profileContainerAccountblock>div>div>p{
+  font-size: 20px;
+  font-weight: bold;
+}
+.profileContainerRightBlock{
+  width: 100%;
+}
+.profileContainerRightGraph>div{
+  display: flex;
+  padding: 5px 10px;
+  align-items: center;
+  justify-content: center;
+}
+.profileContainerRightGraph>div>span{
+  cursor: pointer;
+  padding: 10px 50px;
+
+
+}
+.profileContainerRightGraph>div>span:hover{
+  background-color: #e0e0e0;
+}
+
+.profileContainerRank{
+  text-align: left;
+  padding: 10px;
+}
+.rankText>span{
+  font-size: 10px;
+}
+.profileContainerRank .rank{
+  display: flex;
+  justify-content:space-between;
+}
+.yourrank{
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.players{
+  font-size: 14px;
+  /* font-weight: bold; */
+}
+
+
+

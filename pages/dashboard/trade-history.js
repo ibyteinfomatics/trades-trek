@@ -9,44 +9,40 @@ import { orderService } from "../../services/order.service";
 
 export default function TradeHistory() {
   const [tradeHistoryData, setTradeHistoryData] = useState();
-  const [currentPage,setCurrentPage]=useState(1);
-  const [allPage,setAllPage]=useState(1)
-  const [isLoading,setIsLoading]=useState(false)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allPage, setAllPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     orderService
       .tradeHistory(currentPage)
       .then((res) => {
-        if(res.success){
-        setTradeHistoryData(res.orders.docs)
-        setCurrentPage(res.orders.page)
-        setAllPage(res.orders.pages)
-
+        if (res.success) {
+          setTradeHistoryData(res.orders.docs);
+          setCurrentPage(res.orders.page);
+          setAllPage(res.orders.pages);
         }
-        setIsLoading(false)
-
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handlePageClick=({selected})=>{
-    isLoading(true)
+  const handlePageClick = ({ selected }) => {
+    setIsLoading(true);
     orderService
-    .tradeHistory(selected+1)
-    .then((res) => {
-      
-      if (res.success) {
-        setCurrentPage(res.orders.page)
-        setAllPage(res.orders.pages)
-        setTradeHistoryData(res.orders.docs);
-        setIsLoading(false)
-      }
-      setIsLoading(false)
-
-    })
-    .catch((err) => console.log(err));
+      .tradeHistory(selected + 1)
+      .then((res) => {
+        if (res.success) {
+          setCurrentPage(res.orders.page);
+          setAllPage(res.orders.pages);
+          setTradeHistoryData(res.orders.docs);
+          setIsLoading(false);
+        }
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
     // setCurrentPage(selected+1)
-  }
+  };
   // console.log(tradeHistoryData);
   const columns = [
     "Date",
@@ -73,71 +69,87 @@ export default function TradeHistory() {
         <div className="page--title--block">
           <div className="card-no-gap">
             <div className="trade-order-status">
-              {isLoading?<Loader color="red" />:<div className="order--table--responsive">
-                {tradeHistoryData ? (
-                  <div>
-                    <table className="order-table">
-                      <tr>
-                        {columns.map((item) => {
-                          return <th>{item}</th>;
-                        })}
-                      </tr>
-                      {tradeHistoryData.map((item) => (
+              {isLoading ? (
+                 <div
+                 style={{
+                   width: "100%",
+                   height: "50vh",
+                   display: "flex",
+                   justifyContent: "center",
+                   alignItems: "center",
+                 }}
+               >
+                  <Loader color="red" />
+               </div>
+              ) : (
+                <div className="order--table--responsive">
+                  {tradeHistoryData ? (
+                    <div>
+                      <table className="order-table">
                         <tr>
-                          <td>{DataConvert(item.updatedAt)}</td>
-                          <td>{item.symbol}</td>
-                          <td>
-                            {item.action == "Short" ? "Short " : ""}{" "}
-                            {item.action == "Buy To Cover" ? "Cover " : ""}
-                            Stock:{" "}
-                            {item.action == "Buy To Cover"
-                              ? "Cover"
-                              : item.action}{" "}
-                            at{" "}
-                            {item.orderType == "Limit"
-                              ? item.orderType
-                              : `${item.orderType} Open`}
-                          </td>
-                          <td>{item.quantity}</td>
-                          <td>₦{item.rate.toFixed(2)}</td>
-                          <td>₦{(item.rate * item.quantity).toFixed(2)}</td>
+                          {columns.map((item) => {
+                            return <th>{item}</th>;
+                          })}
                         </tr>
-                      ))}
-                    </table>
-                    <div className="paginationReact">
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel=">"
-                      onPageChange={handlePageClick}
-                      marginPagesDisplayed={2}
-                      pageCount={allPage}
-                      previousLabel="<"
-                      renderOnZeroPageCount={null}
-                    />
+                        {tradeHistoryData.map((item) => (
+                          <tr>
+                            <td>{DataConvert(item.updatedAt)}</td>
+                            <td>{item.symbol}</td>
+                            <td>
+                              {item.action == "Short" ? "Short " : ""}{" "}
+                              {item.action == "Buy To Cover" ? "Cover " : ""}
+                              Stock:{" "}
+                              {item.action == "Buy To Cover"
+                                ? "Cover"
+                                : item.action}{" "}
+                              at{" "}
+                              {item.orderType == "Limit"
+                                ? item.orderType
+                                : `${item.orderType} Open`}
+                            </td>
+                            <td>{item.quantity}</td>
+                            <td>₦{item.rate.toFixed(2)}</td>
+                            <td>₦{(item.rate * item.quantity).toFixed(2)}</td>
+                          </tr>
+                        ))}
+                      </table>
                     </div>
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "80vh",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <h1
+                  ) : (
+                    <div
                       style={{
-                        color: "#8000ff",
-                        fontSize: "20px",
-                        fontWeight: "bold",
+                        width: "100%",
+                        height: "80vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
                     >
-                      Trade History Not Found
-                    </h1>
-                  </div>
-                )}
-              </div>}
+                      <h1
+                        style={{
+                          color: "#8000ff",
+                          fontSize: "20px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Trade History Not Found
+                      </h1>
+                    </div>
+                  )}
+                </div>
+              )}
+              {allPage > 0 && (
+                <div className="paginationReact">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel=">"
+                    onPageChange={handlePageClick}
+                    marginPagesDisplayed={2}
+                    pageCount={allPage}
+                    previousLabel="<"
+                    renderOnZeroPageCount={null}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

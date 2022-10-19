@@ -100,10 +100,10 @@ export default function TradePendingOrders({setModelOpened,modelOpened}) {
                       <span className="order-time">at Market Open</span>
                     )}
                   </td>
-                  <td>{item.quantity}</td>
+                  <td>{item?.quantity?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                   <td>
                     {item.orderType == "Limit" ? (
-                      <span className="order-time">Limit - ₦{item.rate}</span>
+                      <span className="order-time">Limit - ₦{item?.rate?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     ) : (
                       "n/a"
                     )}
@@ -154,7 +154,7 @@ export default function TradePendingOrders({setModelOpened,modelOpened}) {
               );
             })}
           </table>
-          <div className="paginationReact tablepaginate">
+          {pendingAllPage>1 && <div className="paginationReact tablepaginate">
             <ReactPaginate
               breakLabel="..."
               nextLabel=">"
@@ -164,7 +164,7 @@ export default function TradePendingOrders({setModelOpened,modelOpened}) {
               previousLabel="<"
               renderOnZeroPageCount={null}
             />
-          </div>
+          </div>}
         </div>
       )}
     </div>

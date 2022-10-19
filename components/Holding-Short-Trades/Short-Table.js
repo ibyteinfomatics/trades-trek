@@ -9,7 +9,7 @@ import { orderService } from "../../services/order.service";
 import IncreaseDecrease from "../Table/IncreaseDecrease";
 
 const ShortTable = () => {
-  const [short, setShort] = useState();
+  const [short, setShort] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [allPage, setAllPage] = useState(1);
   const [shortCurrent, setShortCurrent] = useState(0);
@@ -116,94 +116,90 @@ const ShortTable = () => {
       });
   };
   return (
-    <div>
-     {isLoading?<Loader color="red" />: <div
-        style={{
-          marginBottom: "73px",
-          padding: "53px",
-          boxShadow: "5px 5px 5px 5px #f7f7f7",
-        }}
-      >
-        {short && (
+    <div className="card-no-gap">
+    <div className="trade-order-status">
+      {isLoading ? (
+        <div
+          style={{
+            width: "100%",
+            height: "50vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Loader color="red" />
+        </div>
+      ) : (
+        <div className="order--table--responsive">
+          {short.length > 0 && (
           <table>
-            <tr>
-              <td>TOTAL VALUE</td>
-              <td>TODAY'S CHANGE</td>
-              <td>TODAY GAIN/LOSS</td>
-            </tr>
-            <tr>
-              <td>
-                <h1>₦{shortCurrent.toFixed(2)}</h1>
-              </td>
-              {IncreaseDecrease(totalTodayChange, todayChangePer)}
-              {IncreaseDecrease(totalGainOrLoss, totalChangePer)}
-            </tr>
-          </table>
-        )}
-        {short &&<hr style={{ marginTop: "50px" }} />}
-        <div className="tab-data order-status">
-          {short ? (
+          <tr>
+            <td>TOTAL VALUE</td>
+            <td>TODAY'S CHANGE</td>
+            <td>TODAY GAIN/LOSS</td>
+          </tr>
+          <tr>
+            <td>
+              <h1>₦{shortCurrent.toFixed(2)}</h1>
+            </td>
+            {IncreaseDecrease(totalTodayChange, todayChangePer)}
+            {IncreaseDecrease(totalGainOrLoss, totalChangePer)}
+          </tr>
+        </table>
+          )}
+          {short.length > 0 && <hr style={{ marginTop: "50px" }} />}
+          {short.length > 0 ? (
             <div>
-              <table className="order-table">
-                <tr>
-                  {columns.map((item) => {
-                    return <th>{item}</th>;
-                  })}
-                </tr>
-                {short.map((item) => (
-                  <tr>
-                    <td>{item.symbol}</td>
-                    <td>{item.description}</td>
-                    <td>₦{item.currentPrice.toFixed(2)}</td>
-                    {IncreaseDecrease(
-                      item.todayChange,
-                      item.todayChangePercentage
-                    )}
-                    <td>{item.shortPrice.toFixed(2)}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.totalValue.toFixed(2)}</td>
-                    {IncreaseDecrease(
-                      item.totalGainOrLoss,
-                      item.totalGainOrLossPercentage
-                    )}
-                    <td>
-                    <div>
-                            <button
-                              type="button"
-                              className="btn-cancel border-purple "
-                              onClick={() => handledShort(item)}
-                            >
-                              + Increase Short Position
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-cancel border-purple"
-                              onClick={() => handleBuyCover(item)}
-                            >
-                              - Buy To Cover
-                            </button>
-                          </div>
-                    </td>
-                  </tr>
-                ))}
-              </table>
-              <div className="paginationReact">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel=">"
-                  onPageChange={handlePageClick}
-                  marginPagesDisplayed={2}
-                  pageCount={allPage}
-                  previousLabel="<"
-                  renderOnZeroPageCount={null}
-                />
-              </div>
+                <table className="order-table">
+                     <tr>
+                       {columns.map((item) => {
+                         return <th>{item}</th>;
+                       })}
+                     </tr>
+                     {short.map((item) => (
+                       <tr>
+                         <td>{item.symbol}</td>
+                         <td>{item.description}</td>
+                         <td>₦{item.currentPrice.toFixed(2)}</td>
+                         {IncreaseDecrease(
+                           item.todayChange,
+                           item.todayChangePercentage
+                         )}
+                         <td>{item.shortPrice.toFixed(2)}</td>
+                         <td>{item.quantity}</td>
+                         <td>{item.totalValue.toFixed(2)}</td>
+                         {IncreaseDecrease(
+                           item.totalGainOrLoss,
+                           item.totalGainOrLossPercentage
+                         )}
+                         <td>
+                         <div>
+                                 <button
+                                   type="button"
+                                   className="btn-cancel border-purple "
+                                   onClick={() => handledShort(item)}
+                                 >
+                                   + Increase Short Position
+                                 </button>
+                                 <button
+                                   type="button"
+                                   className="btn-cancel border-purple"
+                                   onClick={() => handleBuyCover(item)}
+                                 >
+                                   - Buy To Cover
+                                 </button>
+                               </div>
+                         </td>
+                       </tr>
+                     ))}
+                   </table>
             </div>
           ) : (
             <div
               style={{
                 width: "100%",
-                height: "80vh",
+                height: "50vh",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -220,17 +216,32 @@ const ShortTable = () => {
               </h1>
             </div>
           )}
-          <div
-            className="btn--group form--actions"
-            style={{ width: "40%", margin: "10px auto" }}
-          >
-            <Link href="/dashboard/trade-history">
-              <a className="btn form--submit">TradeHistory</a>
-            </Link>
-          </div>
         </div>
-      </div>}
+      )}
+      {allPage > 1 && (
+        <div className="paginationReact">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            marginPagesDisplayed={2}
+            // pageRangeDisplayed={2}
+            pageCount={allPage}
+            previousLabel="<"
+            renderOnZeroPageCount={null}
+          />
+        </div>
+      )}
+      <div
+        className="btn--group form--actions"
+        style={{ width: "40%", margin: "40px auto", paddingBottom: "30px" }}
+      >
+        <Link href="/dashboard/trade-history">
+          <a className="btn form--submit">TradeHistory</a>
+        </Link>
+      </div>
     </div>
+  </div>
   );
 };
 
