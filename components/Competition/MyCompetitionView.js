@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { gameService } from "../../services/game.service";
 import { useSelector } from "react-redux";
+import PreviewGameRules from "../Modal/PreviewGameRules";
 
 export default function MyCompetationView() {
     let { user } = useSelector((state) => state.userWrapper);
   const [myGame, setMyGame] = useState();
+  const [modelOpened, setModelOpened] = useState(false);
+  const [selectedData, setSelectedDate] = useState([]);
   useEffect(() => {
     getAllGame();
   }, []);
@@ -16,7 +19,11 @@ export default function MyCompetationView() {
       .then((res) => setMyGame(res.games))
       .catch((err) => console.log(err));
   };
-  console.log(myGame);
+  const handleSelectGame=(id)=>{
+    const data = myGame.filter((item) => item._id == id);
+    setSelectedDate(data);
+    setModelOpened(true);
+  }
   return (
     <>
       {myGame && (
@@ -86,7 +93,7 @@ export default function MyCompetationView() {
                   <div className="grid--2 px-32 pb-26">
                     <div className="colLeftBlock">
                       <div className="competation-rules flexBox">
-                        <h5 className="font-16 text--purple mt-32">
+                        <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleSelectGame(item?._id)}>
                           Competition Rules
                           <span>
                             <svg
@@ -143,6 +150,12 @@ export default function MyCompetationView() {
           })}
         </div>
       )}
+       <PreviewGameRules
+          modelOpened={modelOpened}
+          setModelOpened={setModelOpened}
+          //   setShowTrade={setShowTrade}
+          data={selectedData}
+        />
       {/* <div className="innerBlock">
         <div class="p-20">
           <h4 class="font-16">PAST COMPETITIONS</h4>

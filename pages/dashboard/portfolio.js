@@ -8,9 +8,10 @@ import Link from "next/link";
 import HighlightTrades from "../../components/HighlightTrades/HighlightTrades";
 import HoldingTrades from "../../components/Holding-Short-Trades/HoldingTrades";
 import LineChart from "../../components/Chart/LineChart";
+import SelectGame from "../../components/SelectGame/SelectGame";
 
 export default function Portfolio() {
-  const [beginnerOption, setBeginnerOption] = useState(false);
+  // const [beginnerOption, setBeginnerOption] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
   console.log(user);
   return (
@@ -25,26 +26,7 @@ export default function Portfolio() {
                 {user && `${user.firstName || ""} ${user.lastName || ""}`}
               </h3>
             </div>
-            <div className="grid-block-right right-align">
-              <div className="beginner-option">
-                Current Competition
-                <span
-                  className="btn"
-                  onClick={() => setBeginnerOption(!beginnerOption)}
-                >
-                  Beginners
-                </span>
-                {beginnerOption && (
-                  <div className="option--list">
-                    <ul>
-                      <li>Beginners </li>
-                      <li>Beginners 1</li>
-                      <li>Beginners 2</li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
+            <SelectGame />
           </div>
           <div style={{ margin: "30px 0px" }}>
             <HighlightTrades />

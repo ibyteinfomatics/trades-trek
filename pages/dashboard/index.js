@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AccountValue } from '../../helpers/UserAccount';
 import UpgradePlan from '../../components/UpgradePlan/upgradePlan';
 import moment from 'moment-timezone';
+import SelectGame from '../../components/SelectGame/SelectGame';
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -34,6 +35,7 @@ export default function Home() {
 
       <div className="site--content">
         {/* <UpgradePlan /> */}
+        {/* <SelectGame /> */}
         <HighlightTrades />
 
         {/* welcome block */}
