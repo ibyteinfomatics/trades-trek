@@ -9,16 +9,18 @@ import { gameService } from "../../services/game.service";
 
 function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
-  const [error, setError] = useState("something went wrong");
+  const [error, setError] = useState("");
   const [errorStatus, setErrorStatus] = useState(false);
   const dispatch = useDispatch();
   const [password, setPasswod] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordCorrect,setPasswordCorrect]=useState(false)
+  const [showPassword,setShowPassword]=useState(false)
   let { user } = useSelector((state) => state.userWrapper);
 
   const theme = useMantineTheme();
   const handlePasswod = (e) => {
+    setErrorStatus(false)
     setPasswod(e.target.value);
     if (
       !/^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/.test(
@@ -39,12 +41,18 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
   const handleJoin = () => {
     if (data[0].competitionType == "Private" ) {
       if(passwordCorrect){
-        gameService.joinGame({gameId:data[0]._id,password:password}).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
+        gameService.joinGame({gameId:data[0]._id,password:password}).then((res)=>{
+          if(res.success==false){
+            setErrorStatus(true)
+            setError(res.message)
+            alert(res.message)
+          }
+        }).catch((err)=>console.log(err))
         // console.log(data)
     
-        setError();
-        setErrorStatus(false);
-        setModelOpened(false);
+        // setError();
+        // setErrorStatus(false);
+        // setModelOpened(false);
 
       }
     }else{
@@ -70,9 +78,11 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
       size="80%"
       overflow="inside"
       onClose={() => {
-        setError();
+        setError('');
+        setPasswod('')
         setErrorStatus(false);
         setModelOpened(false);
+        setShowPassword(false)
       }}
     >
       {data.length > 0 && (
@@ -94,16 +104,35 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 <label className="form--label" htmlFor="email">
                   PRIVATE GAME
                 </label>
-                <input
+               <div >
+               <input
                   className="form--control"
                   value={password}
+                  type={showPassword?'text':"password"}
                   onChange={handlePasswod}
                   style={{
-                    width: "50%",
+                    width: "100%",
                     padding: "5px 10px",
                     border: " 3px solid #e0e0e0",
                   }}
                 />
+                {showPassword ? (
+                    <img
+                      src="/images/view.png"
+                      className="passwordView"
+                      style={{display:'inline',height:'25px'}}
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  ) : (
+                    <img
+                    style={{display:'inline',height:'25px'}}
+
+
+                      onClick={() => setShowPassword(!showPassword)}
+                      src="/images/invisible.png"
+                      className="passwordView"
+                    />
+                  )}
                 {passwordError && (
                   <div
                     className=""
@@ -120,6 +149,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                     </p>
                   </div>
                 )}
+               </div>
               </div>
             )}
 

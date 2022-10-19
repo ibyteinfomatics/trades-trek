@@ -49,7 +49,8 @@ export default function Portfolio() {
           <div style={{ margin: "30px 0px" }}>
             <HighlightTrades />
           </div>
-          <div className="profileContainer ">
+          {/* port folio section  */}
+          {/* <div className="profileContainer ">
             <div className="profileContainerLeft">
               <div className="profileContainerAccount">
                 <div className="profileContainerAccountblock">
@@ -154,8 +155,20 @@ export default function Portfolio() {
                 </div>
               </div>
             </div>
+          </div> */}
+         <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+         <div
+            className="btn--group form--actions"
+            style={{ margin: "10px", width: "35vw" }}
+          >
+            <Link
+              href="/dashboard/performance-history"
+              style={{ padding: "10px 20px" }}
+            >
+              <a className="btn form--submit">Performance History</a>
+            </Link>
           </div>
-
+         </div>
           <HoldingTrades />
         </div>
       </div>
