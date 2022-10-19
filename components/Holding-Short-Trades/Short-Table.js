@@ -166,9 +166,9 @@ const ShortTable = () => {
                            item.todayChange,
                            item.todayChangePercentage
                          )}
-                         <td>{item.shortPrice.toFixed(2)}</td>
+                         <td>₦{item.shortPrice.toFixed(2)}</td>
                          <td>{item.quantity}</td>
-                         <td>{item.totalValue.toFixed(2)}</td>
+                         <td>₦{item.totalValue.toFixed(2)}</td>
                          {IncreaseDecrease(
                            item.totalGainOrLoss,
                            item.totalGainOrLossPercentage

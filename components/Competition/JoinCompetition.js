@@ -46,7 +46,7 @@ export default function JoinCompetation() {
             className="form--control"
             type="text"
             value={search}
-            autoComplete='true'
+            autoComplete='false'
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Look up competition name or creator"
           />

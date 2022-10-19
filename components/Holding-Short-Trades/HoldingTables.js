@@ -149,9 +149,9 @@ const HoldingTables = () => {
                         item.todayChange,
                         item.todayChangePercentage
                       )}
-                      <td>{item.purchasePrice.toFixed(2)}</td>
+                      <td>₦{item.purchasePrice.toFixed(2)}</td>
                       <td>{item.quantity}</td>
-                      <td>{item.totalValue.toFixed(2)}</td>
+                      <td>₦{item.totalValue.toFixed(2)}</td>
                       {IncreaseDecrease(
                         item.totalGainOrLoss,
                         item.totalGainOrLossPercentage
