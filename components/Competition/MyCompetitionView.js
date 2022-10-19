@@ -77,7 +77,7 @@ export default function MyCompetationView() {
                             YOUR ACCOUNT VALUE
                           </p>
                           <h2 className="font-17 font--bold text--purple">
-                            $98,351.00
+                           {item?.result?.accountValue?.toFixed(2)}
                           </h2>
                         </div>
                       </div>
