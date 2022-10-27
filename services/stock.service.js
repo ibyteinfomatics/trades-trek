@@ -34,7 +34,9 @@ function orderStock(data) {
         rate: (data.orderType == 'Market') ? parseFloat(data.Last) : parseFloat(data.rate),
         duration:data.duration,
         orderType:data.orderType,
-        action:data.action
+        action:data.action,
+        
+        gameId:localStorage.getItem('GameId')
       })
   
       .then((res) => {

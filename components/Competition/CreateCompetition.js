@@ -23,6 +23,7 @@ export default function CreateCompetation() {
   const onSubmit = async (data) => {
     gameService.createGame(data).then((res)=>{
       if(res.success){
+        localStorage.setItem("GameId",res.data._id)
         router.push("/dashboard/portfolio");
       }
       console.log(res)

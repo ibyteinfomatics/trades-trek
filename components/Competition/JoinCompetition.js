@@ -30,7 +30,8 @@ export default function JoinCompetation() {
     setModelOpened(true);
   };
   const handleJoin = (item) => {
-    if (item.users.includes(user._id)) {
+    if (item.users.includes(user?.user?._id)) {
+      localStorage.setItem('GameId',item?._id)
       router.push("/dashboard/portfolio");
     } else {
       joinGame(item._id);
@@ -128,7 +129,7 @@ export default function JoinCompetation() {
                         className="btn form--submit"
                         onClick={() => handleJoin(item)}
                       >
-                        {item.users.includes(user._id) ? (
+                        {item.users.includes(user?.user?._id) ? (
                           <button>GO TO GAME</button>
                         ) : (
                           <button>JOIN GAME</button>

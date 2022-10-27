@@ -2,6 +2,8 @@ import { Loader } from "@mantine/core";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useSelector } from "react-redux";
+import SelectGame from "../../components/SelectGame/SelectGame";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { DataConvert } from "../../helpers/DateTimeConverter";
@@ -12,6 +14,8 @@ export default function TradeHistory() {
   const [currentPage, setCurrentPage] = useState(1);
   const [allPage, setAllPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  let { user } = useSelector((state) => state.userWrapper);
+
   useEffect(() => {
     setIsLoading(true);
     orderService
@@ -21,11 +25,15 @@ export default function TradeHistory() {
           setTradeHistoryData(res.orders.docs);
           setCurrentPage(res.orders.page);
           setAllPage(res.orders.pages);
+        }else{
+          setTradeHistoryData([]);
+          setCurrentPage(1);
+          setAllPage(1);
         }
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [user]);
 
   const handlePageClick = ({ selected }) => {
     setIsLoading(true);
@@ -37,6 +45,10 @@ export default function TradeHistory() {
           setAllPage(res.orders.pages);
           setTradeHistoryData(res.orders.docs);
           setIsLoading(false);
+        }else{
+          setTradeHistoryData([]);
+          setCurrentPage(1);
+          setAllPage(1);
         }
         setIsLoading(false);
       })
@@ -56,6 +68,8 @@ export default function TradeHistory() {
     <>
       <Sidebar />
       <div className="site--content">
+      <SelectGame />
+
         <div
           className="trade-data"
           style={{ width: "30%", marginBottom: "40px" }}
@@ -66,6 +80,7 @@ export default function TradeHistory() {
             </a>
           </Link>
         </div>
+
         <div className="page--title--block">
           <div className="card-no-gap">
             <div className="trade-order-status">
@@ -83,7 +98,7 @@ export default function TradeHistory() {
                </div>
               ) : (
                 <div className="order--table--responsive">
-                  {tradeHistoryData ? (
+                  {tradeHistoryData?.length>0 ? (
                     <div>
                       <table className="order-table">
                         <tr>
@@ -137,7 +152,7 @@ export default function TradeHistory() {
                   )}
                 </div>
               )}
-              {allPage > 0 && (
+              {tradeHistoryData?.length > 0 && (
                 <div className="paginationReact">
                   <ReactPaginate
                     breakLabel="..."

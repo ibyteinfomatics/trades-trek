@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DataConvert } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 import IncreaseDecrease from "../Table/IncreaseDecrease";
@@ -19,11 +19,13 @@ const HoldingTables = () => {
   const [todayChangePer, setTodayChangePer] = useState(0);
   const [totalChangePer, setTotalChangePer] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  let { user } = useSelector((state) => state.userWrapper);
+
   const router = useRouter();
 
   useEffect(() => {
     getAllHolding(currentPage);
-  }, [currentPage]);
+  }, [currentPage,user]);
   console.log(currentPage);
   const getAllHolding = (page) => {
     setIsLoading(true);
@@ -46,6 +48,19 @@ const HoldingTables = () => {
           setTotalChangePer(
             (res.totalGainOrLoss * 100) /
               (res.holdingCurrent - res.totalGainOrLoss)
+          );
+        }else{
+          setHolding([]);
+
+          setAllPage(1);
+          setHoldingCurrent(0);
+          setHoldingPurchanse(0);
+          setTotalTodayChange(0);
+          setTotalGainOrLoss(0);
+          setTodayChangePer(
+0          );
+          setTotalChangePer(
+            0
           );
         }
         setIsLoading(false);

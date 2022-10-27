@@ -43,7 +43,7 @@ export default function Sidebar() {
       .userInfo()
       .then((res) => {
       if(res.success ){
-        dispatch(setUser(res.message));
+        dispatch(setUser(res.data));
 
       }
       // else

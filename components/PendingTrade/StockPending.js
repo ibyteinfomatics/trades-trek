@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useSelector } from "react-redux";
 
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
@@ -10,6 +11,7 @@ export default function StockPending({setModelOpened,modelOpened,tableData}) {
   const [pendingOrders, setPendingOrders] = useState();
   const [pendingAllPage, setPendingAllPage] = useState(1);
   const [Id, setId] = useState();
+  let { user } = useSelector((state) => state.userWrapper);
 
   const columns = [
     "Order Date & Time",
@@ -61,17 +63,18 @@ export default function StockPending({setModelOpened,modelOpened,tableData}) {
         setPendingOrders(res.pendings.docs);
         setPendingAllPage(res.pendings.pages);
       }else{
-        setPendingOrders()
+        setPendingOrders([])
         setPendingAllPage(1)
       }
     })
     .catch((err) => {
       console.log(err);
     });
-  },[modelOpened])
+  },[modelOpened,user])
 
   return (
     <div className="trade-order-status">
+
       {tableData && (
         <div className="order--table--responsive">
           <table className="order-table">

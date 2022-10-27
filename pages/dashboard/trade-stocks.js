@@ -13,13 +13,16 @@ import StockConfirmation from "../../components/SuggestCard/StockConfirmation";
 import { setUser } from "../../actions/users";
 import { orderService } from "../../services/order.service";
 import { setPopularCompany } from "../../actions/topCompany";
+import SelectGame from "../../components/SelectGame/SelectGame";
 
 export default function TradesTrek() {
-  const [beginnerOption, setBeginnerOption] = useState(false);
+  // const [beginnerOption, setBeginnerOption] = useState(false);
   const [showTrade, setShowTrade] = useState(true);
   const [stockName, setStockName] = useState("");
   const [stockAction,setStockAction]=useState('')
   const [tabIndex, setTabIndex] = useState(0);
+  const [game,setGame]=useState([])
+  const [gameId,setGameId]=useState()
   // const []
   const [userData, setUserData] = useState({});
   const dispatch=useDispatch()
@@ -27,14 +30,19 @@ export default function TradesTrek() {
   const router = useRouter();
   let { user } = useSelector((state) => state.userWrapper);
   useEffect(() => {
-    setUserData(user);
+    setUserData(user?.user);
+      setGame(user?.mygame)
+
   }, [user]);
+  // console.log(user)
   useEffect(()=>{
     userService.userInfo().then((res)=>{
-      setUserData(res.message)
-      dispatch(setUser(res.message))
+      // setUserData(res.message)
+      dispatch(setUser(res.data))
+      // setGame(res.mygame)
     }).catch((err)=>console.log(err))
   },[showTrade])
+  
 
   useEffect(()=>{
    orderService.popularCompanies().then((res)=>{
@@ -45,7 +53,7 @@ export default function TradesTrek() {
 useEffect(() => {
  let index=localStorage.getItem('indexTrade')
  if(index){
-  console.log(typeof index)
+  // console.log(typeof index)
   setTabIndex(Number(index))
  }
 }, [])
@@ -55,7 +63,6 @@ const handleTab=(index)=>{
   setTabIndex(index)
   localStorage.setItem('indexTrade',index)
 }
- 
   return (
     <>
       <Sidebar />
@@ -63,28 +70,9 @@ const handleTab=(index)=>{
         <div className="page--title--block">
           <div className="grid--2">
             <div className="grid-block-left wrapper--title">
-              <h3>Welcome, {user && `${user.firstName || ""} ${user.lastName || ""}`}</h3>
+              <h3>Welcome, {user && `${user?.user?.firstName || ""} ${user?.user?.lastName || ""}`}</h3>
             </div>
-            <div className="grid-block-right right-align">
-              <div className="beginner-option">
-                Current Competition
-                <span
-                  className="btn"
-                  onClick={() => setBeginnerOption(!beginnerOption)}
-                >
-                  Beginners
-                </span>
-                {beginnerOption && (
-                  <div className="option--list">
-                    <ul>
-                      <li>Beginners </li>
-                      <li>Beginners 1</li>
-                      <li>Beginners 2</li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
+            <SelectGame />
           </div>
           <div className="top--value--bar">
             <div className="col-block">
@@ -92,7 +80,7 @@ const handleTab=(index)=>{
                 Account Value{" "}
                 <span className="font-20 font-bold">
                 {/* ₦{(userData.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} */}
-                ₦{userData && (userData.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₦{user && (user?.portfolio?.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -100,7 +88,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Buying Power{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && (userData.buyingPower?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₦{user && (user?.portfolio?.buyingPower?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -108,7 +96,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Cash{" "}
                 <span className="font-20 font-bold">
-                ₦{userData && (userData.cash?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₦{user && (user?.portfolio?.cash?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>

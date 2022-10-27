@@ -13,7 +13,7 @@ import SelectGame from "../../components/SelectGame/SelectGame";
 export default function Portfolio() {
   // const [beginnerOption, setBeginnerOption] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <Sidebar />
@@ -23,7 +23,7 @@ export default function Portfolio() {
             <div className="grid-block-left wrapper--title">
               <h3>
                 Welcome,{" "}
-                {user && `${user.firstName || ""} ${user.lastName || ""}`}
+                {user && `${user?.user?.firstName || ""} ${user?.user?.lastName || ""}`}
               </h3>
             </div>
             <SelectGame />

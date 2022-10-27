@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { orderService } from "../../services/order.service";
 import MarketOpenClose from "../MarketOpenClose/MarketOpenClose";
@@ -12,6 +13,8 @@ const HoldingTrades = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [modelOpened,setModelOpened]=useState(false)
   const [tableData,setTableData]=useState([])
+  let { user } = useSelector((state) => state.userWrapper);
+
   const handleTab = (index) => {
     setTabIndex(index);
     localStorage.setItem("indexPort", index);
@@ -41,7 +44,7 @@ const HoldingTrades = () => {
     }).catch((err)=>console.log(err))
 
     }
-  },[tabIndex])
+  },[tabIndex,user])
 
   return (
     <>

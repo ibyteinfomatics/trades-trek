@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useSelector } from "react-redux";
 
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
@@ -7,6 +8,8 @@ import { orderService } from "../../services/order.service";
 export default function TradeFailedOrders({ modelOpened }) {
   const [failedOrders, setfailedOrders] = useState();
   const [failedAllPage, setfailedAllPage] = useState(1);
+  let { user } = useSelector((state) => state.userWrapper);
+
 
   const columns = [
     "Failed On",
@@ -28,12 +31,14 @@ export default function TradeFailedOrders({ modelOpened }) {
         if (res.success) {
           setfailedOrders(res.failedOrders.docs);
           setfailedAllPage(res.failedOrders.pages);
+        }else{
+          setfailedOrders([])
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [modelOpened]);
+  }, [modelOpened,user]);
   const handlePageClick = ({ selected }) => {
     orderService
       .getFailedOrders(selected + 1)
@@ -42,6 +47,8 @@ export default function TradeFailedOrders({ modelOpened }) {
         if (res.success) {
           setfailedOrders(res.failedOrders.docs);
           setfailedAllPage(res.failedOrders.pages);
+        }else{
+          setfailedOrders([])
         }
       })
       .catch((err) => {

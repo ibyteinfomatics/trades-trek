@@ -3,8 +3,10 @@ import Link from "next/link";
 import { gameService } from "../../services/game.service";
 import { useSelector } from "react-redux";
 import PreviewGameRules from "../Modal/PreviewGameRules";
+import { useRouter } from "next/router";
 
 export default function MyCompetationView() {
+  const router=useRouter()
     let { user } = useSelector((state) => state.userWrapper);
   const [myGame, setMyGame] = useState();
   const [modelOpened, setModelOpened] = useState(false);
@@ -23,6 +25,10 @@ export default function MyCompetationView() {
     const data = myGame.filter((item) => item._id == id);
     setSelectedDate(data);
     setModelOpened(true);
+  }
+  const handleGoToHome=(id)=>{
+    localStorage.setItem('GameId',id)
+    router.push('/dashboard/portfolio')
   }
   return (
     <>
@@ -137,9 +143,9 @@ export default function MyCompetationView() {
                           </Link>
                         </div>
                         <div className="borderBtnPurple fullBtnPurple">
-                          <Link href="/dashboard/portfolio">
-                            <a href="javascript:void(0)">GO TO HOME</a>
-                          </Link>
+                          {/* <Link href="/dashboard/portfolio" onClick={()=>alert('nitesh')}> */}
+                            <a href="javascript:void(0)" onClick={()=>handleGoToHome(item._id)}>GO TO HOME</a>
+                          {/* </Link> */}
                         </div>
                       </div>
                     </div>

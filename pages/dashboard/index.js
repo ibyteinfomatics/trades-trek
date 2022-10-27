@@ -29,17 +29,22 @@ export default function Home() {
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
+  console.log(user)
   return (
     <>
       <Sidebar />
 
       <div className="site--content">
         {/* <UpgradePlan /> */}
-        {/* <SelectGame /> */}
         <HighlightTrades />
 
         {/* welcome block */}
         <div className="card--wrapper">
+        <div style={{margin:"20px"}}>
+        <SelectGame />
+
+        </div>
+
           <div className="wrapper--text card--grid card--grid--60-40">
             <div className="welcome--image">
               <Image
@@ -52,7 +57,7 @@ export default function Home() {
             </div>
             <div className="card--style portfolio--card">
               <div className="card--title">
-                <h1>Welcome, {user && user?.firstName || ""} {user && user?.lastName || ""}</h1>
+                <h1>Welcome, {user && user?.user?.firstName || ""} {user && user?.user?.lastName || ""}</h1>
               </div>
               <div className="card--list">
                 <div className="card--title">
@@ -61,12 +66,12 @@ export default function Home() {
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦{user && (user.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                    <span>₦{user && (user?.portfolio?.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                   </li>
                   <li>
                     <span>Today's Change</span>
                     <span>
-                      +₦{user && user.profitOrLossDaywise && user.profitOrLossDaywise.toFixed(0)} <span>(0%)</span>
+                      +₦{user && user?.user?.profitOrLossDaywise && user?.user?.profitOrLossDaywise.toFixed(0)} <span>(0%)</span>
                     </span>
                   </li>
                 </ul>

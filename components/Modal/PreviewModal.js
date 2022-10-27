@@ -15,6 +15,7 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
 
   const theme = useMantineTheme();
     const submitOrder=()=>{
+      
         stockService.orderStock(data).then((res)=>{
           if(res.success){
             dispatch(setUser(res.user));

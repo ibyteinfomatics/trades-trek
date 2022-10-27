@@ -11,7 +11,7 @@ const userSubject = new BehaviorSubject(
 
 function getPendingOrders(page=1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/pendings?page=${page}&limit=5`)
+    .get(`${baseUrl}/user/order/pendings?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ''}`)
 
     .then((res) => {
       return res;
@@ -26,7 +26,7 @@ function getPendingOrders(page=1) {
 
 function getFailedOrders(page=1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/failedOrders?page=${page}&limit=5`)
+    .get(`${baseUrl}/user/order/failedOrders?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ''}`)
 
     .then((res) => {
       return res;
@@ -94,6 +94,7 @@ function showMax(rate, action, symbol) {
       rate: rate,
       action: action,
       symbol: symbol,
+      gameId:localStorage.getItem("GameId")
     })
     .then((res) => {
       return res;
@@ -141,7 +142,7 @@ function popularCompanies() {
 // trade history .........................
 function tradeHistory(page) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/history?page=${page}`)
+    .get(`${baseUrl}/user/order/history?page=${page}&gameId=${localStorage.getItem("GameId") || ''}`)
     .then((res) => {
       // console.log(res.data)
       return res;
@@ -156,7 +157,7 @@ function tradeHistory(page) {
 // holding profit or loss ........................
 function holdingProfitOrLoss(page = 1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/holdingProfitOrLoss?page=${page}&limit=5`)
+    .get(`${baseUrl}/user/order/holdingProfitOrLoss?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ''}`)
     .then((res) => {
       // console.log(res.data)
       return res;
@@ -171,7 +172,7 @@ function holdingProfitOrLoss(page = 1) {
 // pending holding ...... 
 function pendingHolding(page = 1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/pending-holding?page=${page}&limit=5`)
+    .get(`${baseUrl}/user/order/pending-holding?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ""}`)
     .then((res) => {
       // console.log(res.data)
       return res;
@@ -186,7 +187,7 @@ function pendingHolding(page = 1) {
 // Pending short ......  
 function pendingShort(page = 1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/pending-short?page=${page}&limit=5`)
+    .get(`${baseUrl}/user/order/pending-short?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ""}`)
     .then((res) => {
       // console.log(res.data)
       return res;

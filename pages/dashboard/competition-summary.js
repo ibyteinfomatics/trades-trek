@@ -8,12 +8,12 @@ import JoinCompetation from '../../components/Competition/JoinCompetition';
 import CreateCompetation from '../../components/Competition/CreateCompetition';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import SelectGame from '../../components/SelectGame/SelectGame';
 
 export default function CompetationSummery() {
     const [beginnerOption, setBeginnerOption] = useState(false);
     let { user } = useSelector((state) => state.userWrapper);
     const router=useRouter()
-    console.log(user)
     useEffect(() => {
       if(user.subscription=='Freemium'){
         router.push('/dashboard')
@@ -27,9 +27,10 @@ export default function CompetationSummery() {
                 <div className="page--title--block">
                     <div className="grid--2">
                         <div className="grid-block-left wrapper--title">
-                            <h3>Welcome, {user && `${user.firstName || ''} ${user.lastName || ''}`} </h3>
+                            <h3>Welcome, {user && `${user?.user?.firstName || ''} ${user?.user?.lastName || ''}`} </h3>
                         </div>
-                        <div className="grid-block-right right-align">
+                        <SelectGame />
+                        {/* <div className="grid-block-right right-align">
                             <div className="beginner-option">
                                 Current Competition
                                 <span
@@ -48,7 +49,7 @@ export default function CompetationSummery() {
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='card--wrapper learning-research'>

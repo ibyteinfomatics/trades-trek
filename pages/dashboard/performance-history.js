@@ -2,6 +2,8 @@ import { Loader } from "@mantine/core";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useSelector } from "react-redux";
+import SelectGame from "../../components/SelectGame/SelectGame";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { DataConvert } from "../../helpers/DateTimeConverter";
@@ -12,6 +14,8 @@ export default function PerformanceHistory() {
   const [currentPage,setCurrentPage]=useState(1);
   const [allPage,setAllPage]=useState(1)
   const [isLoading,setIsLoading]=useState(false)
+  let { user } = useSelector((state) => state.userWrapper);
+
   useEffect(() => {
     setIsLoading(true)
     userService
@@ -22,12 +26,16 @@ export default function PerformanceHistory() {
           setCurrentPage(res.history.page)
           setAllPage(res.history.pages)
           setuserHistoryData(res.history.docs);
+        }else{
+          setuserHistoryData([])
+          setCurrentPage(1)
+          setAllPage(1)
         }
         setIsLoading(false)
 
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [user]);
   const handlePageClick=({selected})=>{
     setIsLoading(true)
     userService
@@ -38,6 +46,10 @@ export default function PerformanceHistory() {
         setCurrentPage(res.history.page)
         setAllPage(res.history.pages)
         setuserHistoryData(res.history.docs);
+      }else{
+        setuserHistoryData([])
+          setCurrentPage(1)
+          setAllPage(1)
       }
       setIsLoading(false)
 
@@ -67,6 +79,8 @@ export default function PerformanceHistory() {
             </a>
           </Link>
         </div>
+        <SelectGame />
+
 
         <div className="page--title--block">
           <p style={{ margin: "10px 0px" }}>Performance History</p>

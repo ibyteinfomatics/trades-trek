@@ -126,6 +126,9 @@ function reset_password(data) {
 function logout() {
   // remove user from local storage, publish null to user subscribers and redirect to login page
   localStorage.removeItem('token');
+  localStorage.removeItem('GameId')
+  localStorage.removeItem('indexTrade')
+  localStorage.removeItem('indexPort')
   userSubject.next(null);
   Router.push('/');
 }
@@ -133,7 +136,7 @@ function logout() {
 // user info ............................................. 
 function userInfo(){
   return fetchWrapper
-      .get(`${baseUrl}/user/get/info`)
+      .get(`${baseUrl}/user/get/info?gameId=${localStorage.getItem("GameId") || ''}`)
   
       .then((res) => {
         if(res?.message?.block){
@@ -200,7 +203,7 @@ function changePassword(data){
 // user performance history ..................... 
 function userPerformanceHistory(page){
   return fetchWrapper
-      .get(`${baseUrl}/user/performanceHistory?page=${page}`)
+      .get(`${baseUrl}/user/performanceHistory?page=${page}&gameId=${localStorage.getItem("GameId") || ''}`)
   
       .then((res) => {
         // if (res.success) {

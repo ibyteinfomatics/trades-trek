@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useSelector } from "react-redux";
 
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
@@ -7,9 +8,12 @@ import CancelProduct from "../Modal/CancelProduct";
 import OrderExpired from "../OrderExpired/OrderExpired";
 
 export default function TradePendingOrders({setModelOpened,modelOpened}) {
+  
   const [pendingOrders, setPendingOrders] = useState();
   const [pendingAllPage, setPendingAllPage] = useState(1);
   const [Id, setId] = useState();
+
+  let { user } = useSelector((state) => state.userWrapper);
 
   const columns = [
     "Order Date & Time",
@@ -68,7 +72,7 @@ export default function TradePendingOrders({setModelOpened,modelOpened}) {
     .catch((err) => {
       console.log(err);
     });
-  },[modelOpened])
+  },[modelOpened,user])
 
   return (
     <div className="trade-order-status">
