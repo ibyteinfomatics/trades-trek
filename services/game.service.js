@@ -91,6 +91,25 @@ function getAllGame(search) {
           });
       }
 
+      function myRank(data) {
+
+        // console
+          return fetchWrapper
+            .get(`${baseUrl}/game/my-rank?gameId=${localStorage.getItem("GameId") || ''}`)
+        
+            .then((res) => {
+              if (res.success) {
+              }
+              return res;
+            })
+            .catch((error) => {
+              if (error?.length > 0) {
+                return error[0];
+              }
+              return error;
+            });
+        }
+
 
 
 export const gameService ={
@@ -101,5 +120,6 @@ export const gameService ={
     createGame,
     getAllGame,
     getMYGame,
-    joinGame
+    joinGame,
+    myRank
   };

@@ -2801,6 +2801,9 @@ font-weight: bold;
   font-size: 14px;
   /* font-weight: bold; */
 }
-
+.currentUser{
+  background: #8000ff;
+  color: white;
+}
 
 

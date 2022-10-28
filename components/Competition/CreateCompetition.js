@@ -6,8 +6,9 @@ import { gameService } from "../../services/game.service";
 
 export default function CreateCompetation() {
   const [showPassword, setShowPassword] = useState(false);
- 
-  const router=useRouter()
+  const [error, setError] = useState("");
+
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -16,24 +17,42 @@ export default function CreateCompetation() {
   } = useForm({
     defaultValues: {
       startingCash: "100000",
-      marketDelay: 15,
-      endDate:null
+      marketDelay: "15",
+      endDate: null,
     },
   });
   const onSubmit = async (data) => {
-    gameService.createGame(data).then((res)=>{
-      if(res.success){
-        localStorage.setItem("GameId",res.data._id)
-        router.push("/dashboard/portfolio");
-      }
-      console.log(res)
-    }).catch((err)=>console.log(err))
+    gameService
+      .createGame(data)
+      .then((res) => {
+        if (res.success) {
+          localStorage.setItem("GameId", res.data._id);
+          router.push("/dashboard/portfolio");
+          setError("");
+        } else {
+          setError(res.message);
+        }
+        // console.log(res);
+      })
+      .catch((err) => console.log(err));
     // alert("data");
     // console.log(data);
   };
   return (
     <>
       <div className="createCompeation">
+        {error &&<div
+          style={{
+            textAlign: "center",
+            margin: "22px",
+            padding: "10px 25px",
+            border: "2px solid red",
+            color: "red",
+            fontWeight: "bold",
+          }}
+        >
+          {error}
+        </div>}
         <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
           <div className="trendingBlock">
             <div className="formTitle px-32">
@@ -424,12 +443,10 @@ export default function CreateCompetation() {
                     {...register("minimumPrice")}
                     className="form--control"
                   >
-                    <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)}>
-                         $ {(i + 1).toFixed(2)}
-                        </option>
+                        <option value={i + 1}>$ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -444,13 +461,14 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select  {...register("minimumPriceShort")} className="form--control">
-                    <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                  <select
+                    {...register("minimumPriceShort")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)}>
-                         $ {(i + 1).toFixed(2)}
-                        </option>
+                        <option value={i + 1}>$ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -465,13 +483,14 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select  {...register("minimumStockForMargin")}  className="form--control">
-                    <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                  <select
+                    {...register("minimumStockForMargin")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)}>
-                         $ {(i + 1).toFixed(2)}
-                        </option>
+                        <option value={i + 1}>$ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -486,12 +505,12 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select {...register("commission")}  className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 30}, (_, i) => {
+                  <select {...register("commission")} className="form--control">
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 30 }, (_, i) => {
                       return (
-                        <option value={(i + 0.99)}>
-                         $ {(i + 0.99).toFixed(2)}
+                        <option value={i + 0.99}>
+                          $ {(i + 0.99).toFixed(2)}
                         </option>
                       );
                     })}
@@ -509,12 +528,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select {...register("commissionOption")} className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 30}, (_, i) => {
+                  <select
+                    {...register("commissionOption")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 30 }, (_, i) => {
                       return (
-                        <option value={(i + 0.99)}>
-                         $ {(i + 0.99).toFixed(2)}
+                        <option value={i + 0.99}>
+                          $ {(i + 0.99).toFixed(2)}
                         </option>
                       );
                     })}
@@ -530,12 +552,15 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select {...register('commissionPerContract')} className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 20}, (_, i) => {
+                  <select
+                    {...register("commissionPerContract")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 20 }, (_, i) => {
                       return (
-                        <option value={(i + 1)/4}>
-                         $ {((i + 1)/4).toFixed(2)}
+                        <option value={(i + 1) / 4}>
+                          $ {((i + 1) / 4).toFixed(2)}
                         </option>
                       );
                     })}
@@ -551,13 +576,14 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select  {...register('diversification')} className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                  <select
+                    {...register("diversification")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)*10}>
-                         {((i + 1)*10)} %
-                        </option>
+                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
                       );
                     })}
                   </select>
@@ -572,13 +598,14 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select  {...register('diversificationOption')} className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                  <select
+                    {...register("diversificationOption")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)*10}>
-                         {((i + 1)*10)} %
-                        </option>
+                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
                       );
                     })}
                   </select>
@@ -593,13 +620,14 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select {...register('marginInterest')} className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                  <select
+                    {...register("marginInterest")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)*10}>
-                         {((i + 1)*10)} %
-                        </option>
+                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
                       );
                     })}
                   </select>
@@ -614,13 +642,14 @@ export default function CreateCompetation() {
                       />
                     </svg>
                   </label>
-                  <select  {...register('cashInterest')} className="form--control">
-                  <option value='Disabled'>Disabled</option>
-                    {Array.from({ length: 10}, (_, i) => {
+                  <select
+                    {...register("cashInterest")}
+                    className="form--control"
+                  >
+                    <option value="Disabled">Disabled</option>
+                    {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1)*10}>
-                         {((i + 1)*10)} %
-                        </option>
+                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
                       );
                     })}
                   </select>
