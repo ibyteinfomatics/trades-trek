@@ -205,6 +205,7 @@ export default function Signup() {
                   placeholder="Enter phone number"
                   value={phone}
                   country={'ng'}
+                  enableSearch={true}
                   // defaultCountry="NG"
                   onChange={(phone)=>setPhone(phone)}
     

@@ -4,6 +4,8 @@ import { gameService } from "../../services/game.service";
 import { useSelector } from "react-redux";
 import PreviewGameRules from "../Modal/PreviewGameRules";
 import { useRouter } from "next/router";
+import PreviewEditGame from "../Modal/PreviewEditGame";
+import PreviewDeleteGame from "../Modal/PreviewDeleteGame";
 
 export default function MyCompetationView() {
   const router=useRouter()
@@ -11,9 +13,13 @@ export default function MyCompetationView() {
   const [myGame, setMyGame] = useState();
   const [modelOpened, setModelOpened] = useState(false);
   const [selectedData, setSelectedDate] = useState([]);
+  const [editData,setEditData]=useState([])
+  const [modelOpened1, setModelOpened1] = useState(false);
+  const [modelOpened2,setModelOpened2]=useState(false)
+  const [deleteGameId,setDeleteGameId]=useState()
   useEffect(() => {
     getAllGame();
-  }, []);
+  }, [modelOpened1,modelOpened2]);
 
   const getAllGame = () => {
     gameService
@@ -30,6 +36,16 @@ export default function MyCompetationView() {
     localStorage.setItem('GameId',id)
     router.push('/dashboard/portfolio')
   }
+  const handleEditGame=(id)=>{
+    const data = myGame.filter((item) => item._id == id);
+    setEditData(data);
+    setModelOpened1(true);
+  }
+  const handleDeleteGame=(id)=>{
+    setDeleteGameId(id)
+    setModelOpened2(true);
+
+  }
   return (
     <>
       {myGame && (
@@ -39,7 +55,7 @@ export default function MyCompetationView() {
               <div className="connectionBlock">
                 <div className="titleBox px-32 py-16">
                   <h4 className="font-18 font--bold mb-12">
-                    {item.competitionName} {item.creatorId==user._id &&  <span style={{
+                    {item.competitionName} {item.creatorId==user?.user?._id &&  <span style={{
                             fontWeight: "bold",
                             color: "#8000ff",
                             marginLeft: "20px"
@@ -99,7 +115,39 @@ export default function MyCompetationView() {
                   <div className="grid--2 px-32 pb-26">
                     <div className="colLeftBlock">
                       <div className="competation-rules flexBox">
-                        <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleSelectGame(item?._id)}>
+                      {(item.creatorId==user?.user?._id && item?.users.length==1) && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleEditGame(item?._id)}>
+                          Game Rules
+                          <span>
+                            <svg
+                              width="7"
+                              height="12"
+                              viewBox="0 0 8 13"
+                              fill="none"
+                            >
+                              <path
+                                d="M0.734375 0.0234375L0.015625 0.726562L5.67578 6.5L0.015625 12.2773L0.734375 12.9727L7.07422 6.5L0.734375 0.0234375Z"
+                                fill="#8000FF"
+                              />
+                            </svg>
+                          </span>
+                        </h5>}
+                        {(item.creatorId==user?.user?._id && item?.users.length==1) && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleDeleteGame(item?._id)}>
+                          Delete Game
+                          <span>
+                            <svg
+                              width="7"
+                              height="12"
+                              viewBox="0 0 8 13"
+                              fill="none"
+                            >
+                              <path
+                                d="M0.734375 0.0234375L0.015625 0.726562L5.67578 6.5L0.015625 12.2773L0.734375 12.9727L7.07422 6.5L0.734375 0.0234375Z"
+                                fill="#8000FF"
+                              />
+                            </svg>
+                          </span>
+                        </h5>}
+                        {item.creatorId!=user?.user?._id && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleSelectGame(item?._id)}>
                           Competition Rules
                           <span>
                             <svg
@@ -114,8 +162,8 @@ export default function MyCompetationView() {
                               />
                             </svg>
                           </span>
-                        </h5>
-                        <h5 className="font-16 text--purple mt-32">
+                        </h5>}
+                        {item.creatorId!=user?.user?._id && <h5 className="font-16 text--purple mt-32">
                           Reset Portfolio
                           <span>
                             <svg
@@ -130,7 +178,7 @@ export default function MyCompetationView() {
                               />
                             </svg>
                           </span>
-                        </h5>
+                        </h5>}
                       </div>
                     </div>
                     <div className="colRightBlock">
@@ -162,6 +210,14 @@ export default function MyCompetationView() {
           //   setShowTrade={setShowTrade}
           data={selectedData}
         />
+          <PreviewEditGame
+          modelOpened={modelOpened1}
+          setModelOpened={setModelOpened1}
+          //   setShowTrade={setShowTrade}
+          data={editData}
+        />
+        <PreviewDeleteGame modelOpened={modelOpened2}
+          setModelOpened={setModelOpened2} id={deleteGameId} />
       {/* <div className="innerBlock">
         <div class="p-20">
           <h4 class="font-16">PAST COMPETITIONS</h4>

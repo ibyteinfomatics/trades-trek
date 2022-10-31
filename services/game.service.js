@@ -32,6 +32,29 @@ function createGame(data) {
       });
   }
 
+  // update game .......................... 
+  function updateGame(data,gameId) {
+    data.dateRange=`${data.startDate} ${data.endDate}`
+  
+    delete data.startDate
+    delete data.endDate
+    // console
+      return fetchWrapper
+        .patch(`${baseUrl}/game/update/${gameId}`,data)
+    
+        .then((res) => {
+          if (res.success) {
+          }
+          return res;
+        })
+        .catch((error) => {
+          if (error?.length > 0) {
+            return error[0];
+          }
+          return error;
+        });
+    }
+
 // get all game .....  
 function getAllGame(search) {
 
@@ -110,6 +133,25 @@ function getAllGame(search) {
             });
         }
 
+        function deleteGame(id) {
+
+          // console
+            return fetchWrapper
+              .delete(`${baseUrl}/game/delete/${id}`)
+          
+              .then((res) => {
+                if (res.success) {
+                }
+                return res;
+              })
+              .catch((error) => {
+                if (error?.length > 0) {
+                  return error[0];
+                }
+                return error;
+              });
+          }
+
 
 
 export const gameService ={
@@ -121,5 +163,7 @@ export const gameService ={
     getAllGame,
     getMYGame,
     joinGame,
-    myRank
+    myRank,
+    updateGame,
+    deleteGame
   };

@@ -2806,4 +2806,15 @@ font-weight: bold;
   color: white;
 }
 
+.inputGameSetting{
+  border: 1px solid;
+  width: 100%;
+  font-size: 12px;
+  margin: 6px 0px;
+}
+input:disabled{
+  border:2px solid #dfdbdb;
+  background-color: #f5f0f0;
+}
+
 
