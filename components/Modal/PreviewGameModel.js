@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
 import { setSelectedStock } from "../../actions/setStock";
 import { gameService } from "../../services/game.service";
+import NigerianTimeZone from "../../helpers/Negerian-TimeZone";
+import moment from "moment-timezone";
 
 function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
@@ -39,38 +41,44 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
     }
   };
   const handleJoin = () => {
-    if (data[0].competitionType == "Private") {
-      if (passwordCorrect) {
+    var today = new Date();
+    const temp = NigerianTimeZone(today);
+    today = new Date(moment(temp).format("YYYY-MM-DD"));
+    if(new Date(data[0]?.dateRange.split(" ")[0])>=today || data[0].allowLateEntry){
+      if (data[0].competitionType == "Private") {
+     
+        if (passwordCorrect) {
+          gameService
+            .joinGame({ gameId: data[0]._id, password: password })
+            .then((res) => {
+              if (res.success == false) {
+                setErrorStatus(true);
+                setError(res.message);
+              } else {
+                setError();
+                setErrorStatus(false);
+                setModelOpened(false);
+              }
+            })
+            .catch((err) => console.log(err));
+        
+        }
+      } else {
         gameService
-          .joinGame({ gameId: data[0]._id, password: password })
+          .joinGame({ gameId: data[0]._id })
           .then((res) => {
-            if (res.success == false) {
-              setErrorStatus(true);
-              setError(res.message);
-            } else {
-              setError();
-              setErrorStatus(false);
-              setModelOpened(false);
-            }
+            setError();
+            setErrorStatus(false);
+            setModelOpened(false);
           })
           .catch((err) => console.log(err));
         // console.log(data)
-
-        // setError();
-        // setErrorStatus(false);
-        // setModelOpened(false);
       }
-    } else {
-      gameService
-        .joinGame({ gameId: data[0]._id })
-        .then((res) => {
-          setError();
-          setErrorStatus(false);
-          setModelOpened(false);
-        })
-        .catch((err) => console.log(err));
-      // console.log(data)
+    }else{
+      setErrorStatus(true);
+      setError('Late join not allowed');
     }
+   
   };
   return (
     <Modal

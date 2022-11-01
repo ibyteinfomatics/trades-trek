@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { gameService } from "../../services/game.service";
 
+import ToolTipCustome from "./ToolTip";
 export default function CreateCompetation() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -18,6 +19,7 @@ export default function CreateCompetation() {
     defaultValues: {
       startingCash: "100000",
       marketDelay: "15",
+      quickSell:'15',
       endDate: null,
     },
   });
@@ -41,18 +43,20 @@ export default function CreateCompetation() {
   return (
     <>
       <div className="createCompeation">
-        {error &&<div
-          style={{
-            textAlign: "center",
-            margin: "22px",
-            padding: "10px 25px",
-            border: "2px solid red",
-            color: "red",
-            fontWeight: "bold",
-          }}
-        >
-          {error}
-        </div>}
+        {error && (
+          <div
+            style={{
+              textAlign: "center",
+              margin: "22px",
+              padding: "10px 25px",
+              border: "2px solid red",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {error}
+          </div>
+        )}
         <form className="site--form" onSubmit={handleSubmit(onSubmit)}>
           <div className="trendingBlock">
             <div className="formTitle px-32">
@@ -186,12 +190,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Starting Cash
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text='The total amount of cash users begin trading with.'/>
                   </label>
                   <select
                     {...register("startingCash")}
@@ -216,12 +215,8 @@ export default function CreateCompetation() {
                 <div className="form--item toggle">
                   <label className="form--label withIcon">
                     Allow Trading with margin?
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text="The Simulator lets you borrow 50% of the value of long equity positions (regular stock). However, the amount you can borrow is offset by short positions. (You are required to have 150% of the short)."/>
+                    
                   </label>
                   <div className="box_1">
                     <input
@@ -234,12 +229,7 @@ export default function CreateCompetation() {
                 <div className="form--item toggle">
                   <label className="form--label withIcon">
                     Allow Short Selling?
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text={`Short selling is an investment or trading strategy that speculates on the decline in a stock or other security's price.`} />
                   </label>
                   <div className="box_1">
                     <input
@@ -249,24 +239,7 @@ export default function CreateCompetation() {
                     />
                   </div>
                 </div>
-                <div className="form--item toggle">
-                  <label className="form--label withIcon">
-                    Allow Trading Options?
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
-                  </label>
-                  <div className="box_1">
-                    <input
-                      {...register("allowTradingOptions")}
-                      type="checkbox"
-                      className="switch_1"
-                    />
-                  </div>
-                </div>
+              
               </div>
             </div>
           </div>
@@ -302,12 +275,7 @@ export default function CreateCompetation() {
                 <div className="form--item toggle">
                   <label className="form--label withIcon">
                     Allow Late Entry
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text={`This setting dictates when users are allowed to join a game. Not allowing late entry will prevent new users from joining the game after the game has already started.`} />
                   </label>
                   <div className="box_1">
                     <input
@@ -320,12 +288,7 @@ export default function CreateCompetation() {
                 <div className="form--item toggle">
                   <label className="form--label withIcon">
                     Allow Portfolio Viewing?
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome  text={`This setting determines whether users in a game are allowed to view each other’s portfolio via the rankings page.`}/>
                   </label>
                   <div className="box_1">
                     <input
@@ -338,12 +301,7 @@ export default function CreateCompetation() {
                 <div className="form--item toggle">
                   <label className="form--label withIcon">
                     Allow Portfolio Resetting?
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text={`This setting determines whether users have the capability to reset their portfolios back to their beginning state.`} />
                   </label>
                   <div className="box_1">
                     <input
@@ -369,12 +327,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Market Delay
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text={`Because we use a 15 minute delayed datafeed, it is necessary to hold market orders for a certain time before being filled. We strongly recommend that this be set to 15.`} />
                   </label>
                   <select
                     {...register("marketDelay")}
@@ -388,12 +341,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Daily Volume
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text={`Trades cannot exceed a certain percentage of volume for the day. The default value is 10% and this applies to both stocks and options. This prevents a thinly-traded stock from being traded in the simulator when it can't be traded in the actual markets.`} />
                   </label>
                   <select
                     {...register("dailyVolume")}
@@ -410,12 +358,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Quick Sell
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text={`You cannot sell a security within a certain time period to reflect the fact that we are working with delayed data. The default value is 15 minutes. This is our way of ensuring that users don't "cheat" by trading in and out of a stock using real-time data.`} />
                   </label>
                   <select {...register("quickSell")} className="form--control">
                     <option value="Disabled">Disabled</option>
@@ -432,12 +375,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Minimum Price
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text={`The minimum price per share for a stock to be allowed.`} />
                   </label>
                   <select
                     {...register("minimumPrice")}
@@ -454,12 +392,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Minimum Price Short
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text={`The minimum price per share for a stock to be allowed in short selling.`} />
                   </label>
                   <select
                     {...register("minimumPriceShort")}
@@ -473,15 +406,13 @@ export default function CreateCompetation() {
                     })}
                   </select>
                 </div>
-                <div className="form--item">
+                
+              </div>
+              <div className="colRightBlock">
+              <div className="form--item">
                   <label className="form--label withIcon">
                     Minimum Stock for Margin
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                    <ToolTipCustome text={`The minimum dollar amount that allows a security to be marginable.`} />
                   </label>
                   <select
                     {...register("minimumStockForMargin")}
@@ -498,12 +429,7 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Commission
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text={`The commission for market transactions.`} />
                   </label>
                   <select {...register("commission")} className="form--control">
                     <option value="Disabled">Disabled</option>
@@ -516,109 +442,10 @@ export default function CreateCompetation() {
                     })}
                   </select>
                 </div>
-              </div>
-              <div className="colRightBlock">
-                <div className="form--item">
-                  <label className="form--label withIcon">
-                    Commission - Option
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
-                  </label>
-                  <select
-                    {...register("commissionOption")}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 30 }, (_, i) => {
-                      return (
-                        <option value={i + 0.99}>
-                          $ {(i + 0.99).toFixed(2)}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div className="form--item">
-                  <label className="form--label withIcon">
-                    Commission - Per Contract
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
-                  </label>
-                  <select
-                    {...register("commissionPerContract")}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 20 }, (_, i) => {
-                      return (
-                        <option value={(i + 1) / 4}>
-                          $ {((i + 1) / 4).toFixed(2)}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div className="form--item">
-                  <label className="form--label withIcon">
-                    Diversification
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
-                  </label>
-                  <select
-                    {...register("diversification")}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div className="form--item">
-                  <label className="form--label withIcon">
-                    Diversification Option
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
-                  </label>
-                  <select
-                    {...register("diversificationOption")}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
-                      );
-                    })}
-                  </select>
-                </div>
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Margin Intrest
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text={`Margin interest rate.`} />
                   </label>
                   <select
                     {...register("marginInterest")}
@@ -635,12 +462,8 @@ export default function CreateCompetation() {
                 <div className="form--item">
                   <label className="form--label withIcon">
                     Cash Interest
-                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none">
-                      <path
-                        d="M7.75259 0.772461C3.52441 0.772461 0.0800781 4.21679 0.0800781 8.44497C0.0800781 12.6732 3.52441 16.1175 7.75259 16.1175C11.9808 16.1175 15.4251 12.6732 15.4251 8.44497C15.4251 4.21679 11.9808 0.772461 7.75259 0.772461ZM7.75259 1.95285C11.3445 1.95285 14.2447 4.85309 14.2447 8.44497C14.2447 12.0369 11.3445 14.9371 7.75259 14.9371C4.16071 14.9371 1.26046 12.0369 1.26046 8.44497C1.26046 4.85309 4.16071 1.95285 7.75259 1.95285ZM7.1624 4.31362V5.49401H8.34279V4.31362H7.1624ZM7.1624 6.67439V12.5763H8.34279V6.67439H7.1624Z"
-                        fill="#2525BB"
-                      />
-                    </svg>
+                   <ToolTipCustome text={`Cash interest rate.`} />
+                    
                   </label>
                   <select
                     {...register("cashInterest")}

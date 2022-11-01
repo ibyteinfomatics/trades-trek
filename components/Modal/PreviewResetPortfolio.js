@@ -6,15 +6,15 @@ import { gameService } from "../../services/game.service";
 import { userService } from "../../services";
 import { setUser } from "../../actions/users";
 
-function PreviewDeleteGame({ modelOpened, setModelOpened, id }) {
+function PreviewResetPortfolio({ modelOpened, setModelOpened, id }) {
   const [error, setError] = useState("");
 
   const router = useRouter();
   const theme = useMantineTheme();
   const dispatch=useDispatch()
-  const cancelOrder = (id) => {
+  const portfolioReset = (id) => {
     gameService
-      .deleteGame(id)
+      .portfolioResetting(id)
       .then((res) => {
         if (res.success) {
           if (localStorage.getItem("GameId") == id) {
@@ -72,8 +72,9 @@ function PreviewDeleteGame({ modelOpened, setModelOpened, id }) {
     >
       <div>
         <h2 style={{ textAlign: "center", margin: "20px 10px" }}>
-          <b>Do you want to Delete this game?</b>
+          <b>Are you sure you want to reset portfolio?</b>
         </h2>
+        <p>If you click RESET PORTFOLIO, all current positions that are part of your portfolio will be deleted and it will be reset to its beginning state.</p>
         {error && (
           <h2
             style={{
@@ -94,7 +95,7 @@ function PreviewDeleteGame({ modelOpened, setModelOpened, id }) {
               padding: "10px",
             }}
             onClick={() => {
-              cancelOrder(id);
+              portfolioReset(id);
             }}
             className="done"
           >
@@ -120,4 +121,4 @@ function PreviewDeleteGame({ modelOpened, setModelOpened, id }) {
   );
 }
 
-export default PreviewDeleteGame;
+export default PreviewResetPortfolio;

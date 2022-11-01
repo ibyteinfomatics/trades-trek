@@ -1,5 +1,5 @@
 import { Modal, useMantineTheme } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {stockService} from '../../services/stock.service';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,12 +10,26 @@ import { setSelectedStock } from '../../actions/setStock';
 function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
   const router = useRouter();
   const [error,setError]=useState('something went wrong');
-  const [errorStatus,setErrorStatus]=useState(false)
+  const [errorStatus,setErrorStatus]=useState(false);
+  const [commission,setCommission]=useState(0)
   const dispatch = useDispatch();
+  let { user } = useSelector((state) => state.userWrapper);
+useEffect(() => {
+ if(user){
+  const game=user?.mygame?.filter((item)=>item?.gameId._id==localStorage.getItem('GameId'))
+
+  if( !game||game[0]?.gameId?.commission=="Disabled"){
+   setCommission(0)
+  }else{
+   setCommission(Number(game[0]?.gameId?.commission || 0))
+  }
+ }
+}, [user])
+console.log('commission',commission)
 
   const theme = useMantineTheme();
     const submitOrder=()=>{
-      
+      data.commission=commission;
         stockService.orderStock(data).then((res)=>{
           if(res.success){
             dispatch(setUser(res.user));
@@ -99,14 +113,14 @@ function PreviewModal({modelOpened,setModelOpened,data,setShowTrade}) {
            
             <div className='row-block'>
                 <p className='font-18'>Commission</p>
-                <p className='font-18'>₦00.00</p>
+                <p className='font-18'>₦{commission?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             </div>
             <div className='row-block'>
                 <p className='font-18'>Estimate Total</p>
                 {data?.orderType == 'Market' &&
-                 <p className='font-18'>₦{((data?.quantity||0)*(data?.Last ||0)).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                 <p className='font-18'>₦{(((data?.quantity||0)*(data?.Last ||0))+commission)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                  }
-                {data?.orderType == 'Limit' && <p className='font-18'>₦{((data?.quantity||0)*(data?.rate ||0)+29.95).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>}
+                {data?.orderType == 'Limit' && <p className='font-18'>₦{(((data?.quantity||0)*(data?.rate ||0)+29.95)+commission)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>}
             </div>
             <div className=''>
                 <button type='submit' className='btn form--submit'  onClick={submitOrder}>SUBMIT ORDER</button>

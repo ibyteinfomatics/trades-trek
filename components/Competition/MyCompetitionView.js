@@ -6,6 +6,7 @@ import PreviewGameRules from "../Modal/PreviewGameRules";
 import { useRouter } from "next/router";
 import PreviewEditGame from "../Modal/PreviewEditGame";
 import PreviewDeleteGame from "../Modal/PreviewDeleteGame";
+import PreviewResetPortfolio from "../Modal/PreviewResetPortfolio";
 
 export default function MyCompetationView() {
   const router=useRouter()
@@ -16,6 +17,8 @@ export default function MyCompetationView() {
   const [editData,setEditData]=useState([])
   const [modelOpened1, setModelOpened1] = useState(false);
   const [modelOpened2,setModelOpened2]=useState(false)
+  const [modelOpened3,setModelOpened3]=useState(false);
+  
   const [deleteGameId,setDeleteGameId]=useState()
   useEffect(() => {
     getAllGame();
@@ -44,6 +47,11 @@ export default function MyCompetationView() {
   const handleDeleteGame=(id)=>{
     setDeleteGameId(id)
     setModelOpened2(true);
+
+  }
+  const handlePortfolioReset=(id)=>{
+    setDeleteGameId(id)
+    setModelOpened3(true);
 
   }
   return (
@@ -163,7 +171,7 @@ export default function MyCompetationView() {
                             </svg>
                           </span>
                         </h5>}
-                        {item.creatorId!=user?.user?._id && <h5 className="font-16 text--purple mt-32">
+                        {item.allowPortfolioResetting && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handlePortfolioReset(item?._id)}>
                           Reset Portfolio
                           <span>
                             <svg
@@ -218,6 +226,8 @@ export default function MyCompetationView() {
         />
         <PreviewDeleteGame modelOpened={modelOpened2}
           setModelOpened={setModelOpened2} id={deleteGameId} />
+        <PreviewResetPortfolio  modelOpened={modelOpened3}
+          setModelOpened={setModelOpened3} id={deleteGameId}/>
       {/* <div className="innerBlock">
         <div class="p-20">
           <h4 class="font-16">PAST COMPETITIONS</h4>

@@ -35,7 +35,7 @@ function orderStock(data) {
         duration:data.duration,
         orderType:data.orderType,
         action:data.action,
-        
+        commission:data.commission,
         gameId:localStorage.getItem('GameId')
       })
   
