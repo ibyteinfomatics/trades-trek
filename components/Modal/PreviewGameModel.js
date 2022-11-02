@@ -260,12 +260,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 {data[0]?.allowShortSelling ? "Yes" : "No"}
               </p>
             </div>
-            <div className="row-block">
-              <p className="font-18 ">Option Trading </p>
-              <p className="font-18 ">
-                {data[0]?.allowTradingOptions ? "Yes" : "No"}
-              </p>
-            </div>
+         
             <h1
               style={{
                 fontSize: "13px",
@@ -358,36 +353,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 {`${data[0]?.commission ? data[0]?.commission : "Disabled"}`}
               </p>
             </div>
-            <div className="row-block">
-              <p className="font-18 ">Commission - Option</p>
-              <p className="font-18 ">
-                {`${
-                  data[0]?.commissionOption
-                    ? data[0]?.commissionOption
-                    : "Disabled"
-                }`}
-              </p>
-            </div>
-            <div className="row-block">
-              <p className="font-18 ">Commission - Per Contract</p>
-              <p className="font-18 ">
-                {`${
-                  data[0]?.commissionPerContract
-                    ? data[0]?.commissionPerContract
-                    : "Disabled"
-                }`}
-              </p>
-            </div>
-            <div className="row-block">
-              <p className="font-18 ">Diversification</p>
-              <p className="font-18 ">
-                {`${
-                  data[0]?.diversification
-                    ? data[0]?.diversification
-                    : "Disabled"
-                }`}
-              </p>
-            </div>
+         
             <div className="row-block">
               <p className="font-18 ">Margin Interest</p>
               <p className="font-18 ">

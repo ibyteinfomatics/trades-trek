@@ -28,16 +28,32 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [rate, setRate] = useState("");
   const [quantityError, setQuantityError] = useState(null);
   const [rateError, setRateError] = useState(null);
+  const [currentGame,setCurrentGame]=useState()
+  const [allowShortSelling,setAllowShortSelling]=useState(true)
   const dispatch = useDispatch();
   const [search,setSearch]=useState()
   const router = useRouter();
+  let { user } = useSelector((state) => state.userWrapper);
+
   const data = router.state;
   useEffect(() => {
     setShowTrade(true)
   }, [])
   useEffect(() => {
+    if(user){
+     const game=user?.mygame?.filter((item)=>item?.gameId._id==localStorage.getItem('GameId'))
+ 
+     if(game){
+      setCurrentGame(game)
+    setAllowShortSelling(game[0]?.gameId?.allowShortSelling)
+  }
+    
+    }
+   }, [user])
+   console.log(allowShortSelling)
+  useEffect(() => {
     let data=localStorage.getItem('stock')
-    console.log(data)
+  
     data=JSON.parse(data)
     // 
 
@@ -238,10 +254,10 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               >
                 <option selected={action == "Buy" ? true : false}>Buy</option>
                 <option selected={action == "Sell" ? true : false}>Sell</option>
-                <option selected={action == "Short" ? true : false}>
+                <option disabled={!allowShortSelling} selected={action == "Short" ? true : false}>
                   Short
                 </option>
-                <option selected={action == "Buy To Cover" ? true : false}>
+                <option disabled={!allowShortSelling} selected={action == "Buy To Cover" ? true : false}>
                   Buy To Cover
                 </option>
               </select>

@@ -20,6 +20,7 @@ export default function CreateCompetation() {
       startingCash: "100000",
       marketDelay: "15",
       quickSell:'15',
+      dailyVolume:"10",
       endDate: null,
     },
   });
@@ -196,20 +197,20 @@ export default function CreateCompetation() {
                     {...register("startingCash")}
                     className="form--control"
                   >
-                    <option value="1000000">$1,000,000</option>
+                    <option value="1000000">₦ 1,000,000</option>
 
-                    <option value="500000">$500,000</option>
+                    <option value="500000">₦ 500,000</option>
 
-                    <option value="250000">$250,000</option>
+                    <option value="250000">₦ 250,000</option>
 
-                    <option value="100000">$100,000</option>
+                    <option value="100000">₦ 100,000</option>
 
-                    <option value="50000">$50,000</option>
+                    <option value="50000">₦ 50,000</option>
 
-                    <option value="25000">$25,000</option>
+                    <option value="25000">₦ 25,000</option>
 
-                    <option value="10000">$10,000</option>
-                    <option value="1000">$1,000</option>
+                    <option value="10000">₦ 10,000</option>
+                    <option value="1000">₦ 1,000</option>
                   </select>
                 </div>
                 <div className="form--item toggle">
@@ -384,7 +385,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={i + 1}>$ {(i + 1).toFixed(2)}</option>
+                        <option value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -401,7 +402,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={i + 1}>$ {(i + 1).toFixed(2)}</option>
+                        <option value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -421,7 +422,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={i + 1}>$ {(i + 1).toFixed(2)}</option>
+                        <option value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -436,7 +437,7 @@ export default function CreateCompetation() {
                     {Array.from({ length: 30 }, (_, i) => {
                       return (
                         <option value={i + 0.99}>
-                          $ {(i + 0.99).toFixed(2)}
+                          ₦ {(i + 0.99).toFixed(2)}
                         </option>
                       );
                     })}
