@@ -35,11 +35,10 @@ export default function CreateCompetation() {
         } else {
           setError(res.message);
         }
-        // console.log(res);
+       
       })
       .catch((err) => console.log(err));
-    // alert("data");
-    // console.log(data);
+    
   };
   return (
     <>

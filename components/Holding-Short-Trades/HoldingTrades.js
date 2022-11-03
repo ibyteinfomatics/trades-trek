@@ -24,7 +24,6 @@ const HoldingTrades = () => {
     setTabIndex(Number(index));
   }, []);
   useEffect(()=>{
-    console.log(tabIndex)
     if(tabIndex==0){
       orderService.pendingHolding(1).then((res)=>{
         if(res.success==true){

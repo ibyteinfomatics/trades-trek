@@ -34,7 +34,6 @@ export default function TradesTrek() {
       setGame(user?.mygame)
 
   }, [user]);
-  // console.log(user)
   useEffect(()=>{
     userService.userInfo().then((res)=>{
       // setUserData(res.message)
@@ -53,7 +52,6 @@ export default function TradesTrek() {
 useEffect(() => {
  let index=localStorage.getItem('indexTrade')
  if(index){
-  // console.log(typeof index)
   setTabIndex(Number(index))
  }
 }, [])

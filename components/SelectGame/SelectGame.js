@@ -44,7 +44,7 @@ const  SelectGame = () => {
         console.log(err);
       });
   }
-// console.log(gameId)
+
 
   return (
     <div className="grid-block-right right-align">

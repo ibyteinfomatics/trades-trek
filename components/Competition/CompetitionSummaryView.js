@@ -11,8 +11,7 @@ export default function CompetationSummeryView() {
   const [nearResult,setNearResult]=useState([])
   const [yourRank,setYourRank]=useState(0)
   const check=(item)=>{
-    console.log(item?.userId)
-    // console.log('id',user?.user?._id)
+  
    return item?.userId==user?.user?._id
   }
 
@@ -21,7 +20,6 @@ export default function CompetationSummeryView() {
       .myRank()
       .then((res) => {
         
-        console.log(res?.data?.findIndex(check))
         if (res.success) {
            if(res.nearRank){
             setTop5(res.data)

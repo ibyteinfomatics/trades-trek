@@ -30,17 +30,7 @@ export default function Signup() {
   } = useForm();
 
 
-// const phoneValidate=async(p)=>{
-//   const {data}=await axios.get(`https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=${p}`)
-// console.log(data)
-// if(data.valid){
-//   console.log('kkkk')
-//   return true
-// }else{
-//   console.log('kkkkkhhhhh')
-//   return false
-// }
-// }
+
   const onSubmit = async(data) => {
    
  

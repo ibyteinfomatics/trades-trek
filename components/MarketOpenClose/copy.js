@@ -87,17 +87,14 @@ const MarketOpenClose = () => {
       // calculate days
       const days = Math.floor(diffInMilliSeconds / 86400);
       diffInMilliSeconds -= days * 86400;
-      console.log('calculated days', days);
   
       // calculate hours
       const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
       diffInMilliSeconds -= hours * 3600;
-      console.log('calculated hours', hours);
   
       // calculate minutes
       const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
       diffInMilliSeconds -= minutes * 60;
-      console.log('minutes', minutes);
   
       let difference = '';
       if (days > 0) {
@@ -118,44 +115,19 @@ const MarketOpenClose = () => {
 
     const temp = NigerianTimeZone(today);
     const formatDate = moment(temp).format("HH:mm:ss");
-    console.log(formatDate)
-    console.log(marketOpenTime)
-    console.log(marketCloseTime)
+   
 
-    // if(formatDate >= marketOpenTime && formatDate <= marketCloseTime){
-    //   console.log('market is opne')
-    // }else{
-    //   console.log('market is close')
-    // }
 while (holiday.includes(moment(today).format('YYYY/MM/DD'))) {
   today.setDate(today.getDate()+1)
   let day=moment(today).format('dddd')
-  console.log(day)
   if(day=='Wednesday'){
     today.setDate(today.getDate()+2)
   }else if(day=='Thursday'){
     today.setDate(today.getDate()+2)
   }
-  console.log('yes persent')
   
 }
-console.log(today)
 
-    // if(holiday.includes(moment(today).format('YYYY/MM/DD'))){
-
-    //   today.setDate(today.getDate()+1)
-
-    //   console.log(today)
-    // }else{
-    //   let initial=today;
-    //   // today.se
-      
-    //   // timeDiffCalc(today,today.setHours(1))
-    // }
-    // console.log(moment(today).format('YYYY/MM/DD'))
-    // console.log(timeDiffCalc(new Date(), new Date('2022/10/3 18:00:00')));
-
-    // TimeSet();
   }, [holiday]);
   return (
     <>

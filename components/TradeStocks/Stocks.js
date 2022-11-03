@@ -50,7 +50,6 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
     
     }
    }, [user])
-   console.log(allowShortSelling)
   useEffect(() => {
     let data=localStorage.getItem('stock')
   
@@ -88,7 +87,6 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   };
   // set selected stock
   const onchange = (selectedOptions) => {
-    console.log(selectedOptions)
     if (selectedOptions?.value!=='demo') {
       setSearch(selectedOptions.Symbol)
       setStockData(selectedOptions) 
@@ -134,7 +132,6 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
       setRateError(null);
       setQuantityError(null);
       setModelOpened(true);
-      console.log(stockData)
       setStockName(stockData?.Symbol), setStockAction(stockData.action)
     }
 
@@ -251,6 +248,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                   setShowMax(false);
                   setQuantity(1);
                 }}
+                defaultValue={action}
               >
                 <option selected={action == "Buy" ? true : false}>Buy</option>
                 <option selected={action == "Sell" ? true : false}>Sell</option>

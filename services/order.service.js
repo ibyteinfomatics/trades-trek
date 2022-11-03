@@ -129,11 +129,9 @@ function popularCompanies() {
   return fetchWrapper
     .get(`${baseUrl}/user/order/popularCompanies`)
     .then((res) => {
-      // console.log(res.data)
       return res.data;
     })
     .catch((errr) => {
-      console.log("error section ");
 
       return errr;
     });
@@ -144,11 +142,9 @@ function tradeHistory(page) {
   return fetchWrapper
     .get(`${baseUrl}/user/order/history?page=${page}&gameId=${localStorage.getItem("GameId") || ''}`)
     .then((res) => {
-      // console.log(res.data)
       return res;
     })
     .catch((errr) => {
-      console.log("error section ");
 
       return errr;
     });
@@ -159,11 +155,9 @@ function holdingProfitOrLoss(page = 1) {
   return fetchWrapper
     .get(`${baseUrl}/user/order/holdingProfitOrLoss?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ''}`)
     .then((res) => {
-      // console.log(res.data)
       return res;
     })
     .catch((errr) => {
-      console.log("error section ");
 
       return errr;
     });
@@ -174,11 +168,9 @@ function pendingHolding(page = 1) {
   return fetchWrapper
     .get(`${baseUrl}/user/order/pending-holding?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ""}`)
     .then((res) => {
-      // console.log(res.data)
       return res;
     })
     .catch((errr) => {
-      console.log("error section ");
 
       return errr;
     });
@@ -189,11 +181,9 @@ function pendingShort(page = 1) {
   return fetchWrapper
     .get(`${baseUrl}/user/order/pending-short?page=${page}&limit=5&gameId=${localStorage.getItem("GameId") || ""}`)
     .then((res) => {
-      // console.log(res.data)
       return res;
     })
     .catch((errr) => {
-      console.log("error section ");
 
       return errr;
     });
@@ -204,11 +194,9 @@ function shortProfitOrLoss(page = 1) {
   return fetchWrapper
     .get(`${baseUrl}/user/order/shortProfitOrLoss?page=${page}&limit=5`)
     .then((res) => {
-      // console.log(res.data)
       return res;
     })
     .catch((errr) => {
-      console.log("error section ");
 
       return errr;
     });

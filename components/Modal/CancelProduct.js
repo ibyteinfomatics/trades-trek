@@ -14,14 +14,12 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
    orderService.cancelOrder(id).then((res)=>{
     setModelOpened(false);
     orderService.getPendingOrders(1).then((res)=>{
-      console.log(res)
       if(res.success){
         dispatch(setOpenStock(res.pendings.docs))
    
         
 
       }else{
-        console.log('not')
         dispatch(setOpenStock([]))
       }
       

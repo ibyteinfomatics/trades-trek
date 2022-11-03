@@ -11,9 +11,8 @@ import LineChart from "../../components/Chart/LineChart";
 import SelectGame from "../../components/SelectGame/SelectGame";
 
 export default function Portfolio() {
-  // const [beginnerOption, setBeginnerOption] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
-  // console.log(user);
+
   return (
     <>
       <Sidebar />

@@ -26,7 +26,7 @@ const HoldingTables = () => {
   useEffect(() => {
     getAllHolding(currentPage);
   }, [currentPage,user]);
-  console.log(currentPage);
+
   const getAllHolding = (page) => {
     setIsLoading(true);
 
@@ -84,14 +84,13 @@ const HoldingTables = () => {
   ];
 
   const handledMoreBuy = (stock) => {
-    console.log(stock);
+    
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-        console.log(res);
-        // dispatch(setSelectedStock({ ...res, action: "Buy" }));
+      
         let data = { action: "Buy", quantity: stock.quantity, ...res };
-        console.log(data);
+       
         localStorage.setItem("stock", JSON.stringify(data));
         router.push({
           pathname: "/dashboard/trade-stocks/",

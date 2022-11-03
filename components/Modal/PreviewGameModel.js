@@ -72,7 +72,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
             setModelOpened(false);
           })
           .catch((err) => console.log(err));
-        // console.log(data)
+      
       }
     }else{
       setErrorStatus(true);

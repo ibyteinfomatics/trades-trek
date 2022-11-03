@@ -31,7 +31,6 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
   const [marginInterest, setMarginInterest] = useState();
   const [cashInterest, setCashInterest] = useState();
   let { user } = useSelector((state) => state.userWrapper);
-  // console.log(allowLateEntry)
   const theme = useMantineTheme();
   useEffect(() => {
     setCashInterest(data[0]?.cashInterest);
@@ -64,11 +63,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
             }
           })
           .catch((err) => console.log(err));
-        // console.log(data)
-
-        // setError();
-        // setErrorStatus(false);
-        // setModelOpened(false);
+      
    
   };
   return (

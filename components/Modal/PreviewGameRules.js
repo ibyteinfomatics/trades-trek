@@ -36,11 +36,7 @@ function PreviewGameRules({ modelOpened, setModelOpened, data, setShowTrade }) {
             }
           })
           .catch((err) => console.log(err));
-        // console.log(data)
-
-        // setError();
-        // setErrorStatus(false);
-        // setModelOpened(false);
+       
       }
     } else {
       gameService
@@ -51,7 +47,7 @@ function PreviewGameRules({ modelOpened, setModelOpened, data, setShowTrade }) {
           setModelOpened(false);
         })
         .catch((err) => console.log(err));
-      // console.log(data)
+      
     }
   };
   return (

@@ -25,7 +25,6 @@ useEffect(() => {
   }
  }
 }, [user])
-console.log('commission',commission)
 
   const theme = useMantineTheme();
     const submitOrder=()=>{

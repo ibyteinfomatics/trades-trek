@@ -53,9 +53,7 @@ export default function TradeHistory() {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-    // setCurrentPage(selected+1)
   };
-  // console.log(tradeHistoryData);
   const columns = [
     "Date",
     "Symbol",

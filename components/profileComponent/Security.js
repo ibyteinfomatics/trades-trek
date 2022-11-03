@@ -79,7 +79,7 @@ export default function Security() {
 
             setErrorMessage(error.message);
           });
-    console.log(data);
+    
   };
 
   return (

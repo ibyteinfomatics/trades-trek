@@ -60,13 +60,12 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
      
     } else {
       setFilterStock([]);
-      console.log([]);
+     
     }
   };
   // set selected stock
   const onchange = (selectedOptions) => {
     // setStockData(selectedOptions);
-    console.log(selectedOptions);
     if (selectedOptions) {
       setSearch(selectedOptions.Symbol)
       dispatch(setSelectedStock({ ...selectedOptions, action: action }));
@@ -134,7 +133,6 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
         });
     }
   };
-console.log(stockData)
   return (
     <>
       <div className="stocks-form">

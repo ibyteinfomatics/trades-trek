@@ -18,7 +18,6 @@ export default function Sub() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(allSubscription);
 
   return (
     <>

@@ -55,9 +55,8 @@ export default function PerformanceHistory() {
 
     })
     .catch((err) => console.log(err));
-    // setCurrentPage(selected+1)
   }
-  // console.log(userHistoryData);
+ 
   const columns = [
     "Date",
     "Cash",

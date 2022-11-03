@@ -27,7 +27,6 @@ export default function TradeFailedOrders({ modelOpened }) {
     orderService
       .getFailedOrders(1)
       .then((res) => {
-        console.log(res);
         if (res.success) {
           setfailedOrders(res.failedOrders.docs);
           setfailedAllPage(res.failedOrders.pages);
@@ -43,7 +42,7 @@ export default function TradeFailedOrders({ modelOpened }) {
     orderService
       .getFailedOrders(selected + 1)
       .then((res) => {
-        console.log(res);
+     
         if (res.success) {
           setfailedOrders(res.failedOrders.docs);
           setfailedAllPage(res.failedOrders.pages);

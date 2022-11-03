@@ -10,8 +10,7 @@ const OrderExpired = ({ data }) => {
     const formatDate = moment(temp).format("HH:mm:ss");
     const temp1=NigerianTimeZone(new Date())
     const formatDate1 = moment(temp1).format("HH:mm:ss");
-    console.log(formatDate);
-    console.log(formatDate1)
+  
     setTime(formatDate)
     setCurrentTime(formatDate1)
   }, [data]);

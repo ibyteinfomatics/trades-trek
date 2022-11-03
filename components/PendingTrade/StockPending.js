@@ -26,39 +26,12 @@ export default function StockPending({setModelOpened,modelOpened,tableData}) {
     "Action",
   ];
 
-  // useEffect(() => {
-  //   orderService
-  //     .getPendingOrders(1)
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.success) {
-  //         setPendingOrders(res.pendings.docs);
-  //         setPendingAllPage(res.pendings.pages);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-//   const handlePageClick = ({ selected }) => {
-//     orderService
-//       .getPendingOrders(selected + 1)
-//       .then((res) => {
-//         console.log(res);
-//         if (res.success) {
-//           setPendingOrders(res.pendings.docs);
-//           setPendingAllPage(res.pendings.pages);
-//         }
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-  useEffect(()=>{
+ 
+useEffect(()=>{
     orderService
     .getPendingOrders(1)
     .then((res) => {
-      console.log(res);
+     
       if (res.success) {
         setPendingOrders(res.pendings.docs);
         setPendingAllPage(res.pendings.pages);

@@ -41,15 +41,6 @@ export default function Portfolio() {
     setOpenOrders(openOrder);
   }, [openOrder]);
 
-  // holding order .........................
-  // useEffect(()=>{
-  //   orderService.profitOrLoss().then((res)=>{
-  //     setHoldingOrder(res)
-  //    }).catch((err)=>{
-  //      console.log(err)
-  //    }
-  //    )
-  // },[refreshHolding])
 
   useEffect(() => {
     // get holding order with profit or loss .....................
