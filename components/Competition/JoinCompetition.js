@@ -4,22 +4,27 @@ import { gameService } from "../../services/game.service";
 import PreviewGameModel from "../Modal/PreviewGameModel";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import ReactPaginate from "react-paginate";
 export default function JoinCompetation() {
   const [allGame, setAllGame] = useState();
   const [modelOpened, setModelOpened] = useState(false);
   const [selectedData, setSelectedDate] = useState([]);
   const [search, setSearch] = useState("");
+  const [page,setPage]=useState(1);
+  const [allPage,setAllPage]=useState(1)
   let { user } = useSelector((state) => state.userWrapper);
   const router = useRouter();
   useEffect(() => {
-    GetAllGame(search);
+    GetAllGame(search,1);
+    setPage(1)
   }, [search,modelOpened]);
-  const GetAllGame = (input) => {
+  const GetAllGame = (input,page) => {
     gameService
-      .getAllGame(input)
+      .getAllGame(input,page)
       .then((res) => {
         if (res.success) {
           setAllGame(res?.data?.docs);
+          setAllPage(res?.data?.pages);
         }
       })
       .catch((err) => console.log(err));
@@ -37,7 +42,11 @@ export default function JoinCompetation() {
       joinGame(item._id);
     }
   };
+const handlePageClick=({ selected })=>{
+  GetAllGame(search,selected+1)
+  setPage(selected+1)
 
+}
   return (
     <>
       <div className="col-40">
@@ -110,7 +119,7 @@ export default function JoinCompetation() {
                       : item?.dateRange.split(" ")[1]}
                   </td>
                   <td>{item?.users?.length}</td>
-                  <td>${item?.startingCash.toFixed(2)}</td>
+                  <td>₦ {item?.startingCash.toFixed(2)}</td>
                   <td>
                     {/* <Link > */}
                     <a
@@ -143,7 +152,7 @@ export default function JoinCompetation() {
             })}
           </tbody>
         </table>
-
+     
         <PreviewGameModel
           modelOpened={modelOpened}
           setModelOpened={setModelOpened}
@@ -151,6 +160,19 @@ export default function JoinCompetation() {
           data={selectedData}
         />
       </div>
+      {allPage>1 && <div className="paginationReact">
+                  <ReactPaginate
+                  forcePage={page-1}
+                    breakLabel="..."
+                    nextLabel=">"
+                 
+                    onPageChange={handlePageClick}
+                    marginPagesDisplayed={2}
+                    pageCount={allPage}
+                    previousLabel="<"
+                    renderOnZeroPageCount={null}
+                  />
+                </div>}
     </>
   );
 }

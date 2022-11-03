@@ -55,10 +55,10 @@ function updateGame(data, gameId) {
 }
 
 // get all game .....
-function getAllGame(search) {
+function getAllGame(search,page=1,limit=5) {
   // console
   return fetchWrapper
-    .get(`${baseUrl}/game?search=${search}`)
+    .get(`${baseUrl}/game?search=${search}&page=${page}&limit=${limit}`)
 
     .then((res) => {
       if (res.success) {
@@ -73,10 +73,10 @@ function getAllGame(search) {
     });
 }
 
-function getMYGame(data) {
+function getMYGame(search,page=1,limit=5) {
   // console
   return fetchWrapper
-    .get(`${baseUrl}/game/myGames`)
+    .get(`${baseUrl}/game/myGames?search=${search}&page=${page}&limit=${limit}`)
 
     .then((res) => {
       if (res.success) {

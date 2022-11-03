@@ -7,27 +7,35 @@ import { useRouter } from "next/router";
 import PreviewEditGame from "../Modal/PreviewEditGame";
 import PreviewDeleteGame from "../Modal/PreviewDeleteGame";
 import PreviewResetPortfolio from "../Modal/PreviewResetPortfolio";
+import ReactPaginate from "react-paginate";
 
 export default function MyCompetationView() {
   const router=useRouter()
     let { user } = useSelector((state) => state.userWrapper);
   const [myGame, setMyGame] = useState();
+  const [search,setSearch]=useState('')
   const [modelOpened, setModelOpened] = useState(false);
   const [selectedData, setSelectedDate] = useState([]);
   const [editData,setEditData]=useState([])
   const [modelOpened1, setModelOpened1] = useState(false);
   const [modelOpened2,setModelOpened2]=useState(false)
   const [modelOpened3,setModelOpened3]=useState(false);
+  const [page,setPage]=useState(1)
+  const [allPage,setAllPage]=useState(1)
   
   const [deleteGameId,setDeleteGameId]=useState()
   useEffect(() => {
-    getAllGame();
-  }, [modelOpened1,modelOpened2]);
+    getAllGame(search,1);
+    setPage(1)
+  }, [modelOpened1,modelOpened2,search]);
 
-  const getAllGame = () => {
+  const getAllGame = (search,current) => {
     gameService
-      .getMYGame()
-      .then((res) => setMyGame(res.games))
+      .getMYGame(search,current)
+      .then((res) => {
+        setMyGame(res.games)
+        setAllPage(res.pages)
+      })
       .catch((err) => console.log(err));
   };
   const handleSelectGame=(id)=>{
@@ -54,10 +62,37 @@ export default function MyCompetationView() {
     setModelOpened3(true);
 
   }
+  const handlePageClick=({ selected })=>{
+    getAllGame(search,selected+1)
+    setPage(selected+1)
+  
+  }
   return (
     <>
+   <div className="myConn">
+   <div className="col-40" >
+        <div style={{marginLeft:'20px',paddingTop:'20px'}} className="form--item">
+          <label>Competition Lookup</label>
+          <input
+            className="form--control"
+            type="text"
+            value={search}
+            autoComplete='false'
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Look up competition name or creator"
+          />
+          <span className="search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M7.12927 0.0878906C10.8191 0.0878906 13.8233 3.09206 13.8233 6.7819C13.8233 8.35662 13.2538 9.79189 12.3357 10.9366L19.7386 18.3395L18.6927 19.3971L11.284 11.9884C10.1392 12.9065 8.70399 13.4759 7.12927 13.4759C3.43942 13.4759 0.435253 10.4717 0.435253 6.7819C0.435253 3.09206 3.43942 0.0878906 7.12927 0.0878906ZM7.12927 1.57545C4.24712 1.57545 1.92281 3.89976 1.92281 6.7819C1.92281 9.66405 4.24712 11.9884 7.12927 11.9884C10.0114 11.9884 12.3357 9.66405 12.3357 6.7819C12.3357 3.89976 10.0114 1.57545 7.12927 1.57545Z"
+                fill="#AFAFAF"
+              ></path>
+            </svg>
+          </span>
+        </div>
+      </div>
       {myGame && (
-        <div className="myConn">
+        <div >
           {myGame.map((item) => {
             return (
               <div className="connectionBlock">
@@ -114,7 +149,8 @@ export default function MyCompetationView() {
                             YOUR ACCOUNT VALUE
                           </p>
                           <h2 className="font-17 font--bold text--purple">
-                           {item?.result?.accountValue?.toFixed(2)}
+                          ₦ {item?.result?.accountValue?.toFixed(2)?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                           </h2>
                         </div>
                       </div>
@@ -212,6 +248,20 @@ export default function MyCompetationView() {
           })}
         </div>
       )}
+   </div>
+   {allPage>1 && <div className="paginationReact">
+                  <ReactPaginate
+                  forcePage={page-1}
+                    breakLabel="..."
+                    nextLabel=">"
+                 
+                    onPageChange={handlePageClick}
+                    marginPagesDisplayed={2}
+                    pageCount={allPage}
+                    previousLabel="<"
+                    renderOnZeroPageCount={null}
+                  />
+                </div>}
        <PreviewGameRules
           modelOpened={modelOpened}
           setModelOpened={setModelOpened}
