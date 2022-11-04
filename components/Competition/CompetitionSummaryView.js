@@ -4,41 +4,86 @@ import { gameService } from "../../services/game.service";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import IncreaseDecrease from "../Table/IncreaseDecrease";
+import ReactPaginate from "react-paginate";
 
 export default function CompetationSummeryView() {
   let { user } = useSelector((state) => state.userWrapper);
   const [top5, setTop5] = useState([]);
   const [nearResult,setNearResult]=useState([])
   const [yourRank,setYourRank]=useState(0)
+  const [showAllUser,setShowAllUser]=useState(false)
+  const [page,setPage]=useState(1);
+  const [allPage,setAllPage]=useState(1)
   const check=(item)=>{
   
    return item?.userId==user?.user?._id
   }
 
   useEffect(() => {
+    if(showAllUser){
+      setTop5([])
+setNearResult([])
+AllRank(page)
+    }else{
+      MyRank()
+      setAllPage(1)
+
+    }
+  }, [user,showAllUser]);
+  const MyRank=()=>{
     gameService
-      .myRank()
-      .then((res) => {
-        
-        if (res.success) {
-           if(res.nearRank){
-            setTop5(res.data)
-            setNearResult(res.nearRank)
-            setYourRank(res.yourRank)
-           }else{
-            setTop5(res.data)
-            setNearResult([])
-            setYourRank(0)
-
-
-           }
-        } else {
-          setTop5([]);
+    .myRank()
+    .then((res) => {
+      
+      if (res.success) {
+         if(res.nearRank){
+          setTop5(res.data)
+          setNearResult(res.nearRank)
+          setYourRank(res.yourRank)
+         }else{
+          setTop5(res.data)
           setNearResult([])
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [user]);
+          setYourRank(0)
+
+
+         }
+      } else {
+        setTop5([]);
+        setNearResult([])
+      }
+    })
+    .catch((err) => console.log(err));
+  }
+  const AllRank=(current)=>{
+    gameService
+    .allRank(current)
+    .then((res) => {
+      
+      if (res.success) {
+        
+         if(res.data){
+          setTop5(res.data)
+          // console.log(res.pages)
+          setAllPage(res.pages)
+         }else{
+          setTop5(res.data)
+          setNearResult([])
+          setYourRank(0)
+
+
+         }
+      } else {
+        setTop5([]);
+        setNearResult([])
+      }
+    })
+    .catch((err) => console.log(err));
+  }
+  const handlePageClick=({ selected })=>{
+    AllRank(selected+1)
+    setPage(selected+1)
+  
+  }
 
   return (
     <>
@@ -61,7 +106,7 @@ export default function CompetationSummeryView() {
               {top5?.map((item, index) => {
                 return (
                   <tr className={item?.result?._id==user?.user?._id && 'currentUser'}>
-                    <td>{index + 1}</td>
+                    <td>{(page-1)*10+index+1}</td>
                     <td>{`${item?.result?.username || ""} `}</td>
                     <td>
                       ₦{" "}
@@ -104,17 +149,39 @@ export default function CompetationSummeryView() {
           </table>
         </div>
       </div>
-      {nearResult.length>0 &&<div className="innerTable">
-        <div class="wrapper--hgroup">
+      {allPage>1 && <div className="paginationReact">
+                  <ReactPaginate
+                  forcePage={page-1}
+                    breakLabel="..."
+                    nextLabel=">"
+                 
+                    onPageChange={handlePageClick}
+                    marginPagesDisplayed={2}
+                    pageCount={allPage}
+                    previousLabel="<"
+                    renderOnZeroPageCount={null}
+                  />
+                </div>}
+      {showAllUser? <div className="wrapper--hgroup">
+          <div className="wrapper--title">
+          </div>
+          <div className="readmore--link">
+            <Link href='#' >
+              <a className="text--purple" onClick={()=>{setShowAllUser(false)}}>Collapse View</a>
+            </Link>
+          </div>
+        </div>:<div className="wrapper--hgroup">
           <div class="wrapper--title">
             <h3>RESULTS NEAR YOUR RANK</h3>
           </div>
           <div class="readmore--link">
-            <Link href="/Dashboard/competation-summery-user-list/">
-              <a className="text--purple">See All</a>
+            <Link href='#' >
+              <a className="text--purple" onClick={()=>{setShowAllUser(true)}}>See All</a>
             </Link>
           </div>
-        </div>
+        </div>}
+      {nearResult.length>0 &&<div className="innerTable">
+      
         <div className="summeyTable">
           <div className="status-summary noRadius font-18 summery-table summeyTable">
             <table>

@@ -8,6 +8,8 @@ import PreviewEditGame from "../Modal/PreviewEditGame";
 import PreviewDeleteGame from "../Modal/PreviewDeleteGame";
 import PreviewResetPortfolio from "../Modal/PreviewResetPortfolio";
 import ReactPaginate from "react-paginate";
+import { set } from "react-hook-form";
+import InviteCompetitionModel from "../Modal/InviteCompetitionModel";
 
 export default function MyCompetationView() {
   const router=useRouter()
@@ -20,6 +22,7 @@ export default function MyCompetationView() {
   const [modelOpened1, setModelOpened1] = useState(false);
   const [modelOpened2,setModelOpened2]=useState(false)
   const [modelOpened3,setModelOpened3]=useState(false);
+  const [modelOpened4,setModelOpened4]=useState(false)
   const [page,setPage]=useState(1)
   const [allPage,setAllPage]=useState(1)
   
@@ -66,6 +69,10 @@ export default function MyCompetationView() {
     getAllGame(search,selected+1)
     setPage(selected+1)
   
+  }
+  const handleInvite=(id)=>{
+    setDeleteGameId(id)
+    setModelOpened4(true)
   }
   return (
     <>
@@ -229,7 +236,7 @@ export default function MyCompetationView() {
                       <div className="btn--right">
                         <div className="borderBtnPurple">
                           <Link href="#">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void(0)" onClick={()=>handleInvite(item._id)}>
                               INVITE TO COMPETITION
                             </a>
                           </Link>
@@ -278,6 +285,8 @@ export default function MyCompetationView() {
           setModelOpened={setModelOpened2} id={deleteGameId} />
         <PreviewResetPortfolio  modelOpened={modelOpened3}
           setModelOpened={setModelOpened3} id={deleteGameId}/>
+        <InviteCompetitionModel  modelOpened={modelOpened4}
+          setModelOpened={setModelOpened4} id={deleteGameId}/>
       {/* <div className="innerBlock">
         <div class="p-20">
           <h4 class="font-16">PAST COMPETITIONS</h4>

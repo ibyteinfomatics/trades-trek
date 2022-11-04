@@ -128,6 +128,25 @@ function myRank(data) {
       return error;
     });
 }
+function allRank(page,limit=10) {
+  // console
+  return fetchWrapper
+    .get(
+      `${baseUrl}/game/all-rank?gameId=${localStorage.getItem("GameId") || ""}&page=${page}&limit=${limit}`
+    )
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 function deleteGame(id) {
   // console
@@ -177,5 +196,6 @@ export const gameService = {
   myRank,
   updateGame,
   deleteGame,
-  portfolioResetting
+  portfolioResetting,
+  allRank
 };
