@@ -142,10 +142,13 @@ function userInfo(){
         if(res?.message?.block){
           
           localStorage.removeItem('token');
+          localStorage.removeItem('GameId')
           userSubject.next(null);
           Router.push('/')
         }else if(res.success==false){
           localStorage.removeItem('token');
+          localStorage.removeItem('GameId')
+
           userSubject.next(null);
           Router.push('/')
         }else if(res.success){
