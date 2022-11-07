@@ -2816,5 +2816,13 @@ input:disabled{
   border:2px solid #dfdbdb;
   background-color: #f5f0f0;
 }
+button:disabled{
+  background-color: rgb(185, 179, 179);
+  color: gray;
+}
+button:disabled:hover{
+  background-color: rgb(185, 179, 179);
+  color: gray;
+}
 
 

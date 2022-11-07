@@ -184,6 +184,23 @@ function portfolioResetting(id) {
     });
 }
 
+function inviteGame(data) {
+  // console
+  return fetchWrapper
+    .post(`${baseUrl}/game/invite-game`, data)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 export const gameService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -197,5 +214,6 @@ export const gameService = {
   updateGame,
   deleteGame,
   portfolioResetting,
-  allRank
+  allRank,
+  inviteGame
 };

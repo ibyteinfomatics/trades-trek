@@ -72,6 +72,8 @@ export default function MyCompetationView() {
   }
   const handleInvite=(id)=>{
     setDeleteGameId(id)
+    const data = myGame.filter((item) => item._id == id);
+    setEditData(data);
     setModelOpened4(true)
   }
   return (
@@ -110,7 +112,21 @@ export default function MyCompetationView() {
                             color: "#8000ff",
                             marginLeft: "20px"
                     }}>Admin</span>}
+                     {item.competitionType == "Private" && (
+                          <svg
+                            width="16"
+                            height="17"
+                            viewBox="0 0 16 17"
+                            fill="none"
+                          >
+                            <path
+                              d="M8 0.25C5.24609 0.25 3 2.49609 3 5.25V6.5H2.375C1.34473 6.5 0.5 7.34473 0.5 8.375V14.625C0.5 15.6553 1.34473 16.5 2.375 16.5H13.625C14.6553 16.5 15.5 15.6553 15.5 14.625V8.375C15.5 7.34473 14.6553 6.5 13.625 6.5H13V5.25C13 2.49609 10.7539 0.25 8 0.25ZM8 1.5C10.0801 1.5 11.75 3.16992 11.75 5.25V6.5H4.25V5.25C4.25 3.16992 5.91992 1.5 8 1.5ZM2.375 7.75H13.625C13.9766 7.75 14.25 8.02344 14.25 8.375V14.625C14.25 14.9766 13.9766 15.25 13.625 15.25H2.375C2.02344 15.25 1.75 14.9766 1.75 14.625V8.375C1.75 8.02344 2.02344 7.75 2.375 7.75Z"
+                              fill="#8000FF"
+                            />
+                          </svg>
+                        )}
                   </h4>
+                 
                  
                 </div>
                 <div className="gridRow">
@@ -286,7 +302,7 @@ export default function MyCompetationView() {
         <PreviewResetPortfolio  modelOpened={modelOpened3}
           setModelOpened={setModelOpened3} id={deleteGameId}/>
         <InviteCompetitionModel  modelOpened={modelOpened4}
-          setModelOpened={setModelOpened4} id={deleteGameId}/>
+          setModelOpened={setModelOpened4} id={deleteGameId} data={editData}/>
       {/* <div className="innerBlock">
         <div class="p-20">
           <h4 class="font-16">PAST COMPETITIONS</h4>
