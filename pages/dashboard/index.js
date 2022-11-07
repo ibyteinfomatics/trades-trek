@@ -85,7 +85,7 @@ export default function Home() {
         </div>
 
         {/* Watchlist */}
-        { moment(new Date()).format("YYYY-MM-DD")<=moment(user?.expiredDate).format("YYYY-MM-DD") &&  <div className="card--wrapper">
+        { moment(new Date()).format("YYYY-MM-DD")<=moment(user?.user?.expiredDate).format("YYYY-MM-DD") &&  <div className="card--wrapper">
           <div className="wrapper--hgroup">
             <div className="wrapper--title">
               <h3>Watchlist</h3>
@@ -114,7 +114,7 @@ export default function Home() {
         </div>}
 
         {/* 3 blocks wraps */}
-      {moment(new Date()).format("YYYY-MM-DD")<=moment(user?.expiredDate).format("YYYY-MM-DD") && <div className="card--wrapper">
+      {moment(new Date()).format("YYYY-MM-DD")<=moment(user?.user?.expiredDate).format("YYYY-MM-DD") && <div className="card--wrapper">
         <div className="wrapper--text card--grid card--grid--3">
           {/* Top Gainers */}
           <div className="wrapper--col">
