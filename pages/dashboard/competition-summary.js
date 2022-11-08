@@ -9,6 +9,7 @@ import CreateCompetation from '../../components/Competition/CreateCompetition';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import SelectGame from '../../components/SelectGame/SelectGame';
+import WinnerListView from '../../components/Competition/CompetitionListView';
 
 export default function CompetationSummery() {
     const [beginnerOption, setBeginnerOption] = useState(false);
@@ -61,6 +62,8 @@ export default function CompetationSummery() {
                                     <Tab>My Competitions</Tab>
                                     <Tab>Join Competition</Tab>
                                     <Tab>Create Competition</Tab>
+                                    <Tab>Winner List</Tab>
+
                                 </TabList>
                                 <TabPanel className="tab-content-gap">
                                     <div className='myCompetation'>
@@ -80,6 +83,11 @@ export default function CompetationSummery() {
                                 <TabPanel className="tab-content-gap">
                                     <div className='summeryData'>
                                         <CreateCompetation />
+                                    </div>
+                                </TabPanel>
+                                <TabPanel className="tab-content-gap">
+                                    <div className='summeryData'>
+                                        <WinnerListView />
                                     </div>
                                 </TabPanel>
                             </Tabs>

@@ -12,9 +12,8 @@ const userSubject = new BehaviorSubject(
 function createGame(data) {
   data.dateRange = `${data.startDate} ${data.endDate}`;
   data.startingCash = Number(data.startingCash);
-  delete data.startDate;
-  delete data.endDate;
-  // console
+  data.startDate=new Date(data.startDate)
+  
   return fetchWrapper
     .post(`${baseUrl}/game/createGame`, data)
 
@@ -35,8 +34,8 @@ function createGame(data) {
 function updateGame(data, gameId) {
   data.dateRange = `${data.startDate} ${data.endDate}`;
 
-  delete data.startDate;
-  delete data.endDate;
+  // delete data.startDate;
+  // delete data.endDate;
   // console
   return fetchWrapper
     .patch(`${baseUrl}/game/update/${gameId}`, data)
@@ -201,6 +200,22 @@ function inviteGame(data) {
       return error;
     });
 }
+
+function getWinner(){
+  return fetchWrapper
+    .get(`${baseUrl}/winnerlist?gameId=${localStorage.getItem('GameId')}`)
+
+    .then((res) => {
+      
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 export const gameService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -215,5 +230,6 @@ export const gameService = {
   deleteGame,
   portfolioResetting,
   allRank,
-  inviteGame
+  inviteGame,
+  getWinner
 };

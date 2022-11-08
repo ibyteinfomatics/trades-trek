@@ -162,7 +162,7 @@ AllRank(page)
                     renderOnZeroPageCount={null}
                   />
                 </div>}
-      {showAllUser? <div className="wrapper--hgroup">
+      {showAllUser && <div className="wrapper--hgroup">
           <div className="wrapper--title">
           </div>
           <div className="readmore--link">
@@ -170,9 +170,19 @@ AllRank(page)
               <a className="text--purple" onClick={()=>{setShowAllUser(false)}}>Collapse View</a>
             </Link>
           </div>
-        </div>:<div className="wrapper--hgroup">
+        </div>}
+        {nearResult.length>0 && <div className="wrapper--hgroup">
           <div class="wrapper--title">
             <h3>RESULTS NEAR YOUR RANK</h3>
+          </div>
+          <div class="readmore--link">
+            <Link href='#' >
+              <a className="text--purple" onClick={()=>{setShowAllUser(true)}}>See All</a>
+            </Link>
+          </div>
+        </div>}
+        {!showAllUser &&<div className="wrapper--hgroup">
+          <div class="wrapper--title">
           </div>
           <div class="readmore--link">
             <Link href='#' >
