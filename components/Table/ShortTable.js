@@ -75,11 +75,13 @@ export default function ShortTable({ rows, tableStatus ,setRefresh,refresh}) {
       {!effect? <div className="trade-order-status">
         <div className="order--table--responsive">
           <table className="order-table">
+            <thead>
             <tr>
-              {columns.map((item) => {
-                return <th>{item}</th>;
+              {columns.map((item,index) => {
+                return <th key={index}>{item}</th>;
               })}
             </tr>
+            </thead>
             {rows && rows.map((item) => {
               return (
                 <tr>

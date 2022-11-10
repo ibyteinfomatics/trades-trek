@@ -11,9 +11,9 @@ export default function HighlightTrades() {
           {HighlightTradeLists.map((data, index) => {
             if(index <= 7){
             return (
-              <>
+            
                 <TradeLists key={index} listData={data} />
-              </>
+           
             );
             }
           })}

@@ -201,9 +201,9 @@ function inviteGame(data) {
     });
 }
 
-function getWinner(){
+function getWinner(date){
   return fetchWrapper
-    .get(`${baseUrl}/winnerlist?gameId=${localStorage.getItem('GameId')}`)
+    .get(`${baseUrl}/winnerlist?gameId=${localStorage.getItem('GameId')}&date=${date}`)
 
     .then((res) => {
       

@@ -28,16 +28,6 @@ export default function Sidebar() {
   }, [router.asPath])
   
 
-  // useEffect(() => {
-  //   userService
-  //     .userInfo()
-  //     .then((res) => {
-  //       dispatch(setUser(res.message));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [openOrder]);
   useEffect(()=>{
     userService
       .userInfo()
@@ -46,13 +36,7 @@ export default function Sidebar() {
         dispatch(setUser(res.data));
 
       }
-      // else
-      //   if(router.asPath=='/dashboard/competition-summary/'){
-      //     dispatch(setUser(res.message));
-      //     router.push('/dashboard/subscription')
-      //   }
-
-      // // 
+      
       
       }
       )
@@ -73,7 +57,7 @@ export default function Sidebar() {
     }
   },[router.asPath,user])
 
-  // const Login = async () => {};
+
 
   return (
     <>
@@ -95,7 +79,7 @@ export default function Sidebar() {
         <div className="form--site--logo">
           <Image
             src="/images/purple--logo.svg"
-            alt=""
+            alt="responsive"
             layout="responsive"
             width={206}
             height={46}
@@ -133,7 +117,7 @@ export default function Sidebar() {
                     />
                   </span>{' '}
                   Home
-                  {/* <p onClick={() => Login()}>Time </p> */}
+                
                 </a>
               </Link>
             </li>

@@ -334,7 +334,7 @@ export default function CreateCompetation() {
                     className="form--control"
                   >
                     {Array.from({ length: 20 }, (_, i) => {
-                      return <option value={i + 1}>{i + 1} minutes</option>;
+                      return <option key={i} value={i + 1}>{i + 1} minutes</option>;
                     })}
                   </select>
                 </div>
@@ -350,7 +350,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 20 }, (_, i) => {
                       return (
-                        <option value={(i + 1) * 5}>{(i + 1) * 5} %</option>
+                        <option key={i} value={(i + 1) * 5}>{(i + 1) * 5} %</option>
                       );
                     })}
                   </select>
@@ -365,7 +365,7 @@ export default function CreateCompetation() {
 
                     {Array.from({ length: 32 }, (_, i) => {
                       return (
-                        <option value={(i + 1) * 15}>
+                        <option key={i} value={(i + 1) * 15}>
                           {(i + 1) * 15} minutes
                         </option>
                       );
@@ -384,7 +384,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
+                        <option key={i} value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -401,7 +401,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
+                        <option key={i} value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -421,7 +421,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
+                        <option key={i} value={i + 1}>₦ {(i + 1).toFixed(2)}</option>
                       );
                     })}
                   </select>
@@ -435,7 +435,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 30 }, (_, i) => {
                       return (
-                        <option value={i + 0.99}>
+                        <option key={i} value={i + 0.99}>
                           ₦ {(i + 0.99).toFixed(2)}
                         </option>
                       );
@@ -454,7 +454,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
+                        <option key={i} value={(i + 1) * 10}>{(i + 1) * 10} %</option>
                       );
                     })}
                   </select>
@@ -472,7 +472,7 @@ export default function CreateCompetation() {
                     <option value="Disabled">Disabled</option>
                     {Array.from({ length: 10 }, (_, i) => {
                       return (
-                        <option value={(i + 1) * 10}>{(i + 1) * 10} %</option>
+                        <option key={i} value={(i + 1) * 10}>{(i + 1) * 10} %</option>
                       );
                     })}
                   </select>

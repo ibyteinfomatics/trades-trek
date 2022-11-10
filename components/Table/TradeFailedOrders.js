@@ -60,14 +60,17 @@ export default function TradeFailedOrders({ modelOpened }) {
       {failedOrders && (
         <div className="order--table--responsive">
           <table className="order-table">
+            <thead>
             <tr>
-              {columns.map((item) => {
-                return <th>{item}</th>;
+              {columns.map((item,index) => {
+                return <th key={index}>{item}</th>;
               })}
             </tr>
-            {failedOrders?.map((item) => {
+            </thead>
+           <thead>
+           {failedOrders?.map((item ,index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>
                     {DataConvert(item.updatedAt)}{" "}
                     <span className="order-time">
@@ -109,6 +112,7 @@ export default function TradeFailedOrders({ modelOpened }) {
                 </tr>
               );
             })}
+           </thead>
           </table>
           {failedAllPage > 1 && (
             <div className="paginationReact tablepaginate">

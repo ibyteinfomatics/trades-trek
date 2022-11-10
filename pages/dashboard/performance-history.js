@@ -103,13 +103,16 @@ export default function PerformanceHistory() {
                 {userHistoryData.length>0 ? (
                   <div>
                     <table className="order-table">
+                      <thead>
                       <tr>
-                        {columns.map((item) => {
-                          return <th>{item}</th>;
+                        {columns.map((item,index) => {
+                          return <th key={index}>{item}</th>;
                         })}
                       </tr>
-                      {userHistoryData.map((item) => (
-                        <tr>
+                      </thead>
+                    <tbody>
+                    {userHistoryData.map((item,index) => (
+                        <tr key={index}>
                           <td>{DataConvert(item.createdAt)}</td>
                           <td>{item.cash.toFixed(2)}</td>
                           <td>{item.stockPortfolio.toFixed(2)}</td>
@@ -117,6 +120,7 @@ export default function PerformanceHistory() {
                           <td>{item.accountValue.toFixed(2)}</td>
                         </tr>
                       ))}
+                    </tbody>
                     </table>
                     
                   </div>

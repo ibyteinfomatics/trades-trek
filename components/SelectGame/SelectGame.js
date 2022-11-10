@@ -59,7 +59,7 @@ const  SelectGame = () => {
           >
            {
             game?.map((item,index)=>{
-              return <option key={index} value={item?.gameId?._id} selected={item?.gameId?._id==gameId} >{item?.gameId?.competitionName}</option>
+              return <option key={index} value={item?.gameId?._id} defaultValue={item?.gameId?._id==gameId} >{item?.gameId?.competitionName}</option>
             })
            }
           </select>

@@ -35,9 +35,9 @@ export default function Sub() {
                 alignItems: "center",
               }}
             >
-              {allSubscription?.map((item) => {
+              {allSubscription?.map((item,index) => {
                 return (
-                  <div className="block--info">
+                  <div key={index} className="block--info">
                     <div className="info--title">
                       <span>{item?.packageAmount}</span>
                       <span>{item?.packageDuration.toUpperCase()} Fee</span>

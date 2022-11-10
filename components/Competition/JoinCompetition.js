@@ -84,9 +84,9 @@ const handlePageClick=({ selected })=>{
             </tr>
           </thead>
           <tbody>
-            {allGame?.map((item) => {
+            {allGame?.map((item,index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>
                     <div className="font--normal font-16">
                       <div className="flexBox">

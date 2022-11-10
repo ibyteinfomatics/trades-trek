@@ -40,14 +40,17 @@ export default function PendingOrderTable({columns,rows,tableStatus}) {
       
       <div className="order--table--responsive">
         <table className="order-table">
+          <thead>
           <tr>
-            {columns.map((item)=>{
-              return <th>{item}</th>
+            {columns.map((item,index)=>{
+              return <th key={index}>{item}</th>
             })}
           
           </tr>
-          {rows?.map((item)=>{
-            return <tr>
+          </thead>
+         <tbody>
+         {rows?.map((item,index)=>{
+            return <tr key={index}>
               <td>
               {DataConvert(item.createdAt)} <span className="order-time">{TimeConverter(item.createdAt)}</span>
             </td>
@@ -94,6 +97,7 @@ export default function PendingOrderTable({columns,rows,tableStatus}) {
             {modelOpened &&<CancelProduct modelOpened={modelOpened} setModelOpened={setModelOpened} id={Id}/>}
           </tr>
           })}
+         </tbody>
         </table>
       </div>
      

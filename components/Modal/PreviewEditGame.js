@@ -49,22 +49,36 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
   }, [data]);
 
   const handleUpdate = () => {
- 
-        gameService
-          .updateGame({quickSell,marketDelay,dailyVolume,minimumPrice,minimumPriceShort,minimumStockForMargin,startDate,endDate,allowLateEntry,allowPortfolioViewing,allowPortfolioResetting,cashInterest,marginInterest },data[0]?._id)
-          .then((res) => {
-            if (res.success == false) {
-              setErrorStatus(true);
-              setError(res.message);
-            } else {
-              setError();
-              setErrorStatus(false);
-              setModelOpened(false);
-            }
-          })
-          .catch((err) => console.log(err));
-      
-   
+    gameService
+      .updateGame(
+        {
+          quickSell,
+          marketDelay,
+          dailyVolume,
+          minimumPrice,
+          minimumPriceShort,
+          minimumStockForMargin,
+          startDate,
+          endDate,
+          allowLateEntry,
+          allowPortfolioViewing,
+          allowPortfolioResetting,
+          cashInterest,
+          marginInterest,
+        },
+        data[0]?._id
+      )
+      .then((res) => {
+        if (res.success == false) {
+          setErrorStatus(true);
+          setError(res.message);
+        } else {
+          setError();
+          setErrorStatus(false);
+          setModelOpened(false);
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <Modal
@@ -113,21 +127,21 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
             <div className="row-block">
               <p className="font-18 ">
                 <span className="font--bold">Timing</span>
-                <p>{`${data[0]?.dateRange.split(" ")[0]} - ${
+                <span>{`${data[0]?.dateRange.split(" ")[0]} - ${
                   data[0]?.dateRange.split(" ")[1] == "null"
                     ? "No End"
                     : data[0]?.dateRange.split(" ")[1]
-                } `}</p>{" "}
+                } `}</span>{" "}
               </p>
               <p className="font-18 ">
                 <span className="font--bold">NUMBER OF PLAYERS</span>
-                <p>{data[0]?.users?.length}</p>
+                <span>{data[0]?.users?.length}</span>
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">
                 <span className="font--bold"> STARTING CASH</span>
-                <p>{data[0]?.startingCash.toFixed(2)}</p>
+                <span>{data[0]?.startingCash.toFixed(2)}</span>
               </p>
             </div>
 
@@ -183,7 +197,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
 
             <div className="row-block">
               <p className="font-18 ">Late Entry</p>
-              <p className="font-18 ">
+             
                 <div className="box_1">
                   <input
                     value={allowLateEntry}
@@ -193,12 +207,11 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                     className="switch_1"
                   />
                 </div>
-                {/* {data[0]?.allowLateEntry ? "Yes" : "No"} */}
-              </p>
+              
             </div>
             <div className="row-block">
               <p className="font-18 ">Portfolio Viewing</p>
-              <p className="font-18 ">
+           
                 <div className="box_1">
                   <input
                     checked={allowPortfolioViewing}
@@ -209,11 +222,9 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                   />
                 </div>
                 {/* {data[0]?.allowLateEntry ? "Yes" : "No"} */}
-              </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Portfolio Resetting</p>
-              <p className="font-18 ">
                 <div className="box_1">
                   <input
                     checked={allowPortfolioResetting}
@@ -225,8 +236,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                     className="switch_1"
                   />
                 </div>
-                {/* {data[0]?.allowLateEntry ? "Yes" : "No"} */}
-              </p>
+            
             </div>
 
             <h1
@@ -245,141 +255,166 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
 
             <div className="row-block">
               <p className="font-18 ">Market Delay</p>
-              <p className="font-18 ">
-              <select
-              onChange={(e)=>setMarketDelay(e.target.value)}
-          //     className="form--control"
-              // className="form--control"
-              >
-                {Array.from({ length: 20 }, (_, i) => {
-                  return (
-                    <option
-                      selected={i + 1 ==marketDelay}
-                      value={i + 1}
-                    >
-                      {i + 1} minutes
-                    </option>
-                  );
-                })}
-              </select>
-              </p>
+                <select
+                  onChange={(e) => setMarketDelay(e.target.value)}
+                  //     className="form--control"
+                  // className="form--control"
+                >
+                  {Array.from({ length: 20 }, (_, i) => {
+                    return (
+                      <option
+                        defaultValue={i + 1 == marketDelay}
+                        value={i + 1}
+                        key={i}
+                      >
+                        {i + 1} minutes
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
             <div className="row-block">
               <p className="font-18 ">Daily Volume</p>
-              <p className="font-18 ">
-              <select
-                onChange={(e)=>setDailyVolume(e.target.value)}
-                    // className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 20 }, (_, i) => {
-                      return (
-                        <option selected={(i + 1)*5 ==dailyVolume} value={(i + 1) * 5}>{(i + 1) * 5} %</option>
-                      );
-                    })}
-                  </select>
-              </p>
+                <select
+                  onChange={(e) => setDailyVolume(e.target.value)}
+                  // className="form--control"
+                >
+                  <option value="Disabled">Disabled</option>
+                  {Array.from({ length: 20 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={(i + 1) * 5 == dailyVolume}
+                        value={(i + 1) * 5}
+                      >
+                        {(i + 1) * 5} %
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
             <div className="row-block">
               <p className="font-18 ">Quick Sell</p>
-              <p className="font-18 ">
-              <select onChange={(e)=>setQuickSell(e.target.value)}>
-                    <option value="Disabled">Disabled</option>
+                <select onChange={(e) => setQuickSell(e.target.value)}>
+                  <option value="Disabled">Disabled</option>
 
-                    {Array.from({ length: 32 }, (_, i) => {
-                      return (
-                        <option selected={(i + 1)*5 ==quickSell} value={(i + 1) * 15}>
-                          {(i + 1) * 15} minutes
-                        </option>
-                      );
-                    })}
-                  </select>
-              </p>
+                  {Array.from({ length: 32 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={(i + 1) * 5 == quickSell}
+                        value={(i + 1) * 15}
+                      >
+                        {(i + 1) * 15} minutes
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
             <div className="row-block">
               <p className="font-18 ">Minimum Price</p>
-              <p className="font-18 ">
-              <select
-               onChange={(e)=>setMinimumPrice(e.target.value)}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option selected={(i + 1) ==minimumPrice} value={i + 1}>$ {(i + 1).toFixed(2)}</option>
-                      );
-                    })}
-                  </select>
-              </p>
+                <select
+                  onChange={(e) => setMinimumPrice(e.target.value)}
+                  className="form--control"
+                >
+                  <option value="Disabled">Disabled</option>
+                  {Array.from({ length: 10 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={i + 1 == minimumPrice}
+                        value={i + 1}
+                      >
+                        $ {(i + 1).toFixed(2)}
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
             <div className="row-block">
               <p className="font-18 ">Minimum Price Short</p>
-              <p className="font-18 ">
-              <select
-                   
-                    className="form--control"
-                    onChange={(e)=>setMinimumPriceShort(e.target.value)}
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option selected={(i + 1) ==minimumPriceShort} value={i + 1}>$ {(i + 1).toFixed(2)}</option>
-                      );
-                    })}
-                  </select>
-              </p>
+                <select
+                  className="form--control"
+                  onChange={(e) => setMinimumPriceShort(e.target.value)}
+                >
+                  <option value="Disabled">Disabled</option>
+                  {Array.from({ length: 10 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={i + 1 == minimumPriceShort}
+                        value={i + 1}
+                      >
+                        $ {(i + 1).toFixed(2)}
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
             <div className="row-block">
               <p className="font-18 ">Minimum Stock For Margin</p>
-              <p className="font-18 ">
-              <select
-                   onChange={(e)=>setMinimumStockForMargin(e.target.value)}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option  selected={(i + 1) ==minimumStockForMargin} value={i + 1}>$ {(i + 1).toFixed(2)}</option>
-                      );
-                    })}
-                  </select>
-              </p>
+                <select
+                  onChange={(e) => setMinimumStockForMargin(e.target.value)}
+                  className="form--control"
+                >
+                  <option value="Disabled">Disabled</option>
+                  {Array.from({ length: 10 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={i + 1 == minimumStockForMargin}
+                        value={i + 1}
+                      >
+                        $ {(i + 1).toFixed(2)}
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
-           
+
             <div className="row-block">
               <p className="font-18 ">Margin Interest</p>
-              <p className="font-18 ">
-              <select
-                onChange={(e)=>setMarginInterest(e.target.value)}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option selected={(i + 1) * 10==marginInterest} value={(i + 1) * 10}>{(i + 1) * 10} %</option>
-                      );
-                    })}
-                  </select>
-              </p>
+                <select
+                  onChange={(e) => setMarginInterest(e.target.value)}
+                  className="form--control"
+                >
+                  <option value="Disabled">Disabled</option>
+                  {Array.from({ length: 10 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={(i + 1) * 10 == marginInterest}
+                        value={(i + 1) * 10}
+                      >
+                        {(i + 1) * 10} %
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
             <div className="row-block">
               <p className="font-18 ">Cash Interest</p>
-              <p className="font-18 ">
-              <select
-                   onChange={(e)=>setCashInterest(e.target.value)}
-                    className="form--control"
-                  >
-                    <option value="Disabled">Disabled</option>
-                    {Array.from({ length: 10 }, (_, i) => {
-                      return (
-                        <option selected={(i + 1) * 10==cashInterest} value={(i + 1) * 10}>{(i + 1) * 10} %</option>
-                      );
-                    })}
-                  </select>
-              </p>
+                <select
+                  onChange={(e) => setCashInterest(e.target.value)}
+                  className="form--control"
+                >
+                  <option value="Disabled">Disabled</option>
+                  {Array.from({ length: 10 }, (_, i) => {
+                    return (
+                      <option
+                        key={i}
+                        defaultValue={(i + 1) * 10 == cashInterest}
+                        value={(i + 1) * 10}
+                      >
+                        {(i + 1) * 10} %
+                      </option>
+                    );
+                  })}
+                </select>
             </div>
-            <button onClick={handleUpdate} className="btn">Update Game Rule</button>
-
+            <button onClick={handleUpdate} className="btn">
+              Update Game Rule
+            </button>
           </div>
         </div>
       )}

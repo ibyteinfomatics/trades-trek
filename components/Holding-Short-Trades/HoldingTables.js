@@ -25,7 +25,7 @@ const HoldingTables = () => {
 
   useEffect(() => {
     getAllHolding(currentPage);
-  }, [currentPage,user]);
+  }, [currentPage, user]);
 
   const getAllHolding = (page) => {
     setIsLoading(true);
@@ -49,7 +49,7 @@ const HoldingTables = () => {
             (res.totalGainOrLoss * 100) /
               (res.holdingCurrent - res.totalGainOrLoss)
           );
-        }else{
+        } else {
           setHolding([]);
 
           setAllPage(1);
@@ -57,11 +57,8 @@ const HoldingTables = () => {
           setHoldingPurchanse(0);
           setTotalTodayChange(0);
           setTotalGainOrLoss(0);
-          setTodayChangePer(
-0          );
-          setTotalChangePer(
-            0
-          );
+          setTodayChangePer(0);
+          setTotalChangePer(0);
         }
         setIsLoading(false);
       })
@@ -84,13 +81,11 @@ const HoldingTables = () => {
   ];
 
   const handledMoreBuy = (stock) => {
-    
     orderService
       .StockDetail(stock.symbol)
       .then((res) => {
-      
         let data = { action: "Buy", quantity: stock.quantity, ...res };
-       
+
         localStorage.setItem("stock", JSON.stringify(data));
         router.push({
           pathname: "/dashboard/trade-stocks/",
@@ -131,31 +126,38 @@ const HoldingTables = () => {
           <div className="order--table--responsive">
             {holding.length > 0 && (
               <table>
-                <tr>
-                  <td>TOTAL VALUE</td>
-                  <td>TODAY'S CHANGE</td>
-                  <td>TODAY GAIN/LOSS</td>
-                </tr>
-                <tr>
+                <thead>
+                  <tr>
+                    <td>TOTAL VALUE</td>
+                    <td>TODAY'S CHANGE</td>
+                    <td>TODAY GAIN/LOSS</td>
+                  </tr>
+                </thead>
+               <tbody>
+               <tr>
                   <td>
                     <h1>₦{holdingCurrent.toFixed(2)}</h1>
                   </td>
                   {IncreaseDecrease(totalTodayChange, todayChangePer)}
                   {IncreaseDecrease(totalGainOrLoss, totalChangePer)}
                 </tr>
+               </tbody>
               </table>
             )}
             {holding.length > 0 && <hr style={{ marginTop: "50px" }} />}
             {holding.length > 0 ? (
               <div>
                 <table className="order-table">
+                  <thead>
                   <tr>
-                    {columns.map((item) => {
-                      return <th>{item}</th>;
+                    {columns.map((item ,index) => {
+                      return <th key={index}>{item}</th>;
                     })}
                   </tr>
-                  {holding.map((item) => (
-                    <tr>
+                  </thead>
+                 <tbody>
+                 {holding.map((item,index) => (
+                    <tr key={index}>
                       <td>{item.symbol}</td>
                       <td>{item.description}</td>
                       <td>₦{item.currentPrice.toFixed(2)}</td>
@@ -192,6 +194,7 @@ const HoldingTables = () => {
                       </td>
                     </tr>
                   ))}
+                 </tbody>
                 </table>
               </div>
             ) : (

@@ -1,36 +1,34 @@
 import { Modal, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import {orderService} from '../../services/order.service'
+import { orderService } from "../../services/order.service";
 import { useDispatch } from "react-redux";
 import { setOpenStock } from "../../actions/openOrder";
-
-function CancelProduct({ modelOpened, setModelOpened,id }) {
-
+import PropTypes from "prop-types";
+function CancelProduct({ modelOpened, setModelOpened, id }) {
   const router = useRouter();
   const theme = useMantineTheme();
-  const dispatch=useDispatch()
- const cancelOrder=(id)=>{
-   orderService.cancelOrder(id).then((res)=>{
-    setModelOpened(false);
-    orderService.getPendingOrders(1).then((res)=>{
-      if(res.success){
-        dispatch(setOpenStock(res.pendings.docs))
-   
-        
-
-      }else{
-        dispatch(setOpenStock([]))
-      }
-      
-    }).catch((err)=>console.log(err))
-    
-   
-   }).catch((err)=>{
-    console.log(err)
-   })
- }
- 
+  const dispatch = useDispatch();
+  const cancelOrder = (id) => {
+    orderService
+      .cancelOrder(id)
+      .then((res) => {
+        setModelOpened(false);
+        orderService
+          .getPendingOrders(1)
+          .then((res) => {
+            if (res.success) {
+              dispatch(setOpenStock(res.pendings.docs));
+            } else {
+              dispatch(setOpenStock([]));
+            }
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Modal
@@ -53,21 +51,29 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
         <h2 style={{ textAlign: "center", margin: "20px 10px" }}>
           <b>Do you want to Cancel Product</b>
         </h2>
-      
-        <div style={{border: "1px solid #c9cdd1",marginTop:"40px"}}>
-          <button style={{width:"50%",borderRight: "0.5px solid #c9cdd1",padding:'10px'}}
-            onClick={() => {
-             
-              cancelOrder(id)
+
+        <div style={{ border: "1px solid #c9cdd1", marginTop: "40px" }}>
+          <button
+            style={{
+              width: "50%",
+              borderRight: "0.5px solid #c9cdd1",
+              padding: "10px",
             }}
-            className='done'
+            onClick={() => {
+              cancelOrder(id);
+            }}
+            className="done"
           >
             Yes
           </button>
           <button
             onClick={() => setModelOpened(false)}
-            style={{width:"50%",borderRight: "0.5px solid #c9cdd1",padding:'10px'}}
-            className='cancel'
+            style={{
+              width: "50%",
+              borderRight: "0.5px solid #c9cdd1",
+              padding: "10px",
+            }}
+            className="cancel"
           >
             Cancel
           </button>
@@ -76,5 +82,9 @@ function CancelProduct({ modelOpened, setModelOpened,id }) {
     </Modal>
   );
 }
-
+CancelProduct.propTypes={
+  modelOpened:PropTypes.bool,
+  setModelOpened:PropTypes.func,
+  id:PropTypes.string
+}
 export default CancelProduct;

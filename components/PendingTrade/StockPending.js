@@ -51,14 +51,17 @@ useEffect(()=>{
       {tableData && (
         <div className="order--table--responsive">
           <table className="order-table">
-            <tr>
-              {columns.map((item) => {
-                return <th>{item}</th>;
+           <thead>
+           <tr>
+              {columns.map((item,index) => {
+                return <th key={index}>{item}</th>;
               })}
             </tr>
-            {tableData?.map((item) => {
+           </thead>
+           <tbody>
+           {tableData?.map((item,index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>
                     {DataConvert(item.createdAt)}{" "}
                     <span className="order-time">
@@ -129,6 +132,7 @@ useEffect(()=>{
                 </tr>
               );
             })}
+           </tbody>
           </table>
         
         </div>

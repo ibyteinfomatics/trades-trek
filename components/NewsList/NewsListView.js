@@ -19,9 +19,9 @@ export const NewsListData2 = () => {
         <>
             {NewsList.map((data, index) => {
                 return(
-                    <>
+                    
                         <NewsListCard key={index} listData={data} />
-                    </>
+                 
                 )
             })}
         </>

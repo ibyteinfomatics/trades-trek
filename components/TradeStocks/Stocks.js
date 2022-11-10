@@ -208,12 +208,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               <Select
                 aria-labelledby="aria-label"
                 isDisabled={stockAllData.length>0?false:true}
-                // ariaLiveMessages={{
-                //   onFocus
-                // }}
-        // theme={theme}
-        // styles={colourStyles}
-                // isOptionSelected={search}
+              
                 placeholder='Search for Symbol'
                
                 onInputChange={inputChange}

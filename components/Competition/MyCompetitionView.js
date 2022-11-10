@@ -102,9 +102,9 @@ export default function MyCompetationView() {
       </div>
       {myGame && (
         <div >
-          {myGame.map((item) => {
+          {myGame.map((item,index) => {
             return (
-              <div className="connectionBlock">
+              <div key={index}  className="connectionBlock">
                 <div className="titleBox px-32 py-16">
                   <h4 className="font-18 font--bold mb-12">
                     {item.competitionName} {item.creatorId==user?.user?._id &&  <span style={{
@@ -304,8 +304,8 @@ export default function MyCompetationView() {
         <InviteCompetitionModel  modelOpened={modelOpened4}
           setModelOpened={setModelOpened4} id={deleteGameId} data={editData}/>
       {/* <div className="innerBlock">
-        <div class="p-20">
-          <h4 class="font-16">PAST COMPETITIONS</h4>
+        <div className="p-20">
+          <h4 className="font-16">PAST COMPETITIONS</h4>
         </div>
         <div className="myConn px-32 py-16">
           <p className="flexBox gap--4">
@@ -322,90 +322,3 @@ export default function MyCompetationView() {
     </>
   );
 }
-
-// <div className="connectionBlock">
-//           <div className="titleBox px-32 py-16">
-//             <h4 className="font-18 font--bold mb-12">
-//               TradesTrek Trading Game
-//             </h4>
-//           </div>
-//           <div className="gridRow">
-//             <div className="grid--2 px-32 pb-32">
-//               <div className="colLeftBlock">
-//                 <p>
-//                   The default game for the Investopedia Simulator. This is a
-//                   public game with no trade commission and $100,000 starting
-//                   cash. Have fun!
-//                 </p>
-//               </div>
-//               <div className="colRightBlock">
-//                 <div className="flexBox endBlock">
-//                   <div className="colBlock">
-//                     <p className="font-17 font--normal">TIMING</p>
-//                     <h2 className="font-17 font--bold">
-//                       March 29, 2021 - No End
-//                     </h2>
-//                   </div>
-//                   <div className="colBlock">
-//                     <p className="font-17 font--normal">CURRENT RANK</p>
-//                     <h2 className="font-17 font--bold flexBox">
-//                       266,745
-//                       <span className="font-17 font--normal flexBox">
-//                         <svg
-//                           className="ml-12 mr-12"
-//                           width="13"
-//                           height="14"
-//                           viewBox="0 0 18 18"
-//                           fill="none"
-//                         >
-//                           <path
-//                             d="M9 0.445312L8.46094 0.960937L0.960938 8.46094L2.03906 9.53906L8.25 3.32812V18H9.75V3.32812L15.9609 9.53906L17.0391 8.46094L9.53906 0.960937L9 0.445312Z"
-//                             fill="#00FFA0"
-//                           ></path>
-//                         </svg>
-//                         of 364,664 Players
-//                       </span>
-//                     </h2>
-//                   </div>
-//                   <div className="colBlock">
-//                     <p className="font-17 font--normal">YOUR ACCOUNT VALUE</p>
-//                     <h2 className="font-17 font--bold text--purple">
-//                       $98,351.00
-//                     </h2>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className="grid--2 px-32 pb-26">
-//               <div className="colLeftBlock">
-//                 <div className="competation-rules">
-//                   <h5 className="font-16 text--purple">
-//                     Competition Rules
-//                     <span>
-//                       <svg width="7" height="12" viewBox="0 0 8 13" fill="none">
-//                         <path
-//                           d="M0.734375 0.0234375L0.015625 0.726562L5.67578 6.5L0.015625 12.2773L0.734375 12.9727L7.07422 6.5L0.734375 0.0234375Z"
-//                           fill="#8000FF"
-//                         />
-//                       </svg>
-//                     </span>
-//                   </h5>
-//                 </div>
-//               </div>
-//               <div className="colRightBlock">
-//                 <div className="btn--right">
-//                   <div className="borderBtnPurple">
-//                     <Link href="#">
-//                       <a href="javascript:void(0)">INVITE TO COMPETITION</a>
-//                     </Link>
-//                   </div>
-//                   <div className="borderBtnPurple fullBtnPurple">
-//                     <Link href="#">
-//                       <a href="javascript:void(0)">GO TO COMPETITION</a>
-//                     </Link>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>

@@ -180,21 +180,21 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
             <div className="row-block">
               <p className="font-18 ">
                 <span className="font--bold">Timing</span>
-                <p>{`${data[0]?.dateRange.split(" ")[0]} - ${
+                <span>{`${data[0]?.dateRange.split(" ")[0]} - ${
                   data[0]?.dateRange.split(" ")[1] == "null"
                     ? "No End"
                     : data[0]?.dateRange.split(" ")[1]
-                } `}</p>{" "}
+                } `}</span>{" "}
               </p>
               <p className="font-18 ">
                 <span className="font--bold">NUMBER OF PLAYERS</span>
-                <p>{data[0]?.users?.length}</p>
+                <span>{data[0]?.users?.length}</span>
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">
                 <span className="font--bold"> STARTING CASH</span>
-                <p>{data[0]?.startingCash.toFixed(2)}</p>
+                <span>{data[0]?.startingCash.toFixed(2)}</span>
               </p>
             </div>
             {!data[0]?.users.includes(user?._id) && (
@@ -298,10 +298,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
             >
               ADVANCED GAME RULES
             </h1>
-            {/* <div className='row-block'>
-                <p className='font-18'>Stock Rate</p>
-                <p className='font-18'>{(data.orderType == 'Market' ? data?.Last : data.rate )}</p>
-            </div> */}
+        
 
             <div className="row-block">
               <p className="font-18 ">Market Delay</p>

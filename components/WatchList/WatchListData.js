@@ -8,9 +8,9 @@ export default function WatchListData() {
             {WatchList.map((data, index) => {
                 if(index <=3){
                     return(
-                        <>
+                      
                             <WatchListCard key={index} listData={data} />
-                        </>
+                       
                     )
                 }
             })}

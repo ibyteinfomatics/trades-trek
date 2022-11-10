@@ -25,7 +25,7 @@ export default function TradeHistory() {
           setTradeHistoryData(res.orders.docs);
           setCurrentPage(res.orders.page);
           setAllPage(res.orders.pages);
-        }else{
+        } else {
           setTradeHistoryData([]);
           setCurrentPage(1);
           setAllPage(1);
@@ -45,7 +45,7 @@ export default function TradeHistory() {
           setAllPage(res.orders.pages);
           setTradeHistoryData(res.orders.docs);
           setIsLoading(false);
-        }else{
+        } else {
           setTradeHistoryData([]);
           setCurrentPage(1);
           setAllPage(1);
@@ -66,7 +66,7 @@ export default function TradeHistory() {
     <>
       <Sidebar />
       <div className="site--content">
-      <SelectGame />
+        <SelectGame />
 
         <div
           className="trade-data"
@@ -83,48 +83,52 @@ export default function TradeHistory() {
           <div className="card-no-gap">
             <div className="trade-order-status">
               {isLoading ? (
-                 <div
-                 style={{
-                   width: "100%",
-                   height: "50vh",
-                   display: "flex",
-                   justifyContent: "center",
-                   alignItems: "center",
-                 }}
-               >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "50vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <Loader color="red" />
-               </div>
+                </div>
               ) : (
                 <div className="order--table--responsive">
-                  {tradeHistoryData?.length>0 ? (
+                  {tradeHistoryData?.length > 0 ? (
                     <div>
                       <table className="order-table">
-                        <tr>
-                          {columns.map((item) => {
-                            return <th>{item}</th>;
-                          })}
-                        </tr>
-                        {tradeHistoryData.map((item) => (
+                        <thead>
                           <tr>
-                            <td>{DataConvert(item.updatedAt)}</td>
-                            <td>{item.symbol}</td>
-                            <td>
-                              {item.action == "Short" ? "Short " : ""}{" "}
-                              {item.action == "Buy To Cover" ? "Cover " : ""}
-                              Stock:{" "}
-                              {item.action == "Buy To Cover"
-                                ? "Cover"
-                                : item.action}{" "}
-                              at{" "}
-                              {item.orderType == "Limit"
-                                ? item.orderType
-                                : `${item.orderType} Open`}
-                            </td>
-                            <td>{item.quantity}</td>
-                            <td>₦{item.rate.toFixed(2)}</td>
-                            <td>₦{(item.rate * item.quantity).toFixed(2)}</td>
+                            {columns.map((item, index) => {
+                              return <th key={index}>{item}</th>;
+                            })}
                           </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                          {tradeHistoryData.map((item, index) => (
+                            <tr key={index}>
+                              <td>{DataConvert(item.updatedAt)}</td>
+                              <td>{item.symbol}</td>
+                              <td>
+                                {item.action == "Short" ? "Short " : ""}{" "}
+                                {item.action == "Buy To Cover" ? "Cover " : ""}
+                                Stock:{" "}
+                                {item.action == "Buy To Cover"
+                                  ? "Cover"
+                                  : item.action}{" "}
+                                at{" "}
+                                {item.orderType == "Limit"
+                                  ? item.orderType
+                                  : `${item.orderType} Open`}
+                              </td>
+                              <td>{item.quantity}</td>
+                              <td>₦{item.rate.toFixed(2)}</td>
+                              <td>₦{(item.rate * item.quantity).toFixed(2)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
                       </table>
                     </div>
                   ) : (

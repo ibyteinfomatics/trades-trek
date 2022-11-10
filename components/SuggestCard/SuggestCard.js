@@ -14,9 +14,9 @@ const SuggestCard = () => {
     <div className="explore--comp">
       <h3 className="heading3">EXPLORE OTHER POPULAR COMPANIES</h3>
       <div className="explore_flex">
-      {topCompanies && topCompanies.map((item)=>{
+      {topCompanies && topCompanies.map((item,index)=>{
            return(
-            <div className="card--style">
+            <div key={index} className="card--style">
             <div className="card--data">
               <div className="card--row">
                 <ul>
