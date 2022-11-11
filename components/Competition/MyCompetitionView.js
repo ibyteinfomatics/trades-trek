@@ -30,7 +30,11 @@ export default function MyCompetationView() {
   useEffect(() => {
     getAllGame(search,1);
     setPage(1)
-  }, [modelOpened1,modelOpened2,search]);
+  }, [search]);
+  useEffect(() => {
+    getAllGame(search,page);
+  
+  }, [modelOpened1,modelOpened2]);
 
   const getAllGame = (search,current) => {
     gameService

@@ -56,10 +56,11 @@ const  SelectGame = () => {
               setGameId(e.target.value)
               localStorage.setItem('GameId',e.target.value)
             }}
+            value={gameId}
           >
            {
             game?.map((item,index)=>{
-              return <option key={index} value={item?.gameId?._id} defaultValue={item?.gameId?._id==gameId} >{item?.gameId?.competitionName}</option>
+              return <option key={index} value={item?.gameId?._id}  >{item?.gameId?.competitionName}</option>
             })
            }
           </select>

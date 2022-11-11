@@ -80,6 +80,9 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
       })
       .catch((err) => console.log(err));
   };
+  console.log("quick sell",quickSell)
+  console.log("market delay",marketDelay)
+
   return (
     <Modal
       overlayColor={
@@ -257,13 +260,13 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
               <p className="font-18 ">Market Delay</p>
                 <select
                   onChange={(e) => setMarketDelay(e.target.value)}
-                  //     className="form--control"
-                  // className="form--control"
+                 
+                  value={marketDelay}
                 >
                   {Array.from({ length: 20 }, (_, i) => {
                     return (
                       <option
-                        defaultValue={i + 1 == marketDelay}
+                        // defaultValue={i + 1 == marketDelay}
                         value={i + 1}
                         key={i}
                       >
@@ -277,14 +280,15 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
               <p className="font-18 ">Daily Volume</p>
                 <select
                   onChange={(e) => setDailyVolume(e.target.value)}
-                  // className="form--control"
+                
+                  value={dailyVolume}
                 >
                   <option value="Disabled">Disabled</option>
                   {Array.from({ length: 20 }, (_, i) => {
                     return (
                       <option
                         key={i}
-                        defaultValue={(i + 1) * 5 == dailyVolume}
+                       
                         value={(i + 1) * 5}
                       >
                         {(i + 1) * 5} %
@@ -295,14 +299,14 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
             </div>
             <div className="row-block">
               <p className="font-18 ">Quick Sell</p>
-                <select onChange={(e) => setQuickSell(e.target.value)}>
+                <select value={quickSell} onChange={(e) => setQuickSell(e.target.value)}>
                   <option value="Disabled">Disabled</option>
 
                   {Array.from({ length: 32 }, (_, i) => {
                     return (
                       <option
                         key={i}
-                        defaultValue={(i + 1) * 5 == quickSell}
+                      
                         value={(i + 1) * 15}
                       >
                         {(i + 1) * 15} minutes
@@ -315,14 +319,14 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
               <p className="font-18 ">Minimum Price</p>
                 <select
                   onChange={(e) => setMinimumPrice(e.target.value)}
-                  className="form--control"
+                  value={minimumPrice}
                 >
                   <option value="Disabled">Disabled</option>
                   {Array.from({ length: 10 }, (_, i) => {
                     return (
                       <option
                         key={i}
-                        defaultValue={i + 1 == minimumPrice}
+                       
                         value={i + 1}
                       >
                         $ {(i + 1).toFixed(2)}
@@ -334,7 +338,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
             <div className="row-block">
               <p className="font-18 ">Minimum Price Short</p>
                 <select
-                  className="form--control"
+                  value={minimumPriceShort}
                   onChange={(e) => setMinimumPriceShort(e.target.value)}
                 >
                   <option value="Disabled">Disabled</option>
@@ -342,7 +346,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                     return (
                       <option
                         key={i}
-                        defaultValue={i + 1 == minimumPriceShort}
+                       
                         value={i + 1}
                       >
                         $ {(i + 1).toFixed(2)}
@@ -355,14 +359,14 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
               <p className="font-18 ">Minimum Stock For Margin</p>
                 <select
                   onChange={(e) => setMinimumStockForMargin(e.target.value)}
-                  className="form--control"
+                  value={minimumStockForMargin}
                 >
                   <option value="Disabled">Disabled</option>
                   {Array.from({ length: 10 }, (_, i) => {
                     return (
                       <option
                         key={i}
-                        defaultValue={i + 1 == minimumStockForMargin}
+                        
                         value={i + 1}
                       >
                         $ {(i + 1).toFixed(2)}
@@ -376,14 +380,14 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
               <p className="font-18 ">Margin Interest</p>
                 <select
                   onChange={(e) => setMarginInterest(e.target.value)}
-                  className="form--control"
+                  value={marginInterest}
                 >
                   <option value="Disabled">Disabled</option>
                   {Array.from({ length: 10 }, (_, i) => {
                     return (
                       <option
                         key={i}
-                        defaultValue={(i + 1) * 10 == marginInterest}
+                     
                         value={(i + 1) * 10}
                       >
                         {(i + 1) * 10} %
@@ -396,14 +400,14 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
               <p className="font-18 ">Cash Interest</p>
                 <select
                   onChange={(e) => setCashInterest(e.target.value)}
-                  className="form--control"
+                  value={cashInterest}
                 >
                   <option value="Disabled">Disabled</option>
                   {Array.from({ length: 10 }, (_, i) => {
                     return (
                       <option
                         key={i}
-                        defaultValue={(i + 1) * 10 == cashInterest}
+                       
                         value={(i + 1) * 10}
                       >
                         {(i + 1) * 10} %
