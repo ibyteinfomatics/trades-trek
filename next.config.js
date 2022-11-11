@@ -10,7 +10,7 @@ const nextConfig = {
   },
   images: {
     loader: 'imgix',
-    path: 'http://54.242.152.130',
+    path: process.env.NODE_ENV === 'development'?'http://localhost:3000/':'http://dev.tradestrek.com/',
   },
   env: {
     baseApiUrl: 'https://api.keyless.ae',

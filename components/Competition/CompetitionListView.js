@@ -31,6 +31,10 @@ export default function WinnerListView() {
   const findMonth = (data) => {
     let startDate = new Date(data?.startDate);
     let today = new Date();
+    let temp=  new Date(data?.startDate)
+    temp.setMonth(today.getMonth())
+    temp.setFullYear(today.getFullYear())
+    setDate(temp)
     let months = [];
     while (startDate <= today) {
       let month = startDate.toLocaleString(undefined, { month: "long" });
@@ -58,6 +62,7 @@ export default function WinnerListView() {
     getWinner(date);
   }, [date, user]);
 
+
   return (
     <>
       <div className="competation-">
@@ -70,10 +75,11 @@ export default function WinnerListView() {
           <select
             onChange={(e) => setDate(e.target.value)}
             style={{ padding: "10px 20px", margin: "20px 10px" }}
+            value={date}
           >
             {month?.map((item, index) => (
               <option
-                defaultValue={currentGame?.startDate}
+          
                 value={item?.date}
                 key={index}
               >

@@ -33,6 +33,7 @@ function createGame(data) {
 // update game ..........................
 function updateGame(data, gameId) {
   data.dateRange = `${data.startDate} ${data.endDate}`;
+  data.endDate=new Date(data.endDate)
 
   // delete data.startDate;
   // delete data.endDate;

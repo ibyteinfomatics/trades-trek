@@ -103,8 +103,9 @@ export default function MyCompetationView() {
       {myGame && (
         <div >
           {myGame.map((item,index) => {
+           
             return (
-              <div key={index}  className="connectionBlock">
+              <div key={index}   className={item._id===localStorage.getItem('GameId')?"connectionBlock CurrentJoined":"connectionBlock"}>
                 <div className="titleBox px-32 py-16">
                   <h4 className="font-18 font--bold mb-12">
                     {item.competitionName} {item.creatorId==user?.user?._id &&  <span style={{
@@ -149,7 +150,7 @@ export default function MyCompetationView() {
                         <div className="colBlock">
                           <p className="font-17 font--normal">CURRENT RANK</p>
                           <h2 className="font-17 font--bold flexBox">
-                            1
+                            {item.result.rank || "--"}
                             <span className="font-17 font--normal flexBox">
                               <svg
                                 className="ml-12 mr-12"
