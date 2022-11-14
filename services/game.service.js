@@ -217,6 +217,55 @@ function getWinner(date){
       return error;
     });
 }
+
+function getMYPastGame() {
+  // console
+  return fetchWrapper
+    .get(`${baseUrl}/game/myPastGames`)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
+
+function getLeaderBoard(gameId){
+  return fetchWrapper
+    .get(`${baseUrl}/game/leaderboard?gameId=${gameId}`)
+
+    .then((res) => {
+      
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
+function getTradeHistory(gameId){
+  return fetchWrapper
+    .get(`${baseUrl}/game/trade-history?gameId=${gameId}`)
+
+    .then((res) => {
+      
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 export const gameService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -232,5 +281,8 @@ export const gameService = {
   portfolioResetting,
   allRank,
   inviteGame,
-  getWinner
+  getWinner,
+  getMYPastGame,
+  getLeaderBoard,
+  getTradeHistory
 };
