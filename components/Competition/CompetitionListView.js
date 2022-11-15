@@ -54,6 +54,8 @@ export default function WinnerListView() {
       .then((res) => {
         if (res.success) {
           setTop5(res.top);
+        }else{
+          setTop5([])
         }
       })
       .catch((err) => console.log(err));
@@ -90,7 +92,7 @@ export default function WinnerListView() {
         </div>
         <div className="summeyTable">
           <div className="status-summary noRadius font-18 summery-table summeyTable">
-            <table>
+            {top5.length==0?<div style={{width:'100%',margin:'20px 0px', display:'flex',justifyContent:'center'}}>No data available</div>:<table>
               <thead>
                 <tr>
                   <th>Rank</th>
@@ -136,7 +138,7 @@ export default function WinnerListView() {
                   );
                 })}
               </tbody>
-            </table>
+            </table>}
           </div>
         </div>
       </div>

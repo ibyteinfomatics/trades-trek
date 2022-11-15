@@ -72,7 +72,7 @@ function PreviewDeleteGame({ modelOpened, setModelOpened, id }) {
     >
       <div>
         <h2 style={{ textAlign: "center", margin: "20px 10px" }}>
-          <b>Do you want to Delete this game?</b>
+          <b>Do you want to Delete this Competition?</b>
         </h2>
         {error && (
           <h2

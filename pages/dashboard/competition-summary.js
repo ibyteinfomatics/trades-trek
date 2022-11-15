@@ -78,9 +78,7 @@ export default function CompetationSummery() {
                 <TabPanel className="tab-content-gap">
                   <div className="myCompetation">
                     <MyCompetationView />
-                    <div style={{margin:'10px 0px'}}>
-                      <h1 style={{fontSize:"18px"}}>Past Games</h1>
-                    </div>
+                    
                     <PastCompetitionView />
                   </div>
                 </TabPanel>

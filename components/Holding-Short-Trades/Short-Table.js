@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedStock } from "../../actions/setStock";
 import { orderService } from "../../services/order.service";
 import IncreaseDecrease from "../Table/IncreaseDecrease";
@@ -18,13 +18,14 @@ const ShortTable = () => {
   const [totalGainOrLoss, setTotalGainOrLoss] = useState(0);
   const [todayChangePer, setTodayChangePer] = useState(0);
   const [totalChangePer, setTotalChangePer] = useState(0);
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  let { user } = useSelector((state) => state.userWrapper);
 
-  const router=useRouter();
-  const dispatch=useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     orderService
       .shortProfitOrLoss(currentPage)
       .then((res) => {
@@ -44,15 +45,16 @@ const ShortTable = () => {
             (res.totalGainOrLoss * 100) /
               (res.shortCurrent - res.totalGainOrLoss)
           );
+        }else{
+          setShort([]) 
         }
-        setIsLoading(false)
-
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [user]);
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected + 1);
-    setIsLoading(true)
+    setIsLoading(true);
     orderService
       .shortProfitOrLoss(selected + 1)
       .then((res) => {
@@ -73,8 +75,7 @@ const ShortTable = () => {
               (res.shortCurrent - res.totalGainOrLoss)
           );
         }
-        setIsLoading(false)
-
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -94,8 +95,8 @@ const ShortTable = () => {
       .StockDetail(stock.symbol)
       .then((res) => {
         // dispatch(setSelectedStock({ ...res, action: "Buy To Cover" }));
-        let data={action:'Buy To Cover',quantity:stock.quantity,...res}
-        localStorage.setItem('stock',JSON.stringify(data))
+        let data = { action: "Buy To Cover", quantity: stock.quantity, ...res };
+        localStorage.setItem("stock", JSON.stringify(data));
         router.push("/dashboard/trade-stocks/");
       })
       .catch((err) => {
@@ -107,8 +108,8 @@ const ShortTable = () => {
       .StockDetail(stock.symbol)
       .then((res) => {
         // dispatch(setSelectedStock({ ...res, action: "Short" }));
-        let data={action:'Short',quantity:stock.quantity,...res}
-        localStorage.setItem('stock',JSON.stringify(data))
+        let data = { action: "Short", quantity: stock.quantity, ...res };
+        localStorage.setItem("stock", JSON.stringify(data));
         router.push("/dashboard/trade-stocks/");
       })
       .catch((err) => {
@@ -117,131 +118,139 @@ const ShortTable = () => {
   };
   return (
     <div className="card-no-gap">
-    <div className="trade-order-status">
-      {isLoading ? (
-        <div
-          style={{
-            width: "100%",
-            height: "50vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Loader color="red" />
-        </div>
-      ) : (
-        <div className="order--table--responsive">
-          {short.length > 0 && (
-          <table>
-          <tr>
-            <td>TOTAL VALUE</td>
-            <td>TODAY'S CHANGE</td>
-            <td>TODAY GAIN/LOSS</td>
-          </tr>
-          <tr>
-            <td>
-              <h1>₦{shortCurrent.toFixed(2)}</h1>
-            </td>
-            {IncreaseDecrease(totalTodayChange, todayChangePer)}
-            {IncreaseDecrease(totalGainOrLoss, totalChangePer)}
-          </tr>
-        </table>
-          )}
-          {short.length > 0 && <hr style={{ marginTop: "50px" }} />}
-          {short.length > 0 ? (
-            <div>
+      <div className="trade-order-status">
+        {isLoading ? (
+          <div
+            style={{
+              width: "100%",
+              height: "50vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Loader color="red" />
+          </div>
+        ) : (
+          <div className="order--table--responsive">
+            {short.length > 0 && (
+              <table>
+                <thead>
+                  <tr>
+                    <td>TOTAL VALUE</td>
+                    <td>TODAY'S CHANGE</td>
+                    <td>TODAY GAIN/LOSS</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <h1>₦{shortCurrent.toFixed(2)}</h1>
+                    </td>
+                    {IncreaseDecrease(totalTodayChange, todayChangePer)}
+                    {IncreaseDecrease(totalGainOrLoss, totalChangePer)}
+                  </tr>
+                </tbody>
+              </table>
+            )}
+            {short.length > 0 && <hr style={{ marginTop: "50px" }} />}
+            {short.length > 0 ? (
+              <div>
                 <table className="order-table">
-                     <tr>
-                       {columns.map((item) => {
-                         return <th>{item}</th>;
-                       })}
-                     </tr>
-                     {short.map((item) => (
-                       <tr>
-                         <td>{item.symbol}</td>
-                         <td>{item.description}</td>
-                         <td>₦{item.currentPrice.toFixed(2)}</td>
-                         {IncreaseDecrease(
-                           item.todayChange,
-                           item.todayChangePercentage
-                         )}
-                         <td>₦{item.shortPrice.toFixed(2)}</td>
-                         <td>{item.quantity}</td>
-                         <td>₦{item.totalValue.toFixed(2)}</td>
-                         {IncreaseDecrease(
-                           item.totalGainOrLoss,
-                           item.totalGainOrLossPercentage
-                         )}
-                         <td>
-                         <div>
-                                 <button
-                                   type="button"
-                                   className="btn-cancel border-purple "
-                                   onClick={() => handledShort(item)}
-                                 >
-                                   + Increase Short Position
-                                 </button>
-                                 <button
-                                   type="button"
-                                   className="btn-cancel border-purple"
-                                   onClick={() => handleBuyCover(item)}
-                                 >
-                                   - Buy To Cover
-                                 </button>
-                               </div>
-                         </td>
-                       </tr>
-                     ))}
-                   </table>
-            </div>
-          ) : (
-            <div
-              style={{
-                width: "100%",
-                height: "50vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <h1
+                  <thead>
+                    <tr>
+                      {columns.map((item, index) => {
+                        return <th key={index}>{item}</th>;
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {short.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.symbol}</td>
+                        <td>{item.description}</td>
+                        <td>₦{item.currentPrice.toFixed(2)}</td>
+                        {IncreaseDecrease(
+                          item.todayChange,
+                          item.todayChangePercentage
+                        )}
+                        <td>₦{item.shortPrice.toFixed(2)}</td>
+                        <td>{item.quantity}</td>
+                        <td>₦{item.totalValue.toFixed(2)}</td>
+                        {IncreaseDecrease(
+                          item.totalGainOrLoss,
+                          item.totalGainOrLossPercentage
+                        )}
+                        <td>
+                          <div>
+                            <button
+                              type="button"
+                              className="btn-cancel border-purple "
+                              onClick={() => handledShort(item)}
+                            >
+                              + Increase Short Position
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-cancel border-purple"
+                              onClick={() => handleBuyCover(item)}
+                            >
+                              - Buy To Cover
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div
                 style={{
-                  color: "#8000ff",
-                  fontSize: "20px",
-                  fontWeight: "bold",
+                  width: "100%",
+                  height: "50vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Trade History Not Found
-              </h1>
-            </div>
-          )}
+                <h1
+                  style={{
+                    color: "#8000ff",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Trade History Not Found
+                </h1>
+              </div>
+            )}
+          </div>
+        )}
+        {allPage > 1 && (
+          <div className="paginationReact">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              marginPagesDisplayed={2}
+              // pageRangeDisplayed={2}
+              pageCount={allPage}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+            />
+          </div>
+        )}
+        <div
+          className="btn--group form--actions"
+          style={{ width: "40%", margin: "40px auto", paddingBottom: "30px" }}
+        >
+          <Link href="/dashboard/trade-history">
+            <a className="btn form--submit">TradeHistory</a>
+          </Link>
         </div>
-      )}
-      {allPage > 1 && (
-        <div className="paginationReact">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            marginPagesDisplayed={2}
-            // pageRangeDisplayed={2}
-            pageCount={allPage}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-          />
-        </div>
-      )}
-      <div
-        className="btn--group form--actions"
-        style={{ width: "40%", margin: "40px auto", paddingBottom: "30px" }}
-      >
-        <Link href="/dashboard/trade-history">
-          <a className="btn form--submit">TradeHistory</a>
-        </Link>
       </div>
     </div>
-  </div>
   );
 };
 

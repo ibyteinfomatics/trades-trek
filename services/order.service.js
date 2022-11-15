@@ -192,7 +192,7 @@ function pendingShort(page = 1) {
 // short profit or loss ........................
 function shortProfitOrLoss(page = 1) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/shortProfitOrLoss?page=${page}&limit=5`)
+    .get(`${baseUrl}/user/order/shortProfitOrLoss?gameId=${localStorage.getItem('GameId')}&page=${page}&limit=5`)
     .then((res) => {
       return res;
     })

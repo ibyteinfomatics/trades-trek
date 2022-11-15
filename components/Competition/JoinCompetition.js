@@ -74,7 +74,7 @@ const handlePageClick=({ selected })=>{
         <table>
           <thead className="no-bg">
             <tr>
-              <th>Game Name</th>
+              <th>competition Name</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>No of Players</th>
@@ -139,9 +139,9 @@ const handlePageClick=({ selected })=>{
                         onClick={() => handleJoin(item)}
                       >
                         {item.users.includes(user?.user?._id) ? (
-                          <button>GO TO GAME</button>
+                          <button>GO TO COMPETITION</button>
                         ) : (
-                          <button>JOIN GAME</button>
+                          <button>JOIN COMPETITION</button>
                         )}
                       </a>
                       {/* </Link> */}

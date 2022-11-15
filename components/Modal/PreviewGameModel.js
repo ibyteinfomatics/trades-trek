@@ -179,7 +179,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
           <div className="box-align" style={{ marginTop: "10px" }}>
             <div className="row-block">
               <p className="font-18 ">
-                <span className="font--bold">Timing</span>
+                <span className="font--bold">Timing :- </span>
                 <span>{`${data[0]?.dateRange.split(" ")[0]} - ${
                   data[0]?.dateRange.split(" ")[1] == "null"
                     ? "No End"
@@ -187,13 +187,13 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 } `}</span>{" "}
               </p>
               <p className="font-18 ">
-                <span className="font--bold">NUMBER OF PLAYERS</span>
+                <span className="font--bold">NUMBER OF PLAYERS :- </span>
                 <span>{data[0]?.users?.length}</span>
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">
-                <span className="font--bold"> STARTING CASH</span>
+                <span className="font--bold"> STARTING CASH :- </span>
                 <span>{data[0]?.startingCash.toFixed(2)}</span>
               </p>
             </div>
@@ -236,7 +236,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              GAME RULES
+              COMPETITION RULES
             </h1>
             <h1
               style={{
@@ -245,7 +245,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              GAME NAME & BASIC TRADING RULES
+              COMPETITION NAME & BASIC TRADING RULES
             </h1>
             {/* <hr style={{margin:'0px 10px',width:'10px'}} /> */}
             <div className="row-block">
@@ -268,7 +268,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              BASIC GAME RULES
+              BASIC COMPETITION RULES
             </h1>
             <div className="row-block">
               <p className="font-18 ">Late Entry</p>
@@ -296,24 +296,24 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              ADVANCED GAME RULES
+              ADVANCED COMPETITION RULES
             </h1>
         
 
             <div className="row-block">
               <p className="font-18 ">Market Delay</p>
-              <p className="font-18 ">{`${data[0]?.marketDelay} minutes`}</p>
+              <p className="font-18 ">{`${data[0]?.marketDelay=='Disabled'?data[0]?.marketDelay:`${data[0]?.marketDelay} minutes`} `}</p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Daily Volume</p>
               <p className="font-18 ">
-                {`${data[0]?.dailyVolume ? data[0]?.dailyVolume : "Disabled"}`}
+                {`${data[0]?.dailyVolume=='Disabled' ?  data[0]?.dailyVolume:`${data[0]?.dailyVolume} %`}`}
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Quick Sell</p>
               <p className="font-18 ">
-                {`${data[0]?.quickSell ? data[0]?.quickSell : "Disabled"}`}
+                {`${data[0]?.quickSell=='Disabled' ? data[0]?.quickSell : `${data[0]?.quickSell} minutes`}`}
               </p>
             </div>
             <div className="row-block">

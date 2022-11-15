@@ -10,12 +10,8 @@ import CustomeComponent from "./CustomeComponent";
 export default function PastCompetitionView() {
   let { user } = useSelector((state) => state.userWrapper);
   const [top5, setTop5] = useState([]);
-  
-  
-  
 
   const [date, setDate] = useState(new Date());
-  
 
   const getWinner = () => {
     gameService
@@ -31,16 +27,16 @@ export default function PastCompetitionView() {
     getWinner(date);
   }, [date, user]);
 
-  
   return (
     <>
+     {top5.length!=0 && <div style={{ margin: "10px 0px" }}>
+        <h1 style={{ fontSize: "18px" }}>PAST COMPETITION</h1>
+      </div>}
       <div className="myConn">
         {top5 && (
           <div>
             {top5.map((item, index) => {
-              return (
-               <CustomeComponent key={index} item={item} />
-              );
+              return <CustomeComponent key={index} item={item} />;
             })}
           </div>
         )}

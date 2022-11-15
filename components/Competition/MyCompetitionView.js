@@ -188,7 +188,7 @@ export default function MyCompetationView() {
                     <div className="colLeftBlock">
                       <div className="competation-rules flexBox">
                       {(item.creatorId==user?.user?._id && item?.users.length==1) && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleEditGame(item?._id)}>
-                          Game Rules
+                          Competition Settings
                           <span>
                             <svg
                               width="7"
@@ -204,7 +204,7 @@ export default function MyCompetationView() {
                           </span>
                         </h5>}
                         {(item.creatorId==user?.user?._id && item?.users.length==1) && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleDeleteGame(item?._id)}>
-                          Delete Game
+                          Delete Competition
                           <span>
                             <svg
                               width="7"
@@ -235,6 +235,11 @@ export default function MyCompetationView() {
                             </svg>
                           </span>
                         </h5>}
+                       
+                      </div>
+                      <div className="competation-rules flexBox">
+                      
+                     
                         {item.allowPortfolioResetting && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handlePortfolioReset(item?._id)}>
                           Reset Portfolio
                           <span>
