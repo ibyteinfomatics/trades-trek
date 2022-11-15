@@ -183,7 +183,23 @@ function portfolioResetting(id) {
       return error;
     });
 }
+function leaveCompetion(id) {
+  // console
+  return fetchWrapper
+    .delete(`${baseUrl}/game/leave-competition?gameId=${id}`)
 
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 function inviteGame(data) {
   // console
   return fetchWrapper
@@ -284,5 +300,6 @@ export const gameService = {
   getWinner,
   getMYPastGame,
   getLeaderBoard,
-  getTradeHistory
+  getTradeHistory,
+  leaveCompetion
 };

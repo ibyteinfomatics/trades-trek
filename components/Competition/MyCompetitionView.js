@@ -10,6 +10,7 @@ import PreviewResetPortfolio from "../Modal/PreviewResetPortfolio";
 import ReactPaginate from "react-paginate";
 import { set } from "react-hook-form";
 import InviteCompetitionModel from "../Modal/InviteCompetitionModel";
+import PreviewLeaveCompetition from "../Modal/PreviewLeaveCompetion";
 
 export default function MyCompetationView() {
   const router=useRouter()
@@ -23,6 +24,7 @@ export default function MyCompetationView() {
   const [modelOpened2,setModelOpened2]=useState(false)
   const [modelOpened3,setModelOpened3]=useState(false);
   const [modelOpened4,setModelOpened4]=useState(false)
+  const [modelOpened5,setModelOpened5]=useState(false)
   const [page,setPage]=useState(1)
   const [allPage,setAllPage]=useState(1)
   
@@ -79,6 +81,10 @@ export default function MyCompetationView() {
     const data = myGame.filter((item) => item._id == id);
     setEditData(data);
     setModelOpened4(true)
+  }
+  const handleLeaveCompetition=(id)=>{
+    setDeleteGameId(id)
+    setModelOpened5(true);
   }
   return (
     <>
@@ -256,6 +262,22 @@ export default function MyCompetationView() {
                             </svg>
                           </span>
                         </h5>}
+                          {/* {item.creatorId!=user?.user?._id && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleLeaveCompetition(item?._id)}>
+                          Leave Competition
+                          <span>
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                            >
+                              <path
+                                d="M6 0C2.69187 0 0 2.69187 0 6C0 9.30813 2.69187 12 6 12C9.30813 12 12 9.30813 12 6H11C11 8.76787 8.76787 11 6 11C3.23213 11 1 8.76787 1 6C1 3.23213 3.23213 1 6 1C7.51111 1 8.85378 1.675 9.76953 2.73047L8.5 4H12V0.5L10.4766 2.02344C9.37687 0.786984 7.78113 0 6 0Z"
+                                fill="#8000FF"
+                              />
+                            </svg>
+                          </span>
+                        </h5>} */}
                       </div>
                     </div>
                     <div className="colRightBlock">
@@ -313,6 +335,8 @@ export default function MyCompetationView() {
           setModelOpened={setModelOpened3} id={deleteGameId}/>
         <InviteCompetitionModel  modelOpened={modelOpened4}
           setModelOpened={setModelOpened4} id={deleteGameId} data={editData}/>
+           <PreviewLeaveCompetition  modelOpened={modelOpened5}
+          setModelOpened={setModelOpened5} id={deleteGameId}/>
       {/* <div className="innerBlock">
         <div className="p-20">
           <h4 className="font-16">PAST COMPETITIONS</h4>

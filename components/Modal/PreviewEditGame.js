@@ -129,7 +129,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
           <div className="box-align" style={{ marginTop: "10px" }}>
             <div className="row-block">
               <p className="font-18 ">
-                <span className="font--bold">Timing</span>
+                <span className="font--bold">Timing :- </span>
                 <span>{`${data[0]?.dateRange.split(" ")[0]} - ${
                   data[0]?.dateRange.split(" ")[1] == "null"
                     ? "No End"
@@ -137,13 +137,13 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 } `}</span>{" "}
               </p>
               <p className="font-18 ">
-                <span className="font--bold">NUMBER OF PLAYERS</span>
+                <span className="font--bold">NUMBER OF PLAYERS :- </span>
                 <span>{data[0]?.users?.length}</span>
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">
-                <span className="font--bold"> STARTING CASH</span>
+                <span className="font--bold"> STARTING CASH :- </span>
                 <span>{data[0]?.startingCash.toFixed(2)}</span>
               </p>
             </div>
@@ -155,7 +155,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              GAME SETTINGS
+              COMPETITION SETTINGS
             </h1>
             <h1
               style={{
@@ -164,7 +164,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              GAME NAME & BASIC TRADING RULES
+              COMPETITION NAME & BASIC TRADING RULES
             </h1>
             {/* <hr style={{margin:'0px 10px',width:'10px'}} /> */}
             <div>
@@ -195,7 +195,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              BASIC GAME RULES
+              BASIC COMPETITION RULES
             </h1>
 
             <div className="row-block">
@@ -249,7 +249,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 margin: "10px 0px",
               }}
             >
-              ADVANCED GAME RULES
+              ADVANCED COMPETITION RULES
             </h1>
             {/* <div className='row-block'>
                 <p className='font-18'>Stock Rate</p>
@@ -417,7 +417,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 </select>
             </div>
             <button onClick={handleUpdate} className="btn">
-              Update Game Rule
+              Update Competition Rule
             </button>
           </div>
         </div>
