@@ -209,23 +209,8 @@ export default function MyCompetationView() {
                             </svg>
                           </span>
                         </h5>}
-                        {(item.creatorId==user?.user?._id && item?.users.length==1) && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleDeleteGame(item?._id)}>
-                          Delete Competition
-                          <span>
-                            <svg
-                              width="7"
-                              height="12"
-                              viewBox="0 0 8 13"
-                              fill="none"
-                            >
-                              <path
-                                d="M0.734375 0.0234375L0.015625 0.726562L5.67578 6.5L0.015625 12.2773L0.734375 12.9727L7.07422 6.5L0.734375 0.0234375Z"
-                                fill="#8000FF"
-                              />
-                            </svg>
-                          </span>
-                        </h5>}
-                        {item.creatorId!=user?.user?._id && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleSelectGame(item?._id)}>
+                      
+                        { <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleSelectGame(item?._id)}>
                           Competition Rules
                           <span>
                             <svg
@@ -257,6 +242,22 @@ export default function MyCompetationView() {
                             >
                               <path
                                 d="M6 0C2.69187 0 0 2.69187 0 6C0 9.30813 2.69187 12 6 12C9.30813 12 12 9.30813 12 6H11C11 8.76787 8.76787 11 6 11C3.23213 11 1 8.76787 1 6C1 3.23213 3.23213 1 6 1C7.51111 1 8.85378 1.675 9.76953 2.73047L8.5 4H12V0.5L10.4766 2.02344C9.37687 0.786984 7.78113 0 6 0Z"
+                                fill="#8000FF"
+                              />
+                            </svg>
+                          </span>
+                        </h5>}
+                        {(item.creatorId==user?.user?._id && item?.users.length==1) && <h5 style={{cursor:'pointer'}} className="font-16 text--purple mt-32" onClick={()=>handleDeleteGame(item?._id)}>
+                          Delete Competition
+                          <span>
+                            <svg
+                              width="7"
+                              height="12"
+                              viewBox="0 0 8 13"
+                              fill="none"
+                            >
+                              <path
+                                d="M0.734375 0.0234375L0.015625 0.726562L5.67578 6.5L0.015625 12.2773L0.734375 12.9727L7.07422 6.5L0.734375 0.0234375Z"
                                 fill="#8000FF"
                               />
                             </svg>

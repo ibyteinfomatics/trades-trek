@@ -14,6 +14,7 @@ export default function CompetationSummeryView() {
   const [showAllUser, setShowAllUser] = useState(false);
   const [page, setPage] = useState(1);
   const [allPage, setAllPage] = useState(1);
+  const [loading,setLoading]=useState(false)
   const check = (item) => {
     return item?.userId == user?.user?._id;
   };
@@ -29,6 +30,7 @@ export default function CompetationSummeryView() {
     }
   }, [user, showAllUser]);
   const MyRank = () => {
+    setLoading(true)
     gameService
       .myRank()
       .then((res) => {
@@ -46,10 +48,15 @@ export default function CompetationSummeryView() {
           setTop5([]);
           setNearResult([]);
         }
+        setLoading(false)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setLoading(false)
+      });
   };
   const AllRank = (current) => {
+    setLoading(true)
     gameService
       .allRank(current)
       .then((res) => {

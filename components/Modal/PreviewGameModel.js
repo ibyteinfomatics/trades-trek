@@ -194,7 +194,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
             <div className="row-block">
               <p className="font-18 ">
                 <span className="font--bold"> STARTING CASH :- </span>
-                <span>{data[0]?.startingCash.toFixed(2)}</span>
+                <span>₦ {data[0]?.startingCash.toFixed(2)}</span>
               </p>
             </div>
             {!data[0]?.users.includes(user?._id) && (
@@ -319,52 +319,52 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
             <div className="row-block">
               <p className="font-18 ">Minimum Price</p>
               <p className="font-18 ">
-                {`${
-                  data[0]?.minimumPrice ? data[0]?.minimumPrice : "Disabled"
+              {`${
+                  data[0]?.minimumPrice=='Disabled' ?data[0]?.minimumPrice: `₦ ${Number(data[0]?.minimumPrice)?.toFixed(2)}` 
                 }`}
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Minimum Price Short</p>
               <p className="font-18 ">
-                {`${
-                  data[0]?.minimumPriceShort
-                    ? data[0]?.minimumPriceShort
-                    : "Disabled"
+              {`${
+                  data[0]?.minimumPriceShort=='Disabled' ?data[0]?.minimumPriceShort: `₦ ${Number(data[0]?.minimumPriceShort)?.toFixed(2)}` 
                 }`}
+               
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Minimum Stock For Margin</p>
               <p className="font-18 ">
-                {`${
-                  data[0]?.minimumStockForMargin
-                    ? data[0]?.minimumStockForMargin
-                    : "Disabled"
+              {`${
+                  data[0]?.minimumStockForMargin=='Disabled' ?data[0]?.minimumStockForMargin: `₦ ${Number(data[0]?.minimumStockForMargin)?.toFixed(2)}` 
                 }`}
+                
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Commission</p>
               <p className="font-18 ">
-                {`${data[0]?.commission ? data[0]?.commission : "Disabled"}`}
+              {`${
+                  data[0]?.commission=='Disabled' ?data[0]?.commission: `₦ ${Number(data[0]?.commission)}` 
+                }`}
+               
               </p>
             </div>
          
             <div className="row-block">
               <p className="font-18 ">Margin Interest</p>
               <p className="font-18 ">
-                {`${
-                  data[0]?.marginInterest ? data[0]?.marginInterest : "Disabled"
-                }`}
+              {`${data[0]?.marginInterest=='Disabled' ?  data[0]?.marginInterest:`${data[0]?.marginInterest} %`}`}
+               
               </p>
             </div>
             <div className="row-block">
               <p className="font-18 ">Cash Interest</p>
               <p className="font-18 ">
-                {`${
-                  data[0]?.cashInterest ? data[0]?.cashInterest : "Disabled"
-                }`}
+              {`${data[0]?.cashInterest=='Disabled' ?  data[0]?.cashInterest:`${data[0]?.cashInterest} %`}`}
+
+                
               </p>
             </div>
           </div>
