@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../actions/users';
 import { userService } from '../../services';
 
-const  SelectGame = () => {
+const  SelectGame = ({value}) => {
   const [beginnerOption, setBeginnerOption] = useState(false);
   const [game,setGame]=useState()
   const [gameId,setGameId]=useState()
+ 
   const dispatch = useDispatch();
 
   let { user } = useSelector((state) => state.userWrapper);
@@ -57,6 +58,7 @@ const  SelectGame = () => {
               localStorage.setItem('GameId',e.target.value)
             }}
             value={gameId}
+            disabled={value}
           >
            {
             game?.map((item,index)=>{

@@ -8,7 +8,7 @@ import { setSelectedStock } from "../../actions/setStock";
 import { orderService } from "../../services/order.service";
 import IncreaseDecrease from "../Table/IncreaseDecrease";
 
-const ShortTable = () => {
+const AnotherShortTable = ({userName}) => {
   const [short, setShort] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [allPage, setAllPage] = useState(1);
@@ -27,7 +27,7 @@ const ShortTable = () => {
   useEffect(() => {
     setIsLoading(true);
     orderService
-      .shortProfitOrLoss(currentPage)
+      .shortProfitOrLossAnotherUser(userName)
       .then((res) => {
         if (res.success) {
           setShort(res.short.docs);
@@ -51,34 +51,8 @@ const ShortTable = () => {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [user]);
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected + 1);
-    setIsLoading(true);
-    orderService
-      .shortProfitOrLoss(selected + 1)
-      .then((res) => {
-        if (res.success) {
-          setShort(res.short.docs);
-          setCurrentPage(res.short.page);
-          setAllPage(res.short.pages);
-          setShortCurrent(res.shortCurrent);
-          setShortPurchanse(res.shortPurchase);
-          setTotalTodayChange(res.totalTodayChange);
-          setTotalGainOrLoss(res.totalGainOrLoss);
-          setTodayChangePer(
-            (res.totalTodayChange * 100) /
-              (res.shortCurrent - res.totalTodayChange)
-          );
-          setTotalChangePer(
-            (res.totalGainOrLoss * 100) /
-              (res.shortCurrent - res.totalGainOrLoss)
-          );
-        }
-        setIsLoading(false);
-      })
-      .catch((err) => console.log(err));
-  };
+  }, [userName]);
+ 
   const columns = [
     "Symbol",
     "Description",
@@ -88,34 +62,9 @@ const ShortTable = () => {
     "QTY",
     "Total Value",
     "Total Gain/Loss",
-    "Trade Actions",
+   
   ];
-  const handleBuyCover = (stock) => {
-    orderService
-      .StockDetail(stock.symbol)
-      .then((res) => {
-        // dispatch(setSelectedStock({ ...res, action: "Buy To Cover" }));
-        let data = { action: "Buy To Cover", quantity: stock.quantity, ...res };
-        localStorage.setItem("stock", JSON.stringify(data));
-        router.push("/dashboard/trade-stocks/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const handledShort = (stock) => {
-    orderService
-      .StockDetail(stock.symbol)
-      .then((res) => {
-        // dispatch(setSelectedStock({ ...res, action: "Short" }));
-        let data = { action: "Short", quantity: stock.quantity, ...res };
-        localStorage.setItem("stock", JSON.stringify(data));
-        router.push("/dashboard/trade-stocks/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+ 
   return (
     <div className="card-no-gap">
       <div className="trade-order-status">
@@ -181,24 +130,7 @@ const ShortTable = () => {
                           item.totalGainOrLoss,
                           item.totalGainOrLossPercentage
                         )}
-                        <td>
-                          <div>
-                            <button
-                              type="button"
-                              className="btn-cancel border-purple "
-                              onClick={() => handledShort(item)}
-                            >
-                              + Increase Short Position
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-cancel border-purple"
-                              onClick={() => handleBuyCover(item)}
-                            >
-                              - Buy To Cover
-                            </button>
-                          </div>
-                        </td>
+                       
                       </tr>
                     ))}
                   </tbody>
@@ -245,7 +177,7 @@ const ShortTable = () => {
           className="btn--group form--actions"
           style={{ width: "40%", margin: "40px auto", paddingBottom: "30px" }}
         >
-          <Link href="/dashboard/trade-history">
+          <Link href={`competition-summary?username=${userName}&history=${userName}`}>
             <a className="btn form--submit">TradeHistory</a>
           </Link>
         </div>
@@ -254,4 +186,4 @@ const ShortTable = () => {
   );
 };
 
-export default ShortTable;
+export default AnotherShortTable;

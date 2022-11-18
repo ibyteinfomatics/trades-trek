@@ -8,6 +8,7 @@ import { setSelectedStock } from "../../actions/setStock";
 import { gameService } from "../../services/game.service";
 import NigerianTimeZone from "../../helpers/Negerian-TimeZone";
 import moment from "moment-timezone";
+import { userService } from "../../services";
 
 function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
@@ -58,6 +59,17 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 setError();
                 setErrorStatus(false);
                 setModelOpened(false);
+                localStorage.setItem('GameId',data[0]._id)
+                userService
+                .userInfo()
+                .then((res) => {
+                  if (res.success) {
+                    dispatch(setUser(res.data));
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
               }
             })
             .catch((err) => console.log(err));
@@ -70,6 +82,17 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
             setError();
             setErrorStatus(false);
             setModelOpened(false);
+            localStorage.setItem('GameId',data[0]._id)
+            userService
+            .userInfo()
+            .then((res) => {
+              if (res.success) {
+                dispatch(setUser(res.data));
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           })
           .catch((err) => console.log(err));
       
@@ -210,7 +233,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
               >
                 <button
                   type="reset"
-                  className="btn reset--btn"
+                  className="btn "
                   onClick={() => {
                     setError();
                     setErrorStatus(false);
@@ -221,7 +244,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 </button>
                 <button
                   type="reset"
-                  className="btn reset--btn"
+                  className="btn  "
                   onClick={handleJoin}
                 >
                   Confirm Join

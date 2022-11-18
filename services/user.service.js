@@ -268,7 +268,23 @@ function verifyTransaction(data) {
       return error;
     });
 }
+function GetSingleUser(userName) {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/user/single-user-info?userName=${userName}&gameId=${localStorage.getItem('GameId')}`)
 
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 
 export const userService = {
@@ -290,4 +306,5 @@ export const userService = {
   subscriptionUpdate,
   getAllSubscription,
   verifyTransaction,
+  GetSingleUser
 };

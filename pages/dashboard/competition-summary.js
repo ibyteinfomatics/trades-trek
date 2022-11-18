@@ -15,6 +15,7 @@ import PastCompetitionView from "../../components/Competition/PastCompetitionVie
 export default function CompetationSummery() {
   const [beginnerOption, setBeginnerOption] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
+  const [disabled,setDisabled]=useState(false)
   const router = useRouter();
   useEffect(() => {
     if (user.subscription == "Freemium") {
@@ -36,7 +37,7 @@ export default function CompetationSummery() {
                     ""}`}{" "}
               </h3>
             </div>
-            <SelectGame />
+            <SelectGame value={disabled} />
             {/* <div className="grid-block-right right-align">
                             <div className="beginner-option">
                                 Current Competition
@@ -65,19 +66,19 @@ export default function CompetationSummery() {
               <Tabs>
                 <TabList>
                   <Tab>Summary</Tab>
-                  <Tab>My Competitions</Tab>
-                  <Tab>Join Competition</Tab>
-                  <Tab>Create Competition</Tab>
-                  <Tab>Winner List</Tab>
+                  <Tab onClick={()=>setDisabled(false)}><Link href='competition-summary'>My Competitions</Link></Tab>
+                  <Tab onClick={()=>setDisabled(false)}><Link href='competition-summary'> Join Competition </Link></Tab>
+                  <Tab onClick={()=>setDisabled(false)}><Link href='competition-summary'> Create Competition </Link></Tab>
+                  <Tab onClick={()=>setDisabled(false)}><Link href='competition-summary'> Winner List </Link></Tab>
                 </TabList>
                 <TabPanel className="tab-content-gap">
                   <div className="myCompetation">
-                    <CompetationSummeryView />
+                    <CompetationSummeryView setDisabled={setDisabled} disabled={disabled} />
                   </div>
                 </TabPanel>
                 <TabPanel className="tab-content-gap">
                   <div className="myCompetation">
-                    <MyCompetationView />
+                    <MyCompetationView  />
                     
                     <PastCompetitionView />
                   </div>

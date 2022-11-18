@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import { months } from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -10,6 +11,7 @@ export default function WinnerListView() {
   const [currentGame, setCurrentGame] = useState();
   const [month, setMonth] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [loading,setLoading]=useState(false)
   useEffect(() => {
     if (user && user?.mygame) {
       let temp = user?.mygame?.filter(
@@ -49,6 +51,7 @@ export default function WinnerListView() {
     setMonth(months);
   };
   const getWinner = (date) => {
+    setLoading(true)
     gameService
       .getWinner(date)
       .then((res) => {
@@ -57,6 +60,7 @@ export default function WinnerListView() {
         }else{
           setTop5([])
         }
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   };
@@ -91,7 +95,17 @@ export default function WinnerListView() {
           </select>
         </div>
         <div className="summeyTable">
-          <div className="status-summary noRadius font-18 summery-table summeyTable">
+         { loading?<div
+                  style={{
+                    width: "100%",
+                    height: "50vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Loader color="#8000ff" />
+                </div>: <div className="status-summary noRadius font-18 summery-table summeyTable">
             {top5.length==0?<div style={{width:'100%',margin:'20px 0px', display:'flex',justifyContent:'center'}}>No data available</div>:<table>
               <thead>
                 <tr>
@@ -139,7 +153,7 @@ export default function WinnerListView() {
                 })}
               </tbody>
             </table>}
-          </div>
+          </div>}
         </div>
       </div>
     </>

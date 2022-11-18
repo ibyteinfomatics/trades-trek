@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import { months } from "moment-timezone";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
@@ -10,16 +11,19 @@ import CustomeComponent from "./CustomeComponent";
 export default function PastCompetitionView() {
   let { user } = useSelector((state) => state.userWrapper);
   const [top5, setTop5] = useState([]);
+  const [loading,setLoading]=useState(false)
 
   const [date, setDate] = useState(new Date());
 
   const getWinner = () => {
+    setLoading(true)
     gameService
       .getMYPastGame()
       .then((res) => {
         if (res.success) {
           setTop5(res.games);
         }
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   };
@@ -33,7 +37,17 @@ export default function PastCompetitionView() {
         <h1 style={{ fontSize: "18px" }}>PAST COMPETITION</h1>
       </div>}
       <div className="myConn">
-        {top5 && (
+        { loading?<div
+                  style={{
+                    width: "100%",
+                    height: "50vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Loader color="#8000ff" />
+                </div>:top5 && (
           <div>
             {top5.map((item, index) => {
               return <CustomeComponent key={index} item={item} />;

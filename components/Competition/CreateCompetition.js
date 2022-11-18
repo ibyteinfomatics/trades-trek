@@ -482,7 +482,7 @@ export default function CreateCompetation() {
           </div>
           <div className="form--actions">
             <button className="btn" type="submit">
-              Create Competation
+              Create Competition
             </button>
           </div>
           {/* <div className="form--actions">

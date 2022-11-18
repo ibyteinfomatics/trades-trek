@@ -150,6 +150,19 @@ function tradeHistory(page) {
     });
 }
 
+// trade history for another user ......... 
+function tradeHistoryAnotheUser(page,username) {
+  return fetchWrapper
+    .get(`${baseUrl}/user/order/history-other-user?page=${page}&gameId=${localStorage.getItem("GameId") || ''}&userName=${username}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((errr) => {
+
+      return errr;
+    });
+}
+
 // holding profit or loss ........................
 function holdingProfitOrLoss(page = 1) {
   return fetchWrapper
@@ -162,6 +175,18 @@ function holdingProfitOrLoss(page = 1) {
       return errr;
     });
 }
+function holdingProfitOrLossAnotherUser(user) {
+  return fetchWrapper
+    .get(`${baseUrl}/user/order/holdingProfitOrLoss-otherUser?gameId=${localStorage.getItem("GameId") || ''}&userName=${user}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((errr) => {
+
+      return errr;
+    });
+}
+
 
 // pending holding ...... 
 function pendingHolding(page = 1) {
@@ -202,6 +227,19 @@ function shortProfitOrLoss(page = 1) {
     });
 }
 
+// shortProfitOrLoss-another-user
+
+function shortProfitOrLossAnotherUser(userName) {
+  return fetchWrapper
+    .get(`${baseUrl}/user/order/shortProfitOrLoss-another-user?gameId=${localStorage.getItem('GameId')}&userName=${userName}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((errr) => {
+
+      return errr;
+    });
+}
 export const orderService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -220,5 +258,8 @@ export const orderService = {
   shortProfitOrLoss,
   getFailedOrders,
   pendingHolding,
-  pendingShort
+  pendingShort,
+  holdingProfitOrLossAnotherUser,
+  shortProfitOrLossAnotherUser,
+  tradeHistoryAnotheUser
 };

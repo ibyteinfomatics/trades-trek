@@ -31,14 +31,14 @@ export default function Portfolio() {
             <HighlightTrades />
           </div>
           {/* port folio section  */}
-          {/* <div className="profileContainer ">
+          <div className="profileContainer ">
             <div className="profileContainerLeft">
               <div className="profileContainerAccount">
                 <div className="profileContainerAccountblock">
                   <span>ACCOUNT VALUE</span>
 
                   <p>
-                  ₦{user?.accountValue
+                  ₦{user?.user?.accountValue
                       ?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -64,7 +64,7 @@ export default function Portfolio() {
                       <span>BUYING POWER</span>
 
                       <p>
-                      ₦{user?.buyingPower
+                      ₦{user?.user?.buyingPower
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -74,7 +74,7 @@ export default function Portfolio() {
                       <span>CASH</span>
 
                       <p>
-                      ₦{user?.cash
+                      ₦{user?.user?.cash
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -83,7 +83,7 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-              <div className="profileContainerRank">
+              {/* <div className="profileContainerRank">
                 <div className="rankText">
                   <span>CURRENT RANK</span>
                 </div>
@@ -109,7 +109,7 @@ export default function Portfolio() {
                 <div className="rankText">
                   <span><Link href='#'>tradtrak</Link> ₦99,998,888,88.00</span>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="profileContainerRight">
               <div className="profileContainerRightBlock">
@@ -136,8 +136,8 @@ export default function Portfolio() {
                 </div>
               </div>
             </div>
-          </div> */}
-         <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+          </div>
+         {/* <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
          <div
             className="btn--group form--actions"
             style={{ margin: "10px", width: "35vw" }}
@@ -149,7 +149,7 @@ export default function Portfolio() {
               <a className="btn form--submit">Performance History</a>
             </Link>
           </div>
-         </div>
+         </div> */}
           <HoldingTrades />
         </div>
       </div>

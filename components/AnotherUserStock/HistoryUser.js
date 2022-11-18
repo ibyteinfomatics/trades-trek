@@ -9,7 +9,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { DataConvert } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 
-export default function TradeHistory() {
+export default function HistoryUser({userName}) {
   const [tradeHistoryData, setTradeHistoryData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [allPage, setAllPage] = useState(1);
@@ -19,7 +19,7 @@ export default function TradeHistory() {
   useEffect(() => {
     setIsLoading(true);
     orderService
-      .tradeHistory(currentPage)
+      .tradeHistoryAnotheUser(currentPage,userName)
       .then((res) => {
         if (res.success) {
           setTradeHistoryData(res.orders.docs);
@@ -33,12 +33,12 @@ export default function TradeHistory() {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [user]);
+  }, [user,userName]);
 
   const handlePageClick = ({ selected }) => {
     setIsLoading(true);
     orderService
-      .tradeHistory(selected + 1)
+      .tradeHistoryAnotheUser(selected + 1,userName)
       .then((res) => {
         if (res.success) {
           setCurrentPage(res.orders.page);
@@ -64,20 +64,15 @@ export default function TradeHistory() {
   ];
   return (
     <>
-      <Sidebar />
-      <div className="site--content">
-        <SelectGame />
+      <div className="">
 
-        <div
-          className="trade-data"
-          style={{ width: "30%", marginBottom: "40px" }}
-        >
-          <Link href="/dashboard/portfolio">
-            <a style={{ fontSize: "20px", textDecoration: "underline" }}>
-              Back to Portfolio
-            </a>
-          </Link>
+      <div className="p-20">
+          <Link href={`competition-summary?username=${userName}`}>Go Back</Link>
+                  {/* <h1 style={{fontSize: "15px"}}>{infoData?.user?.username}</h1> */}
+
+                  
         </div>
+
 
         <div className="page--title--block">
           <div className="card-no-gap">

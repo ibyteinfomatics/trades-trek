@@ -37,7 +37,7 @@ const thankyou = () => {
       {/* <MarketOpenClose></MarketOpenClose> */}
       {loading === true ? (
         <div className="loading">
-          <Loader color="red" />
+          <Loader color="#8000ff" />
         </div>
       ) : error?(
         <div className="errorthan">

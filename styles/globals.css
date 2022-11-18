@@ -2742,10 +2742,10 @@ font-weight: bold;
   height: 33%;
 }
 .profileContainerAccountblock>span{
-  font-size: 12px;
+  font-size: 10px;
 }
 .profileContainerAccountblock>p{
-  font-size: 32px;
+  font-size: 16px;
   font-weight: bold;
 }
 .profileContainerAccountblock>div{
@@ -2759,7 +2759,7 @@ font-weight: bold;
 
 }
 .profileContainerAccountblock>div>div>p{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
 }
 .profileContainerRightBlock{

@@ -96,7 +96,7 @@ export default function PerformanceHistory() {
                 alignItems: "center",
               }}
             >
-               <Loader color="red" />
+               <Loader color="#8000ff" />
             </div>
             
              : <div className="order--table--responsive">
