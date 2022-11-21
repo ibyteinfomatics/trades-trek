@@ -67,7 +67,7 @@ export default function HistoryUser({userName}) {
       <div className="">
 
       <div className="p-20">
-          <Link href={`competition-summary?username=${userName}`}>Go Back</Link>
+          <Link href={`competition-summary?username=${userName}`}  style={{ fontSize: "12px", fontWeight: "bold" }}>Go Back</Link>
                   {/* <h1 style={{fontSize: "15px"}}>{infoData?.user?.username}</h1> */}
 
                   

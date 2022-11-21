@@ -15,71 +15,76 @@ const ProfileAnotherUser = ({ userName }) => {
       })
       .catch((err) => console.log(err));
   }, [userName]);
-console.log(infoData)
+  console.log(infoData);
   return (
     <>
       <div>
         <div className="p-20">
-          <Link href="competition-summary">Go Back</Link>
-                  <h1 style={{fontSize: "15px"}}>{infoData?.user?.username}</h1>
-
-                  
+          <Link
+            href="competition-summary"
+            style={{ fontSize: "12px", fontWeight: "bold" }}
+          >
+            Go Back
+          </Link>
+          <h1 style={{ fontSize: "15px" }}>{infoData?.user?.username}</h1>
         </div>
 
         {/* port folio section  */}
         <div className="profileContainer ">
           <div className="profileContainerLeft">
             <div className="profileContainerAccount">
-           
-                <div className="profileContainerAccountblock">
-                  <span>ACCOUNT VALUE</span>
+              <div className="profileContainerAccountblock">
+                <span>ACCOUNT VALUE</span>
 
-                  <p>
-                  ₦{infoData?.competition?.accountValue
-                      ?.toFixed(2)
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
-                  </p>
-                </div>
-                <div className="profileContainerAccountblock">
+                <p>
+                  ₦
+                  {infoData?.competition?.accountValue
+                    ?.toFixed(2)
+                    ?.toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                </p>
+              </div>
+              <div className="profileContainerAccountblock">
+                <div>
                   <div>
-                    <div>
-                      <span>TODAY'S CHANGE</span>
+                    <span>TODAY'S CHANGE</span>
 
-                      <p>+ ₦0.00</p>
-                    </div>
-                    <div>
-                      <span>ANNUAL RETURN</span>
-
-                      <p>0.00%</p>
-                    </div>
+                    <p>+ ₦0.00</p>
                   </div>
-                </div>
-                <div className="profileContainerAccountblock">
                   <div>
-                    <div>
-                      <span>BUYING POWER</span>
+                    <span>ANNUAL RETURN</span>
 
-                      <p>
-                      ₦{infoData?.competition?.buyingPower
-                          ?.toFixed(2)
-                          ?.toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
-                      </p>
-                    </div>
-                    <div>
-                      <span>CASH</span>
-
-                      <p>
-                      ₦{infoData?.competition?.cash
-                          ?.toFixed(2)
-                          ?.toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
-                      </p>
-                    </div>
+                    <p>0.00%</p>
                   </div>
                 </div>
               </div>
+              <div className="profileContainerAccountblock">
+                <div>
+                  <div>
+                    <span>BUYING POWER</span>
+
+                    <p>
+                      ₦
+                      {infoData?.competition?.buyingPower
+                        ?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                    </p>
+                  </div>
+                  <div>
+                    <span>CASH</span>
+
+                    <p>
+                      ₦
+                      {infoData?.competition?.cash
+                        ?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* <div className="profileContainerRank">
                 <div className="rankText">
                   <span>CURRENT RANK</span>

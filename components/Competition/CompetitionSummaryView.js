@@ -165,7 +165,15 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
                           key={index}
                         >
                           <td>{(page - 1) * 10 + index + 1}</td>
-                          {myGame?.allowPortfolioViewing ? (
+                          { item?.result?._id == user?.user?._id? <td>
+                              <Link
+                                href={`portfolio`}
+                              >
+                                <a>
+                                  <u>{`${item?.result?.username || ""} `}</u>{" "}
+                                </a>
+                              </Link>{" "}
+                            </td>: myGame?.allowPortfolioViewing ? (
                             <td>
                               <Link
                                 href={`competition-summary?username=${item?.result?.username}`}
