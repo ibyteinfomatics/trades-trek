@@ -2831,4 +2831,18 @@ button:disabled:hover{
     background: gainsboro
 }
 
+.downloadLeaderBoard{
+
+
+  display: flex;
+  justify-content: flex-end
+}
+.downloadLeaderBoard>button{
+  padding: 10px 30px;
+  border: 1px solid #8000ff;
+  color: #8000ff;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
 

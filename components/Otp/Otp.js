@@ -6,6 +6,7 @@ import { userService } from '../../services';
 import FormSpinner from '../Spinners/FormSpinner';
 import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { Loader } from '@mantine/core';
 export default function Otp() {
   const router = useRouter();
   const toastId = useRef(null);
@@ -36,13 +37,12 @@ export default function Otp() {
       const response = await userService.verifyLoginOtp(email,Number(otp));
        if (response.success === false) {
         setBtnStatus(false);
-        setLoaderStatus(false);
+        
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.error(response.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
         }
-   
       } else {
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.success(response.message, {
@@ -120,9 +120,9 @@ export default function Otp() {
               <button
                 type="submit"
                 className="btn btnBgBlue"
-                disabled={btnStatus}
+                disabled={isLoaderActive}
               >
-                {isLoaderActive ? <FormSpinner /> : 'Verify OTP'}
+                {isLoaderActive ? <Loader color="#8000ff" />: 'Verify OTP'}
               </button>
             </div>
           </form>

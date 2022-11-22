@@ -137,7 +137,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
           <span style={{ fontSize: "18px" }}>by: {data[0]?.username}</span>
 
           {data[0]?.competitionType == "Private" &&
-            !data[0]?.users.includes(user?._id) && (
+            !data[0]?.users.includes(user?.user?._id) && (
               <div className="form--item">
                 <label className="form--label" htmlFor="email">
                   PRIVATE GAME
@@ -220,7 +220,7 @@ function PreviewGameModel({ modelOpened, setModelOpened, data, setShowTrade }) {
                 <span>₦ {data[0]?.startingCash.toFixed(2)}</span>
               </p>
             </div>
-            {!data[0]?.users.includes(user?._id) && (
+            {!data[0]?.users.includes(user?.user?._id) && (
               <div
                 className=""
                 style={{

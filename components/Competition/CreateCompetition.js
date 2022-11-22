@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -8,6 +9,7 @@ import ToolTipCustome from "./ToolTip";
 export default function CreateCompetation() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading,setIsLoading]=useState(false)
 
   const router = useRouter();
   const {
@@ -25,6 +27,7 @@ export default function CreateCompetation() {
     },
   });
   const onSubmit = async (data) => {
+    setIsLoading(true)
     gameService
       .createGame(data)
       .then((res) => {
@@ -32,8 +35,11 @@ export default function CreateCompetation() {
           localStorage.setItem("GameId", res.data._id);
           router.push("/dashboard/portfolio");
           setError("");
+          setIsLoading(false)
         } else {
           setError(res.message);
+          setIsLoading(false)
+
         }
        
       })
@@ -481,8 +487,9 @@ export default function CreateCompetation() {
             </div>
           </div>
           <div className="form--actions">
-            <button className="btn" type="submit">
-              Create Competition
+            <button disabled={isLoading} className="btn" type="submit">
+            {isLoading?<Loader color="#8000ff" />: "Create Competition"}
+              
             </button>
           </div>
           {/* <div className="form--actions">

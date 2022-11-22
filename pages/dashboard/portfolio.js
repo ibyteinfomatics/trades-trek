@@ -12,6 +12,7 @@ import SelectGame from "../../components/SelectGame/SelectGame";
 
 export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
+  // console.log(user)
 
   return (
     <>
@@ -38,7 +39,7 @@ export default function Portfolio() {
                   <span>ACCOUNT VALUE</span>
 
                   <p>
-                  ₦{user?.user?.accountValue
+                  ₦{user?.portfolio?.accountValue
                       ?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -64,7 +65,7 @@ export default function Portfolio() {
                       <span>BUYING POWER</span>
 
                       <p>
-                      ₦{user?.user?.buyingPower
+                      ₦{user?.portfolio?.buyingPower
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -74,7 +75,7 @@ export default function Portfolio() {
                       <span>CASH</span>
 
                       <p>
-                      ₦{user?.user?.cash
+                      ₦{user?.portfolio?.cash
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gameService } from "../../services/game.service";
 import { useSelector } from "react-redux";
@@ -12,8 +12,9 @@ import LineChart from "../Chart/LineChart";
 import AnotherStock from "../AnotherUserStock/AnotherStock";
 import ProfileAnotherUser from "../AnotherUserStock/ProfileAnotherUser";
 import HistoryUser from "../AnotherUserStock/HistoryUser";
+import { CSVLink } from "react-csv";
 
-export default function CompetationSummeryView({ setDisabled,disabled }) {
+export default function CompetationSummeryView({ setDisabled, disabled }) {
   let { user } = useSelector((state) => state.userWrapper);
   const router = useRouter();
   const [top5, setTop5] = useState([]);
@@ -25,8 +26,21 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
   const [loading, setLoading] = useState(false);
   const [myGame, setMyGame] = useState();
   const [userName, setUserName] = useState("");
-  const [historyName,setHistoryName]=useState('')
+  const [historyName, setHistoryName] = useState("");
+  const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
+  const [csvData, setCsvData] = useState([]);
+  const linktarget = useRef();
 
+  const [leaderHeaders, setLeaderHeaders] = useState([
+    {
+      label: "Rank",
+      key: "rank",
+    },
+    { label: "Username", key: "result.username" },
+    { label: "Account Value", key: "accountValue" },
+    { label: "Overall Naira Change", key: "annualReturn" },
+    { label: "Overall Percent Change", key: "profitOrLossToday" },
+  ]);
   const check = (item) => {
     return item?.userId == user?.user?._id;
   };
@@ -38,10 +52,9 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
       setUserName("");
       setDisabled(false);
     }
-    if(router?.query?.username){
-      setHistoryName(router?.query?.history)
+    if (router?.query?.username) {
+      setHistoryName(router?.query?.history);
     }
-   
   }, [router]);
   useEffect(() => {
     if (!userName) {
@@ -112,15 +125,26 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
       .catch((err) => console.log(err));
   };
 
+  const downloadLeaderBoard = async (id) => {
+    setLoadingLeaderboard(true);
+    const { data } = await gameService.getLeaderBoard(id);
+    setCsvData(data);
+    setTimeout(() => {
+      linktarget.current.link.click();
+      setLoadingLeaderboard(false);
+    }, 2000);
+  };
   const handlePageClick = ({ selected }) => {
     AllRank(selected + 1);
     setPage(selected + 1);
   };
   return (
     <>
-       {(userName && historyName)?<HistoryUser userName={userName} />: userName ? (
+      {userName && historyName ? (
+        <HistoryUser userName={userName} />
+      ) : userName ? (
         <div className="page--title--block">
-         <ProfileAnotherUser userName={userName}/>
+          <ProfileAnotherUser userName={userName} />
           <AnotherStock userName={userName} />
         </div>
       ) : (
@@ -142,7 +166,13 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
                 >
                   <Loader color="#8000ff" />
                 </div>
-              ) : (
+              ):top5.length==0?<div style={{
+                width: "100%",
+                display: "flex",
+                margin:'20px',
+                justifyContent: "center",
+                alignItems: "center",
+              }}><h1>You have not been ranked yet</h1></div> : (
                 <table>
                   <thead>
                     <tr>
@@ -164,16 +194,16 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
                           }
                           key={index}
                         >
-                          <td>{(page - 1) * 10 + index + 1}</td>
-                          { item?.result?._id == user?.user?._id? <td>
-                              <Link
-                                href={`portfolio`}
-                              >
+                          <td>{item?.rank}</td>
+                          {item?.result?._id == user?.user?._id ? (
+                            <td>
+                              <Link href={`portfolio`}>
                                 <a>
                                   <u>{`${item?.result?.username || ""} `}</u>{" "}
                                 </a>
                               </Link>{" "}
-                            </td>: myGame?.allowPortfolioViewing ? (
+                            </td>
+                          ) : myGame?.allowPortfolioViewing ? (
                             <td>
                               <Link
                                 href={`competition-summary?username=${item?.result?.username}`}
@@ -236,6 +266,7 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
                     className="text--purple"
                     onClick={() => {
                       setShowAllUser(false);
+                      setPage(1)
                     }}
                   >
                     Collapse View
@@ -251,7 +282,7 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
               </div>
             </div>
           )}
-          {!showAllUser && (
+          {!showAllUser && top5.length!=0&& (
             <div className="wrapper--hgroup">
               <div className="wrapper--title"></div>
               <div className="readmore--link">
@@ -284,7 +315,7 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
                             }
                             key={index}
                           >
-                            <td>{index + yourRank}</td>
+                            <td>{item?.rank}</td>
                             {myGame?.allowPortfolioViewing ? (
                               <td>
                                 <Link
@@ -326,6 +357,19 @@ export default function CompetationSummeryView({ setDisabled,disabled }) {
           )}
         </div>
       )}
+      {top5.length!=0 && myGame?.creatorId==user?.user?._id && <div className="downloadLeaderBoard">
+        <button onClick={() => downloadLeaderBoard(myGame?._id)}>
+          {loadingLeaderboard ? "Loading..." : "DOWNLOAD LEADERBOARD"}
+        </button>
+        <CSVLink
+          style={{ display: "none" }}
+          ref={linktarget}
+          headers={leaderHeaders}
+          data={csvData}
+        >
+          Download me
+        </CSVLink>
+      </div>}
     </>
   );
 }

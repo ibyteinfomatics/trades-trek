@@ -8,12 +8,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../actions/users';
+import { Loader } from '@mantine/core';
 
 export default function Login() {
   const [btnStatus, setBtnStatus] = useState(false);
   const router = useRouter();
   const [validate,setValidate]=useState(false)
   const [showPassword,setShowPassword]=useState(false)
+  const [isLoading,setIsLoading]=useState(false)
   const [error,setError]=useState();
   const dispatch = useDispatch();
   const {
@@ -25,6 +27,7 @@ export default function Login() {
 
   const onSubmit = (data) => {
     // if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)){
+      setIsLoading(true)
       userService
       .login(data)
       .then((res) => {
@@ -33,16 +36,20 @@ export default function Login() {
 
           setError(res.message)
           dispatch(setUser(res.user));
+          setIsLoading(false)
           router.push('/dashboard');
         } else if (res?.success === false && res?.profileStatus === 0) {
           setValidate(true)
           
           setError(res.message)
           setBtnStatus(false);
+          setIsLoading(false)
+
           localStorage.setItem('email', res.email);
           router.push('/otp');
         }else if (res?.success === false && res?.subscription === '') {
           setValidate(true)
+          setIsLoading(false)
           
           setError(res.message)
           setBtnStatus(false);
@@ -51,9 +58,13 @@ export default function Login() {
         } else if (res?.success === false) {
             setValidate(true)
             setError(res.message)
+          setIsLoading(false)
+
         } else {
           setValidate(true)
           setError('Something went wrong')
+          setIsLoading(false)
+
         }
       })
       .catch((error) => {
@@ -143,9 +154,9 @@ export default function Login() {
                 <button
                   type="submit"
                   className="btn btnBgBlue"
-                  disabled={btnStatus}
+                  disabled={isLoading}
                 >
-                  Login
+                 {isLoading?<Loader color="#8000ff" />: "Login"}
                 </button>
               </div>
               <div className="form--bottom--content">

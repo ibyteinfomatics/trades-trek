@@ -12,6 +12,7 @@ import { setUser } from "../../actions/users";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import axios from "axios";
+import { Loader } from "@mantine/core";
 // https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=+9190607574241
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
@@ -21,6 +22,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
   const [phone,setPhone]=useState()
+  const [isLoading,setIsLoading]=useState(false)
   const dispatch = useDispatch();
   const {
     register,
@@ -33,7 +35,7 @@ export default function Signup() {
 
   const onSubmit = async(data) => {
    
- 
+ setIsLoading(true)
     data.phone=phone
     userService
     .signup(data)
@@ -44,15 +46,18 @@ export default function Signup() {
         setError(res.message);
         localStorage.setItem("otp", data.email);
         dispatch(setUser(res.user));
+        setIsLoading(false)
         router.push("/otp");
       } else if (res?.success === false) {
         setValidate(true);
         setError(res.message);
         setBtnStatus(false);
+        setIsLoading(false)
       } else {
         setValidate(true);
         setError(res);
         setBtnStatus(false);
+        setIsLoading(false)
       }
     })
     .catch((error) => {
@@ -60,6 +65,7 @@ export default function Signup() {
 
       setError(error.message);
       setBtnStatus(false);
+      setIsLoading(false)
     });
 
    
@@ -393,8 +399,8 @@ export default function Signup() {
                 </p>
               </div>
               <div className="form--actions">
-                <button className="btn" type="submit">
-                  Sign Up
+                <button disabled={isLoading} className="btn" type="submit">
+                    {isLoading?<Loader color="#8000ff" />: "Sign Up"}
                 </button>
               </div>
               <div className="form--bottom--content">
