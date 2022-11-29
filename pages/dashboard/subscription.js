@@ -5,9 +5,15 @@ import MarketOpenClose from "../../components/MarketOpenClose/MarketOpenClose";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { userService } from "../../services";
-import Iframe from 'react-iframe'
+import Iframe from "react-iframe";
+import { useSelector } from "react-redux";
+import UnsubscribeModel from "../../components/Modal/UnsubscribeModel";
 export default function Sub() {
+  let { user } = useSelector((state) => state.userWrapper);
+
   const [allSubscription, setAllSubscription] = useState();
+  const [modelOpened, setModelOpened]=useState(false)
+  const [subscriptionId,setSubscriptionId]=useState('')
   useEffect(() => {
     userService
       .getAllSubscription()
@@ -18,6 +24,10 @@ export default function Sub() {
       })
       .catch((err) => console.log(err));
   }, []);
+  const Unsubscribe=(id)=>{
+setModelOpened(true)
+setSubscriptionId(id)
+  }
 
   return (
     <>
@@ -35,7 +45,8 @@ export default function Sub() {
                 alignItems: "center",
               }}
             >
-              {allSubscription?.map((item,index) => {
+              {allSubscription?.map((item, index) => {
+                
                 return (
                   <div key={index} className="block--info">
                     <div className="info--title">
@@ -49,10 +60,15 @@ export default function Sub() {
                         days. Cancel anytime before then, to halt payment
                       </p>
                     </div>
-                    <div className="info--button" style={{marginBottom:'20px'}}>
-                      <Link href={`https://paystack.com/pay/${item.slug}`}>
+                 <div
+                      className="info--button"
+                      style={{ marginBottom: "20px" }}
+                    >
+                      {   item.packageDuration=='trial'?"":item?._id==user?.user?.subscriptionId?<Link href='#'>
+                        <a onClick={()=>Unsubscribe(item?._id)} className="btn">Unsubscribe</a>
+                      </Link>:<Link href={`https://paystack.com/pay/${item.slug}`}>
                         <a className="btn">Premimum</a>
-                      </Link>
+                      </Link>}
                     </div>
                   </div>
                 );
@@ -61,6 +77,8 @@ export default function Sub() {
           </div>
         </div>
       </div>
+
+      <UnsubscribeModel modelOpened={modelOpened} setModelOpened={setModelOpened} id={subscriptionId} />
     </>
   );
 }

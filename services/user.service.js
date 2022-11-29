@@ -268,6 +268,17 @@ function verifyTransaction(data) {
       return error;
     });
 }
+function cancelTransaction(id) {
+  return fetchWrapper
+    .get(`${baseUrl}/subscription/cancel-subscription?id=${id}`)
+    .then((res) => {
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 function GetSingleUser(userName) {
  
   return fetchWrapper
@@ -306,5 +317,6 @@ export const userService = {
   subscriptionUpdate,
   getAllSubscription,
   verifyTransaction,
-  GetSingleUser
+  GetSingleUser,
+  cancelTransaction
 };

@@ -6,7 +6,8 @@ import { userService } from "../../services";
 const MarketOpenClose = () => {
   const [marketOpen, setmarketOpen] = useState(false);
   const [marketMessage, setMarketMessage] = useState("");
-  const [holiday,setHoliday]=useState()
+  const [holiday,setHoliday]=useState();
+  const [message,setMessage]=useState('')
 
   const marketOpenTime = "09:30:00";
   const marketCloseTime = "14:30:00";
@@ -51,6 +52,7 @@ const MarketOpenClose = () => {
   }
   const timeCount = (holiday) => {
     var today = new Date();
+   
     const temp = NigerianTimeZone(today);
     const formatDate = moment(temp).format("HH:mm:ss");
 
@@ -61,6 +63,7 @@ const MarketOpenClose = () => {
       today.setDate(today.getDate() + 1);
       let day = moment(today).format("dddd");
       if (day == "Saturday") {
+        
         today.setDate(today.getDate() + 2);
       } else if (day == "Sunday") {
         today.setDate(today.getDate() + 1);
@@ -75,23 +78,29 @@ const MarketOpenClose = () => {
       today.setHours(9);
       today.setMinutes(30);
       setmarketOpen(false);
-      setMarketMessage(timeDiffCalc(newDate, today));
+      setMarketMessage(`${timeDiffCalc(newDate, today)} ${message?`(${message})`:""}`);
     } else if (marketOpenTime <= formatDate && marketCloseTime >= formatDate) {
       today.setHours(14);
       today.setMinutes(30);
       setmarketOpen(true);
-      setMarketMessage(timeDiffCalc(newDate, today));
+      setMarketMessage(`${timeDiffCalc(newDate, today)} ${message?`(${message})`:""}`);
+
+
     } else if (marketOpenTime > formatDate) {
       today.setHours(9);
       today.setMinutes(30);
       setmarketOpen(false);
-      setMarketMessage(timeDiffCalc(newDate, today));
+      setMarketMessage(`${timeDiffCalc(newDate, today)} ${message?`(${message})`:""}`);
+
+
     } else {
       today.setDate(today.getDate() + 1);
       today.setHours(9);
       today.setMinutes(30);
       setmarketOpen(false);
-      setMarketMessage(timeDiffCalc(newDate, today));
+      setMarketMessage(`${timeDiffCalc(newDate, today)} ${message?`(${message})`:""}`);
+
+
     }
   };
 
@@ -107,6 +116,7 @@ const MarketOpenClose = () => {
   const allHoliday=async()=>{
     userService.getHoliday().then((res)=>{
       setHoliday(res.data)
+      setMessage(res.desc ||'')
     }).catch((err)=>console.log(err))
 
   }
@@ -139,7 +149,7 @@ const MarketOpenClose = () => {
           </span>
           Market is open. Close in {marketMessage}
         </div>
-      ) : (
+      ) :marketMessage? (
         <div className="status-summary font-18">
           <span>
             <svg
@@ -157,7 +167,7 @@ const MarketOpenClose = () => {
           </span>
           Market is closed. Opens in {marketMessage}
         </div>
-      )}
+      ):""}
     </>
   );
 };

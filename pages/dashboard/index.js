@@ -19,6 +19,7 @@ import WatchListData, {
 import { useDispatch, useSelector } from 'react-redux';
 import { AccountValue } from '../../helpers/UserAccount';
 import UpgradePlan from '../../components/UpgradePlan/upgradePlan';
+import NigerianTimeZone from '../../helpers/Negerian-TimeZone'
 import moment from 'moment-timezone';
 import SelectGame from '../../components/SelectGame/SelectGame';
 
@@ -29,6 +30,7 @@ export default function Home() {
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
+ 
   return (
     <>
       <Sidebar />
@@ -85,7 +87,7 @@ export default function Home() {
         </div>
 
         {/* Watchlist */}
-        { moment(new Date()).format("YYYY-MM-DD")<=moment(user?.user?.expiredDate).format("YYYY-MM-DD") &&  <div className="card--wrapper">
+        { NigerianTimeZone(new Date())<=NigerianTimeZone(user?.user?.expiredDate) &&  <div className="card--wrapper">
           <div className="wrapper--hgroup">
             <div className="wrapper--title">
               <h3>Watchlist</h3>
