@@ -10,13 +10,13 @@ function UnsubscribeModel({ modelOpened, setModelOpened,id }) {
   const unsubscribePackage = (id) => {
           userService.cancelTransaction(id).then((res)=>{
                     if(res.success){
-                         router.push('/')     
+                         router.push('/dashboard')     
                     }
 
           }).catch((err)=>{
                     console.log(err)
           })
-alert(id)
+
   };
 
   return (

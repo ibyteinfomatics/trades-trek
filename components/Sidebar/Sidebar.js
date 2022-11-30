@@ -8,6 +8,7 @@ import { setUser } from '../../actions/users';
 import { userService } from '../../services/user.service';
 import LogOutModal from '../Modal/LogoutModal';
 import moment from 'moment-timezone';
+import NigerianTimeZone from '../../helpers/Negerian-TimeZone';
 
 // const ENDPOINT = "http://localhost:3232";
 
@@ -48,7 +49,7 @@ export default function Sidebar() {
    
     if(router.asPath=='/dashboard/competition-summary/'){
      
-      if( moment(new Date()).format("YYYY-MM-DD")<=moment(user?.user?.expiredDate).format("YYYY-MM-DD")){
+      if(NigerianTimeZone(new Date())<=NigerianTimeZone(user?.user?.expiredDate)){
        
       }else{
         router.push('/dashboard/subscription') 

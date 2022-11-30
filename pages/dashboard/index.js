@@ -116,7 +116,7 @@ export default function Home() {
         </div>}
 
         {/* 3 blocks wraps */}
-      {moment(new Date()).format("YYYY-MM-DD")<=moment(user?.user?.expiredDate).format("YYYY-MM-DD") && <div className="card--wrapper">
+      {NigerianTimeZone(new Date())<=NigerianTimeZone(user?.user?.expiredDate) && <div className="card--wrapper">
         <div className="wrapper--text card--grid card--grid--3">
           {/* Top Gainers */}
           <div className="wrapper--col">
