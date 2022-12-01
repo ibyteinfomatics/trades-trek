@@ -56,8 +56,7 @@ setSubscriptionId(id)
                     </div>
                     <div className="info--text">
                       <p>
-                        7 days free usage. Payment will commence at end of 7
-                        days. Cancel anytime before then, to halt payment
+                      {item?.packageDesc}
                       </p>
                     </div>
                  <div
