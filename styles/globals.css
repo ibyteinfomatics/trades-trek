@@ -2844,5 +2844,8 @@ button:disabled:hover{
   font-weight: bold;
   border-radius: 4px;
 }
+.activeSubscription{
+  background-color: #c5cecc !important;
+}
 
 

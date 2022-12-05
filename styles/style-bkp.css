@@ -1517,3 +1517,6 @@ html{
 .invalid-feedback {
   color: red;
 }
+.activeSubscription{
+  background-color: #42b7a4 !important;
+}

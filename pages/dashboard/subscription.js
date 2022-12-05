@@ -8,6 +8,7 @@ import { userService } from "../../services";
 import Iframe from "react-iframe";
 import { useSelector } from "react-redux";
 import UnsubscribeModel from "../../components/Modal/UnsubscribeModel";
+import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
 export default function Sub() {
   let { user } = useSelector((state) => state.userWrapper);
 
@@ -40,6 +41,7 @@ setSubscriptionId(id)
               className="trade-data"
               style={{
                 display: "flex",
+                flexWrap:'wrap',
                 height: "100vh",
                 justifyContent: "center",
                 alignItems: "center",
@@ -48,7 +50,7 @@ setSubscriptionId(id)
               {allSubscription?.map((item, index) => {
                 
                 return (
-                  <div key={index} className="block--info">
+                  <div key={index} className={`block--info ${item?._id==user?.user?.subscriptionId && 'activeSubscription'}`} style={{width:'33%'}}>
                     <div className="info--title">
                       <span>{item?.packageAmount}</span>
                       <span>{item?.packageDuration.toUpperCase()} Fee</span>
@@ -69,6 +71,7 @@ setSubscriptionId(id)
                         <a className="btn">Premimum</a>
                       </Link>}
                     </div>
+                    {item?._id==user?.user?.subscriptionId && <SubscriptionExpire /> }
                   </div>
                 );
               })}
