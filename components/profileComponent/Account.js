@@ -37,7 +37,7 @@ export default function Account() {
                 placeholder="Email"
                 className="form--control"
                 readOnly={true}
-                value={user && user.username}
+                value={user && user?.user?.username}
               />
               <label htmlFor="username" className="form--label">
                 Username
@@ -50,7 +50,7 @@ export default function Account() {
                 placeholder="Email"
                 className="form--control"
                 readOnly={true}
-                value={user && user.email}
+                value={user && user?.user?.email}
                 // onChange={(e)=>setEmail(e.target.value)}
               />
               <label htmlFor="email" className="form--label">
@@ -58,7 +58,7 @@ export default function Account() {
               </label>
             </div>
           </form>
-          <div
+          {/* <div
             style={{
              display:'flex',
              justifyContent:'end'
@@ -75,7 +75,7 @@ export default function Account() {
             >
               Delete Account
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />
