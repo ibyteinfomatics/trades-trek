@@ -174,8 +174,7 @@ const AnotherShortTable = ({userName}) => {
           </div>
         )}
         <div
-          className="btn--group form--actions"
-          style={{ width: "40%", margin: "40px auto", paddingBottom: "30px" }}
+          className="btn--group form--actions noPadding"
         >
           <Link href={`competition-summary?username=${userName}&history=${userName}`}>
             <a className="btn form--submit">TradeHistory</a>

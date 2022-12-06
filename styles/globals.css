@@ -2300,6 +2300,10 @@ html{
 .profileImage{
   @apply flex items-center justify-center w-full;
 }
+.btn--group.noPadding {
+  @apply pr-0 m-auto pb-8;
+  max-width: 30%;
+}
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;

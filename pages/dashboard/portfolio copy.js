@@ -141,8 +141,7 @@ export default function Portfolio() {
                       />
                     )}
                     <div
-                      className="btn--group form--actions"
-                      style={{ width: "40%", margin: "10px auto" }}
+                      className="btn--group form--actions noPadding"
                     >
                       <Link href="/dashboard/trade-history">
                         <a className="btn form--submit">TradeHistory</a>
@@ -162,8 +161,7 @@ export default function Portfolio() {
                       />
                     )}
                     <div
-                      className="btn--group form--actions"
-                      style={{ width: "40%", margin: "10px auto" }}
+                      className="btn--group form--actions noPadding"
                     >
                       <Link href="/dashboard/trade-history">
                         <a className="btn form--submit">TradeHistory</a>
