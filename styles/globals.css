@@ -2223,6 +2223,83 @@ html{
 .text--purple{
   color: var(--purpleColor);
 }
+.justifyBetween{
+  @apply justify-between;
+}
+.Referral .font-13{
+}
+.referralNo{
+  @apply font-semi-bold mb-4;
+}
+.referralNo h4{
+  font-size: 1rem;
+}
+.referEarn .icon{
+  width: 9.938rem;
+  height: 7.875rem;
+  margin-top: 3.875rem;
+  margin-bottom: 1.563rem;
+  @apply ml-auto mr-auto;
+}
+.btn--orange {
+  background: #F45531;
+  max-width: 7.563rem;
+  display: inline-block;
+  width: 100%;
+  position: absolute;
+  top: -2rem;
+  right: 0rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+.referEarn .form--label {
+  position: inherit;
+  color: #000;
+  opacity: 1;
+}
+.referEarn .form--label::placeholder{
+  font-weight: 700;
+  color: #000;
+}
+.referEarn .form--control{
+  @apply mt-2 text-black font-bold;
+}
+.mt--19{
+  margin-top: 1.188rem;
+}
+.mb--19{
+  margin-bottom: 1.188rem;
+}
+.mb--12{
+  margin-bottom: 0.75rem;
+}
+.mt--12{
+  margin-top: 0.75rem;
+}
+.terms{
+  @apply inline-block w-full;
+}
+.pageBlockWhite{
+  @apply bg-white;
+}
+.pageCenterWidth .center--block{
+  height: calc(100vh - 13rem);
+  margin-left: 10rem;
+  max-width: 78%;
+}
+.pageCenterWidth .small--block {
+  margin: auto;
+  max-width: 50%;
+}
+.mb--64{
+  margin-bottom: 4rem;
+}
+.mb--32{
+  @apply mb-8;
+}
+.profileImage{
+  @apply flex items-center justify-center w-full;
+}
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;

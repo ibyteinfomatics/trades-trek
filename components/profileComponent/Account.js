@@ -12,16 +12,10 @@ export default function Account() {
     <>
       <div className="center--block">
         <div className="small--block">
-          <div className="block--title block--back--link text--center">
+          <div className="block--title block--back--link text--center mb--64">
             <h1>Your Profile</h1>
           </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+          <div className="mb--32 profileImage"
           >
             <img
               style={{ height: "120px", borderRadius: "50%" }}
@@ -34,7 +28,7 @@ export default function Account() {
               <input
                 type="text"
                 id="username"
-                placeholder="Email"
+                placeholder="Username"
                 className="form--control"
                 readOnly={true}
                 value={user && user?.user?.username}

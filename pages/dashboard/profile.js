@@ -13,7 +13,7 @@ export default function Profie() {
   return (
     <>
       <Sidebar />
-      <div className="site--content">
+      <div className="site--content pageCenterWidth">
         <div className="page--title--block">
           <div className="card-no-gap">
             <div className="trade-data">
