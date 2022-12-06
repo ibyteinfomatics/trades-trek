@@ -1491,24 +1491,23 @@ td.sector--gain {
   border-bottom: 0.063rem solid #AFAFAF;
 }
 .symbol--lookup label{
-  color: #000;
+  @apply text-black;
 }
 .borderBtnPurple span{
   border: 0.847619px solid var(--purpleColor);
   max-width: 16.688rem;
-  display: inline-block;
   border-radius: 0.375rem;
   color: var(--purpleColor);
   max-width: 28.063rem;
   border-radius: 0.625rem;
   padding: 0.8rem 1rem;
-  cursor: pointer;
+  @apply inline-block cursor-pointer;
 }
 .btn--right .borderBtnPurple span{
   @apply flex justify-center items-center font-bold;
 }
 .table-view.performance {
-  overflow-x: auto;
+  @apply overflow-x-auto;
 }
 .table-view .borderBtnPurple {
   @apply flex justify-end items-center;
@@ -1525,7 +1524,7 @@ td.sector--gain {
 }
 
 .table-view {
-  overflow-x: auto;
+  @apply overflow-x-auto;
 }
 /* .btn--right .fullBtnPurple span{
   @apply flex justify-evenly items-center;
@@ -1614,13 +1613,23 @@ td.sector--gain {
   @apply relative;
 }
 .video-block-wrapper .video-data{
-  @apply absolute;
-  top: 1rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  @apply absolute top-4 bottom-0 left-0 right-0;
+}
+.notificationGroup {
+  padding: 1em 0;
+  border-bottom: 1px solid #ddd;
 }
 
+.notificationGroup h1 {
+  color: #8000ff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.notificationGroup .name {
+  max-width: 90%;
+  width: 100%;
+}
 /* Css 24 July */
 .portfolio-trade-history .fullBtnPurple a {
   padding: 1.5rem 1rem;
