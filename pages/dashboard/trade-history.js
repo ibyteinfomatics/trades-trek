@@ -60,6 +60,7 @@ export default function TradeHistory() {
     "Trade Type",
     "QTY",
     "Price",
+    "Commission",
     "Total Cash Value",
   ];
   return (
@@ -125,6 +126,7 @@ export default function TradeHistory() {
                               </td>
                               <td>{item.quantity}</td>
                               <td>₦{item.rate.toFixed(2)}</td>
+                              <td>₦{item.commission.toFixed(2)}</td>
                               <td>₦{(item.rate * item.quantity).toFixed(2)}</td>
                             </tr>
                           ))}
