@@ -86,7 +86,7 @@ export default function Security() {
     <>
       <div className="center--block">
         <div className="small--block">
-          <div className="block--title block--back--link text--center">
+          <div className="block--title block--back--link text--center mb--32">
             <h1>Change Password</h1>
           </div>
 

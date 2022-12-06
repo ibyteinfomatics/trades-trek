@@ -7,7 +7,7 @@ const InviteFriend = () => {
     <>
     <div className="center--block Referral">
       <div className="small--block">
-        <div className="block--title block--back--link mb--12">
+        <div className="block--title block--back--link mb--32">
           <h1 className='font-20 textLeft'>Referral</h1>
         </div>
         <div className='flexBox justifyBetween referralNo'>
