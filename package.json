@@ -43,7 +43,8 @@
     "redux-thunk": "^2.4.1",
     "rxjs": "^7.5.6",
     "slick-carousel": "^1.8.1",
-    "socket.io-client": "^4.5.1"
+    "socket.io-client": "^4.5.1",
+    "timeago-react": "^3.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

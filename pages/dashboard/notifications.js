@@ -37,8 +37,13 @@ export default function Notifications() {
         <div className="center--block" style={{ marginTop: "20px" }}>
           {notifications?.map((notification) => {
             return (
-              <div style={{padding:'20px 5px'}} >
-                <h1>{notification?.username.toUpperCase()}</h1>
+              <div className="notificationGroup">
+                <div className="flexBox">
+                  <h1 className="name">
+                    {notification?.username.toUpperCase()}
+                  </h1>
+                  <div className="time">1 day ago</div>
+                </div>
                 <p>{notification?.message}</p>
               </div>
             );
