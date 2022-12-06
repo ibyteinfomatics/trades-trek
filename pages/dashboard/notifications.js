@@ -4,6 +4,7 @@ import HighlightTrades from "../../components/HighlightTrades/HighlightTrades";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { notificationService } from "../../services/notification.service";
+import TimeAgo from "timeago-react";
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
@@ -42,7 +43,12 @@ export default function Notifications() {
                   <h1 className="name">
                     {notification?.username.toUpperCase()}
                   </h1>
-                  <div className="time">1 day ago</div>
+                  <div className="time">
+                  <TimeAgo
+  datetime={notification.createdAt}
+  // locale='zh_CN'
+/>
+                  </div>
                 </div>
                 <p>{notification?.message}</p>
               </div>
