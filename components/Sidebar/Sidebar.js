@@ -280,8 +280,12 @@ export default function Sidebar() {
         </div>
         <div className="site__nav--bottom">
           <ul className="menu__list">
-            <li className="menu__list--item">
-              <Link href="javascript:void(0)">
+            <li  className={
+                router.pathname == '/dashboard/notifications'
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `}
+>
+              <Link href="/dashboard/notifications">
                 <a>
                   <span className="menu--icons">
                     <Image
