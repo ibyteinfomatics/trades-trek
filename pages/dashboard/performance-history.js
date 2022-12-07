@@ -62,6 +62,8 @@ export default function PerformanceHistory() {
     "Cash",
     "Stock Portfolio Value",
     "Shorted Stock Portfolio Value",
+    "Margin Interest",
+    "Cash Interest",
     "Account Value",
   ];
   return (
@@ -117,6 +119,9 @@ export default function PerformanceHistory() {
                           <td>{item.cash.toFixed(2)}</td>
                           <td>{item.stockPortfolio.toFixed(2)}</td>
                           <td>{item.shortedPortfolio.toFixed(2)}</td>
+                          <td>{item.marginInterest?.toFixed(2)}</td>
+                          <td>{item.cashInterest?.toFixed(2)}</td>
+
                           <td>{item.accountValue.toFixed(2)}</td>
                         </tr>
                       ))}
