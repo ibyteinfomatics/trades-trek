@@ -9,9 +9,41 @@ const userSubject = new BehaviorSubject(
   process.browser && localStorage.getItem('token')
 );
 
-function getAllStock() {
+function getTopGainer() {
     return fetchWrapper
-      .get(`${baseUrl}/user/stock/all`)
+      .get(`${baseUrl}/stock/top-gainer`)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+  function getTopLooser() {
+    return fetchWrapper
+      .get(`${baseUrl}/stock/top-looser`)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+  function getAllStock() {
+    return fetchWrapper
+      .get(`${baseUrl}/stock/all`)
   
       .then((res) => {
         if (res.success) {
@@ -26,31 +58,8 @@ function getAllStock() {
       });
   }
 
-function orderStock(data) {
-    return fetchWrapper
-      .post(`${baseUrl}/user/order/create`,{
-        symbol:data.Symbol,
-        quantity:Number(data.quantity),
-        rate: (data.orderType == 'Market') ? parseFloat(data.Last) : parseFloat(data.rate),
-        duration:data.duration,
-        orderType:data.orderType,
-        action:data.action,
-        commission:data.commission,
-        gameId:localStorage.getItem('GameId')
-      })
-  
-      .then((res) => {
-        if (res.success) {
-        }
-        return res;
-      })
-      .catch((error) => {
-        if (error?.length > 0) {
-          return error[0];
-        }
-        return error;
-      });
-  }
+
+
 
 
 
@@ -59,6 +68,7 @@ export const stockService ={
     get userValue() {
       return userSubject.value;
     },
-    getAllStock,
-    orderStock
+   getTopGainer,
+   getTopLooser,
+   getAllStock
   };

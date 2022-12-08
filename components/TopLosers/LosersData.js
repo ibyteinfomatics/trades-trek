@@ -11,29 +11,29 @@ export default function LosersData(Props) {
       <>
         <li>
           <div className="stock--detail">
-            <div className="light--purple--circle"></div>
+            <div className="light--purple--circle">{LoserList?.Name[0]}</div>
             <div>
-              {LoserList?.LoserTitle && (
-                <p className="stock--title">{LoserList?.LoserTitle}</p>
+              {LoserList?.Symbol && (
+                <p className="stock--title">{LoserList?.Symbol}</p>
               )}
-              {LoserList?.LoserSubTitle && (
-                <p className="stock--sub--title">{LoserList?.LoserSubTitle}</p>
+              {LoserList?.Name && (
+                <p className="stock--sub--title">{LoserList?.Name}</p>
               )}
             </div>
           </div>
           <div className="stock--positions loser--stock--position">
-            {LoserList?.LoserDat && (
-              <div className="stock--dat">{LoserList?.LoserDat}</div>
+            {LoserList?.Last && (
+              <div className="stock--dat">{LoserList?.Last}</div>
             )}
             <div>
-              {LoserList?.LoserPosition && (
-                <p className="stock--position">{LoserList?.LoserPosition}</p>
-              )}
-              {LoserList?.LoserSubPosition && (
+            
+                <p className="stock--position">{LoserList?.PerChange?.toFixed(2)}%</p>
+            
+             
                 <p className="stock--subposition">
-                  {LoserList?.LoserSubPosition}
+                {LoserList?.Change?.toFixed(2)}
                 </p>
-              )}
+             
             </div>
           </div>
         </li>

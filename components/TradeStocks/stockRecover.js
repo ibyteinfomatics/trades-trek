@@ -81,7 +81,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
     stockService
       .getAllStock()
       .then((res) => {
-        setStockAllData(res);
+        setStockAllData(res.data);
       })
       .catch((err) => {
         setStockAllData([]);

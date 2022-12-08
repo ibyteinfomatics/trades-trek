@@ -730,6 +730,7 @@ p.trade--position {
 
 .light--purple--circle {
   @apply w-10 h-10 rounded-full;
+  padding: 7px 10px;
   background: var(--purpleColorLight);
 }
 

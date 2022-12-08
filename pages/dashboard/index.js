@@ -136,7 +136,7 @@ export default function Home() {
                 )}
               </div>
             </div>
-            {!showGainersList ? <GainerView /> : <GainerView2 />}
+            <GainerView showGainersList={!showGainersList} /> 
           </div>
 
           {/* Top Losers */}
@@ -158,7 +158,7 @@ export default function Home() {
               </div>
             </div>
 
-            {!showLosersList ? <LoserView /> : <LoserView2 />}
+            <LoserView showLosersList={!showLosersList} /> 
           </div>
 
           {/* Leaders */}

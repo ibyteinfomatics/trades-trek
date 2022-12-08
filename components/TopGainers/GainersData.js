@@ -7,33 +7,34 @@ export default function GainersData(Props) {
         let {listGainerData} = Props
         setGainerList(listGainerData)
     })
+  
     return (
       <>
         <li>
           <div className="stock--detail">
-            <div className="light--purple--circle"></div>
+            <div className="light--purple--circle">{GainerList?.Name[0]}</div>
             <div>
-              {GainerList?.GainerTitle && (
-                <p className="stock--title">{GainerList?.GainerTitle}</p>
+              {GainerList?.Symbol && (
+                <p className="stock--title">{GainerList?.Symbol}</p>
               )}
-              {GainerList?.GainerSubTitle && (
-                <p className="stock--sub--title">{GainerList?.GainerSubTitle}</p>
+              {GainerList?.Name && (
+                <p className="stock--sub--title">{GainerList?.Name}</p>
               )}
             </div>
           </div>
           <div className="stock--positions">
-            {GainerList?.GainerDat && (
-              <div className="stock--dat">{GainerList?.GainerDat}</div>
+            {GainerList?.Last && (
+              <div className="stock--dat">{GainerList?.Last?.toFixed(2)}</div>
             )}
             <div>
-              {GainerList?.GainerPosition && (
-                <p className="stock--position">{GainerList?.GainerPosition}</p>
-              )}
-              {GainerList?.GainerSubPosition && (
+              
+                <p className="stock--position">+{GainerList?.PerChange?.toFixed(2)}%</p>
+           
+            
                 <p className="stock--subposition">
-                  {GainerList?.GainerSubPosition}
+                  +{GainerList?.Change?.toFixed(2)}
                 </p>
-              )}
+           
             </div>
           </div>
         </li>
