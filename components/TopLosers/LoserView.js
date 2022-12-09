@@ -32,11 +32,11 @@ export default function LoserView({showLosersList}) {
                   <Loader color="#8000ff" />
                   <h1>Please Wait ...</h1>
                 </div>:<ul>
-                   {showLosersList? LosersList.map((data, index) => {
+                   {showLosersList? LosersList?.map((data, index) => {
                         if(index <= 5){
                             return <LosersData key={index} listLoserData={data} />
                         }
-                    }):LosersList.map((data, index) => {
+                    }):LosersList?.map((data, index) => {
                        
                             return <LosersData key={index} listLoserData={data} />
                     

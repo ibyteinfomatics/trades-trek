@@ -36,11 +36,11 @@ export default function GainerView({showGainersList}) {
                   <Loader color="#8000ff" />
                   <h1>Please Wait ...</h1>
                 </div>:<ul>
-                    {showGainersList?GainersList.map((data, index) => {
+                    {showGainersList?GainersList?.map((data, index) => {
                         if(index <= 5){
                             return <GainersData key={index} listGainerData={data} />
                         }
-                    }):GainersList.map((data, index) => {
+                    }):GainersList?.map((data, index) => {
                         
                             return <GainersData key={index} listGainerData={data} />
                         
