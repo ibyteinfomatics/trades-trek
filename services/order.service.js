@@ -23,6 +23,25 @@ function getPendingOrders(page=1) {
       return error;
     });
 }
+function createOrder(data){
+  console.log(data)
+  data.symbol=data.Symbol
+  data.quantity=Number(data.quantity)
+  data.rate=data.orderType=='Limit'?Number(data.rate):Number(data.Last)
+  data.gameId=localStorage.getItem("GameId")
+  return fetchWrapper
+    .post(`${baseUrl}/user/order/create`,data)
+
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 function getFailedOrders(page=1) {
   return fetchWrapper
@@ -261,5 +280,6 @@ export const orderService = {
   pendingShort,
   holdingProfitOrLossAnotherUser,
   shortProfitOrLossAnotherUser,
-  tradeHistoryAnotheUser
+  tradeHistoryAnotheUser,
+  createOrder
 };

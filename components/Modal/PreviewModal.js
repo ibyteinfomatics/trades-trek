@@ -1,10 +1,10 @@
 import { Loader, Modal, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { stockService } from "../../services/stock.service";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
 import { setSelectedStock } from "../../actions/setStock";
+import { orderService } from "../../services/order.service";
 
 function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
@@ -32,8 +32,8 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
   const submitOrder = () => {
     setIsLoading(true)
     data.commission = commission;
-    stockService
-      .orderStock(data)
+    orderService
+      .createOrder(data)
       .then((res) => {
         if (res.success) {
           dispatch(setUser(res.user));
