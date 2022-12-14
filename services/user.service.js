@@ -55,9 +55,9 @@ function verifyLoginOtp(email, otp) {
     })
     .then((res) => {
       if (res.success) {
-        userSubject.next(res.token);
-        localStorage.setItem('token', res.token);
-        Router.push('/dashboard')
+        // userSubject.next(res.token);
+        // localStorage.setItem('token', res.token);
+        Router.push('/subscription')
 
         
       }
@@ -129,6 +129,8 @@ function logout() {
   localStorage.removeItem('GameId')
   localStorage.removeItem('indexTrade')
   localStorage.removeItem('indexPort')
+  localStorage.removeItem('email')
+  localStorage.removeItem('otp')
   userSubject.next(null);
   Router.push('/');
 }
@@ -256,11 +258,46 @@ function getAllSubscription() {
       return error;
     });
 }
+function subscriptions() {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/subscription`)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 function verifyTransaction(data) {
   return fetchWrapper
     .post(`${baseUrl}/subscription/verify`,data)
     .then((res) => {
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+
+function withoutVerifyTransaction(data) {
+  console.log(data)
+  data.email=localStorage.getItem('email')
+  return fetchWrapper
+    .post(`${baseUrl}/subscription/verify-without-login`,data)
+    .then((res) => {
+      if(res.success){
+        userSubject.next(res.token);
+        localStorage.setItem('token', res.token);
+      }
      
       return res;
     })
@@ -318,5 +355,7 @@ export const userService = {
   getAllSubscription,
   verifyTransaction,
   GetSingleUser,
-  cancelTransaction
+  cancelTransaction,
+  subscriptions,
+  withoutVerifyTransaction
 };

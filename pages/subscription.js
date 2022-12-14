@@ -17,10 +17,11 @@ export default function Subscription() {
       setEmailAddress(email);
     }
   }, []);
-  const handleFreemium = () => {
+  const handleTrial = () => {
     userService
-      .subscriptionUpdate(emailAddress, "Freemium")
+      .subscriptionUpdate(emailAddress, "trial")
       .then((res) => {
+
        router.push('/dashboard')
       })
       .catch((err) => {
@@ -52,14 +53,14 @@ export default function Subscription() {
           </div>
           
           <div className="info--button">
-            <Link href="/checkout">
+            <Link href="/premimum-subscription">
               <a className="btn">Premimum</a>
             </Link>
           </div>
           <div className="info--button">
-            <Link href="/dashboard">
-              <a className="btn" onClick={handleFreemium}>
-                Freemium
+            <Link href="#">
+              <a className="btn" onClick={handleTrial}>
+                Trial
               </a>
             </Link>
           </div>

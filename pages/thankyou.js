@@ -13,7 +13,8 @@ const thankyou = () => {
   useEffect(() => {
     setLoading(true);
     if (router.query.reference) {
-      userService
+      if(localStorage.getItem('token')){
+ userService
         .verifyTransaction(router.query)
         .then((res) => {
           if(res.success){
@@ -30,6 +31,29 @@ const thankyou = () => {
           // console.log(error)
           setLoading(false);
         });
+      }else{
+        userService
+        .withoutVerifyTransaction(router.query)
+        .then((res) => {
+          if(res.success){
+            setLoading(false);
+            console.log(res);
+          }else{
+            setError(true)
+            setLoading(false);
+
+          }
+          
+        })
+        .catch((err) => {
+          // console.log(error)
+          setLoading(false);
+        });
+        
+      }
+   
+
+     
     }
   }, [router.query]);
   return (

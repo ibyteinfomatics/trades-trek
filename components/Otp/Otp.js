@@ -37,22 +37,28 @@ export default function Otp() {
       const response = await userService.verifyLoginOtp(email,Number(otp));
        if (response.success === false) {
         setBtnStatus(false);
-        
+        setLoaderStatus(false)
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.error(response.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setBtnStatus(false);
+          setLoaderStatus(false)
         }
       } else {
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.success(response.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setLoaderStatus(false)
+          setBtnStatus(false);
         }
         setBtnStatus(false);
         setLoaderStatus(false);
       }
     }
+    setBtnStatus(false);
+    setLoaderStatus(false)
   };
 
  
