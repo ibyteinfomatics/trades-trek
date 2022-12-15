@@ -162,6 +162,7 @@ export default function MyCompetationView() {
                     handleLeaveCompetition={handleLeaveCompetition}
                     handleInvite={handleInvite}
                     handleGoToHome={handleGoToHome}
+                    length={myGame.length}
 
                   />
                 );

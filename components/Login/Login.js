@@ -38,6 +38,10 @@ export default function Login() {
           dispatch(setUser(res.user));
           setIsLoading(false)
           router.push('/dashboard');
+        }else if(res?.success === false &&!res.user){
+          setValidate(true)
+          setError(res.message)
+        setIsLoading(false)
         } else if (res?.success === false && res?.profileStatus === 0) {
           setValidate(true)
           

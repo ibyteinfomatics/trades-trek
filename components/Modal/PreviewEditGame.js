@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
 import { setSelectedStock } from "../../actions/setStock";
 import { gameService } from "../../services/game.service";
+import NigerianDateConverter from "../../helpers/NegerianDateConverter";
 
 function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
@@ -185,6 +186,7 @@ function PreviewEditGame({ modelOpened, setModelOpened, data, setShowTrade }) {
                 onChange={(e) => setEndDate(e.target.value)}
                 className="inputGameSetting"
                 placeholder="start date"
+                min={NigerianDateConverter(startDate)}
               />
             </div>
 

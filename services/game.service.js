@@ -186,7 +186,7 @@ function portfolioResetting(id) {
 function leaveCompetion(id) {
   // console
   return fetchWrapper
-    .delete(`${baseUrl}/game/leave-competition?gameId=${id}`)
+    .delete(`${baseUrl}/game/leave-UserCompetition?gameId=${id}`)
 
     .then((res) => {
       if (res.success) {

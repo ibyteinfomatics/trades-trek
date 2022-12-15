@@ -57,7 +57,7 @@ function verifyLoginOtp(email, otp) {
       if (res.success) {
         // userSubject.next(res.token);
         // localStorage.setItem('token', res.token);
-        Router.push('/subscription')
+        Router.replace('/subscription')
 
         
       }

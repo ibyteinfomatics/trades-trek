@@ -47,7 +47,7 @@ export default function Signup() {
         localStorage.setItem("otp", data.email);
         dispatch(setUser(res.user));
         setIsLoading(false)
-        router.push("/otp");
+        router.replace("/otp");
       } else if (res?.success === false) {
         setValidate(true);
         setError(res.message);

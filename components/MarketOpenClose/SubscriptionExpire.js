@@ -64,7 +64,7 @@ const SubscriptionExpire = () => {
                   }, [user?.user?.expiredDate])
                   
   return (
-    <div style={{color:'red'}}>  {message ?`Your subscription is expired ${message}`:""}</div>
+    <div style={{color:'red'}}>  {message ?`Your subscription is expired after ${message}`:""}</div>
   )
 }
 

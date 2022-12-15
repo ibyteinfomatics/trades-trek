@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import NigerianCurrentTimeZone from "../../helpers/NegerianCurrentTime";
+import NigerianDateConverter from "../../helpers/NegerianDateConverter";
 import { gameService } from "../../services/game.service";
 
 import ToolTipCustome from "./ToolTip";
@@ -262,18 +264,23 @@ export default function CreateCompetation() {
                     {...register("startDate", { required: true })}
                     className="form--control"
                     type="date"
+                    min={NigerianCurrentTimeZone()}
                   />
+                  
                   <div className="invalid-feedback">
                     {errors.startDate?.type === "required" &&
                       "Start Date is required"}
                   </div>
                 </div>
+                {console.log(watch("startDate"))}
                 <div className="form--item error-msg">
                   <label className="form--label">Game End Date</label>
                   <input
                     {...register("endDate")}
                     className="form--control"
                     type="date"
+                    disabled={!watch("startDate")}
+                    min={NigerianDateConverter(watch("startDate"))}
                   />
                 </div>
               </div>

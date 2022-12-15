@@ -12,6 +12,7 @@ const CurrentComponent = ({
   handleLeaveCompetition,
   handleInvite,
   handleGoToHome,
+  length
 }) => {
 
 
@@ -232,7 +233,7 @@ const CurrentComponent = ({
                   </svg>
                 </span>
               </h5>} */}
-              {item.creatorId != user?.user?._id && (
+              {length>1 && item.creatorId != user?.user?._id && (
                 <h5
                   style={{ cursor: "pointer" }}
                   className="font-16 text--purple mt-32"
