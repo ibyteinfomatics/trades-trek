@@ -179,6 +179,9 @@ export default function Portfolio() {
                   >
                     <a className="btn form--submit">Performance History</a>
                   </Link>
+                  <div><input type='checkbox' />S&P 500</div>
+                  <div><input type='checkbox' />S&P 500</div>
+
                 </div>
               </div>
             </div>
