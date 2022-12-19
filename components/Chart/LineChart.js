@@ -1,21 +1,24 @@
 import React from 'react';
-import { Chart as chartjs, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js'
+import { Chart as chartjs, LineElement, PointElement, CategoryScale, LinearScale,Tooltip } from 'chart.js'
 import { Line } from 'react-chartjs-2';
 
 chartjs.register(
     CategoryScale,
     LinearScale,
     LineElement,
-    PointElement
+    PointElement,
+    Tooltip
 )
 
-export default function LineChart(){
+export default function LineChart({graphData}){
+   
+    
     
     const data = {
-        labels: ['Mon', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        labels:graphData.day? graphData.day:['Mon', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         datasets: [{
-            label: '# of Votes',
-            data: [100000, 101000, 108000, 153000, 104000, 105000],
+            label: '# Account Value',
+            data:graphData.amount? graphData.amount: [100000, 101000, 108000, 153000, 104000, 105000],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(54, 162, 235, 0.5)',
@@ -40,6 +43,9 @@ export default function LineChart(){
         scales: {
             y: {
                 beginAtZero: true
+            },
+            x: {
+                display: false // Hide X axis labels
             }
         }
     }
@@ -47,11 +53,12 @@ export default function LineChart(){
     return(
         <>
             <div style={{width: "100%", marginLeft: 'auto', marginRight: 'auto'}}>
-                <Line 
+                {graphData?.day?.length>0 ?<Line 
                     data={data}
                     height={100}
                     options={options}
-                />
+                />:<div style={{height:'150px',display:'flex',alignItems:"center"}}><h1>Your performance chart will update daily starting tomorrow</h1></div>}
+                
             </div>
         </>
     )

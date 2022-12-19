@@ -167,6 +167,25 @@ function userInfo(){
       });
 
 }
+function userGraph({typeData}){
+  return fetchWrapper
+      .get(`${baseUrl}/user/user-graph?gameId=${localStorage.getItem("GameId") || ''}&type=${typeData}`)
+  
+      .then((res) => {
+      
+       return res
+       
+       
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+
+}
+
 
 //Resend Otp
 function resendOtp(email, otp) {
@@ -357,5 +376,6 @@ export const userService = {
   GetSingleUser,
   cancelTransaction,
   subscriptions,
-  withoutVerifyTransaction
+  withoutVerifyTransaction,
+  userGraph
 };
