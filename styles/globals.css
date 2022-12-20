@@ -2815,7 +2815,7 @@ font-weight: bold;
   justify-content: flex-start;
 }
 .profileContainerAccount{
-  height: 65%;
+  /* height: 65%; */
   background-color: #fff;
   margin-bottom: 5%;
   text-align: left;

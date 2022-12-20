@@ -15,8 +15,9 @@ export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
   const [graphData,setGraphData]=useState()
   const [typeData,setTypeData]=useState('week')
+  const [perSelected,setPerSelected]=useState(false)
   useEffect(() => {
-  userService.userGraph({typeData}).then((res)=>{
+  userService.userGraph({typeData,perSelected}).then((res)=>{
     if(res.success){
       setGraphData(res.data)
     }else{
@@ -26,7 +27,7 @@ export default function Portfolio() {
   }).catch((err)=>{
     setGraphData()
   })
-  }, [user,typeData])
+  }, [user,typeData,perSelected])
   
   
 
@@ -180,7 +181,7 @@ export default function Portfolio() {
                     <a className="btn form--submit">Performance History</a>
                   </Link>
                   <div><input type='checkbox' />S&P 500</div>
-                  <div><input type='checkbox' />S&P 500</div>
+                  <div>₦<input checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)} type='checkbox' />%</div>
 
                 </div>
               </div>

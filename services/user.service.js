@@ -167,9 +167,9 @@ function userInfo(){
       });
 
 }
-function userGraph({typeData}){
+function userGraph({typeData,perSelected}){
   return fetchWrapper
-      .get(`${baseUrl}/user/user-graph?gameId=${localStorage.getItem("GameId") || ''}&type=${typeData}`)
+      .get(`${baseUrl}/user/user-graph?gameId=${localStorage.getItem("GameId") || ''}&type=${typeData}&per=${perSelected}`)
   
       .then((res) => {
       
