@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import LineChart from "../Chart/LineChart";
+
 import { stockService } from "../../services/stock.service";
 import { orderService } from "../../services/order.service";
 import Select, { AriaOnFocus } from "react-select";
@@ -12,6 +12,7 @@ import { StockChangePercent } from "../../helpers/StockChangePercent";
 import FormSpinner from "../Spinners/FormSpinner";
 import { useRouter } from "next/router";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
+import LineChartStock from "../Chart/LineChartStock";
 
 export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
@@ -393,7 +394,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                   </div>
                 </div>
                 <div className="gridColRight">
-                  <LineChart />
+                  <LineChartStock />
                 </div>
               </div>
               {/* <div className='bar--image-data'>

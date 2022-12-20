@@ -10,15 +10,15 @@ chartjs.register(
     Tooltip
 )
 
-export default function LineChart({graphData}){
+export default function LineChartStock(){
    
     
     
     const data = {
-        labels:graphData.day? graphData.day:['Mon', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        labels:['Mon', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         datasets: [{
             label: '# Account Value',
-            data:graphData.amount? graphData?.amount: [100000, 101000, 108000, 153000, 104000, 105000],
+            data:[1, 2,3,4,5],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(54, 162, 235, 0.5)',
@@ -42,33 +42,10 @@ export default function LineChart({graphData}){
         maintainAspectRation: false,
         scales: {
             y: {
-                // beginAtZero: true,
-                ticks: {
-                    // Include a dollar sign in the ticks
-                    callback: function(value, index, ticks) {
-                        return   value+` ${graphData.symbol? graphData?.symbol:""}` ;
-                    }
-                }
+                beginAtZero: true
             },
             x: {
                 display: false // Hide X axis labels
-            }
-        },
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let label = context.dataset.label || '';
-
-                        if (label) {
-                            label += ': ';
-                        }
-                        if (context.parsed.y !== null) {
-                            label += context.parsed.y+ `${graphData.symbol? graphData?.symbol:""}`
-                        }
-                        return label;
-                    }
-                }
             }
         }
     }
@@ -76,11 +53,11 @@ export default function LineChart({graphData}){
     return(
         <>
             <div style={{width: "100%", marginLeft: 'auto', marginRight: 'auto'}}>
-                {graphData?.day?.length>0 ?<Line 
+                <Line 
                     data={data}
                     height={100}
                     options={options}
-                />:<div style={{height:'150px',display:'flex',alignItems:"center"}}><h1>Your performance chart will update daily starting tomorrow</h1></div>}
+                />
                 
             </div>
         </>

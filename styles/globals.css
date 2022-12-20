@@ -2793,7 +2793,7 @@ font-weight: bold;
 
 
 .profileContainer{
-  height: 50vh;
+  /* height: 50vh; */
     display: flex;
     justify-content: center;
     text-align: center;
@@ -2801,6 +2801,29 @@ font-weight: bold;
     margin-bottom: 40px;
     margin-bottom: 7.75rem;
    
+}
+.rightBlock {
+  text-align: right;
+  padding: 0;
+  max-width: 46%;
+  width: 100%;
+}
+.spText {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.customWidth {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+.spText label {
+  margin-left: 1rem;
+}
+.customWidth .buttonGroup {
+  width: 50%;
 }
 .profileContainerLeft{
   width: 40vw;
@@ -2922,6 +2945,11 @@ button:disabled:hover{
   background-color: rgb(185, 179, 179);
   color: gray;
 }
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Switch CSs */
 
 
 .CurrentJoined{

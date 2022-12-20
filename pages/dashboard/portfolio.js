@@ -13,23 +13,23 @@ import { userService } from "../../services";
 
 export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
-  const [graphData,setGraphData]=useState()
-  const [typeData,setTypeData]=useState('week')
-  const [perSelected,setPerSelected]=useState(false)
+  const [graphData, setGraphData] = useState();
+  const [typeData, setTypeData] = useState("week");
+  const [perSelected, setPerSelected] = useState(false);
   useEffect(() => {
-  userService.userGraph({typeData,perSelected}).then((res)=>{
-    if(res.success){
-      setGraphData(res.data)
-    }else{
-      setGraphData()
-      
-    }
-  }).catch((err)=>{
-    setGraphData()
-  })
-  }, [user,typeData,perSelected])
-  
-  
+    userService
+      .userGraph({ typeData, perSelected })
+      .then((res) => {
+        if (res.success) {
+          setGraphData(res.data);
+        } else {
+          setGraphData();
+        }
+      })
+      .catch((err) => {
+        setGraphData();
+      });
+  }, [user, typeData, perSelected]);
 
   return (
     <>
@@ -142,47 +142,99 @@ export default function Portfolio() {
                 ) : (
                   <div>Your rank will update daily starting tomorrow</div>
                 )}
-               {user?.top && <div>
-                  <div className="rankText">
-                    <span>TOP PLAYER</span>
+                {user?.top && (
+                  <div>
+                    <div className="rankText">
+                      <span>TOP PLAYER</span>
+                    </div>
+                    <div className="rankText">
+                      <h4>
+                        <span className="textBlue">
+                          {user?.top?.result?.username}{" "}
+                        </span>{" "}
+                        ₦
+                        {user?.top?.accountValue
+                          ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                      </h4>
+                    </div>
                   </div>
-                  <div className="rankText">
-                    <h4>
-                      <span className="textBlue">{user?.top?.result?.username} </span> ₦
-                      {user?.top?.accountValue
-                        ?.toFixed(2)
-                        ?.toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
-                    </h4>
-                  </div>
-                </div>}
+                )}
               </div>
             </div>
             <div className="profileContainerRight">
               <div className="profileContainerRightBlock">
                 <div className="profileContainerRightGraph">
-                {graphData &&  <div>
-                    <span className={`tab-graph ${typeData=='week' && 'tab-graph-active'}`} onClick={()=>setTypeData('week')}  >1W</span>
-                    <span className={`tab-graph ${typeData=='month' && 'tab-graph-active'}`} onClick={()=>setTypeData('month')}>1M</span>
-                    <span className={`tab-graph ${typeData=='threemonth' && 'tab-graph-active'}`} onClick={()=>setTypeData('threemonth')}>3M</span>
-                    <span className={`tab-graph ${typeData=='sixmonth' && 'tab-graph-active'}`} onClick={()=>setTypeData('sixmonth')}>6M</span>
-                    <span className={`tab-graph ${typeData=='year' && 'tab-graph-active'}`} onClick={()=>setTypeData('year')}>1Y</span>
-                  </div>}
-                 {graphData && <LineChart graphData={graphData} />}
+                  {graphData && (
+                    <div>
+                      <span
+                        className={`tab-graph ${typeData == "week" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("week")}
+                      >
+                        1W
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "month" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("month")}
+                      >
+                        1M
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "threemonth" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("threemonth")}
+                      >
+                        3M
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "sixmonth" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("sixmonth")}
+                      >
+                        6M
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "year" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("year")}
+                      >
+                        1Y
+                      </span>
+                    </div>
+                  )}
+                  {graphData && <LineChart graphData={graphData} />}
                 </div>
-                <div
-                  className="btn--group form--actions"
-                  style={{ margin: "10px", width: "35vw" }}
-                >
-                  <Link
-                    href="/dashboard/performance-history"
-                    style={{ padding: "10px 20px" }}
-                  >
-                    <a className="btn form--submit">Performance History</a>
-                  </Link>
-                  <div><input type='checkbox' />S&P 500</div>
-                  <div>₦<input checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)} type='checkbox' />%</div>
-
+                <div className="btn--group form--actions customWidth">
+                  <div className="buttonGroup">
+                    <Link
+                      href="/dashboard/performance-history"
+                      style={{ padding: "10px 20px" }}
+                    >
+                      <a className="btn form--submit">Performance History</a>
+                    </Link>
+                  </div>
+                  <div className="rightBlock">
+                    <div className="spText">
+                      <input type="checkbox" />
+                      <label>S&P 500</label>
+                    </div>
+                    <div className="spText">
+                     
+                      <div className="box_1">
+                      ₦ 
+                        <input
+                          // {...register("allowTradingWithMargin")}
+                          type="checkbox"
+                          className="switch_1"
+                          checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)}
+                        /> %
+                      </div>
+                    </div>
+                    {/* <div>₦<input checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)} type='checkbox' />%</div> */}
+                  </div>
                 </div>
               </div>
             </div>
