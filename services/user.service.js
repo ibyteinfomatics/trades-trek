@@ -352,6 +352,24 @@ function GetSingleUser(userName) {
       return error;
     });
 }
+function anotherUserGraph({temp,userName,typeData,perSelected}){
+  return fetchWrapper
+      .get(`${baseUrl}/user/another-user-graph?gameId=${localStorage.getItem("GameId") || ''}&type=${typeData}&per=${perSelected}&username=${userName}&user=${temp.username}&anotheruser=${temp.anotheruser}`)
+  
+      .then((res) => {
+      
+       return res
+       
+       
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+
+}
 
 
 export const userService = {
@@ -360,6 +378,7 @@ export const userService = {
     return userSubject.value;
   },
   login,
+  anotherUserGraph,
   logout,
   signup,
   verifyLoginOtp,

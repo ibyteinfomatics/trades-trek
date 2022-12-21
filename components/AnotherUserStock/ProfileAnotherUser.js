@@ -1,11 +1,34 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { userService } from "../../services";
 import LineChart from "../Chart/LineChart";
+import LineChartStock from "../Chart/LineChartStock";
 
 const ProfileAnotherUser = ({ userName }) => {
   const [infoData, setInfoData] = useState([]);
+  const [typeData,setTypeData]=useState("week")
+  const [perSelected,setPerSelected]=useState(false)
+  const [graphData, setGraphData] = useState();
+  const [user1,setUser1]=useState(true)
+  const [user2,setUser2]=useState(true)
+  let { user } = useSelector((state) => state.userWrapper);
   useEffect(() => {
+    let temp={
+      anotheruser:user1? userName:"",
+     username:user2? user?.user?.username:""
+    }
+    console.log(temp)
+    userService
+      .anotherUserGraph({temp, userName, typeData, perSelected })
+      .then((res) => {
+        if (res.success) {
+          setGraphData(res.data);
+        } else {
+          setGraphData();
+        }
+      })
+      .catch((err) =>  setGraphData());
     userService
       .GetSingleUser(userName)
       .then((res) => {
@@ -14,8 +37,10 @@ const ProfileAnotherUser = ({ userName }) => {
         }
       })
       .catch((err) => console.log(err));
-  }, [userName]);
-  console.log(infoData);
+  }, [userName,typeData,perSelected,user1,user2]);
+
+  
+  
   return (
     <>
       <div>
@@ -38,7 +63,7 @@ const ProfileAnotherUser = ({ userName }) => {
 
                 <p>
                   ₦
-                  {infoData?.competition?.accountValue
+                  {infoData?.Competition?.accountValue
                     ?.toFixed(2)
                     ?.toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -65,7 +90,7 @@ const ProfileAnotherUser = ({ userName }) => {
 
                     <p>
                       ₦
-                      {infoData?.competition?.buyingPower
+                      {infoData?.Competition?.buyingPower
                         ?.toFixed(2)
                         ?.toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -76,7 +101,7 @@ const ProfileAnotherUser = ({ userName }) => {
 
                     <p>
                       ₦
-                      {infoData?.competition?.cash
+                      {infoData?.Competition?.cash
                         ?.toFixed(2)
                         ?.toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -85,12 +110,18 @@ const ProfileAnotherUser = ({ userName }) => {
                 </div>
               </div>
             </div>
-            {/* <div className="profileContainerRank">
-                <div className="rankText">
-                  <span>CURRENT RANK</span>
-                </div>
+            <div className="profileContainerRank">
+              <div className="rankText">
+                <span>CURRENT RANK</span>
+              </div>
+              {infoData?.Competition?.rank ? (
                 <div className="rank">
-                  <p className="yourrank">2,333,220</p>{" "}
+                  <p className="yourrank">
+                    {infoData?.Competition?.rank
+
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </p>{" "}
                   <svg
                     className="ml-12"
                     width="20"
@@ -103,27 +134,114 @@ const ProfileAnotherUser = ({ userName }) => {
                       fill="#008000"
                     />
                   </svg>{" "}
-                  <p className="players">of 7777,33,3 players</p>
+                  <p className="players">
+                    of{" "}
+                    {infoData?.Competition?.gameId?.users?.length
+
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    players
+                  </p>
                 </div>
-                <div className="rankText">
-                  <span>TOP PLAYER</span>
+              ) : (
+                <div>Your rank will update daily starting tomorrow</div>
+              )}
+              {infoData?.top && (
+                <div>
+                  <div className="rankText">
+                    <span>TOP PLAYER</span>
+                  </div>
+                  <div className="rankText">
+                    <h4>
+                      <span className="textBlue">
+                        {infoData?.top?.result?.username}{" "}
+                      </span>{" "}
+                      ₦
+                      {infoData?.top?.accountValue
+                        ?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                    </h4>
+                  </div>
                 </div>
-                <div className="rankText">
-                  <span><Link href='#'>tradtrak</Link> ₦99,998,888,88.00</span>
-                </div>
-              </div> */}
+              )}
+            </div>
           </div>
           <div className="profileContainerRight">
             <div className="profileContainerRightBlock">
               <div className="profileContainerRightGraph">
-                <div>
-                  <span>1W</span>
-                  <span>1M</span>
-                  <span>3M</span>
-                  <span>6M</span>
-                  <span>1Y</span>
+                {/* <LineChartStock /> */}
+                {graphData && (
+                    <div>
+                      <span
+                        className={`tab-graph ${typeData == "week" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("week")}
+                      >
+                        1W
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "month" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("month")}
+                      >
+                        1M
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "threemonth" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("threemonth")}
+                      >
+                        3M
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "sixmonth" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("sixmonth")}
+                      >
+                        6M
+                      </span>
+                      <span
+                        className={`tab-graph ${typeData == "year" &&
+                          "tab-graph-active"}`}
+                        onClick={() => setTypeData("year")}
+                      >
+                        1Y
+                      </span>
+                    </div>
+                  )}
+                  {graphData && <LineChart graphData={graphData} />}
+              </div>
+              <div className="btn--group form--actions customWidth">
+                <div className="buttonGroup">
+                  <Link
+                    href="/dashboard/performance-history"
+                    style={{ padding: "10px 20px" }}
+                  >
+                    <a className="btn form--submit">Performance History</a>
+                  </Link>
                 </div>
-                <LineChart />
+                <div className="rightBlock">
+                  <div className="spText">
+                    <input type="checkbox" disabled={user1 && !user2} checked={user1} onClick={()=>setUser1(!user1)} value={infoData?.user?.username} name={infoData?.user?.username}  />
+                    <label>{infoData?.user?.username}</label>
+                    <input type="checkbox" />
+                    <label>S&P 500</label>
+                    <input type="checkbox" disabled={!user1 && user2} checked={user2} onClick={()=>setUser2(!user2)}  value={user?.user?.username} name={user?.user?.username}  />
+                    <label>{user?.user?.username}</label>
+                  </div>
+                  <div className="spText">
+                    <div className="box_1">
+                      ₦
+                      <input
+                        type="checkbox"
+                        className="switch_1"
+                        checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)}
+                      />{" "}
+                      %
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
