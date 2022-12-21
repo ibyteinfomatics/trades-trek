@@ -46,7 +46,7 @@ export default function LineChart({graphData}){
                 ticks: {
                     // Include a dollar sign in the ticks
                     callback: function(value, index, ticks) {
-                        return   value+` ${graphData.symbol? graphData?.symbol:""}` ;
+                        return  `${graphData?.symbol=='₦' ? "₦ ":""}` +value?.toFixed(2).toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` ${graphData?.symbol=='%' ? "%":""}` ;
                     }
                 }
             },
@@ -64,7 +64,7 @@ export default function LineChart({graphData}){
                             label += ': ';
                         }
                         if (context.parsed.y !== null) {
-                            label += context.parsed.y+ `${graphData.symbol? graphData?.symbol:""}`
+                            label +=`${graphData?.symbol=='₦' ? "₦ ":""}`+ context.parsed.y?.toFixed(2).toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ `${graphData?.symbol=='%' ? "%":""}`
                         }
                         return label;
                     }
