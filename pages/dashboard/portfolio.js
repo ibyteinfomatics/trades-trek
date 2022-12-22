@@ -10,6 +10,7 @@ import HoldingTrades from "../../components/Holding-Short-Trades/HoldingTrades";
 import LineChart from "../../components/Chart/LineChart";
 import SelectGame from "../../components/SelectGame/SelectGame";
 import { userService } from "../../services";
+import { TodayPerChange } from "../../helpers/TodayChange";
 
 export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
@@ -59,10 +60,10 @@ export default function Portfolio() {
 
                   <p>
                     ₦
-                    {user?.portfolio?.accountValue
+                    {(user?.portfolio?.accountValue+user?.portfolio?.profitOrLossToday)
                       ?.toFixed(2)
                       ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
                   </p>
                 </div>
                 <div className="profileContainerAccountblock">
@@ -70,12 +71,23 @@ export default function Portfolio() {
                     <div>
                       <span>TODAY'S CHANGE</span>
 
-                      <p>+ ₦0.00</p>
+                      <p>+ ₦ 
+                    { user?.portfolio?.profitOrLossToday
+                      ?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                      </p>
+                      <span >({TodayPerChange(user?.portfolio?.accountValue,user?.portfolio?.profitOrLossToday)?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
+
                     </div>
                     <div>
                       <span>ANNUAL RETURN</span>
 
-                      <p>0.00%</p>
+                      <p>{TodayPerChange(user?.portfolio?.accountValue,user?.portfolio?.annualReturn)?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
                     </div>
                   </div>
                 </div>
@@ -150,7 +162,8 @@ export default function Portfolio() {
                     <div className="rankText">
                       <h4>
                         <span className="textBlue">
-                          {user?.top?.result?.username}{" "}
+                        <Link href='/dashboard/competition-summary'><a href="#"> {user?.top?.result?.username}{" "}</a></Link>
+                         
                         </span>{" "}
                         ₦
                         {user?.top?.accountValue

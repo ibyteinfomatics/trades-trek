@@ -2,8 +2,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userService } from "../../services";
-import LineChart from "../Chart/LineChart";
-import LineChartStock from "../Chart/LineChartStock";
+import LineChartCompare from "../Chart/LinChartCompare";
+
 
 const ProfileAnotherUser = ({ userName }) => {
   const [infoData, setInfoData] = useState([]);
@@ -63,7 +63,7 @@ const ProfileAnotherUser = ({ userName }) => {
 
                 <p>
                   ₦
-                  {infoData?.Competition?.accountValue
+                  {(infoData?.Competition?.accountValue+infoData?.Competition?.profitOrLossToday)
                     ?.toFixed(2)
                     ?.toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -154,7 +154,8 @@ const ProfileAnotherUser = ({ userName }) => {
                   <div className="rankText">
                     <h4>
                       <span className="textBlue">
-                        {infoData?.top?.result?.username}{" "}
+                        <Link href='/dashboard/competition-summary'><a href="#">{infoData?.top?.result?.username}{" "}</a></Link>
+                        
                       </span>{" "}
                       ₦
                       {infoData?.top?.accountValue
@@ -210,7 +211,7 @@ const ProfileAnotherUser = ({ userName }) => {
                       </span>
                     </div>
                   )}
-                  {graphData && <LineChart graphData={graphData} />}
+                  {graphData && <LineChartCompare graphData={graphData} />}
               </div>
               <div className="btn--group form--actions customWidth">
                 <div className="buttonGroup">
