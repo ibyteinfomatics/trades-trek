@@ -85,7 +85,7 @@ export default function Portfolio() {
                     <div>
                       <span>ANNUAL RETURN</span>
 
-                      <p>{TodayPerChange(user?.portfolio?.accountValue,user?.portfolio?.annualReturn)?.toFixed(2)
+                      <p>{TodayPerChange(user?.portfolio?.gameId?.startingCash,user?.portfolio?.annualReturn)?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
                     </div>
@@ -98,7 +98,7 @@ export default function Portfolio() {
 
                       <p>
                         ₦
-                        {user?.portfolio?.buyingPower
+                        {(user?.portfolio?.buyingPower+(user?.portfolio?.gameId?.allowTradingWithMargin?(user?.portfolio?.profitOrLossToday/2):user?.portfolio?.profitOrLossToday))
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -109,7 +109,7 @@ export default function Portfolio() {
 
                       <p>
                         ₦
-                        {user?.portfolio?.cash
+                        {(user?.portfolio?.cash+user?.portfolio?.profitOrLossToday)
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}

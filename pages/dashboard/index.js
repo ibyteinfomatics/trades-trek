@@ -22,6 +22,7 @@ import UpgradePlan from '../../components/UpgradePlan/upgradePlan';
 import NigerianTimeZone from '../../helpers/Negerian-TimeZone'
 import moment from 'moment-timezone';
 import SelectGame from '../../components/SelectGame/SelectGame';
+import { TodayPerChange } from '../../helpers/TodayChange';
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -67,12 +68,17 @@ export default function Home() {
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦{user && (user?.portfolio?.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                    <span>₦{user && ((user?.portfolio?.accountValue+user?.portfolio?.profitOrLossToday)?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                   </li>
                   <li>
                     <span>Today's Change</span>
                     <span>
-                      +₦{user && user?.user?.profitOrLossDaywise && user?.user?.profitOrLossDaywise.toFixed(0)} <span>(0%)</span>
+                      +₦{user?.portfolio?.profitOrLossToday
+                      ?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00} <span>({TodayPerChange(user?.portfolio?.accountValue,user?.portfolio?.profitOrLossToday)?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
                     </span>
                   </li>
                 </ul>

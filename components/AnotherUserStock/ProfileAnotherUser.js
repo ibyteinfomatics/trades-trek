@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { AnnualReturn, TodayPerChange } from "../../helpers/TodayChange";
 import { userService } from "../../services";
 import LineChartCompare from "../Chart/LinChartCompare";
 
@@ -74,12 +75,20 @@ const ProfileAnotherUser = ({ userName }) => {
                   <div>
                     <span>TODAY'S CHANGE</span>
 
-                    <p>+ ₦0.00</p>
+                    <p>+₦ { infoData?.Competition?.profitOrLossToday
+                      ?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}</p>
+                        <span >({TodayPerChange(infoData?.Competition?.accountValue,infoData?.Competition?.profitOrLossToday)?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
                   </div>
                   <div>
                     <span>ANNUAL RETURN</span>
 
-                    <p>0.00%</p>
+                    <p>{AnnualReturn(infoData?.Competition?.gameId?.startingCash,infoData?.Competition?.annualReturn)?.toFixed(2)
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
                   </div>
                 </div>
               </div>
@@ -90,18 +99,19 @@ const ProfileAnotherUser = ({ userName }) => {
 
                     <p>
                       ₦
-                      {infoData?.Competition?.buyingPower
+                      {(infoData?.Competition?.buyingPower+(infoData?.Competition?.gameId?.allowTradingWithMargin?(infoData?.Competition?.profitOrLossToday/2):infoData?.Competition?.profitOrLossToday))
                         ?.toFixed(2)
                         ?.toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                     </p>
                   </div>
+                  {/* {console.log(infoData)} */}
                   <div>
                     <span>CASH</span>
 
                     <p>
                       ₦
-                      {infoData?.Competition?.cash
+                      {(infoData?.Competition?.cash+infoData?.Competition?.profitOrLossToday)
                         ?.toFixed(2)
                         ?.toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}

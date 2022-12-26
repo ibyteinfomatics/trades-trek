@@ -78,7 +78,7 @@ const handleTab=(index)=>{
                 Account Value{" "}
                 <span className="font-20 font-bold">
                 {/* ₦{(userData.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} */}
-                ₦{user && (user?.portfolio?.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₦{user && ((user?.portfolio?.accountValue+user?.portfolio?.profitOrLossToday)?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -86,7 +86,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Buying Power{" "}
                 <span className="font-20 font-bold">
-                ₦{user && (user?.portfolio?.buyingPower?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₦{user && ((user?.portfolio?.buyingPower+(user?.portfolio?.gameId?.allowTradingWithMargin?(user?.portfolio?.profitOrLossToday/2):user?.portfolio?.profitOrLossToday))?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -94,7 +94,7 @@ const handleTab=(index)=>{
               <p className="data-title">
                 Cash{" "}
                 <span className="font-20 font-bold">
-                ₦{user && (user?.portfolio?.cash?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₦{user && ((user?.portfolio?.cash+user?.portfolio?.profitOrLossToday)?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
