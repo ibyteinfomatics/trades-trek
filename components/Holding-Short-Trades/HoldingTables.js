@@ -130,7 +130,7 @@ const HoldingTables = () => {
                   <tr>
                     <td>TOTAL VALUE</td>
                     <td>TODAY'S CHANGE</td>
-                    <td>TODAY GAIN/LOSS</td>
+                    <td>TOTAL GAIN/LOSS</td>
                   </tr>
                 </thead>
                <tbody>
