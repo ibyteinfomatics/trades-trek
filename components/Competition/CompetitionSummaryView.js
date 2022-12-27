@@ -11,8 +11,9 @@ import HighlightTrades from "../HighlightTrades/HighlightTrades";
 import LineChart from "../Chart/LineChart";
 import AnotherStock from "../AnotherUserStock/AnotherStock";
 import ProfileAnotherUser from "../AnotherUserStock/ProfileAnotherUser";
-import HistoryUser from "../AnotherUserStock/HistoryUser";
+import HistoryUser from "../AnotherUserStock/history-user";
 import { CSVLink } from "react-csv";
+import PerformanceHistory from "../AnotherUserStock/performance-history";
 
 export default function CompetationSummeryView({ setDisabled, disabled }) {
   let { user } = useSelector((state) => state.userWrapper);
@@ -27,6 +28,7 @@ export default function CompetationSummeryView({ setDisabled, disabled }) {
   const [myGame, setMyGame] = useState();
   const [userName, setUserName] = useState("");
   const [historyName, setHistoryName] = useState("");
+  const [perform,setPerform]=useState('')
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
   const [csvData, setCsvData] = useState([]);
   const linktarget = useRef();
@@ -54,6 +56,9 @@ export default function CompetationSummeryView({ setDisabled, disabled }) {
     }
     if (router?.query?.username) {
       setHistoryName(router?.query?.history);
+    }
+    if(router?.query?.username){
+      setPerform(router?.query?.perform)
     }
   }, [router]);
   useEffect(() => {
@@ -140,7 +145,7 @@ export default function CompetationSummeryView({ setDisabled, disabled }) {
   };
   return (
     <>
-      {userName && historyName ? (
+      {userName && perform?<PerformanceHistory userName={userName} />: userName && historyName ? (
         <HistoryUser userName={userName} />
       ) : userName ? (
         <div className="page--title--block">
@@ -357,7 +362,7 @@ export default function CompetationSummeryView({ setDisabled, disabled }) {
           )}
         </div>
       )}
-      {top5.length!=0 && myGame?.creatorId==user?.user?._id && <div className="downloadLeaderBoard">
+      {top5.length!=0 && myGame?.creatorId==user?.user?._id && userName=='' && <div className="downloadLeaderBoard">
         <button onClick={() => downloadLeaderBoard(myGame?._id)}>
           {loadingLeaderboard ? "Loading..." : "DOWNLOAD LEADERBOARD"}
         </button>

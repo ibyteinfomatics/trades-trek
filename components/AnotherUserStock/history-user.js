@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
-import SelectGame from "../../components/SelectGame/SelectGame";
+import SelectGame from "../SelectGame/SelectGame";
 
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 import { DataConvert } from "../../helpers/DateTimeConverter";
 import { orderService } from "../../services/order.service";
 

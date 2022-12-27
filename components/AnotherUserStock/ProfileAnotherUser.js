@@ -226,7 +226,7 @@ const ProfileAnotherUser = ({ userName }) => {
               <div className="btn--group form--actions customWidth">
                 <div className="buttonGroup">
                   <Link
-                    href="/dashboard/performance-history"
+                    href={`/dashboard/competition-summary/?username=${userName}&perform=${userName}`}
                     style={{ padding: "10px 20px" }}
                   >
                     <a className="btn form--submit">Performance History</a>

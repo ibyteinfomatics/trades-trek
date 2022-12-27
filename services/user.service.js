@@ -242,6 +242,26 @@ function userPerformanceHistory(page){
       });
 
 }
+
+// anotheruser performance history 
+function anotherUserPerformanceHistory(page,username){
+  return fetchWrapper
+      .get(`${baseUrl}/user/another-user-performanceHistory?page=${page}&userName=${username}&gameId=${localStorage.getItem("GameId") || ''}`)
+  
+      .then((res) => {
+        // if (res.success) {
+        // }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+
+}
+
 function getHoliday() {
  
   return fetchWrapper
@@ -396,5 +416,6 @@ export const userService = {
   cancelTransaction,
   subscriptions,
   withoutVerifyTransaction,
-  userGraph
+  userGraph,
+  anotherUserPerformanceHistory
 };
