@@ -89,7 +89,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   // set selected stock
   const onchange = (selectedOptions) => {
     if (selectedOptions?.value!=='demo') {
-      setSearch(selectedOptions.Symbol)
+      setSearch(selectedOptions?.Symbol)
       setStockData(selectedOptions) 
       setShowMax(false);
       setQuantity("");

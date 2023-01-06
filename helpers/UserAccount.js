@@ -13,7 +13,7 @@ export const BuyingPower=(acc)=>{
 
 // user cash .................................
 export const UserCash=(acc)=>{
-    return acc.toFixed
+    return acc.toFixed(2)
 
 }
 

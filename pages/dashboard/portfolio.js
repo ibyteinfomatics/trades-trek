@@ -77,7 +77,7 @@ export default function Portfolio() {
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
                       </p>
-                      <span >({TodayPerChange(user?.portfolio?.accountValue,user?.portfolio?.profitOrLossToday)?.toFixed(2)
+                      <span >({TodayPerChange(user?.portfolio?.previousValue,user?.portfolio?.profitOrLossToday)?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
 
@@ -85,7 +85,7 @@ export default function Portfolio() {
                     <div>
                       <span>ANNUAL RETURN</span>
 
-                      <p>{TodayPerChange(user?.portfolio?.gameId?.startingCash,user?.portfolio?.annualReturn)?.toFixed(2)
+                      <p>{TodayPerChange(user?.portfolio?.investment,(user?.portfolio?.currentValue-user?.portfolio?.investment))?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
                     </div>
