@@ -75,18 +75,18 @@ const ProfileAnotherUser = ({ userName }) => {
                   <div>
                     <span>TODAY'S CHANGE</span>
 
-                    <p>+₦ { infoData?.Competition?.profitOrLossToday
+                    <p>+₦ { (infoData?.Competition?.currentValue-infoData?.Competition?.previousValue)
                       ?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}</p>
-                        <span >({TodayPerChange(infoData?.Competition?.accountValue,infoData?.Competition?.profitOrLossToday)?.toFixed(2)
+                        <span >({TodayPerChange(infoData?.Competition?.previousValue,(infoData?.Competition?.currentValue-infoData?.Competition?.previousValue))?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
                   </div>
                   <div>
                     <span>ANNUAL RETURN</span>
 
-                    <p>{AnnualReturn(infoData?.Competition?.gameId?.startingCash,infoData?.Competition?.annualReturn)?.toFixed(2)
+                    <p>{AnnualReturn(infoData?.Competition?.investment,(infoData?.Competition?.currentValue-infoData?.Competition?.investment))?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
                   </div>

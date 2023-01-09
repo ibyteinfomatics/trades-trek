@@ -60,10 +60,13 @@ export default function Portfolio() {
 
                   <p>
                     ₦
-                    {(user?.portfolio?.accountValue+user?.portfolio?.profitOrLossToday)
+                    {(
+                      user?.portfolio?.accountValue +
+                      user?.portfolio?.profitOrLossToday
+                    )
                       ?.toFixed(2)
                       ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                   </p>
                 </div>
                 <div className="profileContainerAccountblock">
@@ -71,23 +74,43 @@ export default function Portfolio() {
                     <div>
                       <span>TODAY'S CHANGE</span>
 
-                      <p>+ ₦ 
-                    { user?.portfolio?.profitOrLossToday
-                      ?.toFixed(2)
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                      <p>
+                        + ₦
+                        {(
+                          user?.portfolio?.currentValue -
+                          user?.portfolio?.previousValue
+                        )
+                          ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                       </p>
-                      <span >({TodayPerChange(user?.portfolio?.previousValue,user?.portfolio?.profitOrLossToday)?.toFixed(2)
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
-
+                      <span>
+                        (
+                        {TodayPerChange(
+                          user?.portfolio?.previousValue,
+                          user?.portfolio?.currentValue -
+                            user?.portfolio?.previousValue
+                        )
+                          ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        %)
+                      </span>
                     </div>
-                    <div>
+                    <div> 
                       <span>ANNUAL RETURN</span>
 
-                      <p>{TodayPerChange(user?.portfolio?.investment,(user?.portfolio?.currentValue-user?.portfolio?.investment))?.toFixed(2)
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
+                      <p>
+                        {TodayPerChange(
+                          user?.portfolio?.investment,
+                          user?.portfolio?.currentValue -
+                            user?.portfolio?.investment
+                        )
+                          ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        %
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -98,7 +121,12 @@ export default function Portfolio() {
 
                       <p>
                         ₦
-                        {(user?.portfolio?.buyingPower+(user?.portfolio?.gameId?.allowTradingWithMargin?(user?.portfolio?.profitOrLossToday/2):user?.portfolio?.profitOrLossToday))
+                        {(
+                          user?.portfolio?.buyingPower +
+                          (user?.portfolio?.gameId?.allowTradingWithMargin
+                            ? user?.portfolio?.profitOrLossToday / 2
+                            : user?.portfolio?.profitOrLossToday)
+                        )
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -109,7 +137,10 @@ export default function Portfolio() {
 
                       <p>
                         ₦
-                        {(user?.portfolio?.cash+user?.portfolio?.profitOrLossToday)
+                        {(
+                          user?.portfolio?.cash +
+                          user?.portfolio?.profitOrLossToday
+                        )
                           ?.toFixed(2)
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
@@ -162,8 +193,9 @@ export default function Portfolio() {
                     <div className="rankText">
                       <h4>
                         <span className="textBlue">
-                        <Link href='/dashboard/competition-summary'><a href="#"> {user?.top?.result?.username}{" "}</a></Link>
-                         
+                          <Link href="/dashboard/competition-summary">
+                            <a href="#"> {user?.top?.result?.username} </a>
+                          </Link>
                         </span>{" "}
                         ₦
                         {user?.top?.accountValue
@@ -235,15 +267,17 @@ export default function Portfolio() {
                       <label>S&P 500</label>
                     </div>
                     <div className="spText">
-                     
                       <div className="box_1">
-                      ₦ 
+                        ₦
                         <input
                           // {...register("allowTradingWithMargin")}
                           type="checkbox"
                           className="switch_1"
-                          checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)}
-                        /> %
+                          checked={perSelected}
+                          value={perSelected}
+                          onClick={() => setPerSelected(!perSelected)}
+                        />{" "}
+                        %
                       </div>
                     </div>
                     {/* <div>₦<input checked={perSelected} value={perSelected} onClick={()=>setPerSelected(!perSelected)} type='checkbox' />%</div> */}
