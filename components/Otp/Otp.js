@@ -7,6 +7,7 @@ import FormSpinner from '../Spinners/FormSpinner';
 import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { Loader } from '@mantine/core';
+import { Router } from 'react-router';
 export default function Otp() {
   const router = useRouter();
   const toastId = useRef(null);
@@ -15,6 +16,7 @@ export default function Otp() {
   const [emailAddress, setEmailAddress] = useState();
   const [btnStatus, setBtnStatus] = useState(false);
   const [isLoaderActive, setLoaderStatus] = useState(false);
+
 
   useEffect(() => {
     let email = localStorage.getItem('email');
@@ -104,7 +106,7 @@ export default function Otp() {
       <div className="center--block">
         <div className="small--block text--center">
           <div className="block--title block--back--link">
-            <h1>Check your email</h1>
+         <h1> <button onClick={()=>{router.back()}} style={{marginRight:'20px'}}>{"<"}</button> Check your email</h1>
           </div>
           <div className="block--content">
             <p>

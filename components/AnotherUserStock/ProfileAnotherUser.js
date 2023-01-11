@@ -86,7 +86,7 @@ const ProfileAnotherUser = ({ userName }) => {
                   <div>
                     <span>ANNUAL RETURN</span>
 
-                    <p>{AnnualReturn(infoData?.Competition?.investment,(infoData?.Competition?.currentValue-infoData?.Competition?.investment))?.toFixed(2)
+                    <p>{AnnualReturn(infoData?.Competition?.investment,infoData?.Competition?.previousValue,infoData?.Competition?.createdAt)?.toFixed(2)
                       ?.toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
                   </div>

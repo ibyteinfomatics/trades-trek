@@ -73,10 +73,10 @@ export default function Home() {
                   <li>
                     <span>Today's Change</span>
                     <span>
-                      +₦{user?.portfolio?.profitOrLossToday
+                      +₦{(user?.portfolio?.currentValue-user?.portfolio?.previousValue)
                       ?.toFixed(2)
                       ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00} <span>({TodayPerChange(user?.portfolio?.accountValue,user?.portfolio?.profitOrLossToday)?.toFixed(2)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00} <span>({TodayPerChange(user?.portfolio?.previousValue,(user?.portfolio?.currentValue-user?.portfolio?.previousValue))?.toFixed(2)
                         ?.toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
                     </span>

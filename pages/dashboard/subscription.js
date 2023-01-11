@@ -9,21 +9,29 @@ import Iframe from "react-iframe";
 import { useSelector } from "react-redux";
 import UnsubscribeModel from "../../components/Modal/UnsubscribeModel";
 import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
+import { Loader } from "@mantine/core";
 export default function Sub() {
   let { user } = useSelector((state) => state.userWrapper);
 
   const [allSubscription, setAllSubscription] = useState();
   const [modelOpened, setModelOpened]=useState(false)
   const [subscriptionId,setSubscriptionId]=useState('')
+  const [isLoading,setIsLoading]=useState(false)
   useEffect(() => {
+    setIsLoading(true)
     userService
       .getAllSubscription()
       .then((res) => {
         if (res.success) {
           setAllSubscription(res.data);
+          setIsLoading(false)
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setIsLoading(false)
+
+      });
   }, []);
   const Unsubscribe=(id)=>{
 setModelOpened(true)
@@ -37,7 +45,17 @@ setSubscriptionId(id)
         <div className="page--title--block">
           <div className="card-no-gap">
             <MarketOpenClose />
-            <div
+          {isLoading?<div
+            style={{
+              width: "100%",
+              height: "50vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Loader color="#8000ff" />
+          </div> :  <div
               className="trade-data"
               style={{
                 display: "flex",
@@ -75,7 +93,7 @@ setSubscriptionId(id)
                   </div>
                 );
               })}
-            </div>
+            </div>}
           </div>
         </div>
       </div>

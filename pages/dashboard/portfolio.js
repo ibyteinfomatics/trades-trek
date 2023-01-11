@@ -10,7 +10,7 @@ import HoldingTrades from "../../components/Holding-Short-Trades/HoldingTrades";
 import LineChart from "../../components/Chart/LineChart";
 import SelectGame from "../../components/SelectGame/SelectGame";
 import { userService } from "../../services";
-import { TodayPerChange } from "../../helpers/TodayChange";
+import { AnnualReturn, TodayPerChange } from "../../helpers/TodayChange";
 
 export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
@@ -101,10 +101,10 @@ export default function Portfolio() {
                       <span>ANNUAL RETURN</span>
 
                       <p>
-                        {TodayPerChange(
+                        {AnnualReturn(
                           user?.portfolio?.investment,
-                          user?.portfolio?.currentValue -
-                            user?.portfolio?.investment
+                          user?.portfolio?.currentValue,
+                          user?.portfolio?.createdAt
                         )
                           ?.toFixed(2)
                           ?.toString()
