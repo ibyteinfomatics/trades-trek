@@ -7,7 +7,7 @@ import LineChartCompare from "../Chart/LinChartCompare";
 
 
 const ProfileAnotherUser = ({ userName }) => {
-  const [infoData, setInfoData] = useState([]);
+  const [infoData, setInfoData] = useState();
   const [typeData,setTypeData]=useState("week")
   const [perSelected,setPerSelected]=useState(false)
   const [graphData, setGraphData] = useState();
@@ -63,11 +63,11 @@ const ProfileAnotherUser = ({ userName }) => {
                 <span>ACCOUNT VALUE</span>
 
                 <p>
-                  ₦
-                  {(infoData?.Competition?.accountValue+infoData?.Competition?.profitOrLossToday)
+                  
+                ₦ {infoData ? (infoData?.Competition?.accountValue+infoData?.Competition?.profitOrLossToday)
                     ?.toFixed(2)
                     ?.toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ","):'0.00'}
                 </p>
               </div>
               <div className="profileContainerAccountblock">
@@ -75,20 +75,20 @@ const ProfileAnotherUser = ({ userName }) => {
                   <div>
                     <span>TODAY'S CHANGE</span>
 
-                    <p>+₦ { (infoData?.Competition?.currentValue-infoData?.Competition?.previousValue)
+                    <p>+₦ {infoData? (infoData?.Competition?.currentValue-infoData?.Competition?.previousValue)
                       ?.toFixed(2)
                       ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}</p>
-                        <span >({TodayPerChange(infoData?.Competition?.previousValue,(infoData?.Competition?.currentValue-infoData?.Competition?.previousValue))?.toFixed(2)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0.00"}</p>
+                        <span >({infoData? TodayPerChange(infoData?.Competition?.previousValue,(infoData?.Competition?.currentValue-infoData?.Competition?.previousValue))?.toFixed(2)
                       ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ","):"0.00"}%)</span>
                   </div>
                   <div>
                     <span>ANNUAL RETURN</span>
 
-                    <p>{AnnualReturn(infoData?.Competition?.investment,infoData?.Competition?.previousValue,infoData?.Competition?.createdAt)?.toFixed(2)
+                    <p>{infoData? AnnualReturn(infoData?.Competition?.investment,infoData?.Competition?.previousValue,infoData?.Competition?.createdAt)?.toFixed(2)
                       ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%</p>
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ","):"0.00"}%</p>
                   </div>
                 </div>
               </div>
@@ -98,11 +98,11 @@ const ProfileAnotherUser = ({ userName }) => {
                     <span>BUYING POWER</span>
 
                     <p>
-                      ₦
-                      {(infoData?.Competition?.buyingPower+(infoData?.Competition?.gameId?.allowTradingWithMargin?(infoData?.Competition?.profitOrLossToday/2):infoData?.Competition?.profitOrLossToday))
+                     
+                    ₦ {infoData ? (infoData?.Competition?.buyingPower+(infoData?.Competition?.gameId?.allowTradingWithMargin?(infoData?.Competition?.profitOrLossToday/2):infoData?.Competition?.profitOrLossToday))
                         ?.toFixed(2)
                         ?.toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") :"0.00"}
                     </p>
                   </div>
                   {/* {console.log(infoData)} */}
@@ -110,11 +110,11 @@ const ProfileAnotherUser = ({ userName }) => {
                     <span>CASH</span>
 
                     <p>
-                      ₦
-                      {(infoData?.Competition?.cash+infoData?.Competition?.profitOrLossToday)
+                      
+                    ₦ {infoData ?(infoData?.Competition?.cash+infoData?.Competition?.profitOrLossToday)
                         ?.toFixed(2)
                         ?.toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0.00"}
                     </p>
                   </div>
                 </div>

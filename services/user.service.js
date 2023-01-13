@@ -18,6 +18,7 @@ function login(data) {
       if (res.success) {
         userSubject.next(res.token);
         localStorage.setItem('token', res.token);
+        localStorage.setItem("GameId",res.GameId)
       }
       return res;
     })
