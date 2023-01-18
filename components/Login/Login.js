@@ -51,24 +51,6 @@ export default function Login() {
 
           localStorage.setItem('email', res.email);
           router.push('/otp');
-        }else if(!res?.firstSubscription){
-          setValidate(true)
-          setIsLoading(false)
-          
-          setError(res.message)
-          setBtnStatus(false);
-          localStorage.setItem('email', res.email);
-          router.push('/subscription');
-        }
-        
-        else if (res?.success === false && res?.subscription === '') {
-          setValidate(true)
-          setIsLoading(false)
-          
-          setError(res.message)
-          setBtnStatus(false);
-          localStorage.setItem('email', res.email);
-          router.push('/subscription');
         } else if (res?.success === false) {
             setValidate(true)
             setError(res.message)
