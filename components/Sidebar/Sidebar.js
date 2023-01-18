@@ -29,22 +29,22 @@ export default function Sidebar() {
   }, [router.asPath])
   
 
-  // useEffect(()=>{
-  //   userService
-  //     .userInfo()
-  //     .then((res) => {
-  //     if(res.success ){
-  //       dispatch(setUser(res.data));
+  useEffect(()=>{
+    userService
+      .userInfo()
+      .then((res) => {
+      if(res.success ){
+        dispatch(setUser(res.data));
 
-  //     }
+      }
       
       
-  //     }
-  //     )
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },[])
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  },[])
   useEffect(()=>{
    
     if(router.asPath=='/dashboard/competition-summary/'){

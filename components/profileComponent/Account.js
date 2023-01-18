@@ -7,7 +7,6 @@ export default function Account() {
   const [emailValid, setEmailValid] = useState(false);
   const [error, setError] = useState();
   const { user } = useSelector((state) => state.userWrapper);
-
   return (
     <>
       <div className="center--block">

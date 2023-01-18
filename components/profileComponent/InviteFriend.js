@@ -31,7 +31,7 @@ const InviteFriend = () => {
             <form className='site--form'>
               <div className="form--item">
                 <label for="" className="form--label">Referal Code</label>
-                <input type="password" placeholder="**********" className="form--control" readOnly={true} value="" />
+                <input type="password" placeholder="**********" className="form--control" readOnly={true} value="ggggg" />
                 <button type='button' className='btn btn--orange'>COPY CODE</button>
               </div>
               <div className="form--actions">
