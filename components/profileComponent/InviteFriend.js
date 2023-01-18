@@ -1,8 +1,11 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import Footer from '../Footer/Footer'
 
 const InviteFriend = () => {
+  const { user } = useSelector((state) => state.userWrapper);
+  const [show,setShow]=useState(false)
   return (
     <>
       <div className="center--block Referral">
@@ -31,11 +34,11 @@ const InviteFriend = () => {
             <form className='site--form'>
               <div className="form--item">
                 <label for="" className="form--label">Referal Code</label>
-                <input type="password" placeholder="**********" className="form--control" readOnly={true} value="ggggg" />
-                <button type='button' className='btn btn--orange'>COPY CODE</button>
+                <input type={show?"text":"password"} placeholder="**********" className="form--control" readOnly={true} value={user?.user?.yourRefferal} />
+                <button onClick={()=>setShow(!show)} type='button' className='btn btn--orange'>COPY CODE</button>
               </div>
               <div className="form--actions">
-                <button className="btn" type="submit">
+                <button  className="btn" type="submit">
                   SHARE NOW
                 </button>
               </div>

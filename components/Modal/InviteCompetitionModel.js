@@ -171,6 +171,7 @@ const InviteGame=()=>{
             value={email}
             onChange={(e) => {setEmail(e.target.value);setError('')}}
             onKeyDown={(e) => handleEmail(e)}
+            placeholder='Enter Email'
           />
         </div>
         {data[0]?.competitionType == "Private" &&

@@ -6,7 +6,9 @@ import NigerianTimeZone from '../../helpers/Negerian-TimeZone';
 const SubscriptionExpire = () => {
   let { user } = useSelector((state) => state.userWrapper);
 
+
           const [message,setMessage]=useState('')
+          const [isExpired,setIsExpired]=useState(false)
           function timeDiffCalc(dateFuture, dateNow) {
                    
                     let diffInMilliSeconds = Math.abs(dateFuture - dateNow) / 1000;
@@ -45,6 +47,13 @@ const SubscriptionExpire = () => {
                     var temp1 = NigerianTimeZone(expired);
                     today=  new Date(moment(temp).format("YYYY-MM-DD HH:mm:ss"))
                     expired=new Date(moment(temp1).format("YYYY-MM-DD HH:mm:ss"))
+
+                   
+                    if(expired>today){
+                      setIsExpired(false)
+                    }else{
+                      setIsExpired(true)
+                    }
                    
                   setMessage(timeDiffCalc(expired,today))
                 
@@ -61,10 +70,10 @@ const SubscriptionExpire = () => {
                          
                           
                      
-                  }, [user?.user?.expiredDate])
+                  }, [])
                   
   return (
-    <div style={{color:'red'}}>  {message ?`Your subscription is expired after ${message}`:""}</div>
+    <div style={{color:'red'}}>{isExpired?`Your subscription is expired.`:(message ?`Your subscription is expired after ${message}`:"")}  </div>
   )
 }
 
