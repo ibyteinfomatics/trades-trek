@@ -217,6 +217,40 @@ function inviteGame(data) {
       return error;
     });
 }
+function inviteFriends(data) {
+  // console
+  return fetchWrapper
+    .post(`${baseUrl}/userrefferal`, data)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
+function refferalInfo() {
+  // console
+  return fetchWrapper
+    .get(`${baseUrl}/userrefferal`)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 function getWinner(date){
   return fetchWrapper
@@ -301,5 +335,7 @@ export const gameService = {
   getMYPastGame,
   getLeaderBoard,
   getTradeHistory,
-  leaveCompetion
+  leaveCompetion,
+  inviteFriends,
+  refferalInfo
 };

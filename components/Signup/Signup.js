@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
 // import 'react-phone-number-input/style.css'
 // import PhoneInput from "react-phone-number-input";
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import { Loader } from "@mantine/core";
 // https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=+9190607574241
@@ -21,57 +21,60 @@ export default function Signup() {
   const [error, setError] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
-  const [phone,setPhone]=useState()
-  const [isLoading,setIsLoading]=useState(false)
+  const [phone, setPhone] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    if (router.query) {
+      reset({
+        refferalCode: router?.query?.reffercode || "",
+      });
+    }
+  }, [router]);
 
-
-  const onSubmit = async(data) => {
-   
- setIsLoading(true)
-    data.phone=phone
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    data.phone = phone;
     userService
-    .signup(data)
-    .then((res) => {
-      if (res?.success === true) {
-        setValidate(false);
-        localStorage.setItem("email", data.email);
-        setError(res.message);
-        localStorage.setItem("otp", data.email);
-        dispatch(setUser(res.user));
-        setIsLoading(false)
-        router.replace("/otp");
-      } else if (res?.success === false) {
+      .signup(data)
+      .then((res) => {
+        if (res?.success === true) {
+          setValidate(false);
+          localStorage.setItem("email", data.email);
+          setError(res.message);
+          localStorage.setItem("otp", data.email);
+          dispatch(setUser(res.user));
+          setIsLoading(false);
+          router.replace("/otp");
+        } else if (res?.success === false) {
+          setValidate(true);
+          setError(res.message);
+          setBtnStatus(false);
+          setIsLoading(false);
+        } else {
+          setValidate(true);
+          setError(res);
+          setBtnStatus(false);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
         setValidate(true);
-        setError(res.message);
-        setBtnStatus(false);
-        setIsLoading(false)
-      } else {
-        setValidate(true);
-        setError(res);
-        setBtnStatus(false);
-        setIsLoading(false)
-      }
-    })
-    .catch((error) => {
-      setValidate(true);
 
-      setError(error.message);
-      setBtnStatus(false);
-      setIsLoading(false)
-    });
-
-   
-  
+        setError(error.message);
+        setBtnStatus(false);
+        setIsLoading(false);
+      });
   };
-
 
   return (
     <>
@@ -196,16 +199,14 @@ export default function Signup() {
                 </div>
               </div>
               <div className="form--item ">
-               <PhoneInput 
-               className='form--control'
+                <PhoneInput
+                  className="form--control"
                   placeholder="Enter phone number"
                   value={phone}
-                  country={'ng'}
+                  country={"ng"}
                   enableSearch={true}
                   // defaultCountry="NG"
-                  onChange={(phone)=>setPhone(phone)}
-    
-                 
+                  onChange={(phone) => setPhone(phone)}
                 />
                 {/* <div className="inputGroup">
                   <span>+234</span>
@@ -361,6 +362,18 @@ export default function Signup() {
                 </div>
               </div>
               <div className="form--item">
+                <input
+                  className={`form--control `}
+                  type="text"
+                  id="refferal"
+                  placeholder="Enter Refferal Code"
+                  {...register("refferalCode")}
+                />
+                <label className="form--label" htmlFor="refferal">
+                  Refferal Code (Optional*)
+                </label>
+              </div>
+              <div className="form--item">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <input
                     style={{
@@ -400,7 +413,7 @@ export default function Signup() {
               </div>
               <div className="form--actions">
                 <button disabled={isLoading} className="btn" type="submit">
-                    {isLoading?<Loader color="#8000ff" />: "Sign Up"}
+                  {isLoading ? <Loader color="#8000ff" /> : "Sign Up"}
                 </button>
               </div>
               <div className="form--bottom--content">
