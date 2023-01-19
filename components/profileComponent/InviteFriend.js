@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../actions/users";
+import { userService } from "../../services";
 import { gameService } from "../../services/game.service";
 import Footer from "../Footer/Footer";
 import InviteFriendModel from "../Modal/InviteFriendModel";
@@ -10,10 +12,26 @@ const InviteFriend = () => {
   const [show, setShow] = useState(false);
   const [modelOpened, setModelOpened] = useState(false);
   const [refferalInfoData, setRefferalInfoData] = useState({});
+  const dispatch = useDispatch();
   useEffect(() => {
     refferalInfo();
   }, [modelOpened]);
+  useEffect(()=>{
+    userService
+      .userInfo()
+      .then((res) => {
+      if(res.success ){
+        dispatch(setUser(res.data));
 
+      }
+      
+      
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  },[])
   const refferalInfo = () => {
     gameService
       .refferalInfo()
