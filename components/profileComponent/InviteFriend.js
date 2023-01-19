@@ -25,15 +25,15 @@ const InviteFriend = () => {
         }
       })
       .catch((err) => setRefferalInfoData({}));
-    
   };
 
   return (
     <>
       <div className="center--block Referral">
         <div className="small--block">
-          <div className="block--title block--back--link mb--32">
+          <div className="flexBox amtTitle block--title block--back--link mb--32">
             <h1 className="font-20 textLeft">Referral</h1>
+            <h4 className="">₦ {user?.user?.walletAmount}</h4>
           </div>
           <div className="flexBox justifyBetween referralNo">
             <h4 className="">Total No of referral</h4>
@@ -59,7 +59,7 @@ const InviteFriend = () => {
               una sequenza casuale di caratteri.
             </p>
             <div className="site--form">
-              <div className="form--item">
+              <div className="form--item referalCode">
                 <label for="" className="form--label">
                   Referal Code
                 </label>
@@ -70,13 +70,18 @@ const InviteFriend = () => {
                   readOnly={true}
                   value={user?.user?.yourRefferal}
                 />
-                <button
+                {/* <button
                   onClick={() => setShow(!show)}
                   type="button"
                   className="btn btn--orange"
-                >
-                  COPY CODE
-                </button>
+                > */}
+                {show ? (
+                  <img onClick={() => setShow(false)} src="/images/view.png" className="passwordView" />
+                ) : (
+                  <img onClick={() => setShow(true)} src="/images/invisible.png" className="passwordView" />
+                )}
+                {/* {show?"HIDE":"SHOW"} */}
+                {/* </button> */}
               </div>
               <div className="form--actions">
                 <button

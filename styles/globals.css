@@ -3014,3 +3014,9 @@ input[type="checkbox"] {
   font-size: 1.5rem;
   @apply mr-4;
 }
+.amtTitle{
+  @apply justify-between;
+}
+.referalCode .passwordView {
+  top: 1.5rem;
+}
