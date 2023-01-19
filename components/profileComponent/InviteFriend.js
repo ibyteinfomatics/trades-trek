@@ -33,11 +33,11 @@ const InviteFriend = () => {
         <div className="small--block">
           <div className="flexBox amtTitle block--title block--back--link mb--32">
             <h1 className="font-20 textLeft">Referral</h1>
-            <h4 className="">₦ {user?.user?.walletAmount}</h4>
+            <h4 className="">₦ {user?.user?.walletAmount?.toFixed(2)||0.00}</h4>
           </div>
           <div className="flexBox justifyBetween referralNo">
             <h4 className="">Total No of referral</h4>
-            <h4 className="">{refferalInfoData?.totalRefferal}</h4>
+            <h4 className="">{refferalInfoData?.totalRefferal }</h4>
           </div>
           <div className="flexBox justifyBetween referralNo">
             <h4 className="">Total No of Joined referral</h4>
