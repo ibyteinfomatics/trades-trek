@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Account from "../../components/profileComponent/Account";
 import HelpSupport from "../../components/profileComponent/HelpSupport";
 import InviteFriend from "../../components/profileComponent/InviteFriend";
+import RequestAmount from "../../components/profileComponent/RequesAmount";
 import Security from "../../components/profileComponent/Security";
 import TermCondition from "../../components/profileComponent/TermCondition";
 import WriteReview from "../../components/profileComponent/WriteReview";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 export default function Profie() {
+  const [tabIndex,setTabIndex]=useState(0)
   return (
     <>
       <Sidebar />
@@ -17,7 +19,7 @@ export default function Profie() {
         <div className="page--title--block">
           <div className="card-no-gap">
             <div className="trade-data">
-              <Tabs>
+              <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList>
                   <Tab>Account</Tab>
                   <Tab>Security</Tab>
@@ -25,6 +27,7 @@ export default function Profie() {
                   <Tab>Help & Support</Tab>
                   <Tab>Write a Review</Tab>
                   <Tab>Terms & Conditions</Tab>
+                  <Tab>Bank</Tab>
                 </TabList>
                 {/* account ... */}
                 <TabPanel>
@@ -36,7 +39,7 @@ export default function Profie() {
                 </TabPanel>
                 {/* invite Friend */}
                 <TabPanel>
-                  <InviteFriend />
+                  <InviteFriend setTabIndex={setTabIndex} />
                 </TabPanel>
                 {/* Help and support  */}
                 <TabPanel>
@@ -49,6 +52,9 @@ export default function Profie() {
                 {/* Term and Conditions */}
                 <TabPanel>
                  <TermCondition />
+                </TabPanel>
+                <TabPanel>
+                 <RequestAmount />
                 </TabPanel>
               </Tabs>
             </div>

@@ -12,6 +12,7 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
   const [errorStatus, setErrorStatus] = useState(false);
   const [commission, setCommission] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.userWrapper);
   useEffect(() => {
@@ -30,39 +31,41 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
 
   const theme = useMantineTheme();
   const submitOrder = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     data.commission = commission;
     orderService
       .createOrder(data)
       .then((res) => {
         if (res.success) {
           dispatch(setUser(res.user));
-          // router.push({
-          //   pathname:"/dashboard/portfolio",
-          // })
-          setShowTrade(false);
-          dispatch(setSelectedStock(null));
-          setModelOpened(false);
-        setIsLoading(false)
 
+          setError("");
+          setErrorStatus(false);
+          dispatch(setSelectedStock(null));
+
+          setTimeout(() => {
+            setShowTrade(false);
+            setModelOpened(false);
+          }, 2000);
+          setMessage(res.data);
+          setIsLoading(false);
         } else if (res.success === false) {
+          setMessage("");
           setError(res.message);
           setErrorStatus(true);
-        setIsLoading(false)
-
+          setIsLoading(false);
         } else {
           setError(res);
+          setMessage("");
           setErrorStatus(true);
-        setIsLoading(false)
-
+          setIsLoading(false);
         }
-
       })
       .catch((err) => {
         setError(err);
         setErrorStatus(true);
-        setIsLoading(fasle)
-
+        setIsLoading(fasle);
+        setMessage("");
       });
   };
   return (
@@ -96,6 +99,16 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
           <div className="" style={{ border: "1px solid red", margin: "20px" }}>
             <p style={{ textAlign: "center", padding: "10px", color: "red" }}>
               {error}
+            </p>
+          </div>
+        )}
+        {message != "" && (
+          <div
+            className=""
+            style={{ border: "1px solid green", margin: "20px" }}
+          >
+            <p style={{ textAlign: "center", padding: "10px", color: "green" }}>
+              {message}
             </p>
           </div>
         )}
@@ -185,8 +198,8 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
               className="btn form--submit"
               onClick={submitOrder}
               disabled={isLoading}
-            >{isLoading?<Loader color="#8000ff" />: "SUBMIT ORDER"}
-              
+            >
+              {isLoading ? <Loader color="#8000ff" /> : "SUBMIT ORDER"}
             </button>
             <button
               type="reset"

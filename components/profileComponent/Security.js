@@ -7,9 +7,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 export default function Security() {
-  const [oldPassword, setOldPassword] = useState();
-  const [newPassword, setNewPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -24,39 +22,7 @@ export default function Security() {
     reset,
   } = useForm();
 
-  const SubmitForgot = () => {
-    if (oldPassword && newPassword && confirmPassword) {
-      if (newPassword === confirmPassword) {
-        userService
-          .changePassword({
-            oldPassword,
-            newPassword,
-            confirmNewPassword: confirmPassword,
-          })
-          .then((res) => {
-            if (res?.success === true) {
-              router.push({
-                pathname: "/",
-              });
-            } else {
-              setError(true);
-              setErrorMessage(res.message);
-            }
-          })
-          .catch((error) => {
-            setError(true);
 
-            setErrorMessage(error.message);
-          });
-      } else {
-        setError(true);
-        setErrorMessage("Confirm Password Not Matched");
-      }
-    } else {
-      setError(true);
-      setErrorMessage("All Field Required");
-    }
-  };
   const onSubmit = (data) => {
     userService
           .changePassword({

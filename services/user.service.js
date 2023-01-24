@@ -329,7 +329,7 @@ function verifyTransaction(data) {
 }
 
 function withoutVerifyTransaction(data) {
-  console.log(data)
+
   data.email=localStorage.getItem('email')
   return fetchWrapper
     .post(`${baseUrl}/subscription/verify-without-login`,data)
@@ -391,8 +391,38 @@ function anotherUserGraph({temp,userName,typeData,perSelected}){
       });
 
 }
+function addTransaction(data) {
 
+  
+  return fetchWrapper
+    .post(`${baseUrl}/transaction`,data)
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+function getTransaction() {
 
+  
+  return fetchWrapper
+    .get(`${baseUrl}/transaction`)
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 export const userService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -418,5 +448,7 @@ export const userService = {
   subscriptions,
   withoutVerifyTransaction,
   userGraph,
-  anotherUserPerformanceHistory
+  anotherUserPerformanceHistory,
+  addTransaction,
+  getTransaction
 };
