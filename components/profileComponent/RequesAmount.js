@@ -5,17 +5,18 @@ import Footer from "../../components/Footer/Footer";
 import { userService } from "../../services/user.service";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import Transaction from "../Table/Transaction";
+import { setUser } from "../../actions/users";
 
 export default function RequestAmount() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const [userAmount, setUserAmount] = useState(0);
   const { user } = useSelector((state) => state.userWrapper);
-  const [transactionList, setTransactionList] = useState([]);
-
-
+  const [transactionList, setTransactionList] = useState();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -43,6 +44,8 @@ export default function RequestAmount() {
             bankName: "",
             amount: "",
           });
+          getTransactionList()
+          userInfo()
         } else {
           setError(true);
           setErrorMessage(res.message);
@@ -54,12 +57,6 @@ export default function RequestAmount() {
         setErrorMessage(error.message);
       });
   };
-
-  useEffect(() => {
-    setUserAmount(user?.user?.walletAmount - user?.user?.requestAmount);
-    getTransactionList();
-  }, [user]);
-
   const getTransactionList = () => {
     userService
       .getTransaction()
@@ -70,6 +67,27 @@ export default function RequestAmount() {
       })
       .catch((err) => console.log("errr", err.message));
   };
+  useEffect(() => {
+    setUserAmount(user?.user?.walletAmount );
+    getTransactionList()
+  }, [user]);
+
+  const userInfo=()=>{
+    userService
+    .userInfo()
+    .then((res) => {
+    if(res.success ){
+      dispatch(setUser(res.data));
+
+    }
+    
+    
+    }
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   return (
     <>
@@ -229,6 +247,9 @@ export default function RequestAmount() {
               </button>
             </div>
           </form>
+        </div>
+        <div className="transactionTable">
+         {transactionList&& <Transaction transactionList={transactionList} />}
         </div>
       </div>
       <Footer />

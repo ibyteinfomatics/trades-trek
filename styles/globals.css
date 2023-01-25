@@ -277,7 +277,9 @@ p a:hover{
   max-height: 95vh;
   border-radius: var(--radius);
 }
-
+.transactionTable{
+  margin-top: 50px
+}
 .block--title {
   @apply relative;
   font-size: var(--font22);
