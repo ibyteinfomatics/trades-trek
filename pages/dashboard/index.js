@@ -23,6 +23,7 @@ import NigerianTimeZone from '../../helpers/Negerian-TimeZone'
 import moment from 'moment-timezone';
 import SelectGame from '../../components/SelectGame/SelectGame';
 import { TodayPerChange } from '../../helpers/TodayChange';
+import SubscriptionExpire from '../../components/MarketOpenClose/SubscriptionExpire';
 
 export default function Home() {
   const [showWatchList, setShowWatchList] = useState(false);
@@ -40,9 +41,10 @@ export default function Home() {
       <div className="site--content">
         {/* <UpgradePlan /> */}
         <HighlightTrades />
-
         {/* welcome block */}
         <div className="card--wrapper">
+<SubscriptionExpire />
+
         <div style={{margin:"20px"}}>
         <SelectGame />
 

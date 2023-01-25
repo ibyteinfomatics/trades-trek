@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
 import Account from "../../components/profileComponent/Account";
 import HelpSupport from "../../components/profileComponent/HelpSupport";
 import InviteFriend from "../../components/profileComponent/InviteFriend";
@@ -15,8 +16,11 @@ export default function Profie() {
   return (
     <>
       <Sidebar />
+      
       <div className="site--content pageCenterWidth">
+
         <div className="page--title--block">
+
           <div className="card-no-gap">
             <div className="trade-data">
               <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
@@ -29,6 +33,7 @@ export default function Profie() {
                   <Tab>Terms & Conditions</Tab>
                   <Tab>Bank</Tab>
                 </TabList>
+
                 {/* account ... */}
                 <TabPanel>
                   <Account />

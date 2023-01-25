@@ -14,6 +14,7 @@ import { setUser } from "../../actions/users";
 import { orderService } from "../../services/order.service";
 import { setPopularCompany } from "../../actions/topCompany";
 import SelectGame from "../../components/SelectGame/SelectGame";
+import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
 
 export default function TradesTrek() {
   // const [beginnerOption, setBeginnerOption] = useState(false);
@@ -72,6 +73,8 @@ const handleTab=(index)=>{
             </div>
             <SelectGame />
           </div>
+          <SubscriptionExpire />
+
           <div className="top--value--bar">
             <div className="col-block">
               <p className="data-title">

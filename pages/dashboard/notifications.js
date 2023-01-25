@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { notificationService } from "../../services/notification.service";
 import TimeAgo from "timeago-react";
 import { Loader } from "@mantine/core";
+import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
@@ -36,7 +37,8 @@ export default function Notifications() {
 
       <div className="site--content pageCenterWidth">
         {/* <UpgradePlan /> */}
-        <HighlightTrades />
+        <SubscriptionExpire />
+
 
         {/* welcome block */}
 

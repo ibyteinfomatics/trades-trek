@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions/users";
 import { setSelectedStock } from "../../actions/setStock";
 import { orderService } from "../../services/order.service";
+import Link from "next/link";
 
 function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
   const router = useRouter();
@@ -100,8 +101,10 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
             <p style={{ textAlign: "center", padding: "10px", color: "red" }}>
               {error}
             </p>
+            {error=='Your Subscription is expired now and your default trade limit also expired' &&<div style={{display:'flex',justifyContent:'end',margin:'0px 10px',color:'#8000ff'}}> <Link href='/'><u>Subscribe and more trade</u></Link></div>}
           </div>
         )}
+       
         {message != "" && (
           <div
             className=""

@@ -44,7 +44,8 @@ setSubscriptionId(id)
       <div className="site--content">
         <div className="page--title--block">
           <div className="card-no-gap">
-            <MarketOpenClose />
+        <SubscriptionExpire />
+
           {isLoading?<div
             style={{
               width: "100%",
@@ -89,7 +90,7 @@ setSubscriptionId(id)
                         <a className="btn">Premimum</a>
                       </Link>}
                     </div>
-                    {item?._id==user?.user?.subscriptionId && <SubscriptionExpire /> }
+                    {/* {item?._id==user?.user?.subscriptionId && <SubscriptionExpire /> } */}
                   </div>
                 );
               })}

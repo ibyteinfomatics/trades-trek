@@ -11,13 +11,7 @@ const MarketOpenClose = () => {
 
   const marketOpenTime = "09:30:00";
   const marketCloseTime = "14:30:00";
-  // const holiday = [
-  //   // "2022/10/04",
-  //   "2022/10/05",
-  //   "2022/10/06",
-  //   "2022/10/07",
-  //   "2022/10/10",
-  // ];
+  
 
 
   function timeDiffCalc(dateFuture, dateNow) {
