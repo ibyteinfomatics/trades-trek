@@ -40,6 +40,7 @@ const SubscriptionExpire = () => {
   }
   const timeCount = () => {
     var today = new Date();
+    today.setMinutes(today.getMinutes()-10)
     var temp = NigerianTimeZone(today);
     var expired = user?.user?.expiredDate;
     var temp1 = NigerianTimeZone(expired);

@@ -18,6 +18,7 @@ export default function Sidebar() {
   const [menuCollapse, setMenuCollapse] = useState(false);
   let { user } = useSelector((state) => state.userWrapper);
   const [modelOpened, setModelOpened] = useState(false);
+  const [todaytime,setTodayTime]=useState(new Date())
   const {openOrder}=useSelector((state)=>state.openOrderWrapper)
   useEffect(() => {
     if(router.asPath!='/dashboard/trade-stocks/'){
@@ -44,6 +45,9 @@ export default function Sidebar() {
       .catch((err) => {
         console.log(err);
       });
+      var today=new Date()
+      today.setMinutes(today.getMinutes()-10)
+      setTodayTime(today)
   },[])
   useEffect(()=>{
    

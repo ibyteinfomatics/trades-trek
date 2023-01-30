@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HighlightTrades from '../../components/HighlightTrades/HighlightTrades';
 import NewsListData, {
   NewsListData2,
@@ -31,8 +31,14 @@ export default function Home() {
   const [showLosersList, setShowLosersList] = useState(false);
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
+  const [todaytime,setTodayTime]=useState(new Date())
   let { user } = useSelector((state) => state.userWrapper);
 
+ useEffect(() => {
+  var today=new Date();
+  today.setMinutes(today.getMinutes()-10)
+setTodayTime(today)
+}, [])
  
   return (
     <>
@@ -96,7 +102,7 @@ export default function Home() {
         </div>
 
         {/* Watchlist */}
-        { NigerianTimeZone(new Date())<=NigerianTimeZone(user?.user?.expiredDate) &&  <div className="card--wrapper">
+        { NigerianTimeZone(todaytime)<=NigerianTimeZone(user?.user?.expiredDate) &&  <div className="card--wrapper">
           <div className="wrapper--hgroup">
             <div className="wrapper--title">
               <h3>Watchlist</h3>
@@ -125,7 +131,7 @@ export default function Home() {
         </div>}
 
         {/* 3 blocks wraps */}
-      {NigerianTimeZone(new Date())<=NigerianTimeZone(user?.user?.expiredDate) && <div className="card--wrapper">
+      {NigerianTimeZone(todaytime)<=NigerianTimeZone(user?.user?.expiredDate) && <div className="card--wrapper">
         <div className="wrapper--text card--grid card--grid--3">
           {/* Top Gainers */}
           <div className="wrapper--col">
