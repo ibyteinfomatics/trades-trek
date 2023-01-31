@@ -52,7 +52,9 @@ const InviteFriend = ({setTabIndex}) => {
           <div className="flexBox amtTitle block--title block--back--link mb--32">
             <h1 className="font-20 textLeft">Referral</h1>
            
-            <h4 className=""> ₦ {user?.user?.walletAmount?.toFixed(2)||0.00}
+            <h4 className=""> ₦ {user?.user?.walletAmount?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")||0.00}
             <button className="btn" onClick={()=>setTabIndex(6)}>Redeem</button></h4>
           </div>
           <div className="flexBox justifyBetween referralNo">

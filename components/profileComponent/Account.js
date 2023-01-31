@@ -14,6 +14,24 @@ export default function Account() {
           <div className="block--title block--back--link text--center mb--64">
             <h1>Your Profile</h1>
           </div>
+          <div className="flexBox justifyBetween referralNo">
+            <h4 className="">Your  Total Wallet Amount</h4>
+            <h4 className="">₦{" "}{user?.user?.walletAmount ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")||0.00 }</h4>
+          </div>
+          <div className="flexBox justifyBetween referralNo">
+            <h4 className="">Your  Total Request Amount</h4>
+            <h4 className="">₦{" "}{user?.user?.requestAmount?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")||0.00 }</h4>
+          </div>
+          <div className="flexBox justifyBetween referralNo">
+            <h4 className="">Your  Total Withdraw Amount</h4>
+            <h4 className="">₦{" "}{user?.user?.withdrawAmount?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")||0.00 }</h4>
+          </div>
           <div className="mb--32 profileImage"
           >
             <img

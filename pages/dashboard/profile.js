@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
+
 import Account from "../../components/profileComponent/Account";
 import HelpSupport from "../../components/profileComponent/HelpSupport";
 import InviteFriend from "../../components/profileComponent/InviteFriend";
@@ -31,7 +31,7 @@ export default function Profie() {
                   <Tab>Help & Support</Tab>
                   <Tab>Write a Review</Tab>
                   <Tab>Terms & Conditions</Tab>
-                  <Tab>Bank</Tab>
+                  <Tab>Accounting</Tab>
                 </TabList>
 
                 {/* account ... */}
@@ -62,6 +62,7 @@ export default function Profie() {
                  <RequestAmount />
                 </TabPanel>
               </Tabs>
+            
             </div>
           </div>
         </div>

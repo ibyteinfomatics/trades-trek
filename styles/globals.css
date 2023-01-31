@@ -271,11 +271,13 @@ p a:hover{
   color: var(--purpleColorHover);
 }
 
+
 .center--block {
   @apply bg-white absolute py-10 px-90 transform--center w-11/12 overflow-y-auto;
   max-width: 43.1875rem;
   max-height: 95vh;
   border-radius: var(--radius);
+ 
 }
 .transactionTable{
   margin-top: 50px

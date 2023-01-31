@@ -18,6 +18,7 @@ export default function Transaction({transactionList}) {
     "Bank Name",
     "Request Amount",
     "Status",
+    "Reason",
     "Request Time",
     "Last Update",
    
@@ -48,6 +49,7 @@ export default function Transaction({transactionList}) {
                 <td>{item?.bankName}</td>
                 <td>{item?.reqAmount?.toFixed(2)}</td>
                 <td>{item?.status}</td>
+                <td>{item?.reason||""}</td>
                 <td>{moment(item.createdAt).format("lll")}</td>
                 <td>{moment(item.updatedAt).format("lll")}</td>
 
