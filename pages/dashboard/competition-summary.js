@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import SelectGame from "../../components/SelectGame/SelectGame";
 import WinnerListView from "../../components/Competition/CompetitionListView";
 import PastCompetitionView from "../../components/Competition/PastCompetitionView";
-import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
+import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 
 export default function CompetationSummery() {
   const [beginnerOption, setBeginnerOption] = useState(false);
@@ -63,7 +63,7 @@ export default function CompetationSummery() {
         </div>
 
         <div className="card--wrapper learning-research">
-        <SubscriptionExpire />
+        <SubscriptionExpiredMessage />
 
           <div className="trade-data">
             <div className="">

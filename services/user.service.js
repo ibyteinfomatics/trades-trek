@@ -423,6 +423,23 @@ function getTransaction() {
       return error;
     });
 }
+function allowNotificationStatus(status) {
+
+  
+  return fetchWrapper
+    .get(`${baseUrl}/user/allow-notification-status?allowNotification=${status}`)
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+
 export const userService = {
   user: userSubject.asObservable(),
   get userValue() {
@@ -450,5 +467,7 @@ export const userService = {
   userGraph,
   anotherUserPerformanceHistory,
   addTransaction,
-  getTransaction
+  getTransaction,
+  allowNotificationStatus,
+
 };

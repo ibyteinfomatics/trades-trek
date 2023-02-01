@@ -8,8 +8,8 @@ import { userService } from "../../services";
 import Iframe from "react-iframe";
 import { useSelector } from "react-redux";
 import UnsubscribeModel from "../../components/Modal/UnsubscribeModel";
-import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
 import { Loader } from "@mantine/core";
+import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 export default function Sub() {
   let { user } = useSelector((state) => state.userWrapper);
 
@@ -44,7 +44,7 @@ setSubscriptionId(id)
       <div className="site--content">
         <div className="page--title--block">
           <div className="card-no-gap">
-        <SubscriptionExpire />
+    <SubscriptionExpiredMessage />
 
           {isLoading?<div
             style={{

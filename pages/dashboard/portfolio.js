@@ -11,7 +11,7 @@ import LineChart from "../../components/Chart/LineChart";
 import SelectGame from "../../components/SelectGame/SelectGame";
 import { userService } from "../../services";
 import { AnnualReturn, TodayPerChange } from "../../helpers/TodayChange";
-import SubscriptionExpire from "../../components/MarketOpenClose/SubscriptionExpire";
+import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 
 export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
@@ -52,7 +52,7 @@ export default function Portfolio() {
           <div style={{ margin: "30px 0px" }}>
             <HighlightTrades />
           </div>
-          <SubscriptionExpire />
+          <SubscriptionExpiredMessage />
           
           {/* port folio section  */}
           <div className="profileContainer ">

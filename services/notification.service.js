@@ -26,8 +26,34 @@ function getUserAllNotification() {
       });
   }
 
-
-
+  function notificationDeleteById(id){
+    return fetchWrapper
+      .delete(`${baseUrl}/notifications?id=${id}`)
+      .then((res) => {
+        if(res.success){
+         
+        }
+       
+        return res;
+      })
+      .catch(function (error) {
+        return error;
+      });
+  }
+  function deleteAllNotifications(){
+    return fetchWrapper
+      .delete(`${baseUrl}/notifications/all`)
+      .then((res) => {
+        if(res.success){
+         
+        }
+       
+        return res;
+      })
+      .catch(function (error) {
+        return error;
+      });
+  }
 
 export const notificationService ={
     user: userSubject.asObservable(),
@@ -35,5 +61,6 @@ export const notificationService ={
       return userSubject.value;
     },
     getUserAllNotification,
-  
+    notificationDeleteById,
+    deleteAllNotifications
   };

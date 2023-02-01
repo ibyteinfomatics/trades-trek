@@ -13,6 +13,8 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import { Loader } from "@mantine/core";
+import { isBrowser, isMobileOnly, isTablet } from "react-device-detect";
+
 // https://phonevalidation.abstractapi.com/v1/?api_key=4364d337d243447c97e34576cb324660&phone=+9190607574241
 export default function Signup() {
   const [btnStatus, setBtnStatus] = useState(false);
@@ -23,7 +25,7 @@ export default function Signup() {
   const [showCPassword, setShowCPassword] = useState(false);
   const [phone, setPhone] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
+  const [device, setDevice] = useState("Browser");
   const dispatch = useDispatch();
   const {
     register,
@@ -40,10 +42,21 @@ export default function Signup() {
       });
     }
   }, [router]);
+  useEffect(() => {
+    if (isBrowser) {
+      setDevice("Browser");
+    } else if (isTablet) {
+      setDevice("Tablet");
+    } else if (isMobileOnly) {
+      setDevice("Mobile");
+    }
+  }, [isBrowser, isTablet, isMobileOnly]);
 
+  console.log("Device", device);
   const onSubmit = async (data) => {
     setIsLoading(true);
     data.phone = phone;
+    data.device=device
     userService
       .signup(data)
       .then((res) => {

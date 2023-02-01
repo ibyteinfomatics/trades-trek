@@ -47,9 +47,10 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
           setTimeout(() => {
             setShowTrade(false);
             setModelOpened(false);
+            setIsLoading(false);
           }, 2000);
           setMessage(res.data);
-          setIsLoading(false);
+          
         } else if (res.success === false) {
           setMessage("");
           setError(res.message);
