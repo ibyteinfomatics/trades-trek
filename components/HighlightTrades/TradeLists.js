@@ -13,7 +13,7 @@ export default function TradeLists(Props) {
         <li>
           <div className="trade--image">
             <Image
-              src={"/images/" + list?.tradeImage + ".svg"}
+              src={list?.PerChange>=0?"/images/position-up.svg":"/images/position-down.svg"}
               layout="responsive"
               width={34}
               height={20}
@@ -21,8 +21,8 @@ export default function TradeLists(Props) {
             />
           </div>
           <div className="trade--detail">
-            <p className="trade--name">{list?.tradeTitle}</p>
-            <p className="trade--position">{list?.tradePosition}</p>
+            <p className="trade--name">{list?.Symbol}</p>
+            <p className="trade--position">{list?.PerChange>=0?`+ ${list?.PerChange}%`:`${list?.PerChange}%`}</p>
           </div>
         </li>
       </>
