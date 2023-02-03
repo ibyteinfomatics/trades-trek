@@ -23,14 +23,14 @@ export default function HighlightTrades() {
   return (
     <>
      {highLightTrade.length>0 ? <div className="card--style card--with--border">
-        <ul>
+        <ul className="topScrollContent">
           {highLightTrade.map((data, index) => {
-           if(index<9){
+          //  if(index<9){
             return <TradeLists key={index} listData={data} />;
-           }
+          //  }
           })}
         </ul>
-      </div>: <div class="animated-background">
+      </div>: <div class="animated-background highLight">
     <div class="background-masker"></div>
   </div>}
     </>

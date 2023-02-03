@@ -75,7 +75,7 @@ export default function Account() {
           <div className="block--title block--back--link text--center mb--64">
             <h1>Your Profile</h1>
 
-            <div className="profileToggle">
+            {/* <div className="profileToggle">
               <input
                 value={status}
                 checked={status}
@@ -84,7 +84,7 @@ export default function Account() {
                 onChange={(e) => handleStatus(e.target.checked)}
               />
               <ToolTipCustome text={`Email and Notification Allowed.`} />
-            </div>
+            </div> */}
             {/* </div> */}
           </div>
           <div className="flexBox justifyBetween referralNo">
@@ -176,10 +176,10 @@ export default function Account() {
                 {moment(user?.user?.expiredDate).format("lll")}
               </h4>
             </div>
-            <div className="flexBox justifyBetween referralNo">
+            {/* <div className="flexBox justifyBetween referralNo">
               <h4 className="">Joined Device</h4>
               <h4 className="">{user?.user?.device || "Browser"}</h4>
-            </div>
+            </div> */}
           </form>
           {/* <div
             style={{

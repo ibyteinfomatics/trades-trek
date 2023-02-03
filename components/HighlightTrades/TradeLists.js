@@ -21,7 +21,7 @@ export default function TradeLists(Props) {
             />
           </div>
           <div className="trade--detail">
-            <p className="trade--name">{list?.Symbol}</p>
+            <p className="trade--name">{list?.Symbol ||""}</p>
             <p className="trade--position">{list?.PerChange>=0?`+ ${list?.PerChange}%`:`${list?.PerChange}%`}</p>
           </div>
         </li>

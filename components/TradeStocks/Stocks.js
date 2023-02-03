@@ -13,6 +13,7 @@ import FormSpinner from "../Spinners/FormSpinner";
 import { useRouter } from "next/router";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import LineChartStock from "../Chart/LineChartStock";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
@@ -178,8 +179,32 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
     },
   
   };
+  const handleAddWatchList=()=>{
+    stockService.addToWatchListStock(stockData).then((res)=>{
+      if(res.success){
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }else{
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    }).catch((err)=>console.log(err))
+  }
   return (
     <>
+     <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="stocks-form">
         <form className="site--form">
           <div className="stocks--form--group">
@@ -488,6 +513,15 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                 }}
               >
                 Preview Order
+              </a>
+            )}
+            {stockData && (
+              <a
+                className="btn form--submit"
+                style={{ cursor: "pointer" }}
+                onClick={handleAddWatchList}
+              >
+                Add WatchList
               </a>
             )}
             <PreviewModal

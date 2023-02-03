@@ -1,45 +1,48 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import HighlightTrades from '../../components/HighlightTrades/HighlightTrades';
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import HighlightTrades from "../../components/HighlightTrades/HighlightTrades";
 import NewsListData, {
   NewsListData2,
-} from '../../components/NewsList/NewsListView';
+} from "../../components/NewsList/NewsListView";
 import LeaderView, {
   LeaderView2,
-} from '../../components/SectorLeaders/LeaderView';
-import Sidebar from '../../components/Sidebar/Sidebar';
+} from "../../components/SectorLeaders/LeaderView";
+import Sidebar from "../../components/Sidebar/Sidebar";
 import GainerView, {
   GainerView2,
-} from '../../components/TopGainers/GainerView';
-import LoserView, { LoserView2 } from '../../components/TopLosers/LoserView';
+} from "../../components/TopGainers/GainerView";
+import LoserView, { LoserView2 } from "../../components/TopLosers/LoserView";
 import WatchListData, {
   WatchListData2,
-} from '../../components/WatchList/WatchListData';
-import { useDispatch, useSelector } from 'react-redux';
-import { AccountValue } from '../../helpers/UserAccount';
-import UpgradePlan from '../../components/UpgradePlan/upgradePlan';
-import NigerianTimeZone from '../../helpers/Negerian-TimeZone'
-import moment from 'moment-timezone';
-import SelectGame from '../../components/SelectGame/SelectGame';
-import { TodayPerChange } from '../../helpers/TodayChange';
-import SubscriptionExpiredMessage from '../../components/MarketOpenClose/SubscriptionExpiredMessage';
+} from "../../components/WatchList/WatchListData";
+import { useSelector } from "react-redux";
+
+import NigerianTimeZone from "../../helpers/Negerian-TimeZone";
+import moment from "moment-timezone";
+import SelectGame from "../../components/SelectGame/SelectGame";
+import { TodayPerChange } from "../../helpers/TodayChange";
+import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
+import { stockService } from "../../services/stock.service";
 
 export default function Home() {
-  const [showWatchList, setShowWatchList] = useState(false);
+  
   const [showGainersList, setShowGainersList] = useState(false);
   const [showLosersList, setShowLosersList] = useState(false);
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
-  const [todaytime,setTodayTime]=useState(new Date())
+  const [todaytime, setTodayTime] = useState(new Date());
+  
   let { user } = useSelector((state) => state.userWrapper);
 
- useEffect(() => {
-  var today=new Date();
-  today.setMinutes(today.getMinutes()-10)
-setTodayTime(today)
-}, [])
+  useEffect(() => {
+    var today = new Date();
+    today.setMinutes(today.getMinutes() - 10);
+    setTodayTime(today);
+   
+  }, []);
  
+
   return (
     <>
       <Sidebar />
@@ -49,12 +52,11 @@ setTodayTime(today)
         <HighlightTrades />
         {/* welcome block */}
         <div className="card--wrapper">
-<SubscriptionExpiredMessage />
+          <SubscriptionExpiredMessage />
 
-        <div style={{margin:"20px"}}>
-        <SelectGame />
-
-        </div>
+          <div style={{ margin: "20px" }}>
+            <SelectGame />
+          </div>
 
           <div className="wrapper--text card--grid card--grid--60-40">
             <div className="welcome--image">
@@ -68,7 +70,10 @@ setTodayTime(today)
             </div>
             <div className="card--style portfolio--card">
               <div className="card--title">
-                <h1>Welcome, {user && user?.user?.firstName || ""} {user && user?.user?.lastName || ""}</h1>
+                <h1>
+                  Welcome, {(user && user?.user?.firstName) || ""}{" "}
+                  {(user && user?.user?.lastName) || ""}
+                </h1>
               </div>
               <div className="card--list">
                 <div className="card--title">
@@ -77,17 +82,41 @@ setTodayTime(today)
                 <ul className="option--list">
                   <li>
                     <span>Account Value</span>
-                    <span>₦{user && ((user?.portfolio?.accountValue+user?.portfolio?.profitOrLossToday)?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                    <span>
+                      ₦
+                      {user &&
+                        (
+                          user?.portfolio?.accountValue +
+                          user?.portfolio?.profitOrLossToday
+                        )
+                          ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </span>
                   </li>
                   <li>
                     <span>Today's Change</span>
                     <span>
-                      +₦{(user?.portfolio?.currentValue-user?.portfolio?.previousValue)
-                      ?.toFixed(2)
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00} <span>({TodayPerChange(user?.portfolio?.previousValue,(user?.portfolio?.currentValue-user?.portfolio?.previousValue))?.toFixed(2)
+                      +₦
+                      {(
+                        user?.portfolio?.currentValue -
+                        user?.portfolio?.previousValue
+                      )
+                        ?.toFixed(2)
                         ?.toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%)</span>
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}{" "}
+                      <span>
+                        (
+                        {TodayPerChange(
+                          user?.portfolio?.previousValue,
+                          user?.portfolio?.currentValue -
+                            user?.portfolio?.previousValue
+                        )
+                          ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        %)
+                      </span>
                     </span>
                   </li>
                 </ul>
@@ -102,87 +131,72 @@ setTodayTime(today)
         </div>
 
         {/* Watchlist */}
-        { NigerianTimeZone(todaytime)<=NigerianTimeZone(user?.user?.expiredDate) &&  <div className="card--wrapper">
-          <div className="wrapper--hgroup">
-            <div className="wrapper--title">
-              <h3>Watchlist</h3>
-            </div>
-            <div className="readmore--link">
-              {!showWatchList ? (
-                <span onClick={() => setShowWatchList(!showWatchList)}>
-                  See All
-                </span>
-              ) : (
-                <span onClick={() => setShowWatchList(!showWatchList)}>
-                  See Less
-                </span>
-              )}
-            </div>
-          </div>
-          {!showWatchList ? (
-            <div className="wrapper--text card--grid card--grid--4">
-              <WatchListData />
-            </div>
-          ) : (
-            <div className="wrapper--text card--grid card--grid--4">
-              <WatchListData2 />
-            </div>
-          )}
-        </div>}
+        {NigerianTimeZone(todaytime) <=
+          NigerianTimeZone(user?.user?.expiredDate) && (
+<WatchListData />
+
+         
+        )}
 
         {/* 3 blocks wraps */}
-      {NigerianTimeZone(todaytime)<=NigerianTimeZone(user?.user?.expiredDate) && <div className="card--wrapper">
-        <div className="wrapper--text card--grid card--grid--3">
-          {/* Top Gainers */}
-          <div className="wrapper--col">
-            <div className="wrapper--hgroup">
-              <div className="wrapper--title">
-                <h3>Top Gainers</h3>
+        {NigerianTimeZone(todaytime) <=
+          NigerianTimeZone(user?.user?.expiredDate) && (
+          <div className="card--wrapper">
+            <div className="wrapper--text card--grid card--grid--3">
+              {/* Top Gainers */}
+              <div className="wrapper--col">
+                <div className="wrapper--hgroup">
+                  <div className="wrapper--title">
+                    <h3>Top Gainers</h3>
+                  </div>
+                  <div className="readmore--link">
+                    {!showGainersList ? (
+                      <span
+                        onClick={() => setShowGainersList(!showGainersList)}
+                      >
+                        See All
+                      </span>
+                    ) : (
+                      <span
+                        onClick={() => setShowGainersList(!showGainersList)}
+                      >
+                        See Less
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <GainerView showGainersList={!showGainersList} />
               </div>
-              <div className="readmore--link">
-                {!showGainersList ? (
-                  <span onClick={() => setShowGainersList(!showGainersList)}>
-                    See All
-                  </span>
-                ) : (
-                  <span onClick={() => setShowGainersList(!showGainersList)}>
-                    See Less
-                  </span>
-                )}
-              </div>
-            </div>
-            <GainerView showGainersList={!showGainersList} /> 
-          </div>
 
-          {/* Top Losers */}
-          <div className="wrapper--col">
-            <div className="wrapper--hgroup">
-              <div className="wrapper--title">
-                <h3>Top Losers</h3>
-              </div>
-              <div className="readmore--link">
-                {!showLosersList ? (
-                  <span onClick={() => setShowLosersList(!showLosersList)}>
-                    See All
-                  </span>
-                ) : (
-                  <span onClick={() => setShowLosersList(!showLosersList)}>
-                    See Less
-                  </span>
-                )}
-              </div>
-            </div>
+              {/* Top Losers */}
+              <div className="wrapper--col">
+                <div className="wrapper--hgroup">
+                  <div className="wrapper--title">
+                    <h3>Top Losers</h3>
+                  </div>
+                  <div className="readmore--link">
+                    {!showLosersList ? (
+                      <span onClick={() => setShowLosersList(!showLosersList)}>
+                        See All
+                      </span>
+                    ) : (
+                      <span onClick={() => setShowLosersList(!showLosersList)}>
+                        See Less
+                      </span>
+                    )}
+                  </div>
+                </div>
 
-            <LoserView showLosersList={!showLosersList} /> 
-          </div>
-
-          {/* Leaders */}
-          <div className="wrapper--col">
-            <div className="wrapper--hgroup">
-              <div className="wrapper--title">
-                <h3>Sector Leaders</h3>
+                <LoserView showLosersList={!showLosersList} />
               </div>
-              {/* <div className="readmore--link">
+
+              {/* Leaders */}
+              <div className="wrapper--col">
+                <div className="wrapper--hgroup">
+                  <div className="wrapper--title">
+                    <h3>Sector Leaders</h3>
+                  </div>
+                  {/* <div className="readmore--link">
                   {!showLeadersList ? (
                     <span
                       onClick={() => setShowLeadersList(!showLeadersList)}
@@ -197,13 +211,13 @@ setTodayTime(today)
                     </span>
                   )}
                 </div> */}
-            </div>
+                </div>
 
-            {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
+                {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>}
-      
+        )}
 
         {/* Newslist */}
         <div className="card--wrapper">
@@ -236,10 +250,10 @@ setTodayTime(today)
           <div className="readMore--btn">
             {/* <Link href="javascript:void(0)"> */}
             <a
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={() => setShowNewsList(!showNewsList)}
             >
-              Show {showNewsList ? 'Less' : 'More'} News
+              Show {showNewsList ? "Less" : "More"} News
             </a>
             {/* </Link> */}
           </div>

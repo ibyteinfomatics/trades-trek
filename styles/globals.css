@@ -3091,7 +3091,10 @@ input[type="checkbox"] {
   height: 100%;
   width: 5%;
 }
-
+.card--style.card--with--border .topScrollContent {
+  overflow-x: auto;
+  flex-wrap: inherit;
+}
 @keyframes placeHolderShimmer {
   0% {
     background-position: -800px 0
@@ -3110,8 +3113,17 @@ input[type="checkbox"] {
   background-color: #f6f7f8;
   background: linear-gradient(to right, #eeeeee 8%, #bbbbbb 18%, #eeeeee 33%);
   background-size: 800px 104px;
-  height: 55px;
+  
   position: relative;
+}
+.highLight{
+  height: 55px;
+}
+.watchloader{
+  height: 120px;
+}
+.loserLoader{
+  height:392px;
 }
 
 .static-background {
@@ -3167,4 +3179,24 @@ input[type="checkbox"] {
     24px 142px,
     0 180px,
     0 0;
+}
+.removeWatch{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+ 
+}
+.watchMessage{
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
 }

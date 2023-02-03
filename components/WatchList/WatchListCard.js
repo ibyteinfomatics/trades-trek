@@ -1,37 +1,32 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-export default function WatchListCard(Props) {
-    const [watchList, setWatchList] = useState()
-
-    useEffect(() => {
-        let {listData} = Props
-        setWatchList(listData)
-    },[])
+export default function WatchListCard({listData,removeItem}) {
+    
     return (
       <>
         <div className="card--style">
           <div className="card--data">
             <div className="card--row">
               <ul>
-                {watchList?.StockName && (
+                {listData?.Name && (
                   <li>
                     <p className="card--title--label">Stock Name</p>
-                    <p className="card--title">{watchList?.StockName}</p>
+                    <p className="card--title">{listData?.Name}</p>
                   </li>
                 )}
-                {watchList?.CurrentPrice && (
+                {listData?.Last && (
                   <li>
                     <p className="card--title--label">Current Price</p>
-                    <p className="card--title">{watchList?.CurrentPrice}</p>
+                    <p className="card--title">{listData?.Last}</p>
                   </li>
                 )}
-                {watchList?.StockPositionImage && (
+                
                   <li>
                     <span className="card--image">
                       <Image
                         src={
-                          "/images/" + watchList?.StockPositionImage + ".svg"
+                          listData?.PerChange>=0?"/images/position-up.svg" :"/images/position-down.svg"
                         }
                         layout="responsive"
                         width={101}
@@ -40,29 +35,44 @@ export default function WatchListCard(Props) {
                       />
                     </span>
                   </li>
-                )}
+                
               </ul>
             </div>
             <div className="card--row">
               <ul>
-                {watchList?.Volume && (
+               
                   <li>
                     <p className="card--title--label">Volume</p>
-                    <p className="card--title">{watchList?.Volume}</p>
+                    <p className="card--title">{listData?.Volume 
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                   </li>
-                )}
-                {watchList?.Change && (
+               
+               
                   <li>
                     <p className="card--title--label">Change</p>
-                    <p className="card--title">{watchList?.Change}</p>
+                    <p className="card--title">{listData?.Change ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                   </li>
-                )}
-                {watchList?.PercentageChange && (
+              
+               
                   <li>
                     <p className="card--title--label">%Change</p>
-                    <p className="card--title">{watchList?.PercentageChange}</p>
+                    <p className="card--title">{listData?.PerChange ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} %</p>
+                          
                   </li>
-                )}
+                 
+                 
+                    <p className="card--title--label removeWatch" onClick={()=>{
+                      removeItem(listData?.Symbol)
+                    
+                    }}>*</p>
+                   
+                          
+                
               </ul>
             </div>
           </div>

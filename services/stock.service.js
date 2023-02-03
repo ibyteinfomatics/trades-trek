@@ -57,6 +57,56 @@ function getTopGainer() {
         return error;
       });
   }
+  function addToWatchListStock(stock) {
+    return fetchWrapper
+      .post(`${baseUrl}/watchlist`,stock)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+  function AllWathchList() {
+    return fetchWrapper
+      .get(`${baseUrl}/watchlist`)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+
+  function removeItem(symbol){
+    return fetchWrapper
+    .delete(`${baseUrl}/watchlist?symbol=${symbol}`)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+  }
+
 
 
 
@@ -70,5 +120,8 @@ export const stockService ={
     },
    getTopGainer,
    getTopLooser,
-   getAllStock
+   getAllStock,
+   addToWatchListStock,
+   AllWathchList,
+   removeItem
   };
