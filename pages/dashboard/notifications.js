@@ -101,15 +101,13 @@ export default function Notifications() {
           pauseOnHover
         />
         <div className="center--block" style={{ marginTop: "20px" }}>
-          <div className="form--item toggle rightAlign">
-            {notifications.length >1 && (
+        <div className="form--item toggle rightAlign">
               <button
-                onClick={() => setModelOpened1(true)}
-                className="btn clear"
+                className="btn allowNotification"
               >
-                Clear All
+                Allow for notifications / email
               </button>
-            )}
+          <div className="toggle rightAlign">
             <div className="box_1">
               <input
                 value={status}
@@ -121,6 +119,17 @@ export default function Notifications() {
               <ToolTipCustome text={`Email and Notification Allowed.`} />
             </div>
           </div>
+          </div>
+          <div className="rightAlign mb--20">
+            {notifications?.length >1 && (
+              <button
+                onClick={() => setModelOpened1(true)}
+                className="clearBtn"
+              >
+                Clear All
+              </button>
+            )}
+            </div>
           {isLoading ? (
             <div
               style={{
@@ -133,7 +142,7 @@ export default function Notifications() {
             >
               <Loader color="#8000ff" />
             </div>
-          ) : notifications.length == 0 ? (
+          ) : notifications?.length == 0 ? (
             <div className="notFound">Notification Not Found!</div>
           ) : (
             notifications?.map((notification, index) => {
