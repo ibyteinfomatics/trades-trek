@@ -52,7 +52,12 @@ const MarketOpenClose = () => {
 
     today = new Date(moment(temp).format("YYYY-MM-DD"));
     var newDate = new Date(moment(temp).format("YYYY-MM-DD HH:mm:ss"));
-
+    if (moment(today).format("dddd")== "Saturday") {
+        
+      today.setDate(today.getDate() + 2);
+    } else if (moment(today).format("dddd") == "Sunday") {
+      today.setDate(today.getDate() + 1);
+    }
     while (holiday.includes(moment(today).format("YYYY-MM-DD"))) {
       today.setDate(today.getDate() + 1);
       let day = moment(today).format("dddd");

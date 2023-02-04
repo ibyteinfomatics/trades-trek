@@ -90,7 +90,7 @@ export default function CreateCompetation() {
                     placeholder="Enter competition name here"
                     {...register("competitionName", {
                       required: true,
-                      maxLength: 37,
+                      maxLength: 30,
                       minLength: 10,
                     })}
                   />
@@ -101,7 +101,7 @@ export default function CreateCompetation() {
                     {errors.competitionName?.type === "minLength" &&
                       "Competition Name should be atleast 10 characters"}
                     {errors.competitionName?.type === "maxLength" &&
-                      "Competition Name should be less than 37 characters"}
+                      "Competition Name should be less than 30 characters"}
                   </div>
                 </div>
                 <div className="form--item">
@@ -116,7 +116,7 @@ export default function CreateCompetation() {
                     placeholder="Enter competition name here"
                     {...register("competitionDescription", {
                       required: true,
-                      maxLength: 200,
+                      maxLength: 70,
                       minLength: 20,
                     })}
                   />
@@ -127,7 +127,7 @@ export default function CreateCompetation() {
                     {errors.competitionDescription?.type === "minLength" &&
                       "Competition Description should be atleast 20 characters"}
                     {errors.competitionDescription?.type === "maxLength" &&
-                      "Competition Description should be less than 200 characters"}
+                      "Competition Description should be less than 70 characters"}
                   </div>
                 </div>
 

@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import getConfig from 'next/config';
 import { fetchWrapper } from '../helpers';
 import Router from 'next/router';
+import { isBrowser, isMobileOnly, isTablet } from "react-device-detect";
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}`;
@@ -138,8 +139,17 @@ function logout() {
 
 // user info ............................................. 
 function userInfo(){
+  var device=''
+  if(isBrowser){
+    device="Browser"
+  }else if(isMobileOnly){
+    device="Mobile"
+  }else{
+    device='Tablet'
+  }
   return fetchWrapper
-      .get(`${baseUrl}/user/get/info?gameId=${localStorage.getItem("GameId") || ''}`)
+
+      .get(`${baseUrl}/user/get/info?device=${device}&gameId=${localStorage.getItem("GameId") || ''}`)
   
       .then((res) => {
         if(res?.message?.block){
