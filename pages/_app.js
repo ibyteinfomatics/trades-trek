@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { userService } from '../services';
 import { Provider } from 'react-redux';
 import store from '../store';
+import "react-multi-carousel/lib/styles.css";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
