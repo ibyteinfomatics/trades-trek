@@ -319,7 +319,7 @@ export default function Sidebar() {
                     />
                   </span>
                   Notifications
-                  {count>0 &&<span className="noti--status">New {count}</span>}
+                  {count>0 &&<span className="noti--status">{count}</span>}
                 </a>
               </Link>
             </li>
