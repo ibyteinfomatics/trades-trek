@@ -48,7 +48,7 @@ function PreviewModal({ modelOpened, setModelOpened, data, setShowTrade }) {
             setShowTrade(false);
             setModelOpened(false);
             setIsLoading(false);
-          }, 2000);
+          }, 1000);
           setMessage(res.data);
           
         } else if (res.success === false) {

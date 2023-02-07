@@ -315,11 +315,14 @@ export default function Sidebar() {
                     />
                   </span>
                   Notifications
-                  <span className="noti--status">New</span>
+                  {count>0 &&<span className="noti--status">{count}</span>}
                 </a>
               </Link>
             </li>
-            <li className="menu__list--item">
+            <li className={
+                router.pathname == '/dashboard/profile'
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `}>
               <Link href="/dashboard/profile">
                 <a>
                   <span className="menu--icons">
