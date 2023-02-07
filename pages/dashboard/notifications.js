@@ -35,6 +35,7 @@ export default function Notifications() {
       .getUserAllNotification()
       .then((res) => {
         setNotifications(res.data);
+        notificationService.noficationUpdateStatus().then((r)=>console('r')).catch((e)=>console.log(e))
         setIsLoading(false);
       })
       .catch((err) => {
@@ -66,7 +67,9 @@ export default function Notifications() {
       .then((res) => {
         setModelOpened(false);
         GetAllNotification();
-        console.log(res);
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -91,7 +94,7 @@ export default function Notifications() {
         {/* welcome block */}
         <ToastContainer
           position="top-center"
-          autoClose={10000}
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -101,27 +104,23 @@ export default function Notifications() {
           pauseOnHover
         />
         <div className="center--block" style={{ marginTop: "20px" }}>
-        <div className="form--item toggle rightAlign">
-              <button
-                className="btn allowNotification"
-              >
-                Allow for notifications / email
-              </button>
-          <div className="toggle rightAlign">
-            <div className="box_1">
-              <input
-                value={status}
-                checked={status}
-                type="checkbox"
-                className="switch_1"
-                onChange={(e) => handleStatus(e.target.checked)}
-              />
-              <ToolTipCustome text={`Email and Notification Allowed.`} />
+          <div className="form--item toggle rightAlign">
+            <button className="btn allowNotification">Allow for email</button>
+            <div className="toggle rightAlign">
+              <div className="box_1">
+                <input
+                  value={status}
+                  checked={status}
+                  type="checkbox"
+                  className="switch_1"
+                  onChange={(e) => handleStatus(e.target.checked)}
+                />
+                <ToolTipCustome text={`Email  Allowed.`} />
+              </div>
             </div>
           </div>
-          </div>
           <div className="rightAlign mb--20">
-            {notifications?.length >1 && (
+            {notifications?.length > 1 && (
               <button
                 onClick={() => setModelOpened1(true)}
                 className="clearBtn"
@@ -129,7 +128,7 @@ export default function Notifications() {
                 Clear All
               </button>
             )}
-            </div>
+          </div>
           {isLoading ? (
             <div
               style={{

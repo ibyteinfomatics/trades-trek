@@ -9,6 +9,7 @@ import { userService } from '../../services/user.service';
 import LogOutModal from '../Modal/LogoutModal';
 import moment from 'moment-timezone';
 import NigerianTimeZone from '../../helpers/Negerian-TimeZone';
+import { notificationService } from '../../services/notification.service';
 
 // const ENDPOINT = "http://localhost:3232";
 
@@ -19,6 +20,7 @@ export default function Sidebar() {
   let { user } = useSelector((state) => state.userWrapper);
   const [modelOpened, setModelOpened] = useState(false);
   const [todaytime,setTodayTime]=useState(new Date())
+  const [count ,setCount]=useState(0)
   const {openOrder}=useSelector((state)=>state.openOrderWrapper)
   useEffect(() => {
     if(router.asPath!='/dashboard/trade-stocks/'){
@@ -27,6 +29,13 @@ export default function Sidebar() {
     if(router.asPath!='/dashboard/portfolio/'){
       localStorage.setItem('indexPort',0)
     }
+   if(router.asPath=='/dashboard/notifications/'){
+      setCount(0)
+    }else{
+    notificationService.notificationCount().then((res)=>setCount(res.data)).catch((err)=>console.log(err))
+
+    }
+
   }, [router.asPath])
   
 
@@ -282,9 +291,9 @@ export default function Sidebar() {
             </li>
           </ul>
         </div>
-        <div className="site__nav--bottom">
+        <div className="site__nav--bottom" onClick={()=>setCount(0)}>
           <ul className="menu__list">
-            <li  className={
+            <li   className={
                 router.pathname == '/dashboard/notifications'
                   ? `menu__list--item active--menu `
                   : `menu__list--item  `}
@@ -310,11 +319,14 @@ export default function Sidebar() {
                     />
                   </span>
                   Notifications
-                  <span className="noti--status">New</span>
+                  {count>0 &&<span className="noti--status">New {count}</span>}
                 </a>
               </Link>
             </li>
-            <li className="menu__list--item">
+            <li  className={
+                router.pathname == '/dashboard/profile'
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `}>
               <Link href="/dashboard/profile">
                 <a>
                   <span className="menu--icons">

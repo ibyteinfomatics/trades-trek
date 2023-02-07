@@ -24,7 +24,7 @@ function getPendingOrders(page=1) {
     });
 }
 function createOrder(data){
-  console.log(data)
+delete data._id
   data.symbol=data.Symbol
   data.quantity=Number(data.quantity)
   data.rate=data.orderType=='Limit'?Number(data.rate):Number(data.Last)

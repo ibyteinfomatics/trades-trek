@@ -94,7 +94,7 @@ export default function Otp() {
     <>
       <ToastContainer
         position="top-center"
-        autoClose={10000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
