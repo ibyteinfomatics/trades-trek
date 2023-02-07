@@ -46,7 +46,7 @@ export default function HighlightTrades() {
       {highLightTrade.length > 0 ? <div className="card--style card--with--border slideBlock">
         <Carousel responsive={responsive}
         autoPlay={true}
-          // autoPlaySpeed={1000}
+          autoPlaySpeed={900}
           keyBoardControl={true}
           // customTransition="all .5"
           // transitionDuration={500}
