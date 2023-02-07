@@ -3191,7 +3191,7 @@ input[type="checkbox"] {
   flex-wrap: wrap;
 }
 .card-col-gap .block--info.subscription {
-  max-width: 33.333%;
+  max-width: 32%;
   width: 100%;
 }
 .shared-dom {
