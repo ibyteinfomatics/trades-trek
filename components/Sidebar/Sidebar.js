@@ -289,9 +289,98 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
+            <li  className={
+                router.pathname == '/dashboard/notifications'
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `}
+>
+              <Link href="/dashboard/notifications">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/notification-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Notification'}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      src="/images/notification-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Notification'}
+                    />
+                  </span>
+                  Notifications
+                  <span className="noti--status">New</span>
+                </a>
+              </Link>
+            </li>
+            <li className="menu__list--item">
+              <Link href="/dashboard/profile">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/profile-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Profile'}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      className="menu--icons--hover"
+                      src="/images/profile-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Profile'}
+                    />
+                  </span>
+                  Profile
+                </a>
+              </Link>
+            </li>
+
+            <li className="menu__list--item">
+              <a
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  setModelOpened(true);
+                }}
+              >
+                <span className="menu--icons">
+                  <Image
+                    src="/images/logout-menu.svg"
+                    layout="responsive"
+                    width={24}
+                    height={24}
+                    alt={'Logout'}
+                  />
+                </span>
+                <span className="menu--icons--hover">
+                  <Image
+                    src="/images/logout-menu--hover.svg"
+                    layout="responsive"
+                    width={24}
+                    height={24}
+                    alt={'Logout'}
+                  />
+                </span>
+                Logout
+              </a>
+            </li>
+            <LogOutModal
+              modelOpened={modelOpened}
+              setModelOpened={setModelOpened}
+            />
           </ul>
         </div>
-        <div className="site__nav--bottom" onClick={()=>setCount(0)}>
+        <div className="site__nav--bottom">
           <ul className="menu__list">
             <li   className={
                 router.pathname == '/dashboard/notifications'
@@ -354,7 +443,6 @@ export default function Sidebar() {
             </li>
 
             <li className="menu__list--item">
-              {/* <Link href="/logout"> */}
               <a
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
@@ -381,14 +469,13 @@ export default function Sidebar() {
                 </span>
                 Logout
               </a>
-              {/* </Link> */}
             </li>
             <LogOutModal
               modelOpened={modelOpened}
               setModelOpened={setModelOpened}
             />
           </ul>
-        </div>
+        </div> */}
       </div>
 
       <div className="mobile--menu">

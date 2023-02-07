@@ -57,21 +57,14 @@ setSubscriptionId(id)
           >
             <Loader color="#8000ff" />
           </div> :  <div
-              className="trade-data"
-              style={{
-                display: "flex",
-                flexWrap:'wrap',
-                height: "100vh",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              className="trade-data wrapper--text card--grid card--grid--3 card-col-gap"
             >
               {allSubscription?.map((item, index) => {
                 
                 return (
-                  <div key={index} className={`block--info ${item?._id==user?.user?.subscriptionId && 'activeSubscription'}`} style={{width:'33%'}}>
+                  <div key={index} className={`block--info subscription ${item?._id==user?.user?.subscriptionId && 'activeSubscription'}`}>
                     <div className="info--title">
-                      <span>{item?.packageAmount}</span>
+                      <span><span className="currency">₦</span> {item?.packageAmount}</span>
                       <span>{item?.packageDuration.toUpperCase()} Fee</span>
                       {/* <p>{item?.packageDuration}</p> */}
                     </div>
