@@ -3186,7 +3186,14 @@ input[type="checkbox"] {
   position: relative;
   margin-bottom: 20px;
 }
-
+.card-col-gap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-col-gap .block--info.subscription {
+  max-width: 33.333%;
+  width: 100%;
+}
 .shared-dom {
   width: 800px;
   height: 110px;

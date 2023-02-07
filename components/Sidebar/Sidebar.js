@@ -380,7 +380,7 @@ export default function Sidebar() {
             />
           </ul>
         </div>
-        <div className="site__nav--bottom">
+        {/* <div className="site__nav--bottom">
           <ul className="menu__list">
             <li   className={
                 router.pathname == '/dashboard/notifications'
@@ -475,7 +475,7 @@ export default function Sidebar() {
               setModelOpened={setModelOpened}
             />
           </ul>
-        </div> */}
+        </div>  */}
       </div>
 
       <div className="mobile--menu">

@@ -57,7 +57,7 @@ setSubscriptionId(id)
           >
             <Loader color="#8000ff" />
           </div> :  <div
-              className="trade-data wrapper--text card--grid card--grid--3 card-col-gap"
+              className="trade-data wrapper--text card--grid card-col-gap"
             >
               {allSubscription?.map((item, index) => {
                 
