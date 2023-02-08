@@ -59,8 +59,8 @@ export default function HighlightTrades() {
             return <TradeLists key={index} listData={data} />;
           })}
         </Carousel>
-      </div> : <div class="animated-background highLight">
-        <div class="background-masker"></div>
+      </div> : <div className="animated-background highLight">
+        <div className="background-masker"></div>
       </div>}
     </>
   );

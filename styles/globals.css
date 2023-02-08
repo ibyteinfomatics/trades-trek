@@ -695,6 +695,10 @@ li.menu__list--item a span.noti--status {
 
 .trade--image {
   @apply w-10;
+ 
+}
+.trade-box{
+  cursor: pointer
 }
 
 p.trade--name {

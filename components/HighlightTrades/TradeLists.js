@@ -3,15 +3,20 @@ import React, { useEffect, useState } from "react";
 
 export default function TradeLists(Props) {
     const [list,setList]=useState()
+    // const router=
 
     useEffect(()=>{
         let {listData}=Props
         setList(listData)
     },[])
+    const handleClick=(event)=>{
+
+    }
     return (
       <>
-        <li>
-          <div className="trade--image">
+        {/* <li> */}
+         <li className="trade-box" onClick={()=>handleClick(list)}>
+         <div className="trade--image" >
             <Image
               src={list?.PerChange>=0?"/images/position-up.svg":"/images/position-down.svg"}
               layout="responsive"
@@ -24,7 +29,8 @@ export default function TradeLists(Props) {
             <p className="trade--name">{list?.Symbol ||""}</p>
             <p className="trade--position">{list?.PerChange>=0?`+ ${list?.PerChange?.toFixed(2)}%`:`${list?.PerChange?.toFixed(2)}%`}</p>
           </div>
-        </li>
+         </li>
+        {/* </li> */}
       </>
     );
 }

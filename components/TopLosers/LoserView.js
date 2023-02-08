@@ -23,8 +23,8 @@ export default function LoserView({ showLosersList }) {
     <>
       <div className="card--style card--list--style">
         {isLoading ? (
-          <div class="animated-background loserLoader">
-            <div class="background-masker"></div>
+          <div className="animated-background loserLoader">
+            <div className="background-masker"></div>
           </div>
         ) : (
           <ul>

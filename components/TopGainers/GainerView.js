@@ -23,8 +23,8 @@ export default function GainerView({showGainersList}) {
     return(
         <>
             <div className="card--style card--list--style">
-                {isLoading?<div class="animated-background loserLoader">
-            <div class="background-masker"></div></div>:<ul>
+                {isLoading?<div className="animated-background loserLoader">
+            <div className="background-masker"></div></div>:<ul>
                     {showGainersList?GainersList?.map((data, index) => {
                         if(index <= 5){
                             return <GainersData key={index} listGainerData={data} />
