@@ -308,6 +308,7 @@ p a:hover{
 
 .info--text {
   color: var(--textColorLight-1);
+  word-break: break-all;
 }
 
 .info--button .btn {
