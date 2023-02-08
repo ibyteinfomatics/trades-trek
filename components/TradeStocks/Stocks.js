@@ -59,7 +59,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
     // 
 
     if (data) {
-    // localStorage.removeItem('stock')
+    localStorage.removeItem('stock')
 
       setAction(data.action);
       setStockData(data);
