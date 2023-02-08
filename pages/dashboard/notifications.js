@@ -103,7 +103,7 @@ export default function Notifications() {
           draggable
           pauseOnHover
         />
-        <div className="center--block" style={{ marginTop: "20px" }}>
+        <div className="card-no-gap p--20 pageHeight">
           <div className="form--item toggle rightAlign">
             <button className="btn allowNotification">Allow for email</button>
             <div className="toggle rightAlign">
