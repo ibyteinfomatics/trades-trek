@@ -50,7 +50,7 @@ export default function Security() {
 
   return (
     <>
-      <div className="center--block">
+      <div className="card-no-gap p--20 pageHeight">
         <div className="small--block">
           <div className="block--title block--back--link text--center mb--32">
             <h1>Change Password</h1>

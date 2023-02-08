@@ -91,13 +91,17 @@ export default function Sidebar() {
           <span></span>
         </div>
         <div className="form--site--logo">
-          <Image
-            src="/images/purple--logo.svg"
-            alt="responsive"
-            layout="responsive"
-            width={206}
-            height={46}
-          />
+          <Link href="/">
+            <a>
+              <Image
+                src="/images/purple--logo.svg"
+                alt="responsive"
+                layout="responsive"
+                width={206}
+                height={46}
+              />
+            </a>
+          </Link>
         </div>
         <div className="site__nav">
           <ul className="menu__list">
@@ -483,13 +487,17 @@ export default function Sidebar() {
 
       <div className="mobile--menu">
         <div className="form--site--logo">
-          <Image
-            src="/images/purple--logo.svg"
-            alt=""
-            layout="responsive"
-            width={206}
-            height={46}
-          />
+          <Link href="/">
+            <a>
+              <Image
+                src="/images/purple--logo.svg"
+                alt="responsive"
+                layout="responsive"
+                width={206}
+                height={46}
+              />
+            </a>
+          </Link>
         </div>
         <Menu right>
           <ul className="menu__list">
@@ -662,7 +670,40 @@ export default function Sidebar() {
                     />
                   </span>
                   Notifications
-                  <span className="noti--status">New</span>
+                  {count>0 &&<span className="noti--status">{count}</span>}
+                </a>
+              </Link>
+            </li>
+            <li 
+              className={
+                router.pathname == '/dashboard/subscription'
+                  ? `menu__list--item active--menu `
+                  : `menu__list--item  `
+
+
+              }
+            >
+              <Link href="/dashboard/subscription">
+                <a>
+                  <span className="menu--icons">
+                    <Image
+                      src="/images/competition-menu.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Subscription'}
+                    />
+                  </span>
+                  <span className="menu--icons--hover">
+                    <Image
+                      src="/images/competition-menu--hover.svg"
+                      layout="responsive"
+                      width={24}
+                      height={24}
+                      alt={'Subscription'}
+                    />
+                  </span>{' '}
+                  Subscription
                 </a>
               </Link>
             </li>

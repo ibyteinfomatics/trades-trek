@@ -68,7 +68,7 @@ export default function Account() {
         draggable
         pauseOnHover
       />
-      <div className="center--block">
+      <div className="card-no-gap p--20 pageHeight">
         <div className="block--title block--back--link text--left mb--64">
           <h1>Your Profile</h1>
         </div>
