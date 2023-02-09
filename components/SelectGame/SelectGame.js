@@ -48,10 +48,9 @@ const  SelectGame = ({value}) => {
 
 
   return (
-    <div className="grid-block-right right-align">
+    <div className="grid-block-right right-align rightSelect">
     {/* <label>Current Competition</label> */}
     <select
-    style={{width:'38%',fontSize:'18px'}}
             className="form--control"
             onChange={(e)=>{
               setGameId(e.target.value)

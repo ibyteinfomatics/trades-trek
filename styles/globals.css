@@ -52,6 +52,26 @@
   --form-border-light-3: #d8d8d8;
   --radius: 0.4375rem;
   --letter--wide: 0.25rem;
+  --font-5: 0.4rem; /* font-size: 5px; */
+  --font-6: 0.48rem; /* font-size: 6px; */
+  --font-8: 0.641rem; /* font-size: 8px; */
+  --font-10: 0.799rem; /* font-size: 10px; */
+  --font-11: 0.875rem; /* font-size: 11px; */
+  --font-12: 0.955rem; /* font-size: 12px; */
+  --font-15: 1.199rem; /* font-size: 15px; */
+  --font-16: 1.275rem; /* font-size: 16px; */
+  --font-17: 1.35rem; /* font-size: 17px; */
+  --font-18: 1.435rem; /* font-size: 18px; */
+  --font-19: 1.51rem; /* font-size: 19px; */
+  --font-20: 1.59rem; /* font-size: 20px; */
+  --font-22: 1.75rem; /* font-size: 22px; */
+  --font-22: 1.912rem; /* font-size: 24px; */
+  --font-25: 1.99rem; /* font-size: 24px; */
+  --font-30: 2.389rem; /* font-size: 30px; */
+  --font-32: 2.545rem; /* font-size: 32px; */
+  --font-34: 2.545rem; /* font-size: 34px; */
+  --font-35: 2.78rem; /* font-size: 35px; */
+  --font-36: 2.86rem; /* font-size: 36px; */
 }
 
 /* width */
@@ -725,7 +745,7 @@ p.trade--position {
   grid-template-columns: repeat(3, 1fr);
 }
 .editProfile{
-  height: 30px
+  height: 2.389rem;
 }
 
 .card--title--label{
@@ -748,7 +768,7 @@ p.trade--position {
 
 .light--purple--circle {
   @apply w-10 h-10 rounded-full;
-  padding: 7px 10px;
+  padding: 7px 0.85rem;
   background: var(--purpleColorLight);
 }
 .light--purple--circle1{
@@ -758,7 +778,7 @@ p.trade--position {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 30px;
+  font-size: 2.389rem;
   background: var(--purpleColorLight);
 }
 .stock--detail {
@@ -1804,7 +1824,7 @@ td.sector--gain {
 /* Switch 1 Specific Styles Start */
 
 input[type="checkbox"].switch_1{
-	font-size: 30px;
+	font-size: 2.389rem;
 	-webkit-appearance: none;
 	   -moz-appearance: none;
 	        appearance: none;
@@ -2195,8 +2215,8 @@ input[type="checkbox"].switch_1:checked{
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-  height: 24px;
-  width: 24px;
+  height: 1.912rem;
+  width: 1.912rem;
 }
 
 /* Color/shape of close button cross */
@@ -2308,6 +2328,16 @@ html{
   color: #000;
   opacity: 1;
 }
+
+.profileContainerRightGraph>div{
+  display: flex;
+  padding: 0.4rem 0.85rem;
+  align-items: center;
+  justify-content: center;
+}
+.profileContainerRightGraph>div>span{
+  @apply cursor-pointer py-4 px-12;
+}
 .referEarn .form--label::placeholder{
   font-weight: 700;
   color: #000;
@@ -2415,6 +2445,11 @@ html{
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+li.menu__list--item a span.noti--status.noti-count{
+  @apply w-8 h-8 flex items-center justify-center;
+  font-size: 1rem;
+  border-radius: 50%;
 }
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
@@ -2529,6 +2564,7 @@ html{
     @apply pr-40 pt-0;
   }
 }
+
 @media screen and (min-width: 1280px) {
   html {
     font-size: 0.833333vw;
@@ -2622,7 +2658,7 @@ html{
     display: flex;
     justify-content: center;
     text-align: center;
-    gap: 20px;
+    gap: 1.59rem;
     margin-bottom: 40px;
     margin-bottom: 7.75rem;
    
@@ -2671,6 +2707,11 @@ html{
   align-items: flex-start; */
 
 }
+.rightSelect select {
+  max-width: 36rem;
+  font-size: 1.5rem;
+  @apply w-full;
+}
 @media screen and (max-width: 1199.5px){
   .site--form--container{
     padding-top: 0;
@@ -2693,6 +2734,11 @@ html{
     position: inherit;
     transform: inherit;
     @appy w-full;
+  }
+}
+@media screen and (min-width: 1179px){
+  .profileContainerRight{
+    width: 52vw;
   }
 }
 @media screen and (max-width: 991px){
@@ -2753,9 +2799,34 @@ html{
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@media screen and (max-width: 695px) {
+  .rightBlock{
+    @apply max-w-full;
+  }
+  .rightBlock .spText{
+    @apply justify-start;
+  }
+}
+@media screen and (max-width: 625px) {
+  .profileContainerRightGraph>div>span{
+    @apply px-8;
+  }
+  .profileContainerRightGraph>div>span{
+    @apply px-8;
+  }
+}
 @media screen and (max-width: 600px) {
   .card--grid.card-col-gap{
     grid-template-columns: repeat(1, 1fr);
+  }
+  .profileContainerLeft{
+    @apply flex-wrap;
+  }
+  .profileContainerLeft .profileContainerAccount, .profileContainerLeft .profileContainerRank{
+    @apply max-w-full;
+  }
+  .rightSelect select{
+    @apply max-w-full;
   }
 }
 .css-b62m3t-container > div{
@@ -2784,14 +2855,14 @@ html{
   justify-content: center;
   
   /* margin: 10px; */
-  padding: 10px;
-  font-size: 12px;
+  padding: 0.85rem;
+  font-size: 0.955rem;
 }
 .paginationReact >ul>li>a{
-  margin: 0px 10px;
+  margin: 0px 0.85rem;
   
   border: 1px solid #8000ff;
-  padding: 12px 20px;
+  padding: 0.955rem 1.59rem;
   border-radius: 50%;
 }
 .paginationReact>ul > .previous >a,.paginationReact>ul > .next >a{
@@ -2872,19 +2943,16 @@ font-weight: bold;
 }
 .cancel:hover{
   background-color:#8000ff;
-  color: white;
-  font-weight: bold;
+  @apply font-bold text-white;
 }
 
 .passwordView{
-  height: 18px;
-  position: absolute;
-  right: 0px;
-  cursor: pointer;
+  @apply absolute right-0 cursor-pointer;
+  height: 1.275rem;
 }
 
 .PhoneInputCountryIconUnicode{
-  font-size: 20px !important;
+  font-size: 1.59rem !important;
 }
 .PhoneInputCountryIconImg{
   height: 40 !important;
@@ -2925,7 +2993,7 @@ font-weight: bold;
 }
 .success .inside img{
   height: 100px;
-  padding:15px;
+  padding:1.199rem;
   margin:0 auto;
   border-radius: 50%;
 
@@ -2936,21 +3004,21 @@ font-weight: bold;
 }
 .success .mid img{
   height: 60px;
-  padding:15px;
+  padding:1.199rem;
   margin:0 auto;
   border-radius: 50%;
 }
 .success .heading{
   height: 10vh;
-  font-size: 25px;
+  font-size: 1.99rem;
   font-weight: bold;
   color: rgb(0, 255, 160);
   text-align: center; 
-  margin-top: 10px;
+  margin-top: 0.85rem;
     /* background:rgb(0, 255, 160); */
 }
 .success .content{
-  padding: 10px;
+  padding: 0.85rem;
   text-align: justify;
 }
 
@@ -2970,7 +3038,7 @@ font-weight: bold;
 }
 .errorthan .inside img{
   height: 100px;
-  padding:15px;
+  padding:1.199rem;
   margin:0 auto;
   border-radius: 50%;
 
@@ -2981,21 +3049,21 @@ font-weight: bold;
 }
 .errorthan .mid img{
   height: 60px;
-  padding:15px;
+  padding:1.199rem;
   margin:0 auto;
   border-radius: 50%;
 }
 .errorthan .heading{
   height: 10vh;
-  font-size: 25px;
+  font-size: 1.99rem;
   font-weight: bold;
   color: rgb(238, 94, 11);
   text-align: center; 
-  margin-top: 10px;
+  margin-top: 0.85rem;
     /* background:rgb(0, 255, 160); */
 }
 .errorthan .content{
-  padding: 10px;
+  padding: 0.85rem;
   text-align: justify;
 }
 
@@ -3005,44 +3073,32 @@ font-weight: bold;
   /* height: 30%; */
 }
 .profileContainerAccountblock{
-  padding: 10px;
+  padding: 0.85rem;
   height: 33%;
 }
 .profileContainerAccountblock>span{
-  font-size: 10px;
+  font-size: 0.85rem;
 }
 .profileContainerAccountblock>p{
-  font-size: 16px;
+  font-size: 1.275rem;
   font-weight: bold;
 }
 .profileContainerAccountblock>div{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 0.85rem;
 }
 .profileContainerAccountblock>div>div>span{
-  font-size: 12px;
+  font-size: 0.955rem;
 
 }
 .profileContainerAccountblock>div>div>p{
-  font-size: 16px;
+  font-size: 1.275rem;
   font-weight: bold;
 }
 .profileContainerRightBlock{
   width: 100%;
-}
-.profileContainerRightGraph>div{
-  display: flex;
-  padding: 5px 10px;
-  align-items: center;
-  justify-content: center;
-}
-.profileContainerRightGraph>div>span{
-  cursor: pointer;
-  padding: 10px 50px;
-
-
 }
 .profileContainerRightGraph>div>span:hover{
   background-color: #e0e0e0;
@@ -3057,7 +3113,7 @@ font-weight: bold;
   @apply mb-2;
 }
 .rankText>span{
-  font-size: 10px;
+  font-size: 0.85rem;
   text-align: center;
 }
 .profileContainerRank .rank{
@@ -3067,7 +3123,7 @@ font-weight: bold;
   /* justify-content:center; */
 }
 .yourrank{
-  font-size: 34px;
+  font-size: 2.7rem;
   font-weight: bold;
 }
 
@@ -3083,8 +3139,8 @@ font-weight: bold;
 .inputGameSetting{
   border: 1px solid;
   width: 100%;
-  font-size: 12px;
-  margin: 6px 0px;
+  font-size: 0.955rem;
+  margin: 0.48rem 0;
 }
 input:disabled{
   border:2px solid #dfdbdb;
@@ -3117,7 +3173,7 @@ input[type="checkbox"] {
   justify-content: flex-end
 }
 .downloadLeaderBoard>button{
-  padding: 10px 30px;
+  padding: 0.85rem 2.389rem;
   border: 1px solid #8000ff;
   color: #8000ff;
   font-weight: bold;
@@ -3131,7 +3187,7 @@ input[type="checkbox"] {
 .premimum{
   display: flex;
   width: 100vw;
-  padding: 30px;
+  padding: 2.389rem;
   background: white;
 }
 
@@ -3151,7 +3207,7 @@ input[type="checkbox"] {
   background: #8000ff;
 }
 .profileContainerRank .rankText span {
-  font-size: 10px;
+  font-size: 0.85rem;
 }
 .rank svg {
   width: 3rem;
@@ -3191,25 +3247,24 @@ input[type="checkbox"] {
   max-width: 1.25rem;
   background-color: red;
   border-radius: 50%;
-  font-size: 10px;
+  font-size: 0.85rem;
 }
 .clear{
   width: 87px;
   background: red;
-  margin-right: 20px;
+  margin-right: 1.59rem;
 
 }
 .notFound{
   height: 70%;
-  @apply flex items-center justify-center;
-  font-size: 20px;
-  font-weight: bold;
+  @apply flex items-center justify-center font-bold;
+  font-size: 1.59rem;
 }
 
 
 /* transition .... */
 .main-item {
-  padding: 10px;
+  padding: 0.85rem;
   background-color: #fff;
   width: 700px;
 }
@@ -3262,8 +3317,8 @@ input[type="checkbox"] {
   background-color: #f6f7f8;
   background-size: 800px 104px;
   height: 70px;
-  position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 1.59rem;
+  @apply relative;
 }
 .shared-dom {
   width: 800px;
@@ -3274,7 +3329,7 @@ input[type="checkbox"] {
   width: 70px;
   height: 70px;
   float: left;
-  margin: 20px 20px 20px 0;
+  margin: 1.59rem 1.59rem 1.59rem 0;
 }
 .pure-background {
   background-color: #eee;
@@ -3283,7 +3338,7 @@ input[type="checkbox"] {
 .css-dom:empty {
   width: 280px;
   height: 220px;
-  border-radius: 6px;
+  border-radius: 0.48rem;
   box-shadow: 0 10px 45px rgba(0, 0, 0, .2);
   background-repeat: no-repeat;
   
@@ -3312,26 +3367,19 @@ input[type="checkbox"] {
     0 0;
 }
 .removeWatch{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
+  font-size: 1.59rem;
+  height: 1.59rem;
+  width: 1.59rem;
   /* background-color: red; */
   color: #f00;
   border-radius: 50%;
-  cursor: pointer;
-  margin-left: auto;
-  margin-bottom: 0.5rem;
+  @apply flex items-center justify-center cursor-pointer ml-auto mb-2;
  
 }
 .watchMessage{
   height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
+  @apply flex items-center justify-center;
+  font-size: 1.75rem;
 }
 .clearBtn {
   width: 10rem;
