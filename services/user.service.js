@@ -485,6 +485,22 @@ function updateProfile(data){
       return error;
     });
 }
+function removeProfile(){
+  return fetchWrapper
+    .delete(`${baseUrl}/user/remove-pic`
+    )
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res.data;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+
 
 export const userService = {
   user: userSubject.asObservable(),
@@ -492,6 +508,7 @@ export const userService = {
     return userSubject.value;
   },
   login,
+  removeProfile,
   updateAccount,
   anotherUserGraph,
   logout,
