@@ -19,7 +19,7 @@ export default function GainerView({showGainersList}) {
         })
        }, [])
   
-    
+     
     return(
         <>
             <div className="card--style card--list--style">

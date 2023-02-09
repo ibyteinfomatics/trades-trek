@@ -674,6 +674,9 @@ li.menu__list--item a span.noti--status {
 .card--grid .wrapper--col{
   @apply mb-6;
 }
+.cardSelect{
+  cursor: pointer;
+}
 
 .card--style {
   @apply bg-white p-4;
@@ -701,6 +704,9 @@ li.menu__list--item a span.noti--status {
 .trade-box{
   cursor: pointer
 }
+.stock-box{
+  cursor: pointer;
+}
 
 p.trade--name {
   @apply semiBoldFont text-black leading-none;
@@ -717,6 +723,9 @@ p.trade--position {
 .card--row ul{
   @apply grid gap-3;
   grid-template-columns: repeat(3, 1fr);
+}
+.editProfile{
+  height: 30px
 }
 
 .card--title--label{

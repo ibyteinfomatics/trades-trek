@@ -1,15 +1,21 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function LosersData(Props) {
     const [LoserList, setLoserList] = useState()
+    const router=useRouter()
 
     useEffect(() => {
         let {listLoserData} = Props
         setLoserList(listLoserData)
     })
+    const handleClick=(data)=>{
+      localStorage.setItem('stock',JSON.stringify(data))
+      router.push('/dashboard/trade-stocks')
+    }
     return (
       <>
-        <li>
+        <li className="stock-box" onClick={()=>handleClick(LoserList)}>
           <div className="stock--detail">
             <div className="light--purple--circle">{LoserList?.Name[0]}</div>
             <div>
