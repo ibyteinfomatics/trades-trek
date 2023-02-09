@@ -2607,6 +2607,61 @@ html{
   fill: #000;
 }
 
+
+.profileContainer{
+  /* height: 50vh; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    margin-bottom: 7.75rem;
+   
+}
+.rightBlock {
+  text-align: right;
+  padding: 0;
+  max-width: 46%;
+  width: 100%;
+}
+.spText {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.customWidth {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+.spText label {
+  margin-left: 1rem;
+}
+.customWidth .buttonGroup {
+  width: 50%;
+}
+.profileContainerLeft{
+  width: 40vw;
+  
+  /* background-color: #fff; */
+}
+.profileContainerRight{
+  width: 70vw;
+  background-color: #fff;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.profileContainerAccount{
+  /* height: 65%; */
+  background-color: #fff;
+  margin-bottom: 5%;
+  text-align: left;
+  /* display: flex;
+  align-items: flex-start; */
+
+}
 @media screen and (max-width: 1199.5px){
   .site--form--container{
     padding-top: 0;
@@ -2647,6 +2702,19 @@ html{
     top: inherit;
     transform: inherit;
     max-width: 100%;
+  }
+  .profileContainer{
+    @apply flex-wrap;
+  }
+  .profileContainerLeft{
+    @apply w-full flex gap-6 mt-6;
+  }
+  .profileContainerLeft .profileContainerAccount, .profileContainerLeft .profileContainerRank{
+    max-width: 50%;
+    @apply w-full mb-0;
+  }
+  .profileContainerRight{
+    @apply w-full;
   }
   
 }
@@ -2922,61 +2990,6 @@ font-weight: bold;
   text-align: justify;
 }
 
-
-.profileContainer{
-  /* height: 50vh; */
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    gap: 20px;
-    margin-bottom: 40px;
-    margin-bottom: 7.75rem;
-   
-}
-.rightBlock {
-  text-align: right;
-  padding: 0;
-  max-width: 46%;
-  width: 100%;
-}
-.spText {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: 1.5rem;
-}
-.customWidth {
-  display: flex;
-  align-items: center;
-  padding: 2rem;
-}
-.spText label {
-  margin-left: 1rem;
-}
-.customWidth .buttonGroup {
-  width: 50%;
-}
-.profileContainerLeft{
-  width: 40vw;
-  
-  /* background-color: #fff; */
-}
-.profileContainerRight{
-  width: 70vw;
-  background-color: #fff;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-}
-.profileContainerAccount{
-  /* height: 65%; */
-  background-color: #fff;
-  margin-bottom: 5%;
-  text-align: left;
-  /* display: flex;
-  align-items: flex-start; */
-
-}
 .profileContainerRank{
   background-color: #fff;
   padding: 1.5rem;
