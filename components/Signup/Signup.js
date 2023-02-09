@@ -52,7 +52,7 @@ export default function Signup() {
     }
   }, [isBrowser, isTablet, isMobileOnly]);
 
-  console.log("Device", device);
+ 
   const onSubmit = async (data) => {
     setIsLoading(true);
     data.phone = phone;

@@ -3,6 +3,7 @@ import getConfig from 'next/config';
 import { fetchWrapper } from '../helpers';
 import Router from 'next/router';
 import { isBrowser, isMobileOnly, isTablet } from "react-device-detect";
+import axios from 'axios';
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}`;
@@ -449,6 +450,41 @@ function allowNotificationStatus(status) {
       return error;
     });
 }
+function updateAccount(data){
+  return fetchWrapper
+    .post(`${baseUrl}/user/update-user`,data)
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+function updateProfile(data){
+  return axios
+    .post(`${baseUrl}/user/uploadProfile`,{'image':data},{
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Accept": "application/json",
+        "type": "formData",
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      },
+    })
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res.data;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 
 export const userService = {
   user: userSubject.asObservable(),
@@ -456,6 +492,7 @@ export const userService = {
     return userSubject.value;
   },
   login,
+  updateAccount,
   anotherUserGraph,
   logout,
   signup,
@@ -479,5 +516,6 @@ export const userService = {
   addTransaction,
   getTransaction,
   allowNotificationStatus,
+  updateProfile
 
 };
