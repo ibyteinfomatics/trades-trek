@@ -59,6 +59,7 @@ export default function Sidebar() {
       setTodayTime(today)
   },[])
   useEffect(()=>{
+    document.body.classList.remove('otp--page');
    
     if(router.asPath=='/dashboard/competition-summary/'){
      
@@ -319,7 +320,7 @@ export default function Sidebar() {
                     />
                   </span>
                   Notifications
-                  {count>0 &&<span className="noti--status">{count}</span>}
+                  {count>0 &&<span className="noti--status noti-count">{count}</span>}
                 </a>
               </Link>
             </li>
@@ -674,7 +675,7 @@ export default function Sidebar() {
                     />
                   </span>
                   Notifications
-                  {count>0 &&<span className="noti--status">{count}</span>}
+                  {count>0 &&<span className="noti--status noti-count">{count}</span>}
                 </a>
               </Link>
             </li>

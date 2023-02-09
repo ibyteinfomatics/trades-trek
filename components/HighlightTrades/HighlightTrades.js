@@ -23,7 +23,7 @@ export default function HighlightTrades() {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
+      breakpoint: { max: 10000, min: 3000 },
       items: 12
     },
     desktop: {
