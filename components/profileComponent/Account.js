@@ -141,6 +141,9 @@ export default function Account() {
     }
   
   }
+  const clearPhoto=()=>{
+    
+  }
 
   return (
     <>
@@ -162,6 +165,7 @@ export default function Account() {
         {/* <form className="site--form"> */}
         <div className="profileDetail">
           <div className="profileLeftDetail">
+            <button className="btn" onClick={clearPhoto}>Clear</button>
             <input id='SelectPic' type='file' style={{display:"none"}} onChange={(e)=>handleImageUpload(e)}  accept="image/png, image/jpeg"  />
             <div className="mb--32 profileImage">
               {/* <div className="light--purple--circle1">{user?.user?.firstName[0]}</div> */}
