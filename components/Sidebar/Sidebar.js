@@ -274,7 +274,7 @@ export default function Sidebar() {
                 <a>
                   <span className="menu--icons">
                     <Image
-                      src="/images/competition-menu.svg"
+                      src="/images/subscription.svg"
                       layout="responsive"
                       width={24}
                       height={24}
@@ -283,7 +283,7 @@ export default function Sidebar() {
                   </span>
                   <span className="menu--icons--hover">
                     <Image
-                      src="/images/competition-menu--hover.svg"
+                      src="/images/subscription--hover.svg"
                       layout="responsive"
                       width={24}
                       height={24}
@@ -654,7 +654,7 @@ export default function Sidebar() {
               </Link>
             </li>
             <li className="menu__list--item">
-              <Link href="javascript:void(0)">
+              <Link href="/dashboard/notifications">
                 <a>
                   <span className="menu--icons">
                     <Image
@@ -692,7 +692,7 @@ export default function Sidebar() {
                 <a>
                   <span className="menu--icons">
                     <Image
-                      src="/images/competition-menu.svg"
+                      src="/images/subscription.svg"
                       layout="responsive"
                       width={24}
                       height={24}
@@ -701,7 +701,7 @@ export default function Sidebar() {
                   </span>
                   <span className="menu--icons--hover">
                     <Image
-                      src="/images/competition-menu--hover.svg"
+                      src="/images/subscription--hover.svg"
                       layout="responsive"
                       width={24}
                       height={24}
