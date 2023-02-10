@@ -24,7 +24,7 @@ export default function Notifications() {
   const [selectedId, setSelectedId] = useState("");
   useEffect(() => {
     GetAllNotification();
-    setStaus(user?.user?.allowNotification);
+    setStaus(user?.user?.allowNotification||false);
   }, [user]);
 
   const theme = useMantineTheme();
@@ -35,7 +35,7 @@ export default function Notifications() {
       .getUserAllNotification()
       .then((res) => {
         setNotifications(res.data);
-        notificationService.noficationUpdateStatus().then((r)=>console('r')).catch((e)=>console.log(e))
+        notificationService.noficationUpdateStatus().then((r)=>{}).catch((e)=>console.log(e))
         setIsLoading(false);
       })
       .catch((err) => {

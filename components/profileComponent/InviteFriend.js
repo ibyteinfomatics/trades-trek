@@ -82,7 +82,7 @@ const InviteFriend = ({setTabIndex}) => {
             </p>
             <div className="site--form">
               <div className="form--item referalCode">
-                <label for="" className="form--label">
+                <label htmlFor="" className="form--label">
                   Referal Code
                 </label>
                 <input

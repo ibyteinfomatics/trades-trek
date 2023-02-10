@@ -104,7 +104,7 @@ const handleTab=(index)=>{
           </div>
           <div className="card-no-gap">
             <div className="trade-data">
-              <Tabs defaultIndex={0}  selectedIndex={tabIndex} onSelect={(index) => handleTab(index)}>
+              <Tabs   selectedIndex={tabIndex} onSelect={(index) => handleTab(index)}>
                 <TabList>
                   <Tab>Stocks</Tab>
                   <Tab>Order Status</Tab>

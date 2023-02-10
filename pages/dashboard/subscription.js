@@ -59,7 +59,7 @@ setSubscriptionId(id)
           </div> :  <div
               className="trade-data wrapper--text card--grid card-col-gap"
             >
-              {allSubscription?.map((item, index) => {
+              {allSubscription&& allSubscription?.map((item, index) => {
                 
                 return (
                   <div key={index} className={`block--info subscription ${item?._id==user?.user?.subscriptionId && 'activeSubscription'}`}>

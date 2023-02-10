@@ -23,7 +23,7 @@ const SubscriptionExpiredMessage = () => {
         />
       </svg>
     </span>
-   {NigerianTimeZone(new Date())>=NigerianTimeZone(user?.user?.expiredDate)?`Your subscription is expired (${moment(user?.user?.expiredDate).format('ll')}).`:` Your Next Billing Date ${moment(user?.user?.expiredDate).format('ll')}`}
+   {user?.user?.expiredDate && NigerianTimeZone(new Date())>=NigerianTimeZone(user?.user?.expiredDate)?`Your subscription is expired (${moment(user?.user?.expiredDate).format('ll')}).`:` Your Next Billing Date ${moment(user?.user?.expiredDate).format('ll')}`}
   </div>
   );
 };
