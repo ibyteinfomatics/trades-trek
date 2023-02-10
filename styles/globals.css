@@ -2379,9 +2379,28 @@ html{
   @apply mb-8;
 }
 .profileImage{
-  @apply flex items-center w-full justify-center relative h-40;
+  @apply flex items-center w-full justify-center relative h-40 relative;
   max-width: 10rem;
+  border: 0.25rem solid #8000ff;
   margin: 10px auto;
+  border-radius: 50%;
+}
+.react-multi-carousel-list.topScrollContent {
+  @apply w-full;
+}
+.trade_sec .explore_flex ul li {
+  @apply px-2;
+}
+.trade_sec .explore_flex .react-multiple-carousel__arrow--left {
+  left: 0rem;
+  background: var(--purpleColor);
+}
+.trade_sec .explore_flex .react-multiple-carousel__arrow--right{
+  right: 0;
+  background: var(--purpleColor);
+}
+.react-multi-carousel-list ul {
+  @apply w-full;
 }
 .profileImage label .deleteProfile {
   @apply absolute top-0 cursor-pointer right-4 hidden;
@@ -2389,6 +2408,13 @@ html{
 .profileImage label .changeProfile {
   @apply absolute bottom-0 cursor-pointer right-2;
 } 
+.profileImage img {
+  @apply absolute w-full h-full object-cover;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 .profileImage:hover .deleteProfile {
   @apply block;
 }
@@ -2943,19 +2969,27 @@ li.menu__list--item a span.noti--status.noti-count{
   
 }
 .explore--comp .explore_flex{
-  display: flex;
-  margin-top: 1rem;
-  width: 100%;
-  overflow-x: scroll;
+  @apply overflow-x-auto w-full flex;
 }
-.explore--comp .heading3{
+.trade-data .react-tabs ul {
+  @apply overflow-hidden;
+}
+.p--4{
+  @apply p-2;
+}
+/* .explore--comp .heading3{
   margin-top: 2rem;
-}
+} */
 .explore--comp .explore_flex .card--data{
-  box-shadow: 1px 1px 1px 1px gray;
-  padding: 1rem;
+  /* box-shadow: 1px 1px 1px 1px gray; */
+  /* padding: 1rem; */
 }
-
+.trade_sec .card--style {
+  @apply p-0;
+}
+.explore--comp{
+  @apply p-4;
+}
 .popcustom{
   width:"50%";
 border-right: "0.5px solid #c9cdd1";

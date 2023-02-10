@@ -113,15 +113,15 @@ const handleTab=(index)=>{
                 <TabPanel>
                   <div className="tab-data">
                     {/* <Stocks /> */}
-                    {showTrade ? (
+                    {/* {showTrade ? (
                       <Stocks
                         setShowTrade={setShowTrade}
                         setStockName={setStockName}
                         setStockAction={setStockAction}
-                      />
-                    ) : (
+                      /> */}
+                    {/* // ) : ( */}
                      <StockConfirmation stockAction={stockAction}  stockName={stockName} setShowTrade={setShowTrade} />
-                    )}
+                    {/* // )} */}
                   </div>
                 </TabPanel>
                 <TabPanel>

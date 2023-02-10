@@ -10,7 +10,7 @@ const StockConfirmation = ({ stockName, setShowTrade,stockAction }) => {
       <div className="trade_sec--up">
         <h1 className="heading1">Trade Confirmation</h1>
         <h2 className="heading2">
-          {stockAction} Market order for {stockName} received.
+          {/* {stockAction} Market order for {stockName} received. */}
         </h2>
         <h2 className="heading2">
           Your order has been received by our system and it will be executed
