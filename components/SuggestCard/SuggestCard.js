@@ -32,7 +32,7 @@ const SuggestCard = () => {
 
   return (
     <div className="explore--comp">
-      <h3 className="heading3">EXPLORE OTHER POPULAR COMPANIES</h3>
+      <h3 className="heading3">Explore Other Popular Companies</h3>
       <div className="explore_flex">
        {topCompanies && <Carousel responsive={responsive}
           autoPlay={false}
@@ -45,17 +45,18 @@ const SuggestCard = () => {
           className="topScrollContent">
           {topCompanies && topCompanies.map((item, index) => {
             return (
-              <div key={index} className="card--style">
-                <div className="card--data p--4">
+              <div key={index} className="card--style tradeConfirm">
+                <div className="card--data p--16">
                   <div className="card--row">
-                    <ul>
+                    <ul className="listItem">
                       <li>
-                        <p className="card--title--label">Stock Name</p>
+                        <h4 className="card--title--label">Stock Name</h4>
                         <p className="card--title">{item.Symbol}</p>
                         <p className="card--title">{item.Name}</p>
 
                       </li>
-
+                    </ul>
+                    <ul className="listItem">
                       <li>
                         <p className="card--title--label">Current Price</p>
                         <p className="card--title">{item.Last?.toFixed(2)}</p>
@@ -63,7 +64,7 @@ const SuggestCard = () => {
                     </ul>
                   </div>
                   <div className="card--row">
-                    <ul>
+                    <ul className="listItem">
                       <li>
                         <p className="card--title--label">Volume</p>
                         <p className="card--title">{item?.Volume}</p>

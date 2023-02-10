@@ -6,9 +6,9 @@ const StockConfirmation = ({ stockName, setShowTrade,stockAction }) => {
 
   
   return (
-    <div className=" trade_sec">
+    <div className=" trade_sec confirmedTrade">
       <div className="trade_sec--up">
-        <h1 className="heading1">Trade Confirmation</h1>
+        <h3 className="heading3">Trade Confirmation</h3>
         <h2 className="heading2">
           {/* {stockAction} Market order for {stockName} received. */}
         </h2>
@@ -21,7 +21,6 @@ const StockConfirmation = ({ stockName, setShowTrade,stockAction }) => {
             To submit another stock order,{" "}
             <button onClick={() => setShowTrade(true)}><u>Click here</u></button>
           </li>
-          <br />
           <li>
             To return to your portfolio summary,{" "}
             <Link className="link" href="/dashboard/portfolio"><button><u>Click here</u></button></Link> 
