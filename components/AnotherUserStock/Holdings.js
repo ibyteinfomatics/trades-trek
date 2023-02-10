@@ -24,14 +24,14 @@ const HoldingTables = ({userName}) => {
   const router = useRouter();
 
   useEffect(() => {
-    getAllHolding(userName);
+    getAllHolding(1,userName);
   }, [userName]);
 
-  const getAllHolding = (page) => {
+  const getAllHolding = (page,name) => {
     setIsLoading(true);
 
     orderService
-      .holdingProfitOrLossAnotherUser(page)
+      .holdingProfitOrLossAnotherUser(page,name)
       .then((res) => {
         if (res.success) {
           setHolding(res.holding.docs);
@@ -66,7 +66,7 @@ const HoldingTables = ({userName}) => {
   };
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected + 1);
-    // getAllHolding(selected+1)
+    getAllHolding(selected+1,userName)
   };
   const columns = [
     "Symbol",

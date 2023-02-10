@@ -194,9 +194,9 @@ function holdingProfitOrLoss(page = 1) {
       return errr;
     });
 }
-function holdingProfitOrLossAnotherUser(user) {
+function holdingProfitOrLossAnotherUser(page,user) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/holdingProfitOrLoss-otherUser?gameId=${localStorage.getItem("GameId") || ''}&userName=${user}`)
+    .get(`${baseUrl}/user/order/holdingProfitOrLoss-otherUser?page=${page}&gameId=${localStorage.getItem("GameId") || ''}&userName=${user}`)
     .then((res) => {
       return res;
     })
@@ -248,9 +248,9 @@ function shortProfitOrLoss(page = 1) {
 
 // shortProfitOrLoss-another-user
 
-function shortProfitOrLossAnotherUser(userName) {
+function shortProfitOrLossAnotherUser(page,userName) {
   return fetchWrapper
-    .get(`${baseUrl}/user/order/shortProfitOrLoss-another-user?gameId=${localStorage.getItem('GameId')}&userName=${userName}`)
+    .get(`${baseUrl}/user/order/shortProfitOrLoss-another-user?page=${page}&gameId=${localStorage.getItem('GameId')}&userName=${userName}`)
     .then((res) => {
       return res;
     })

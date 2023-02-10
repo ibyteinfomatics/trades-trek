@@ -25,9 +25,12 @@ const AnotherShortTable = ({userName}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    getAllShorts(1,userName)
+  }, [userName]);
+  const getAllShorts=(page,name)=>{
     setIsLoading(true);
     orderService
-      .shortProfitOrLossAnotherUser(userName)
+      .shortProfitOrLossAnotherUser(page,name)
       .then((res) => {
         if (res.success) {
           setShort(res.short.docs);
@@ -51,7 +54,7 @@ const AnotherShortTable = ({userName}) => {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [userName]);
+  }
  
   const columns = [
     "Symbol",
@@ -64,7 +67,10 @@ const AnotherShortTable = ({userName}) => {
     "Total Gain/Loss",
    
   ];
- 
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected + 1);
+    getAllShorts(selected+1,userName)
+  };
   return (
     <div className="card-no-gap">
       <div className="trade-order-status">
