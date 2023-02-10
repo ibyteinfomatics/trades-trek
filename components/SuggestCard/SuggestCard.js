@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Carousel from "react-multi-carousel";
+import { useRouter } from "next/router";
 
 
-const SuggestCard = () => {
+const SuggestCard = ({setShowTrade}) => {
   const [topCompanies, setTopCompanies] = useState()
+  const router=useRouter()
   const { topCompany } = useSelector((state) => state.popularCompanyWrapper)
   useEffect(() => {
     setTopCompanies(topCompany)
@@ -29,7 +31,10 @@ const SuggestCard = () => {
       items: 1
     }
   };
-
+  const handleClick=(data)=>{
+    localStorage.setItem('stock',JSON.stringify(data))
+    setShowTrade(true)
+  }
   return (
     <div className="explore--comp">
       <h3 className="heading3">EXPLORE OTHER POPULAR COMPANIES</h3>
@@ -45,7 +50,7 @@ const SuggestCard = () => {
           className="topScrollContent">
           {topCompanies && topCompanies.map((item, index) => {
             return (
-              <div key={index} className="card--style">
+              <div key={index} className="card--style" onClick={()=>handleClick(item)}>
                 <div className="card--data p--4">
                   <div className="card--row">
                     <ul>

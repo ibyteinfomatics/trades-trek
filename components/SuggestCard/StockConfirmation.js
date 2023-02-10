@@ -28,7 +28,7 @@ const StockConfirmation = ({ stockName, setShowTrade,stockAction }) => {
           </li>
         </ul>
       </div>
-      {<SuggestCard/>}
+      {<SuggestCard setShowTrade={setShowTrade} />}
     </div>
   );
 };

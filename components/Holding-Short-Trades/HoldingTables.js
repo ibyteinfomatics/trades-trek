@@ -221,6 +221,7 @@ const HoldingTables = () => {
           </div>
         )}
         {allPage > 1 && (
+          
           <div className="paginationReact">
             <ReactPaginate
               breakLabel="..."
@@ -231,6 +232,7 @@ const HoldingTables = () => {
               pageCount={allPage}
               previousLabel="<"
               renderOnZeroPageCount={null}
+              
             />
           </div>
         )}
