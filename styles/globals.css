@@ -2389,7 +2389,7 @@ html{
   @apply w-full;
 }
 .trade_sec .explore_flex ul li {
-  @apply px-2;
+  @apply px-2 my-2;
 }
 .trade_sec .explore_flex .react-multiple-carousel__arrow--left {
   left: 0rem;
@@ -2399,9 +2399,48 @@ html{
   right: 0;
   background: var(--purpleColor);
 }
-.react-multi-carousel-list ul {
-  @apply w-full;
+.tradeConfirm .listItem {
+  @apply justify-between;
 }
+.trade_sec.confirmedTrade .trade_sec--up {
+  @apply bg-white mb-4;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+.trade_sec.confirmedTrade .heading3 {
+  font-size: 1.25rem;
+  @apply text-black font-bold;
+}
+.react-tabs .trade_sec.confirmedTrade ul {
+  @apply p-0;
+  list-style: none;
+  overflow: inherit;
+}
+.react-tabs .trade_sec.confirmedTrade ul li h4.card--title--label {
+  font-size: 1.25rem;
+}
+.react-tabs .trade_sec.confirmedTrade ul li .card--title, .react-tabs .trade_sec.confirmedTrade ul li .card--title--label{
+  font-size: 1.125rem;
+}
+.p--16{
+  @apply p-4;
+}
+.react-tabs .trade_sec.confirmedTrade ul.listItem li {
+  margin-bottom: 0.5rem;
+}
+.react-tabs .trade_sec.confirmedTrade ul li{
+  @apply mb-6;
+}
+.trade_sec.confirmedTrade .explore--comp {
+  @apply bg-white mb-4;
+  border-radius: 0.5rem;
+}
+.trade_sec.confirmedTrade {
+  background: #f2f2f2;
+}
+/* .react-multi-carousel-list ul {
+  @apply w-full;
+} */
 .profileImage label .deleteProfile {
   @apply absolute top-0 cursor-pointer right-4 hidden;
 }
@@ -2970,9 +3009,6 @@ li.menu__list--item a span.noti--status.noti-count{
 }
 .explore--comp .explore_flex{
   @apply overflow-x-auto w-full flex;
-}
-.trade-data .react-tabs ul {
-  @apply overflow-hidden;
 }
 .p--4{
   @apply p-2;
