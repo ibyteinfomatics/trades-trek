@@ -2379,8 +2379,25 @@ html{
   @apply mb-8;
 }
 .profileImage{
-  @apply flex items-center w-full;
-  margin:10px auto
+  @apply flex items-center w-full justify-center relative h-40;
+  max-width: 10rem;
+  margin: 10px auto;
+}
+.profileImage label .deleteProfile {
+  @apply absolute top-0 cursor-pointer right-4 hidden;
+}
+.profileImage label .changeProfile {
+  @apply absolute bottom-0 cursor-pointer right-2;
+} 
+.profileImage:hover .deleteProfile {
+  @apply block;
+}
+.input--group{
+  @apply flex items-center gap-4;
+}
+.input--group .form--item{
+  max-width: 50%;
+  @apply w-full;
 }
 .btn--group.noPadding {
   @apply pr-0 m-auto pb-8;
@@ -2828,6 +2845,14 @@ li.menu__list--item a span.noti--status.noti-count{
   }
   .rightSelect select{
     @apply max-w-full;
+  }
+}
+@media screen and (max-width: 500px) {
+  .input--group .form--item{
+    @apply max-w-full;
+  }
+  .input--group{
+    @apply flex-wrap;
   }
 }
 .css-b62m3t-container > div{
