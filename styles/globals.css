@@ -2383,8 +2383,14 @@ html{
   max-width: 10rem;
   margin: 10px auto;
 }
-.profileImage label {
-  @apply absolute bottom-0 cursor-pointer right-0;
+.profileImage label .deleteProfile {
+  @apply absolute top-0 cursor-pointer right-4 hidden;
+}
+.profileImage label .changeProfile {
+  @apply absolute bottom-0 cursor-pointer right-2;
+} 
+.profileImage:hover .deleteProfile {
+  @apply block;
 }
 .input--group{
   @apply flex items-center gap-4;
