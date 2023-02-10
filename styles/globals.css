@@ -2534,6 +2534,9 @@ li.menu__list--item a span.noti--status.noti-count{
   font-size: 1rem;
   border-radius: 50%;
 }
+table.order-table th {
+  white-space: nowrap;
+}
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
     @apply absolute bottom-0 inset-x-0;
@@ -2854,7 +2857,12 @@ li.menu__list--item a span.noti--status.noti-count{
   .profileContainerRight{
     @apply w-full;
   }
-  
+  .profileContainer{
+    @apply mb-8;
+  }
+  .time{
+    max-width: 8rem;
+  }
 }
 @media screen and (max-width: 767.5px) {
   .show-data .form--actions .btn{
@@ -2910,6 +2918,12 @@ li.menu__list--item a span.noti--status.noti-count{
   }
   .rightSelect select{
     @apply max-w-full;
+  }
+  .react-tabs .trade_sec.confirmedTrade ul li{
+    font-size: 1rem;
+  }
+  .top--value--bar{
+    @apply gap-4;
   }
 }
 @media screen and (max-width: 500px) {
