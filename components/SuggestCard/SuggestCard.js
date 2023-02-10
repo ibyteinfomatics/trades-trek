@@ -50,8 +50,8 @@ const SuggestCard = ({setShowTrade}) => {
           className="topScrollContent">
           {topCompanies && topCompanies.map((item, index) => {
             return (
-              <div key={index} className="card--style">
-                <div className="card--data p--4">
+              <div key={index} className="card--style tradeConfirm" onClick={()=>handleClick(item)}>
+                <div className="card--data p--16">
                   <div className="card--row">
                     <ul className="listItem">
                       <li>
