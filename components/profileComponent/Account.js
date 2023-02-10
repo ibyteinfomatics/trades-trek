@@ -122,7 +122,7 @@ export default function Account() {
       setImage(e.target.files[0])
       setUrl(URL.createObjectURL(e.target.files[0]))
       userService.updateProfile(e.target.files[0]).then((res)=>{
-        console.log(res)
+      
       if(res.success){
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
@@ -142,7 +142,22 @@ export default function Account() {
   
   }
   const clearPhoto=()=>{
-    
+    userService.removeProfile().then((res)=>{
+      if(res.success){
+        setUrl('')
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }else{
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    }).catch((err)=>{
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    })
   }
 
   return (
@@ -165,7 +180,7 @@ export default function Account() {
         {/* <form className="site--form"> */}
         <div className="profileDetail">
           <div className="profileLeftDetail">
-            <button className="btn" onClick={clearPhoto}>Clear</button>
+            {url ? <button className="btn" onClick={clearPhoto}>Clear</button>:null}
             <input id='SelectPic' type='file' style={{display:"none"}} onChange={(e)=>handleImageUpload(e)}  accept="image/png, image/jpeg"  />
             <div className="mb--32 profileImage">
               {/* <div className="light--purple--circle1">{user?.user?.firstName[0]}</div> */}

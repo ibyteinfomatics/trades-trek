@@ -494,7 +494,7 @@ function removeProfile(){
        
       }
      
-      return res.data;
+      return res;
     })
     .catch(function (error) {
       return error;
