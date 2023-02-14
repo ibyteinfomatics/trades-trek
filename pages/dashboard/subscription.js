@@ -80,7 +80,7 @@ setSubscriptionId(id)
                       {   item.packageDuration=='trial'?"":item?._id==user?.user?.subscriptionId?<Link href='#'>
                         <a onClick={()=>Unsubscribe(item?._id)} className="btn">Unsubscribe</a>
                       </Link>:<Link href={`https://paystack.com/pay/${item.slug}`}>
-                        <a className="btn">Premimum</a>
+                        <a className="btn">{`${item?.packageDuration.toUpperCase()} SUBSCRIPTION` }</a>
                       </Link>}
                     </div>
                     {/* {item?._id==user?.user?.subscriptionId && <SubscriptionExpire /> } */}
