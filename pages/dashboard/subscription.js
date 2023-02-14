@@ -78,7 +78,7 @@ setSubscriptionId(id)
                       style={{ marginBottom: "20px" }}
                     >
                       {   item.packageDuration=='trial'?"":item?._id==user?.user?.subscriptionId?<Link href='#'>
-                        <a onClick={()=>Unsubscribe(item?._id)} className="btn">Unsubscribe</a>
+                        <a onClick={()=>Unsubscribe(item?._id)} className="btn">{`${item?.packageDuration.toUpperCase()} UNSUBSCRIBE` } </a>
                       </Link>:<Link href={`https://paystack.com/pay/${item.slug}`}>
                         <a className="btn">{`${item?.packageDuration.toUpperCase()} SUBSCRIPTION` }</a>
                       </Link>}
