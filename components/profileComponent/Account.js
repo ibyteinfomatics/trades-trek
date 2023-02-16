@@ -8,7 +8,7 @@ import ToolTipCustome from "../Competition/ToolTip";
 import { userService } from "../../services";
 import { setUser } from "../../actions/users";
 import { toast, ToastContainer } from "react-toastify";
-import { Modal, useMantineTheme } from "@mantine/core";
+import { Loader, Modal, useMantineTheme } from "@mantine/core";
 
 export default function Account() {
   const [error, setError] = useState("");
@@ -27,6 +27,7 @@ export default function Account() {
   const [status, setStaus] = useState(false);
   const dispatch = useDispatch();
   const [imageLoader,setImageLoader]=useState(true)
+  const [clearLoading,setClearLoading]=useState(false)
 
   useEffect(() => {
     setStaus(user?.user?.allowNotification);
@@ -100,32 +101,37 @@ export default function Account() {
       setPhoneError('')
     }
 
-
+setIsLoading(true)
       userService.updateAccount({phone,firstName,lastName}).then((res)=>{
         if(res.success){
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setIsLoading(false)
         
         }else{
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setIsLoading(false)
         }
       }).catch((err)=>{
         toast.error(err.message, {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setIsLoading(false)
       })
   
   };
   const handleImageUpload=(e)=>{
     if(e.target.files[0]){
-      setImage(e.target.files[0])
-      setUrl(URL.createObjectURL(e.target.files[0]))
+      
       userService.updateProfile(e.target.files[0]).then((res)=>{
       
       if(res.success){
+        setImage(e.target.files[0])
+      setUrl(URL.createObjectURL(e.target.files[0]))
+
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -144,6 +150,7 @@ export default function Account() {
   
   }
   const clearPhoto=()=>{
+    setClearLoading(true)
     userService.removeProfile().then((res)=>{
       if(res.success){
         setUrl('')
@@ -151,14 +158,17 @@ export default function Account() {
           position: toast.POSITION.TOP_RIGHT,
         });
         setModelOpened(false)
+        setClearLoading(false)
       }else{
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,
         });
         setModelOpened(false)
+        setClearLoading(false)
       }
     }).catch((err)=>{
       setModelOpened(false)
+      setClearLoading(false)
       toast.error(err.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -275,7 +285,7 @@ export default function Account() {
                     placeholder="Email"
                     className="form--control"
                     readOnly={true}
-                    onClick={(e)=>setEma}
+                    onClick={(e)=>{}}
                     value={user && user?.user?.email||""}
                   />
                   <label htmlFor="email" className="form--label">
@@ -378,7 +388,7 @@ export default function Account() {
             </h2>
 
             <div style={{ border: "1px solid #c9cdd1", marginTop: "40px" }}>
-              <button
+              { <button
                 style={{
                   width: "50%",
                   borderRight: "0.5px solid #c9cdd1",
@@ -387,10 +397,12 @@ export default function Account() {
                 onClick={() => {
                   clearPhoto()
                 }}
+                disabled={clearLoading}
                 className="done"
               >
                 Yes
-              </button>
+              </button>}
+              
               <button
                 onClick={() => setModelOpened(false)}
                 style={{
