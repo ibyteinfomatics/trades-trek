@@ -3439,6 +3439,9 @@ input[type="checkbox"] {
   font-size: 1.125rem;
   @apply mt-0 ml-auto;
 }
+.rightSelect {
+  @apply mb-8;
+}
 .rightAlign {
   @apply text-right;
 }
