@@ -71,11 +71,10 @@ export default function PerformanceHistory() {
       <Sidebar />
       <div className="site--content">
         <div
-          className="trade-data"
-          style={{ width: "30%", marginBottom: "40px" }}
+          className="trade-data pageBack"
         >
           <Link href="/dashboard/portfolio">
-            <a style={{ fontSize: "20px", textDecoration: "underline" }}>
+            <a>
               Back to Portfolio
             </a>
           </Link>

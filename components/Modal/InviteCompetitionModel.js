@@ -160,14 +160,9 @@ const InviteGame=()=>{
             );
           })}
         </div>
-        <div>
+        <div className="inputEmail">
           <input
           type='email'
-            style={{
-              position: "absolute",
-              width: "400px",
-              borderBottom: "2px solid",
-            }}
             value={email}
             onChange={(e) => {setEmail(e.target.value);setError('')}}
             onKeyDown={(e) => handleEmail(e)}

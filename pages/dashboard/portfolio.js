@@ -269,7 +269,7 @@ export default function Portfolio() {
                       <input type="checkbox" />
                       <label>S&P 500</label>
                     </div>
-                    <div className="spText">
+                    <div className="spText percent">
                       <div className="box_1">
                         ₦
                         <input
