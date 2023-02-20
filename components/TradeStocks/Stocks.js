@@ -271,12 +271,12 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                 }}
                 defaultValue={action}
               >
-                <option defaultValue={action == "Buy" ? true : false}>Buy</option>
-                <option defaultValue={action == "Sell" ? true : false}>Sell</option>
-                <option disabled={!allowShortSelling} defaultValue={action == "Short" ? true : false}>
+                <option selected={action == "Buy" ? true : false}>Buy</option>
+                <option selected={action == "Sell" ? true : false}>Sell</option>
+                <option disabled={!allowShortSelling} selected={action == "Short" ? true : false}>
                   Short
                 </option>
-                <option disabled={!allowShortSelling} defaultValue={action == "Buy To Cover" ? true : false}>
+                <option disabled={!allowShortSelling} selected={action == "Buy To Cover" ? true : false}>
                   Buy To Cover
                 </option>
               </select>
