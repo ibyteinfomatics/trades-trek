@@ -102,8 +102,8 @@ export default function RequestAmount() {
         draggable
         pauseOnHover
       />
-      <div className="center--block">
-        <div className="small--block">
+      <div className="card-no-gap p--20 pageHeight">
+        <div className="referralWidth">
           <div className="block--title block--back--link text--center mb--32">
             <h1>Bank Info</h1>
           </div>

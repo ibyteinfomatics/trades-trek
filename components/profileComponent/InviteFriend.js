@@ -7,7 +7,7 @@ import { gameService } from "../../services/game.service";
 import Footer from "../Footer/Footer";
 import InviteFriendModel from "../Modal/InviteFriendModel";
 
-const InviteFriend = ({setTabIndex}) => {
+const InviteFriend = ({ setTabIndex }) => {
   const { user } = useSelector((state) => state.userWrapper);
   const [show, setShow] = useState(false);
   const [modelOpened, setModelOpened] = useState(false);
@@ -16,22 +16,22 @@ const InviteFriend = ({setTabIndex}) => {
   useEffect(() => {
     refferalInfo();
   }, [modelOpened]);
-  useEffect(()=>{
+  useEffect(() => {
     userService
       .userInfo()
       .then((res) => {
-      if(res.success ){
-        dispatch(setUser(res.data));
+        if (res.success) {
+          dispatch(setUser(res.data));
 
-      }
-      
-      
+        }
+
+
       }
       )
       .catch((err) => {
         console.log(err);
       });
-  },[])
+  }, [])
   const refferalInfo = () => {
     gameService
       .refferalInfo()
@@ -47,19 +47,19 @@ const InviteFriend = ({setTabIndex}) => {
 
   return (
     <>
-      <div className="center--block Referral">
-        <div className="small--block">
+      <div className="card-no-gap p--20 pageHeight Referral">
+        <div className="referralWidth">
           <div className="flexBox amtTitle block--title block--back--link mb--32">
             <h1 className="font-20 textLeft">Referral</h1>
-           
+
             <h4 className=""> ₦ {user?.user?.walletAmount?.toFixed(2)
-                          ?.toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")||0.00}
-            <button className="btn" onClick={()=>setTabIndex(6)}>Redeem</button></h4>
+              ?.toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+              <button className="btn" onClick={() => setTabIndex(6)}>Redeem</button></h4>
           </div>
           <div className="flexBox justifyBetween referralNo">
             <h4 className="">Total No of referral</h4>
-            <h4 className="">{refferalInfoData?.totalRefferal }</h4>
+            <h4 className="">{refferalInfoData?.totalRefferal}</h4>
           </div>
           <div className="flexBox justifyBetween referralNo">
             <h4 className="">Total No of Joined referral</h4>

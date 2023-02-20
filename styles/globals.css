@@ -2777,6 +2777,11 @@ table.order-table th {
     width: 52vw;
   }
 }
+@media screen and (max-width: 1200px) {
+  .site--footer{
+    position: inherit;
+  }
+}
 @media screen and (max-width: 991px){
   .profileRightDetail, .profileLeftDetail{
     @apply max-w-full;
@@ -3451,4 +3456,22 @@ input[type="checkbox"] {
 }
 .mb--20 {
   @apply mb-6;
+}
+.referralWidth{
+  max-width: 50%;
+  @apply m-auto w-full;
+}
+.Referral {
+  @apply pb-12 overflow-y-auto;
+}
+.descriptionPage {
+  @apply mt-8;
+}
+.form--item.noMargin {
+  @apply m-0;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+.pl--8{
+  @apply pl-8;
 }

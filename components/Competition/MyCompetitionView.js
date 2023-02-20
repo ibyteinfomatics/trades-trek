@@ -112,10 +112,7 @@ export default function MyCompetationView() {
     <>
       <div className="myConn">
         <div className="col-40">
-          <div
-            style={{ marginLeft: "20px", paddingTop: "20px" }}
-            className="form--item"
-          >
+          <div className="form--item noMargin pl--8">
             <label>Competition Lookup</label>
             <input
               className="form--control"
