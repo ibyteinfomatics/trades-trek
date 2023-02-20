@@ -2242,6 +2242,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
   display: inline-block;
 }
 
+.rightSelect {
+  @apply mb-8;
+}
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
@@ -2792,6 +2795,9 @@ table.order-table th {
 @media screen and (max-width: 1200px) {
   .site--footer{
     position: inherit;
+  }
+  .rightSelect {
+    @apply mb-0;
   }
 }
 @media screen and (max-width: 991px){
@@ -3457,9 +3463,6 @@ input[type="checkbox"] {
   color: #ff0016;
   font-size: 1.125rem;
   @apply mt-0 ml-auto;
-}
-.rightSelect {
-  @apply mb-8;
 }
 .rightAlign {
   @apply text-right;
