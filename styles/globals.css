@@ -860,14 +860,14 @@ td.sector--gain {
   max-width: 17.5rem;
 }
 .sideBar--nav.collapse--menu.desktop--menu {
-  /* width: 4.5rem; */
+  width: 4.5rem;
 }
 .sideBar--nav.collapse--menu.desktop--menu ~ .site--content {
-  /* margin-left: 3rem; */
+  margin-left: 3rem;
 }
 .sideBar--nav.collapse--menu.desktop--menu .burger--menu {
-  /* top: 1rem;
-  left: 1.5rem; */
+  top: 1rem;
+  left: 1.5rem;
 }
 .welcome--image{
   border-radius: var(--radius);
