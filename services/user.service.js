@@ -326,6 +326,23 @@ function subscriptions() {
       return error;
     });
 }
+function GetUserSubscriptionHistory() {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/subscription/user-subscription-history`)
+
+    .then((res) => {
+      if (res.success) {
+      }
+      return res;
+    })
+    .catch((error) => {
+      if (error?.length > 0) {
+        return error[0];
+      }
+      return error;
+    });
+}
 
 function verifyTransaction(data) {
   return fetchWrapper
@@ -533,6 +550,7 @@ export const userService = {
   addTransaction,
   getTransaction,
   allowNotificationStatus,
-  updateProfile
+  updateProfile,
+  GetUserSubscriptionHistory
 
 };

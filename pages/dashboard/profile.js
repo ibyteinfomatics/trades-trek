@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 
 import Account from "../../components/profileComponent/Account";
 import HelpSupport from "../../components/profileComponent/HelpSupport";
@@ -23,6 +24,7 @@ export default function Profie() {
 
           <div className="card-no-gap">
             <div className="trade-data">
+              <SubscriptionExpiredMessage />
               <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList>
                   <Tab>Account</Tab>

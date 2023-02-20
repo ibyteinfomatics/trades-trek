@@ -11,8 +11,8 @@ export default function TradeLists(Props) {
         setList(listData)
     },[])
     const handleClick=(data)=>{
-      localStorage.setItem('stock',JSON.stringify(data))
-      router.push('/dashboard/trade-stocks')
+    
+      // router.push('/dashboard/trade-stocks')
     }
     return (
       <>
