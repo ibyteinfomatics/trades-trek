@@ -1165,7 +1165,7 @@ td.sector--gain {
   font-size: 1.063rem;
 }
 .currentData .font-16{
-  font-weight: 600;
+  @apply font-semibold;
 }
 .currentData .font-15{
   font-size: 0.938rem;
@@ -1194,7 +1194,7 @@ td.sector--gain {
   color: #757575;
 }
 .titleRow .font-18{
-  font-weight: 600;
+  @apply font-semibold;
 }
 .showMax {
   @apply mt-8;
@@ -1224,8 +1224,7 @@ td.sector--gain {
   @apply flex items-center;
 }
 .order-table tr th:first-child, .order-table tr th:last-child, .order-table tr td:first-child, .order-table tr td:last-child {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  @apply px-10;
 }
 .titleRow .font-12{
   font-size: 0.9rem;
@@ -1484,8 +1483,7 @@ td.sector--gain {
 }
 .fullBtnPurple.style--2 a {
   float: right;
-  @apply text-center;
-  text-transform: uppercase;
+  @apply text-center uppercase;
   max-width: 18.55rem;
 }
 .mt-28{
@@ -2070,11 +2068,11 @@ input[type="checkbox"].switch_1:checked{
   margin-top: 1.25rem;
 }
 .stockScreenerTable tr th td {
-  text-transform: uppercase;
+  @apply uppercase;
 }
 .stockScreenerTable tr:not(:first-child) th {
   border: 0.063rem solid #ddd;
-  text-transform: uppercase;
+  @apply uppercase;
 }
 .stockScreenerTable tr th .form--item .form--control select {
   @apply w-full;
@@ -2100,7 +2098,7 @@ input[type="checkbox"].switch_1:checked{
   color: var(--textColorLight-2);
 }
 .stockScreenerTable tr td{
-  text-transform: uppercase;
+  @apply uppercase;
 }
 .flex-block .logo {
   @apply w-10 h-10 flex justify-center items-center mr-2;
@@ -2301,8 +2299,7 @@ html{
   max-width: 7.563rem;
   top: -2rem;
   font-size: 0.875rem;
-  text-transform: uppercase;
-  @apply w-full inline-block absolute right-0;
+  @apply w-full inline-block absolute right-0 uppercase;
 }
 .referEarn .form--label {
   position: inherit;
@@ -2855,7 +2852,10 @@ table.order-table th {
     @apply h-full;
   }
   .referralWidth{
-    max-width: 100%;
+    @apply max-w-full;
+  }
+  .summery-table{
+    overflow: auto;
   }
 }
 @media screen and (max-width: 767.5px) {
@@ -2866,6 +2866,7 @@ table.order-table th {
   .performance .grid--2{
     grid-template-columns: repeat(1, 1fr);
   }
+
   .symbol--lookup{
     margin-left: inherit;
     @apply max-w-full;
@@ -3011,8 +3012,7 @@ table.order-table th {
 }
 .trade_sec .trade_sec--up .list{
   list-style-type: disc;
-  font-weight: 100;
-  @apply block ml-4 mt-4; 
+  @apply block ml-4 mt-4 font-thin; 
 }
 .trade_sec .trade_sec--up .list li{
   line-height: 0.5rem;
