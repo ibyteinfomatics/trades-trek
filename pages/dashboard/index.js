@@ -24,6 +24,7 @@ import SelectGame from "../../components/SelectGame/SelectGame";
 import { TodayPerChange } from "../../helpers/TodayChange";
 import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 import { stockService } from "../../services/stock.service";
+import ToolTipCustome from "../../components/Competition/ToolTip";
 
 export default function Home() {
   
@@ -80,8 +81,13 @@ export default function Home() {
                   <p>Overview</p>
                 </div>
                 <ul className="option--list">
+                  
                   <li>
-                    <span>Account Value</span>
+                  
+                    <span className="itemAlign">Account Value 
+                   <ToolTipCustome text='Displays the total current value of your portfolio, which is updated nightly after the market’s close.'/>
+
+                    </span>
                     <span>
                       ₦
                       {user &&
@@ -93,9 +99,13 @@ export default function Home() {
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                     </span>
+
                   </li>
                   <li>
-                    <span>Today's Change</span>
+                    <span className="itemAlign">Today's Change 
+                   <ToolTipCustome text={`Gains/losses as a result of today's market activity.`}/>
+
+                    </span>
                     <span>
                       +₦
                       {(

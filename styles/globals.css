@@ -3475,3 +3475,7 @@ input[type="checkbox"] {
 .pl--8{
   @apply pl-8;
 }
+.itemAlign{
+  display: flex;
+  align-items: center;
+}

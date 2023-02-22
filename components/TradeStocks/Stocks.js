@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import LineChartStock from "../Chart/LineChartStock";
 import { toast, ToastContainer } from "react-toastify";
+import ToolTipCustome from "../Competition/ToolTip";
 
 export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
@@ -259,7 +260,9 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Action
+                 <span  className="itemAlign">
+                 Action <ToolTipCustome text={`Buy/Sell allow you add/remove stocks from your portfolio. Sell Short/Buy to Cover relate to shorting stocks.`}/>
+              </span>
               </label>
               <select
                 className="form--control"
@@ -283,7 +286,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Quantity
+                Quantity 
               </label>
               <input
                 className="form--control"
@@ -430,7 +433,9 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
           <div className="stocks--form--group">
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Duration
+                  <span  className="itemAlign">
+                  Duration <ToolTipCustome text={`How long the trade is open for. Most applicable to limit orders and those placed after market hours.`}/>
+              </span>
               </label>
               <select
                 className="form--control"
@@ -443,7 +448,10 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Order Type
+                 
+                <span  className="itemAlign">
+                Order Type <ToolTipCustome text={`To trade at the current market price, choose Market Order.`}/>
+              </span>
               </label>
               <select
                 className="form--control"
