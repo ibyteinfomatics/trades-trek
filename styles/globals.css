@@ -2452,6 +2452,14 @@ html{
 .card-col-gap .block--info {
   @apply p-3;
 }
+.ClearNotification{
+  @apply w-5 h-full flex items-center justify-center text-white cursor-pointer;
+  max-width: 1.25rem;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  background: var(--bgColorRed);
+}
+
 
 /* New Css */
 .profileDetail {
@@ -2504,6 +2512,10 @@ table.order-table th {
 .inputEmail{
   @apply w-full;
   border-bottom: 0.0625rem solid #ddd;
+}
+.referralWidth{
+  max-width: 50%;
+  @apply m-auto w-full;
 }
 @media screen and (min-height: 640px) {
   .site__nav--bottom {
@@ -2836,6 +2848,9 @@ table.order-table th {
   .pageHeight{
     @apply h-full;
   }
+  .referralWidth{
+    max-width: 100%;
+  }
 }
 @media screen and (max-width: 767.5px) {
   .show-data .form--actions .btn{
@@ -2909,6 +2924,12 @@ table.order-table th {
   }
   .top--value--bar{
     @apply gap-4;
+  }
+  .ClearNotification{
+    width: 2rem;
+  }
+  .ClearNotification svg{
+    @apply w-full h-full;
   }
 }
 @media screen and (max-width: 500px) {
@@ -3301,13 +3322,6 @@ input[type="checkbox"] {
 .form--item.toggle.rightAlign{
   @apply justify-end;
 }
-.ClearNotification{
-  @apply w-5 h-full flex items-center justify-center text-white cursor-pointer;
-  max-width: 1.25rem;
-  border-radius: 50%;
-  font-size: 0.85rem;
-  background: var(--bgColorRed);
-}
 .clear{
   width: 87px;
   margin-right: 1.59rem;
@@ -3456,10 +3470,6 @@ input[type="checkbox"] {
 }
 .mb--20 {
   @apply mb-6;
-}
-.referralWidth{
-  max-width: 50%;
-  @apply m-auto w-full;
 }
 .Referral {
   @apply pb-12 overflow-y-auto;
