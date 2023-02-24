@@ -19,7 +19,7 @@ const SubscriptionCart = ({ item, user }) => {
         <span>{item?.result?.packageDuration.toUpperCase()}</span>
       </div>
       <div className="info--text">
-        <p>{item?.result?.packageDesc}</p>
+        <p>{item?.result?.packageName}</p>
       </div>
       <div className="info--text">
         <p>

@@ -88,7 +88,7 @@ export default function Sub() {
                           {/* <p>{item?.packageDuration}</p> */}
                         </div>
                         <div className="info--text">
-                          <p>{item?.packageDesc}</p>
+                          <p>{item?.packageName}</p>
                         </div>
                         <div
                           className="info--button"
