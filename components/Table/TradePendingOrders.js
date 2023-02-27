@@ -117,7 +117,7 @@ export default function TradePendingOrders({ setModelOpened, modelOpened }) {
                     {/* <td>
                     <OrderExpired data={item} />
                   </td> */}
-                    <td>{item._id}</td>
+                    <td>{item?.orderId}</td>
 
                     <td>
                       <button

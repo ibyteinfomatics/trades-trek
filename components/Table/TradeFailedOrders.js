@@ -108,7 +108,7 @@ export default function TradeFailedOrders({ modelOpened }) {
                       {TimeConverter(item.createdAt)}
                     </span>
                   </td>
-                  <td>{item._id}</td>
+                  <td>{item?.orderId}</td>
                 </tr>
               );
             })}
