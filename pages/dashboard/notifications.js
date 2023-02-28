@@ -89,7 +89,6 @@ export default function Notifications() {
 
       <div className="site--content pageCenterWidth">
         {/* <UpgradePlan /> */}
-        {user?.user && <SubscriptionExpiredMessage />}
 
         {/* welcome block */}
         <ToastContainer

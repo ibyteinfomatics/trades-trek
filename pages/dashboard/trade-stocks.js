@@ -74,7 +74,6 @@ const handleTab=(index)=>{
             </div>
             <SelectGame />
           </div>
-          <SubscriptionExpiredMessage />
 
           <div className="top--value--bar">
             <div className="col-block">

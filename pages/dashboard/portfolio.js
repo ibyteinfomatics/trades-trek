@@ -50,10 +50,7 @@ export default function Portfolio() {
             </div>
             <SelectGame />
           </div>
-          <div style={{ margin: "30px 0px" }}>
-            <HighlightTrades />
-          </div>
-          <SubscriptionExpiredMessage />
+          
 
           {/* port folio section  */}
           <div className="profileContainer ">

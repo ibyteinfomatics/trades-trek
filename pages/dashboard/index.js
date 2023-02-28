@@ -53,7 +53,6 @@ export default function Home() {
         <HighlightTrades />
         {/* welcome block */}
         <div className="card--wrapper">
-          <SubscriptionExpiredMessage />
 
           <div style={{ margin: "20px" }}>
             <SelectGame />
