@@ -10,7 +10,7 @@ const SubscriptionExpiredMessage = () => {
     {user?.user?.expiredDate ?<>
       {user?.user?.expiredDate &&
       NigerianTimeZone(new Date()) >=
-        NigerianTimeZone(user?.user?.expiredDate) ? (
+        NigerianTimeZone(moment(user?.user?.expiredDate).add(2,'hours')) ? (
         <div className="status-summary font-18">
           <span>
             <svg

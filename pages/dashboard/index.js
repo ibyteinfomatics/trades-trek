@@ -25,6 +25,7 @@ import { TodayPerChange } from "../../helpers/TodayChange";
 import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 import { stockService } from "../../services/stock.service";
 import ToolTipCustome from "../../components/Competition/ToolTip";
+import { userService } from "../../services";
 
 export default function Home() {
   
@@ -43,7 +44,14 @@ export default function Home() {
    
   }, []);
  
+  useEffect(() => {
+ 
 
+    return () => {
+      userService.updateTimeStamp().then((res)=>console.log('')).catch(()=>console.log(''))
+  
+    }
+  }, [])
   return (
     <>
       <Sidebar />

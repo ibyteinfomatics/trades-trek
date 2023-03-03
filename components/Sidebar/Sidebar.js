@@ -39,6 +39,7 @@ export default function Sidebar() {
   }, [router.asPath])
   
 
+
   useEffect(()=>{
     userService
       .userInfo()
@@ -62,8 +63,8 @@ export default function Sidebar() {
     document.body.classList.remove('otp--page');
    
     if(router.asPath=='/dashboard/competition-summary/'){
-     
-      if(NigerianTimeZone(new Date())<=NigerianTimeZone(user?.user?.expiredDate)){
+    
+      if(NigerianTimeZone(new Date())<=NigerianTimeZone(moment(user?.user?.expiredDate).add(2,'hours'))){
        
       }else{
         router.push('/dashboard/subscription') 

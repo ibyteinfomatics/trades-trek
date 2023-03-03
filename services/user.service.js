@@ -517,6 +517,21 @@ function removeProfile(){
       return error;
     });
 }
+function updateTimeStamp(){
+  return fetchWrapper
+    .get(`${baseUrl}/user/timestamp`
+    )
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 
 
 export const userService = {
@@ -551,6 +566,7 @@ export const userService = {
   getTransaction,
   allowNotificationStatus,
   updateProfile,
-  GetUserSubscriptionHistory
+  GetUserSubscriptionHistory,
+  updateTimeStamp
 
 };
