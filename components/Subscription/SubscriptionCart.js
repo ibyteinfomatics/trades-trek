@@ -5,6 +5,7 @@ import { jsPDF } from "jspdf";
 // Default export is a4 paper, portrait, using millimeters for units
 
 const SubscriptionCart = ({ item, user }) => {
+  
   const handlePrint = (data) => {
     // window.print();
     const doc = new jsPDF({
@@ -114,7 +115,7 @@ const SubscriptionCart = ({ item, user }) => {
         </p>
       </div>
       <div className="info--text">
-        <p>Subscription Last Update {moment(item?.updatedAt).format("lll")}</p>
+        <p>Subscription Expired Date {moment(item?.expireDate).format("lll")}</p>
       </div>
 
       <button onClick={() => handlePrint(item)}>Print</button>

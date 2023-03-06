@@ -451,6 +451,22 @@ function getTransaction() {
       return error;
     });
 }
+function getBankDetail() {
+
+  
+  return fetchWrapper
+    .get(`${baseUrl}/transaction/bank-details`)
+    .then((res) => {
+      if(res.success){
+       res
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 function allowNotificationStatus(status) {
 
   
@@ -540,6 +556,7 @@ export const userService = {
     return userSubject.value;
   },
   login,
+  getBankDetail,
   removeProfile,
   updateAccount,
   anotherUserGraph,
