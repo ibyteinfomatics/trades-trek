@@ -3496,3 +3496,36 @@ input[type="checkbox"] {
   width:100% !important;
   border:'1px solid black'
 }
+.learningCard{
+  @apply bg-white p-3;
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+}
+.halfCard{
+  @apply grid gap-4 mb-4;
+  grid-template-columns: repeat(2, 1fr);
+}
+.FullCard{
+  @apply mb-4;
+}
+.learningCard .cardTitle {
+  @apply flex items-center;
+}
+.learningCard .cardTitle .cardIcon {
+  max-width: 3rem;
+  @apply w-full;
+}
+.learningCard .cardTitle h4{
+  font-size: 1.5rem;
+  @apply text-black font-semibold;
+}
+.cardText.blueText {
+  margin-top: 1rem;
+}
+.cardText.blueText p {
+  color: #0094FF;
+  font-size: 1.25rem;
+}
+.cardText.blueText p:not(:last-child){
+  @apply mb-2;
+}

@@ -37,7 +37,7 @@ console.log(allLearning)
       <Sidebar />
       <div className="site--content">
         <div className="page--title--block">
-          <div className="card-no-gap">
+          <div className="">
 
             {isLoading ? (
               <div
@@ -52,14 +52,16 @@ console.log(allLearning)
                 <Loader color="#8000ff" />
               </div>
             ) : (
-              <div className="trade-data wrapper--text card--grid card-col-gap">
-               {allLearning?.map((item,i)=>{
+              <div className="learningWrapper">
+                <HalfCard />
+                <FullCard />
+               {/* {allLearning?.map((item,i)=>{
                 if((i+1)%3==0){
                     return <FullCard item={item} key={i} />
                 }else{
                   return  <HalfCard item={item} key={i} />
                 }
-               })}
+               })} */}
               </div>
             )}
           </div>
