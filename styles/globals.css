@@ -3501,7 +3501,7 @@ input[type="checkbox"] {
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
 }
-.halfCard{
+.halfCardGrid{
   @apply grid gap-4 mb-4;
   grid-template-columns: repeat(2, 1fr);
 }

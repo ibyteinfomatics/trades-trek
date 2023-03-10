@@ -53,7 +53,11 @@ console.log(allLearning)
               </div>
             ) : (
               <div className="learningWrapper">
-                <HalfCard />
+                <div className="halfCardGrid">
+                  <HalfCard />
+                  <HalfCard />
+                  <HalfCard />
+                </div>
                 <FullCard />
                {/* {allLearning?.map((item,i)=>{
                 if((i+1)%3==0){
