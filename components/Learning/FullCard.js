@@ -1,12 +1,16 @@
+import getConfig from 'next/config';
 import React from 'react'
 
 const FullCard = ({item}) => {
+  
+const { publicRuntimeConfig } = getConfig();
+const baseUrl = `${publicRuntimeConfig.apiUrl}`;
   return (
     <div className='FullCard'>
       <div className='learningCard'>
         <div className='cardTitle'>
           <div className='cardIcon'>
-           <img  src={`${item.baseUrl}${item.filePath}`}/>
+           <img  src={`${baseUrl}/${item.filePath}`}/>
           </div>
           <h4>{item?.categoryName}</h4>
         </div>

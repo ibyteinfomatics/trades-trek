@@ -9,8 +9,12 @@ import { userService } from "../../services";
 import { setUser } from "../../actions/users";
 import { toast, ToastContainer } from "react-toastify";
 import { Loader, Modal, useMantineTheme } from "@mantine/core";
+import getConfig from "next/config";
 
 export default function Account() {
+  
+const { publicRuntimeConfig } = getConfig();
+const baseUrl = `${publicRuntimeConfig.apiUrl}`;
   const [error, setError] = useState("");
   const [firstName, setFirstName] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
@@ -33,11 +37,13 @@ export default function Account() {
   const [imageLoader, setImageLoader] = useState(true);
   const [clearLoading, setClearLoading] = useState(false);
 
+  ;
   useEffect(() => {
     setStaus(user?.user?.allowNotification);
-    setUrl(user?.user?.baseUrl + user?.user?.filePath);
+    setUrl(baseUrl+"/" + user?.user?.filePath);
     setImageLoader(false);
   }, [user]);
+  console.log('nitesh',url)
 
   useEffect(() => {
     userService
