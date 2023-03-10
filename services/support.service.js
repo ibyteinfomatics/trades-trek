@@ -25,6 +25,25 @@ function createSupport(data) {
       });
   }
 
+
+  function GetAllLearning() {
+    return fetchWrapper
+      .get(`${baseUrl}/learning/all-learning-info`)
+  
+      .then((res) => {
+        if (res.success) {
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (error?.length > 0) {
+          return error[0];
+        }
+        return error;
+      });
+  }
+
+
   
 
 export const supportService ={
@@ -33,5 +52,6 @@ export const supportService ={
       return userSubject.value;
     },
     createSupport,
+    GetAllLearning
  
   };
