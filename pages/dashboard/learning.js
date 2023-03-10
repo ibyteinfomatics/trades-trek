@@ -1,15 +1,13 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-  
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Loader } from "@mantine/core";
-import { supportService } from './../../services/support.service';
-import LeadersData from './../../components/SectorLeaders/LeaderData';
+import { supportService } from "./../../services/support.service";
+import LeadersData from "./../../components/SectorLeaders/LeaderData";
 import FullCard from "../../components/Learning/FullCard";
 import HalfCard from "../../components/Learning/HalfCard";
 export default function Sub() {
-
   const [allLearning, setAllLearning] = useState();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -18,27 +16,24 @@ export default function Sub() {
       .GetAllLearning()
       .then((res) => {
         if (res.success) {
-            
           setAllLearning(res.data);
           setIsLoading(false);
-        }else{
-            setIsLoading(false)
+        } else {
+          setIsLoading(false);
         }
       })
       .catch((err) => {
         setIsLoading(false);
       });
-    
   }, []);
-  
-console.log(allLearning)
+
+  console.log(allLearning);
   return (
     <>
       <Sidebar />
       <div className="site--content">
         <div className="page--title--block">
           <div className="">
-
             {isLoading ? (
               <div
                 style={{
@@ -54,27 +49,20 @@ console.log(allLearning)
             ) : (
               <div className="learningWrapper">
                 <div className="halfCardGrid">
-                  <HalfCard />
-                  <HalfCard />
-                  <HalfCard />
+                  {allLearning?.map((item, i) => {
+                    if ((i + 1) % 3 == 0) {
+                      return <FullCard item={item} key={i} />;
+                    } else {
+                      return <HalfCard item={item} key={i} />;
+                    }
+                  })}
                 </div>
-                <FullCard />
-               {/* {allLearning?.map((item,i)=>{
-                if((i+1)%3==0){
-                    return <FullCard item={item} key={i} />
-                }else{
-                  return  <HalfCard item={item} key={i} />
-                }
-               })} */}
+                {/* <FullCard /> */}
               </div>
             )}
           </div>
         </div>
       </div>
-
-      
-
-      
     </>
   );
 }
