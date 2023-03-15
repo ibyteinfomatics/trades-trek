@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import NoficationCart from "../../components/Notification/NoficationCart";
 import { Modal, useMantineTheme } from "@mantine/core";
 import { userService } from "../../services";
+import ReactPaginate from "react-paginate";
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
@@ -20,21 +21,24 @@ export default function Notifications() {
   const [status, setStaus] = useState(false);
   const [modelOpened, setModelOpened] = useState(false);
   const [modelOpened1, setModelOpened1] = useState(false);
+  const [page,setPage]=useState(1)
+  const [totalPage,setTotalPage]=useState(1)
 
   const [selectedId, setSelectedId] = useState("");
   useEffect(() => {
-    GetAllNotification();
+    GetAllNotification(page);
     setStaus(user?.user?.allowNotification||false);
-  }, [user]);
+  }, [user,page]);
 
   const theme = useMantineTheme();
 
-  const GetAllNotification = () => {
+  const GetAllNotification = (currentpage) => {
     setIsLoading(true);
     notificationService
-      .getUserAllNotification()
+      .getUserAllNotification(currentpage)
       .then((res) => {
-        setNotifications(res.data);
+        setNotifications(res?.data?.docs);
+        setTotalPage(res?.data?.pages)
         notificationService.noficationUpdateStatus().then((r)=>{}).catch((e)=>console.log(e))
         setIsLoading(false);
       })
@@ -83,6 +87,10 @@ export default function Notifications() {
       })
       .catch((err) => console.log(err));
   };
+  const handlePageClick = ({ selected }) => {
+    setPage(selected+1)
+  }
+
   return (
     <>
       <Sidebar />
@@ -156,7 +164,21 @@ export default function Notifications() {
               );
             })
           )}
+           {totalPage > 1 && (
+            <div className="paginationReact tablepaginate">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                marginPagesDisplayed={2}
+                pageCount={totalPage}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+              />
+            </div>
+          )}
         </div>
+       
         <Modal
           withCloseButton={false}
           overlayColor={

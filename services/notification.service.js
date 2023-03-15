@@ -9,9 +9,9 @@ const userSubject = new BehaviorSubject(
   process.browser && localStorage.getItem('token')
 );
 
-function getUserAllNotification() {
+function getUserAllNotification(page) {
     return fetchWrapper
-      .get(`${baseUrl}/notifications`)
+      .get(`${baseUrl}/notifications?page=${page}`)
   
       .then((res) => {
         if (res.success) {
