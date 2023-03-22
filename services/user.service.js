@@ -549,6 +549,21 @@ function updateTimeStamp(){
     });
 }
 
+function getNews() {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/news`)
+
+    .then((res) => {
+      
+      return res;
+    })
+    .catch((error) => {
+      
+      return error;
+    });
+}
+
 
 export const userService = {
   user: userSubject.asObservable(),
@@ -556,6 +571,7 @@ export const userService = {
     return userSubject.value;
   },
   login,
+  getNews,
   getBankDetail,
   removeProfile,
   updateAccount,

@@ -1,11 +1,10 @@
 import React from "react";
-import { NewsList } from "./NewsList";
 import NewsListCard from "./NewsListCard";
 
-export default function NewsListData() {
+export default function NewsListData({news}) {
     return (
       <>
-        {NewsList.map((data, index) => {
+        {news?.map((data, index) => {
           if (index <= 3) {
             return <NewsListCard key={index} listData={data} />
           }
@@ -14,10 +13,10 @@ export default function NewsListData() {
     );
 }
 
-export const NewsListData2 = () => {
+export const NewsListData2 = ({news}) => {
     return(
         <>
-            {NewsList.map((data, index) => {
+            {news?.map((data, index) => {
                 return(
                     
                         <NewsListCard key={index} listData={data} />

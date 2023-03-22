@@ -10,7 +10,7 @@ export default function GainerView({showGainersList}) {
     useEffect(() => {
         setIsLoading(true)
         stockService.getTopGainer().then((res)=>{
-           setGainersList(res.data)
+           setGainersList(res?.data)
            setIsLoading(false)
         }).catch((err)=>{
             setGainersList([])
