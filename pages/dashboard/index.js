@@ -58,8 +58,8 @@ export default function Home() {
   }, [])
   const GetAllNews = async () => {
     try {
-      const { data: { DataTable: { Rows } } } = await userService.getNews()
-      setAllNews(Rows)
+      const { data} = await userService.getNews()
+      setAllNews(data)
     } catch (error) {
       setAllNews([])
 

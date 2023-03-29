@@ -14,24 +14,24 @@ export default function NewsListCard(Props) {
         <div className="card--style">
           
             <p className="card--title--label label--purple">{<TimeAgo
-              datetime={newsList?.[3]}
+              datetime={newsList?.DATE}
               // locale='zh_CN'
             />}</p>
-          <img src={newsList?.[8]} />
+          <img src={newsList?.ImageURL} />
           
-          {newsList?.[1] && (
-            <p className="card--title newsTitle">{newsList?.[1]}</p>
+          {newsList?.Title && (
+            <p className="card--title newsTitle">{newsList?.Title}</p>
           )}
-          {newsList?.[5] && (
-            <p className="card--title newsTitle">{newsList?.[5]}</p>
+          {newsList?.Snippet && (
+            <p className="card--title newsTitle">{newsList?.Snippet}</p>
           )}
           
-            <p className="card--title--label label--purple">Author :-               {newsList?.[2]}
+            <p className="card--title--label label--purple">Author :-               {newsList?.Author}
             </p>
-            <p className="card--title--label label--purple">Source :-               {newsList?.[4]}
+            <p className="card--title--label label--purple">Source :-               {newsList?.Source}
             </p>
           
-          <button><a href={newsList?.[6]} target='_blank'>See more</a></button>
+          <button><a href={newsList?.URL} target='_blank'>See more</a></button>
         </div>
       </>
     );
