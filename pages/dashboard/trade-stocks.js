@@ -15,6 +15,7 @@ import { orderService } from "../../services/order.service";
 import { setPopularCompany } from "../../actions/topCompany";
 import SelectGame from "../../components/SelectGame/SelectGame";
 import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
+import ToolTipCustome from "../../components/Competition/ToolTip";
 
 export default function TradesTrek() {
   // const [beginnerOption, setBeginnerOption] = useState(false);
@@ -73,12 +74,13 @@ const handleTab=(index)=>{
             </div>
             <SelectGame />
           </div>
-          <SubscriptionExpiredMessage />
 
           <div className="top--value--bar">
             <div className="col-block">
               <p className="data-title">
-                Account Value{" "}
+              <span  className="itemAlign">
+              Account Value <ToolTipCustome text={`Displays the total current value of your portfolio, which is updated nightly after the market’s close.`}/>
+              </span>
                 <span className="font-20 font-bold">
                 {/* ₦{(userData.accountValue?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} */}
                 ₦{user && ((user?.portfolio?.accountValue+user?.portfolio?.profitOrLossToday)?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -87,7 +89,10 @@ const handleTab=(index)=>{
             </div>
             <div className="col-block">
               <p className="data-title">
-                Buying Power{" "}
+              
+                <span  className="itemAlign">
+                Buying Power <ToolTipCustome text={`The total value of your cash and margin accounts that can be used to make trades. Calculated as: cash + (Long Stocks x 50%) - (Shorted Stocks x 150%).`}/>
+              </span>
                 <span className="font-20 font-bold">
                 ₦{user && ((user?.portfolio?.buyingPower+(user?.portfolio?.gameId?.allowTradingWithMargin?(user?.portfolio?.profitOrLossToday/2):user?.portfolio?.profitOrLossToday))?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
@@ -95,7 +100,9 @@ const handleTab=(index)=>{
             </div>
             <div className="col-block">
               <p className="data-title">
-                Cash{" "}
+                <span  className="itemAlign">
+                Cash <ToolTipCustome text={`Total amount of cash available for making trades.`}/>
+              </span>
                 <span className="font-20 font-bold">
                 ₦{user && ((user?.portfolio?.cash+user?.portfolio?.profitOrLossToday)?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>

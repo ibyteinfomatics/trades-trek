@@ -12,6 +12,7 @@ const CurrentComponent = ({
   handleLeaveCompetition,
   handleInvite,
   handleGoToHome,
+  handleDeleteGame,
   length
 }) => {
 
@@ -250,6 +251,27 @@ const CurrentComponent = ({
                   </span>
                 </h5>
               )}
+            </div>
+            <div className="competation-rules flexBox">
+              {item.creatorId == user?.user?._id && item.users.length==1&& (
+                <h5
+                  style={{ cursor: "pointer" }}
+                  className="font-16 text--purple mt-32"
+                  onClick={() => handleDeleteGame(item?._id)}
+                >
+                Delete  Competition 
+                  <span>
+                    <svg width="7" height="12" viewBox="0 0 8 13" fill="none">
+                      <path
+                        d="M0.734375 0.0234375L0.015625 0.726562L5.67578 6.5L0.015625 12.2773L0.734375 12.9727L7.07422 6.5L0.734375 0.0234375Z"
+                        fill="#8000FF"
+                      />
+                    </svg>
+                  </span>
+                </h5>
+              )}
+
+             
             </div>
           </div>
           <div className="colRightBlock">

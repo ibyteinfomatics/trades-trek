@@ -3476,3 +3476,58 @@ input[type="checkbox"] {
 .pl--8{
   @apply pl-8;
 }
+.itemAlign{
+  display: flex;
+  align-items: center;
+}
+.FullCard{
+  width:100% !important;
+  border:'1px solid black'
+}
+.learningCard{
+  @apply bg-white p-3;
+  border-radius: 0.5rem;
+  min-height: 300px;
+  box-shadow: var(--box-shadow);
+}
+.halfCardGrid{
+  @apply grid gap-4 mb-4;
+  display: flex;
+  flex-wrap: wrap
+  /* grid-template-columns: repeat(2, 1fr); */
+}
+.FullCard{
+  @apply mb-4;
+}
+.learningCard .cardTitle {
+  @apply flex items-center;
+}
+.learningCard .cardTitle .cardIcon {
+  max-width: 3rem;
+  margin: 5px 10px;
+  @apply w-full;
+}
+.learningCard .cardTitle h4{
+  font-size: 1.5rem;
+  @apply text-black font-semibold;
+}
+.cardText.blueText {
+  margin: 1rem;
+}
+.cardText.blueText p {
+  color: #8000ff;
+  font-size: 1.15rem;
+  font-weight: 100 !important;
+}
+.cardText.blueText p:not(:last-child){
+  @apply mb-2;
+}
+.graphBox{
+  width: 45vw;
+  height: 60vh;
+}
+.rz-dropdown {
+  display: none !important;
+  max-width: 130px;
+  max-height: 55px !important;
+}

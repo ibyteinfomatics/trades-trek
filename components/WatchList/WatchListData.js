@@ -110,7 +110,7 @@ export default function WatchListData() {
             )
           ) : (
             <div className=" watchloader watchMessage">
-              <div className="background-masker">Watchlist not Found!</div>
+              <div className="background-masker">There are no items on watchlist</div>
             </div>
           )
         ) : (

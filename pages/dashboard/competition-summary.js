@@ -63,7 +63,6 @@ export default function CompetationSummery() {
         </div>
 
         <div className="card--wrapper learning-research">
-        <SubscriptionExpiredMessage />
 
           <div className="trade-data">
             <div className="">

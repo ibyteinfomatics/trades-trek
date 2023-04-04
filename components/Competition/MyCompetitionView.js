@@ -108,6 +108,7 @@ export default function MyCompetationView() {
     setDeleteGameId(id);
     setModelOpened5(true);
   };
+ 
   return (
     <>
       <div className="myConn">
@@ -157,6 +158,7 @@ export default function MyCompetationView() {
                     handleSelectGame={handleSelectGame}
                     handlePortfolioReset={handlePortfolioReset}
                     handleLeaveCompetition={handleLeaveCompetition}
+                    handleDeleteGame={handleDeleteGame}
                     handleInvite={handleInvite}
                     handleGoToHome={handleGoToHome}
                     length={myGame.length}

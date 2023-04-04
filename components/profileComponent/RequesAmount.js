@@ -70,6 +70,7 @@ export default function RequestAmount() {
   useEffect(() => {
     setUserAmount(user?.user?.walletAmount );
     getTransactionList()
+    bankDetail()
   }, [user]);
 
   const userInfo=()=>{
@@ -87,6 +88,22 @@ export default function RequestAmount() {
     .catch((err) => {
       console.log(err);
     });
+  }
+  const bankDetail=()=>{
+    userService
+    .getBankDetail()
+    .then((res) => {
+      if (res.success) {
+        reset({
+          bankName:res?.data?.bankName,
+          accountName:res?.data?.accountName,
+          accountNumber:res?.data?.accountNumber
+        })
+        // console.log('bank',res.data)
+        // setTransactionList(res.data);
+      }
+    })
+    .catch((err) => console.log("errr", err.message))
   }
 
   return (
@@ -222,6 +239,7 @@ export default function RequestAmount() {
                   pattern: {
                     value: /^[0-9]+$/,
                   },
+                  min:1,
                   validate: (value) => {
                     if (userAmount < value) {
                       return "Insufficient balance";
@@ -236,8 +254,9 @@ export default function RequestAmount() {
               <div className="invalid-feedback">
                 {errors.amount?.type === "required" && "Amount is required"}
                 {errors.amount?.type === "validate" && errors.amount?.message}
-                {errors.amount?.type === "pattern" &&
-                  "Account Number is not valid Please enter number only"}
+          
+                   {errors.amount?.type === "min" &&
+                  "Amount is greater then 0"}
               </div>
             </div>
 

@@ -2,59 +2,58 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { gameService } from "../../services/game.service";
+import ToolTipCustome from "../Competition/ToolTip";
 
-function InviteCompetitionModel({ modelOpened, setModelOpened,id,data }) {
-  
+function InviteCompetitionModel({ modelOpened, setModelOpened, id, data }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [emails, setEmails] = useState([]);
-  const [error,setError]=useState('')
-  const [password,setPasswod]=useState('');
-  const [showPassword,setShowPassword]=useState(false)
-const [passwordError,setPasswordError]=useState('')
+  const [error, setError] = useState("");
+  const [password, setPasswod] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
   const theme = useMantineTheme();
   //   const LogoutUser = () => {
   //     router.push("/logout");
   //   };
 
   useEffect(() => {
-    if(!modelOpened){
-      setEmail('')
-      setEmails([])
-      setError('')
-      setPasswordError('')
-      setPasswod('');
-      setShowPassword(false)
+    if (!modelOpened) {
+      setEmail("");
+      setEmails([]);
+      setError("");
+      setPasswordError("");
+      setPasswod("");
+      setShowPassword(false);
     }
-  }, [modelOpened])
-  
- 
+  }, [modelOpened]);
+
   const handleEmail = (e) => {
-    if (e.key === "Enter" ) {
-      if(!/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email)){
-        setError('Invalid Email')
-      }else{
-        if(!emails.includes(email)){
+    if (e.key === "Enter") {
+      if (
+        !/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(
+          email
+        )
+      ) {
+        setError("Invalid Email");
+      } else {
+        if (!emails.includes(email)) {
           setEmails((prev) => [...prev, email]);
           setEmail("");
-          setError('')
-        }else{
-          setError('Already Added')
+          setError("");
+        } else {
+          setError("Already Added");
         }
       }
-     
-      
     }
-    
   };
-  const handleDelete=(name)=>{
-    const tmp=emails.filter((item)=>item!==name)
-    setEmails(tmp)
-  }
+  const handleDelete = (name) => {
+    const tmp = emails.filter((item) => item !== name);
+    setEmails(tmp);
+  };
   const handlePasswod = (e) => {
-   
     setPasswod(e.target.value);
-  
+
     if (
       !/^(?=.*[0-9])(?=.*[a-z])(?=.*[@$#!%*?_&])([a-zA-Z0-9@$#!%*?_&]{8,})$/.test(
         e.target.value
@@ -63,40 +62,38 @@ const [passwordError,setPasswordError]=useState('')
       setPasswordError(
         "Password must be alphanumeric with at least one special character and must be 8 characters"
       );
-     
+
       return false;
     } else {
       setPasswordError("");
-  
+
       return true;
     }
   };
-const InviteGame=()=>{
-  let formdata={
-    emails:emails,
-    gameId:data[0]?._id
-  }
-  if(data[0].competitionType=='Private'){
-    formdata.password=password
-  }
-  console.log(formdata)
-  
-
-  gameService
-  .inviteGame(formdata)
-  .then((res) => {
-    if (res.success == false) {
-   
-      setError(res.message);
-    } else {
-      setError();
-     
-      setModelOpened(false);
+  const InviteGame = () => {
+    let formdata = {
+      emails: emails,
+      gameId: data[0]?._id,
+    };
+    if (data[0].competitionType == "Private") {
+      formdata.password = password;
     }
-  })
-  .catch((err) => console.log(err));
-  // setModelOpened(false);
-}
+    console.log(formdata);
+
+    gameService
+      .inviteGame(formdata)
+      .then((res) => {
+        if (res.success == false) {
+          setError(res.message);
+        } else {
+          setError();
+
+          setModelOpened(false);
+        }
+      })
+      .catch((err) => console.log(err));
+    // setModelOpened(false);
+  };
   return (
     <Modal
       withCloseButton={false}
@@ -116,15 +113,30 @@ const InviteGame=()=>{
     >
       <div>
         <h2 style={{ textAlign: "center", margin: "20px 10px" }}>
-          <b>Do you want to invite <span style={{color:'#8000ff'}}>{data[0]?.competitionName}</span> with our friends?</b>
+          <span className="itemAlign">
+            <b>
+              Do you want to invite{" "}
+              <span style={{ color: "#8000ff" }}>
+                {data[0]?.competitionName}
+              </span>{" "}
+              with our friends?
+            </b>
+            <ToolTipCustome text={`Enter email and press enter key to send`} />
+          </span>
         </h2>
-       {error && <div style={{    display: "flex",
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: '1px solid red',
-    color: "red"}}>
-          <p>{error}</p>
-        </div>}
+        {error && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "1px solid red",
+              color: "red",
+            }}
+          >
+            <p>{error}</p>
+          </div>
+        )}
         {/* <p style={{ textAlign: "center", margin: "20px 10px" }}>
           Type emails with comma(,) separated
         </p> */}
@@ -144,13 +156,13 @@ const InviteGame=()=>{
                 <span>
                   {item}{" "}
                   <span
-                  onClick={()=>handleDelete(item)}
+                    onClick={() => handleDelete(item)}
                     style={{
                       background: "white",
                       color: "#8000ff",
                       padding: "5px 8px",
                       borderRadius: "50%",
-                      cursor:'pointer'
+                      cursor: "pointer",
                     }}
                   >
                     ×
@@ -162,65 +174,67 @@ const InviteGame=()=>{
         </div>
         <div className="inputEmail">
           <input
-          type='email'
+            type="email"
             value={email}
-            onChange={(e) => {setEmail(e.target.value);setError('')}}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError("");
+            }}
             onKeyDown={(e) => handleEmail(e)}
-            placeholder='Enter Email'
+            placeholder="Enter Email"
           />
         </div>
-        {data[0]?.competitionType == "Private" &&
-             (
-              <div className="form--item">
-                <label className="form--label" htmlFor="email">
-                  PRIVATE GAME
-                </label>
-                <div>
-                  <input
-                    className="form--control"
-                    value={password}
-                    type={showPassword ? "text" : "password"}
-                    onChange={handlePasswod}
+        {data[0]?.competitionType == "Private" && (
+          <div className="form--item">
+            <label className="form--label" htmlFor="email">
+              PRIVATE GAME
+            </label>
+            <div>
+              <input
+                className="form--control"
+                value={password}
+                type={showPassword ? "text" : "password"}
+                onChange={handlePasswod}
+                style={{
+                  width: "100%",
+                  padding: "5px 10px",
+                  border: " 3px solid #e0e0e0",
+                }}
+              />
+              {showPassword ? (
+                <img
+                  src="/images/view.png"
+                  className="passwordView"
+                  style={{ display: "inline", height: "25px" }}
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <img
+                  style={{ display: "inline", height: "25px" }}
+                  onClick={() => setShowPassword(!showPassword)}
+                  src="/images/invisible.png"
+                  className="passwordView"
+                />
+              )}
+              {passwordError && (
+                <div
+                  className=""
+                  style={{ border: "1px solid red", margin: "20px" }}
+                >
+                  <p
                     style={{
-                      width: "100%",
-                      padding: "5px 10px",
-                      border: " 3px solid #e0e0e0",
+                      textAlign: "center",
+                      padding: "10px",
+                      color: "red",
                     }}
-                  />
-                  {showPassword ? (
-                    <img
-                      src="/images/view.png"
-                      className="passwordView"
-                      style={{ display: "inline", height: "25px" }}
-                      onClick={() => setShowPassword(!showPassword)}
-                    />
-                  ) : (
-                    <img
-                      style={{ display: "inline", height: "25px" }}
-                      onClick={() => setShowPassword(!showPassword)}
-                      src="/images/invisible.png"
-                      className="passwordView"
-                    />
-                  )}
-                  {passwordError && (
-                    <div
-                      className=""
-                      style={{ border: "1px solid red", margin: "20px" }}
-                    >
-                      <p
-                        style={{
-                          textAlign: "center",
-                          padding: "10px",
-                          color: "red",
-                        }}
-                      >
-                        {passwordError}
-                      </p>
-                    </div>
-                  )}
+                  >
+                    {passwordError}
+                  </p>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+          </div>
+        )}
         <div style={{ border: "1px solid #c9cdd1", marginTop: "40px" }}>
           <button
             style={{
@@ -229,10 +243,10 @@ const InviteGame=()=>{
               padding: "10px",
             }}
             onClick={() => {
-              InviteGame()
+              InviteGame();
             }}
             className="done"
-            disabled={emails.length==0}
+            disabled={emails.length == 0}
             // style={{ margin: "20px" }}
           >
             Send

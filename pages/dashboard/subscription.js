@@ -82,13 +82,15 @@ export default function Sub() {
                         <div className="info--title">
                           <span>
                             <span className="currency">₦</span>{" "}
-                            {item?.packageAmount}
+                            {item?.packageAmount ?.toFixed(2)
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                           </span>
                           <span>{item?.packageDuration.toUpperCase()}</span>
                           {/* <p>{item?.packageDuration}</p> */}
                         </div>
                         <div className="info--text">
-                          <p>{item?.packageDesc}</p>
+                          <p>{item?.packageName}</p>
                         </div>
                         <div
                           className="info--button"

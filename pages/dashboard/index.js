@@ -24,24 +24,48 @@ import SelectGame from "../../components/SelectGame/SelectGame";
 import { TodayPerChange } from "../../helpers/TodayChange";
 import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
 import { stockService } from "../../services/stock.service";
+import ToolTipCustome from "../../components/Competition/ToolTip";
+import { userService } from "../../services";
+import { async } from "rxjs";
 
 export default function Home() {
-  
+
   const [showGainersList, setShowGainersList] = useState(false);
   const [showLosersList, setShowLosersList] = useState(false);
   const [showLeadersList, setShowLeadersList] = useState(false);
   const [showNewsList, setShowNewsList] = useState(false);
   const [todaytime, setTodayTime] = useState(new Date());
-  
+  const [allNews, setAllNews] = useState([])
+
   let { user } = useSelector((state) => state.userWrapper);
 
   useEffect(() => {
+    GetAllNews()
+
     var today = new Date();
     today.setMinutes(today.getMinutes() - 10);
     setTodayTime(today);
-   
+
   }, []);
- 
+
+  useEffect(() => {
+
+
+    return () => {
+      userService.updateTimeStamp().then((res) => console.log('')).catch(() => console.log(''))
+
+    }
+  }, [])
+  const GetAllNews = async () => {
+    try {
+      const { data} = await userService.getNews()
+      setAllNews(data)
+    } catch (error) {
+      setAllNews([])
+
+    }
+
+  }
 
   return (
     <>
@@ -52,7 +76,6 @@ export default function Home() {
         <HighlightTrades />
         {/* welcome block */}
         <div className="card--wrapper">
-          <SubscriptionExpiredMessage />
 
           <div style={{ margin: "20px" }}>
             <SelectGame />
@@ -80,8 +103,13 @@ export default function Home() {
                   <p>Overview</p>
                 </div>
                 <ul className="option--list">
+
                   <li>
-                    <span>Account Value</span>
+
+                    <span className="itemAlign">Account Value
+                      <ToolTipCustome text='Displays the total current value of your portfolio, which is updated nightly after the market’s close.' />
+
+                    </span>
                     <span>
                       ₦
                       {user &&
@@ -93,9 +121,13 @@ export default function Home() {
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                     </span>
+
                   </li>
                   <li>
-                    <span>Today's Change</span>
+                    <span className="itemAlign">Today's Change
+                      <ToolTipCustome text={`Gains/losses as a result of today's market activity.`} />
+
+                    </span>
                     <span>
                       +₦
                       {(
@@ -110,7 +142,7 @@ export default function Home() {
                         {TodayPerChange(
                           user?.portfolio?.previousValue,
                           user?.portfolio?.currentValue -
-                            user?.portfolio?.previousValue
+                          user?.portfolio?.previousValue
                         )
                           ?.toFixed(2)
                           ?.toString()
@@ -133,70 +165,70 @@ export default function Home() {
         {/* Watchlist */}
         {NigerianTimeZone(todaytime) <=
           NigerianTimeZone(user?.user?.expiredDate) && (
-<WatchListData />
+            <WatchListData />
 
-         
-        )}
+
+          )}
 
         {/* 3 blocks wraps */}
         {NigerianTimeZone(todaytime) <=
           NigerianTimeZone(user?.user?.expiredDate) && (
-          <div className="card--wrapper">
-            <div className="wrapper--text card--grid card--grid--3">
-              {/* Top Gainers */}
-              <div className="wrapper--col">
-                <div className="wrapper--hgroup">
-                  <div className="wrapper--title">
-                    <h3>Top Gainers</h3>
+            <div className="card--wrapper">
+              <div className="wrapper--text card--grid card--grid--3">
+                {/* Top Gainers */}
+                <div className="wrapper--col">
+                  <div className="wrapper--hgroup">
+                    <div className="wrapper--title">
+                      <h3>Top Gainers</h3>
+                    </div>
+                    <div className="readmore--link">
+                      {!showGainersList ? (
+                        <span
+                          onClick={() => setShowGainersList(!showGainersList)}
+                        >
+                          See All
+                        </span>
+                      ) : (
+                        <span
+                          onClick={() => setShowGainersList(!showGainersList)}
+                        >
+                          See Less
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="readmore--link">
-                    {!showGainersList ? (
-                      <span
-                        onClick={() => setShowGainersList(!showGainersList)}
-                      >
-                        See All
-                      </span>
-                    ) : (
-                      <span
-                        onClick={() => setShowGainersList(!showGainersList)}
-                      >
-                        See Less
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <GainerView showGainersList={!showGainersList} />
-              </div>
-
-              {/* Top Losers */}
-              <div className="wrapper--col">
-                <div className="wrapper--hgroup">
-                  <div className="wrapper--title">
-                    <h3>Top Losers</h3>
-                  </div>
-                  <div className="readmore--link">
-                    {!showLosersList ? (
-                      <span onClick={() => setShowLosersList(!showLosersList)}>
-                        See All
-                      </span>
-                    ) : (
-                      <span onClick={() => setShowLosersList(!showLosersList)}>
-                        See Less
-                      </span>
-                    )}
-                  </div>
+                  <GainerView showGainersList={!showGainersList} />
                 </div>
 
-                <LoserView showLosersList={!showLosersList} />
-              </div>
-
-              {/* Leaders */}
-              <div className="wrapper--col">
-                <div className="wrapper--hgroup">
-                  <div className="wrapper--title">
-                    <h3>Sector Leaders</h3>
+                {/* Top Losers */}
+                <div className="wrapper--col">
+                  <div className="wrapper--hgroup">
+                    <div className="wrapper--title">
+                      <h3>Top Losers</h3>
+                    </div>
+                    <div className="readmore--link">
+                      {!showLosersList ? (
+                        <span onClick={() => setShowLosersList(!showLosersList)}>
+                          See All
+                        </span>
+                      ) : (
+                        <span onClick={() => setShowLosersList(!showLosersList)}>
+                          See Less
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  {/* <div className="readmore--link">
+
+                  <LoserView showLosersList={!showLosersList} />
+                </div>
+
+                {/* Leaders */}
+                <div className="wrapper--col">
+                  <div className="wrapper--hgroup">
+                    <div className="wrapper--title">
+                      <h3>Sector Leaders</h3>
+                    </div>
+                    {/* <div className="readmore--link">
                   {!showLeadersList ? (
                     <span
                       onClick={() => setShowLeadersList(!showLeadersList)}
@@ -211,13 +243,13 @@ export default function Home() {
                     </span>
                   )}
                 </div> */}
-                </div>
+                  </div>
 
-                {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
+                  {!showLeadersList ? <LeaderView /> : <LeaderView2 />}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
         {/* Newslist */}
         <div className="card--wrapper">
@@ -239,11 +271,11 @@ export default function Home() {
           </div>
           {!showNewsList ? (
             <div className="wrapper--text card--grid card--grid--4">
-              <NewsListData />
+              <NewsListData news={allNews} />
             </div>
           ) : (
             <div className="wrapper--text card--grid card--grid--4">
-              <NewsListData2 />
+              <NewsListData2 news={allNews} />
             </div>
           )}
 

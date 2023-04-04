@@ -14,11 +14,14 @@ import { useRouter } from "next/router";
 import { DataConvert, TimeConverter } from "../../helpers/DateTimeConverter";
 import LineChartStock from "../Chart/LineChartStock";
 import { toast, ToastContainer } from "react-toastify";
+import ToolTipCustome from "../Competition/ToolTip";
 
 export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [showMax, setShowMax] = useState(false);
   const [stockAllData, setStockAllData] = useState([]);
-  const [filterStock, setFilterStock] = useState([{Symbol:'Search For Symbol',value:'demo'}]);
+  const [filterStock, setFilterStock] = useState([
+    { Symbol: "Search For Symbol", value: "demo" },
+  ]);
   const [ariaFocusMessage, setAriaFocusMessage] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [stockData, setStockData] = useState();
@@ -30,48 +33,50 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const [rate, setRate] = useState("");
   const [quantityError, setQuantityError] = useState(null);
   const [rateError, setRateError] = useState(null);
-  const [currentGame,setCurrentGame]=useState()
-  const [allowShortSelling,setAllowShortSelling]=useState(true)
+  const [currentGame, setCurrentGame] = useState();
+  const [allowShortSelling, setAllowShortSelling] = useState(true);
   const dispatch = useDispatch();
-  const [search,setSearch]=useState()
+  const [search, setSearch] = useState();
+  const [graph, setGraph] = useState("");
+  const [token, setToken] = useState("");
   const router = useRouter();
   let { user } = useSelector((state) => state.userWrapper);
 
   const data = router.state;
   useEffect(() => {
-    setShowTrade(true)
-  }, [])
+    setShowTrade(true);
+  }, []);
   useEffect(() => {
-    if(user){
-     const game=user?.mygame?.filter((item)=>item?.gameId._id==localStorage.getItem('GameId'))
- 
-     if(game){
-      setCurrentGame(game)
-    setAllowShortSelling(game[0]?.gameId?.allowShortSelling)
-  }
-    
+    if (user) {
+      setToken(user?.token?.token)
+      const game = user?.mygame?.filter(
+        (item) => item?.gameId._id == localStorage.getItem("GameId")
+      );
+
+      if (game) {
+        setCurrentGame(game);
+        setAllowShortSelling(game[0]?.gameId?.allowShortSelling);
+      }
     }
-   }, [user])
+  }, [user]);
   useEffect(() => {
-    let data=localStorage.getItem('stock')
-  
-    data=JSON.parse(data)
-    // 
+    let data = localStorage.getItem("stock");
+
+    data = JSON.parse(data);
 
     if (data) {
-    localStorage.removeItem('stock')
+      localStorage.removeItem("stock");
 
-      setAction(data.action||"Buy");
+      setAction(data.action || "Buy");
       setStockData(data);
-      setQuantity(data.quantity)
-     
+      const date=new Date()
+      setGraph(`https://test.infowarelimited.com/IWGraphEngAsAService/charts3/${user?.token?.token}?Theme=light&GT=3&P=8145%7C${data?.Symbol}%7C${date.getFullYear()-1}-${date.getMonth() + 1}-${ date.getDate()}%7C${date.getFullYear()}-${date.getMonth() + 1}-${ date.getDate()}`)
+      setQuantity(data.quantity);
     }
   }, []);
-  
-  
 
   const inputChange = (inputValue) => {
-    setSearch(inputValue)
+    setSearch(inputValue);
     if (inputValue) {
       let searchData = stockAllData.filter(
         (item) =>
@@ -81,17 +86,17 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
           item.Name?.toLowerCase()?.includes(inputValue.trim()?.toLowerCase())
       );
       setFilterStock(searchData);
-     
     } else {
-      setFilterStock([{Symbol:'Search For Symbol',value:'demo'}]);
-      
+      setFilterStock([{ Symbol: "Search For Symbol", value: "demo" }]);
     }
   };
   // set selected stock
   const onchange = (selectedOptions) => {
-    if (selectedOptions?.value!=='demo') {
-      setSearch(selectedOptions?.Symbol)
-      setStockData(selectedOptions) 
+    if (selectedOptions?.value !== "demo") {
+      const date=new Date()
+      setGraph(`https://test.infowarelimited.com/IWGraphEngAsAService/charts3/${token}?Theme=light&GT=3&P=8145%7C${selectedOptions?.Symbol}%7C${date.getFullYear()-1}-${date.getMonth() + 1}-${ date.getDate()}%7C${date.getFullYear()}-${date.getMonth() + 1}-${ date.getDate()}`)
+      setSearch(selectedOptions?.Symbol);
+      setStockData(selectedOptions);
       setShowMax(false);
       setQuantity("");
     }
@@ -111,8 +116,6 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
   const onMenuOpen = () => setIsMenuOpen(true);
   const onMenuClose = () => setIsMenuOpen(false);
   const checkLimitPrice = () => {
-   
-
     if (quantity <= 0) {
       setQuantityError("Quantity must be greater than 0");
     } else if (orderType === "Limit" && rate <= 0) {
@@ -134,9 +137,8 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
       setRateError(null);
       setQuantityError(null);
       setModelOpened(true);
-      setStockName(stockData?.Symbol), setStockAction(stockData.action)
+      setStockName(stockData?.Symbol), setStockAction(stockData.action);
     }
-
   };
 
   const handlerShowMax = () => {
@@ -155,46 +157,45 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
         });
     }
   };
-  const theme = theme => ({
+  const theme = (theme) => ({
     ...theme,
     colors: {
       ...theme.colors,
       primary25: "blue",
-      primary: "pink"
-
-    }
-
+      primary: "pink",
+    },
   });
   const colourStyles = {
-    control: styles => ({ ...styles, backgroundColor: 'white' }),
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      const color = 'white';
+      const color = "white";
       return {
         ...styles,
-        backgroundColor: isDisabled ? 'red' : blue,
-        color: '#FFF',
-        cursor: isDisabled ? 'not-allowed' : 'default',
-      
+        backgroundColor: isDisabled ? "red" : blue,
+        color: "#FFF",
+        cursor: isDisabled ? "not-allowed" : "default",
       };
     },
-  
   };
-  const handleAddWatchList=()=>{
-    stockService.addToWatchListStock(stockData).then((res)=>{
-      if(res.success){
-        toast.success(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }else{
-        toast.error(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-    }).catch((err)=>console.log(err))
-  }
+  const handleAddWatchList = () => {
+    stockService
+      .addToWatchListStock(stockData)
+      .then((res) => {
+        if (res.success) {
+          toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else {
+          toast.error(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
-     <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={3000}
         hideProgressBar={false}
@@ -233,21 +234,19 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               </label>
               <Select
                 aria-labelledby="aria-label"
-                isDisabled={stockAllData.length>0?false:true}
-              
-                placeholder='Search for Symbol'
-               
+                isDisabled={stockAllData.length > 0 ? false : true}
+                placeholder="Search for Symbol"
                 onInputChange={inputChange}
                 onChange={onchange}
                 inputId="aria-example-input"
                 name="aria-live-color"
-              
                 onMenuOpen={onMenuOpen}
                 onMenuClose={onMenuClose}
                 options={filterStock}
                 isClearable={stockData ? false : true}
                 getOptionLabel={(option) =>
-                  `${option?.Symbol} ${option.Name?'-':''} ${option.Name ||''}`
+                  `${option?.Symbol} ${option.Name ? "-" : ""} ${option.Name ||
+                    ""}`
                 }
               />
               {/* <input
@@ -259,7 +258,12 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Action
+                <span className="itemAlign">
+                  Action{" "}
+                  <ToolTipCustome
+                    text={`Buy/Sell allow you add/remove stocks from your portfolio. Sell Short/Buy to Cover relate to shorting stocks.`}
+                  />
+                </span>
               </label>
               <select
                 className="form--control"
@@ -273,10 +277,16 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               >
                 <option selected={action == "Buy" ? true : false}>Buy</option>
                 <option selected={action == "Sell" ? true : false}>Sell</option>
-                <option disabled={!allowShortSelling} selected={action == "Short" ? true : false}>
+                <option
+                  disabled={!allowShortSelling}
+                  selected={action == "Short" ? true : false}
+                >
                   Short
                 </option>
-                <option disabled={!allowShortSelling} selected={action == "Buy To Cover" ? true : false}>
+                <option
+                  disabled={!allowShortSelling}
+                  selected={action == "Buy To Cover" ? true : false}
+                >
                   Buy To Cover
                 </option>
               </select>
@@ -335,13 +345,19 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                   </div>
                   <div className="titleRow">
                     <h3 className="font-30">
-                      {(stockData?.Last?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      {stockData?.Last?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                       <sub>{stockData?.Currency}</sub>
                       <span>
                         <sub>
                           {stockData?.Change >= 0
-                            ? `+ ${(stockData?.Change?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
-                            : `- ${(stockData?.Change?.toFixed(2))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                            ? `+ ${stockData?.Change?.toFixed(2)
+                                ?.toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                            : `- ${stockData?.Change?.toFixed(2)
+                                ?.toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                           (
                           {StockChangePercent(
                             stockData?.Change,
@@ -352,7 +368,8 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                         </sub>
                       </span>
                       <span className="font-12">
-                        At Close {DataConvert(stockData?.PrevCloseDate)} {TimeConverter(stockData?.PrevCloseDate)}
+                        At Close {DataConvert(stockData?.PrevCloseDate)}{" "}
+                        {TimeConverter(stockData?.PrevCloseDate)}
                       </span>
                     </h3>
                     {/* <h3 className="font-16">
@@ -363,11 +380,17 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       August 2<span className="font-12">Upcoming Earning</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {Number(stockData?.EPS)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                      {Number(stockData?.EPS)
+                        ?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                       <span className="font-12">Eps</span>
                     </h3>
                     <h3 className="font-16">
-                      {Number(stockData?.MktCap)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                      {Number(stockData?.MktCap)
+                        ?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                       <span className="font-12">Market Cap</span>
                     </h3>
                     {/* <h3 className="font-16">
@@ -375,7 +398,10 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                       <span className="font-12">Div Yield</span>
                     </h3> */}
                     <h3 className="font-16">
-                      {Number(stockData?.PE)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                      {Number(stockData?.PE)
+                        ?.toFixed(2)
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                       <span className="font-12">P/E</span>
                     </h3>
                   </div>
@@ -383,43 +409,69 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
                     <div className="volumeDataLeft">
                       <div className="currentData">
                         <p className="font-16">Volume(current)</p>
-                        <p className="font-14">{stockData?.Volume?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                        <p className="font-14">
+                          {stockData?.Volume?.toString().replace(
+                            /\B(?=(\d{3})+(?!\d))/g,
+                            ","
+                          )}
+                        </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s High(₦)</p>
-                        <p className="font-14">{Number(stockData?.High)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}</p>
+                        <p className="font-14">
+                          {Number(stockData?.High)
+                            ?.toFixed(2)
+                            ?.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                        </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Day&apos;s LOW(₦)</p>
-                        <p className="font-14">{Number(stockData?.Low)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}</p>
+                        <p className="font-14">
+                          {Number(stockData?.Low)
+                            ?.toFixed(2)
+                            ?.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
+                        </p>
                       </div>
                     </div>
                     <div className="volumeDataRight">
                       <div className="currentData">
                         <p className="font-16">52 Week High(₦)</p>
                         <p className="font-14">
-                          {Number(stockData?.High52Week)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}
+                          {Number(stockData?.High52Week)
+                            ?.toFixed(2)
+                            ?.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                         </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">Bid/Ask price(₦)</p>
                         <p className="font-14">
                           {(
-                            (Number(stockData?.Bid) || 0) / (Number(stockData?.Ask) || 1)
-                          ).toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ||0.00}
+                            (Number(stockData?.Bid) || 0) /
+                            (Number(stockData?.Ask) || 1)
+                          )
+                            .toFixed(2)
+                            ?.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                         </p>
                       </div>
                       <div className="currentData">
                         <p className="font-16">52 Week Low(₦)</p>
                         <p className="font-14">
-                          {Number(stockData?.Low52Week)?.toFixed(2)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.00}
+                          {Number(stockData?.Low52Week)
+                            ?.toFixed(2)
+                            ?.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0.0}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="gridColRight">
-                  <LineChartStock />
+                  {/* <LineChartStock /> */}
+                  <iframe className="graphBox" src={graph}></iframe>
                 </div>
               </div>
               {/* <div className='bar--image-data'>
@@ -430,7 +482,12 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
           <div className="stocks--form--group">
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Duration
+                <span className="itemAlign">
+                  Duration{" "}
+                  <ToolTipCustome
+                    text={`How long the trade is open for. Most applicable to limit orders and those placed after market hours.`}
+                  />
+                </span>
               </label>
               <select
                 className="form--control"
@@ -443,7 +500,12 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
             </div>
             <div className="form--item">
               <label className="form--label" htmlFor="email">
-                Order Type
+                <span className="itemAlign">
+                  Order Type{" "}
+                  <ToolTipCustome
+                    text={`To trade at the current market price, choose Market Order.`}
+                  />
+                </span>
               </label>
               <select
                 className="form--control"
@@ -495,9 +557,9 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
               className="btn reset--btn"
               onClick={() => {
                 // setStockData();
-                setQuantity('')
-                setRate('')
-                setOrderType('Market')
+                setQuantity("");
+                setRate("");
+                setOrderType("Market");
                 // setShowMax(false);
               }}
             >

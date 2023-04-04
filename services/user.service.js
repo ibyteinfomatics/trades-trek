@@ -451,6 +451,22 @@ function getTransaction() {
       return error;
     });
 }
+function getBankDetail() {
+
+  
+  return fetchWrapper
+    .get(`${baseUrl}/transaction/bank-details`)
+    .then((res) => {
+      if(res.success){
+       res
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
 function allowNotificationStatus(status) {
 
   
@@ -517,6 +533,36 @@ function removeProfile(){
       return error;
     });
 }
+function updateTimeStamp(){
+  return fetchWrapper
+    .get(`${baseUrl}/user/timestamp`
+    )
+    .then((res) => {
+      if(res.success){
+       
+      }
+     
+      return res;
+    })
+    .catch(function (error) {
+      return error;
+    });
+}
+
+function getNews() {
+ 
+  return fetchWrapper
+    .get(`${baseUrl}/news`)
+
+    .then((res) => {
+      
+      return res;
+    })
+    .catch((error) => {
+      
+      return error;
+    });
+}
 
 
 export const userService = {
@@ -525,6 +571,8 @@ export const userService = {
     return userSubject.value;
   },
   login,
+  getNews,
+  getBankDetail,
   removeProfile,
   updateAccount,
   anotherUserGraph,
@@ -551,6 +599,7 @@ export const userService = {
   getTransaction,
   allowNotificationStatus,
   updateProfile,
-  GetUserSubscriptionHistory
+  GetUserSubscriptionHistory,
+  updateTimeStamp
 
 };

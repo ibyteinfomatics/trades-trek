@@ -12,6 +12,7 @@ import SelectGame from "../../components/SelectGame/SelectGame";
 import { userService } from "../../services";
 import { AnnualReturn, TodayPerChange } from "../../helpers/TodayChange";
 import SubscriptionExpiredMessage from "../../components/MarketOpenClose/SubscriptionExpiredMessage";
+import ToolTipCustome from "../../components/Competition/ToolTip";
 
 export default function Portfolio() {
   let { user } = useSelector((state) => state.userWrapper);
@@ -49,17 +50,17 @@ export default function Portfolio() {
             </div>
             <SelectGame />
           </div>
-          <div style={{ margin: "30px 0px" }}>
-            <HighlightTrades />
-          </div>
-          <SubscriptionExpiredMessage />
           
+
           {/* port folio section  */}
           <div className="profileContainer ">
             <div className="profileContainerLeft">
               <div className="profileContainerAccount">
                 <div className="profileContainerAccountblock">
-                  <span>ACCOUNT VALUE</span>
+                  <span className="itemAlign">
+                    ACCOUNT VALUE
+                    <ToolTipCustome text="Displays the total current value of your portfolio, which is updated nightly after the market’s close." />
+                  </span>
 
                   <p>
                     ₦
@@ -75,7 +76,12 @@ export default function Portfolio() {
                 <div className="profileContainerAccountblock">
                   <div>
                     <div>
-                      <span>TODAY'S CHANGE</span>
+                      <span className="itemAlign">
+                        TODAY'S CHANGE
+                        <ToolTipCustome
+                          text={`Gains/losses as a result of today's market activity.`}
+                        />
+                      </span>
 
                       <p>
                         + ₦
@@ -100,8 +106,13 @@ export default function Portfolio() {
                         %)
                       </span>
                     </div>
-                    <div> 
-                      <span>ANNUAL RETURN</span>
+                    <div>
+                      <span className="itemAlign">
+                        ANNUAL RETURN
+                        <ToolTipCustome
+                          text={`Percentage of return that you have earned if your returns were extrapolated for a year.`}
+                        />
+                      </span>
 
                       <p>
                         {AnnualReturn(
@@ -120,7 +131,12 @@ export default function Portfolio() {
                 <div className="profileContainerAccountblock">
                   <div>
                     <div>
-                      <span>BUYING POWER</span>
+                      <span className="itemAlign">
+                        BUYING POWER
+                        <ToolTipCustome
+                          text={`The total value of your cash and margin accounts that can be used to make trades. Calculated as: cash + (Long Stocks x 50%) - (Shorted Stocks x 150%).`}
+                        />
+                      </span>
 
                       <p>
                         ₦
@@ -136,7 +152,12 @@ export default function Portfolio() {
                       </p>
                     </div>
                     <div>
-                      <span>CASH</span>
+                      <span className="itemAlign">
+                        CASH
+                        <ToolTipCustome
+                          text={`Total amount of cash available for making trades.`}
+                        />
+                      </span>
 
                       <p>
                         ₦
