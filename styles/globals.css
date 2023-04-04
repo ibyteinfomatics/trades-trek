@@ -1027,7 +1027,7 @@ td.sector--gain {
 }
 .btn-blue {
   @apply flex items-center font-normal;
-  color: #8000FF;
+
   font-size: 0.938rem;
 }
 .grid-block-right {
@@ -1176,10 +1176,9 @@ td.sector--gain {
   border-bottom: 0.063rem solid #ddd;
 }
 .titleRow {
-  display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-column-gap: 1rem;
-  @apply mt-6 items-center;
+  @apply mt-6 items-center grid;
 }
 .font-30{
   font-size: 2.875rem;
@@ -1211,8 +1210,7 @@ td.sector--gain {
   @apply flex justify-between mb-3;
 }
 .table-row-gap{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  @apply px-10;
 }
 .mt-33{
   margin-top: 2.063rem;
@@ -1230,8 +1228,7 @@ td.sector--gain {
   font-size: 0.9rem;
   color: #757575;
   line-height: 3;
-  @apply font-normal flex;
-  text-transform: uppercase;
+  @apply font-normal flex uppercase;
 }
 .font--bold{
   @apply font-bold;
@@ -1670,8 +1667,8 @@ td.sector--gain {
 }
 
 .notificationGroup h1 {
-  color: #8000ff;
   font-size: 1rem;
+  color: var(--purpleColor);
   @apply font-bold;
 }
 .pageBack{
@@ -1720,6 +1717,7 @@ td.sector--gain {
 }
 .competation-page .card--wrapper ul li.react-tabs__tab--selected{
   border-bottom: 0.179rem solid #8000FF;
+  @apply cursor-pointer;
 }
 .competation-page .learning-research table tr td:last-child{
   @apply text-center;
@@ -1815,17 +1813,16 @@ input[type="checkbox"].switch_1{
 	height: 0.5em;
 	background: #DFDFDF;
 	border-radius: 3em;
-	position: relative;
-	cursor: pointer;
 	outline: none;
 	-webkit-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
+  @apply relative cursor-pointer;
   }
 .form--item.toggle {
   @apply flex justify-between;
 }
 input[type="checkbox"].switch_1:after{
-  background: #8000FF;
+  background: var(--purpleColor);
 }
 input[type="checkbox"].switch_1:checked{
   background: #E6CCFF;
@@ -1848,12 +1845,12 @@ input[type="checkbox"].switch_1:checked{
   @apply ml-2;
 }
 .pageBack a{
-  text-decoration: underline;
+  @apply underline;
   font-size: var(--font-18);
   color: var(--purpleColor);
 }
 .summeyTable {
-  @apply bg-white;
+  @apply bg-white mb-4;
 }
 .innerBlock .myConn p{
   @apply text-black;
@@ -1873,24 +1870,21 @@ input[type="checkbox"].switch_1:checked{
   border-bottom-right-radius: 0.438rem;
 }
   input[type="checkbox"].switch_1:after{
-	position: absolute;
 	content: "";
-	width: 0.5em;
-	height: 0.5em;
 	border-radius: 50%;
   background: #AFAFAF;
 	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
 	box-shadow: 0 0 .25em rgba(0,0,0,.3);
 	-webkit-transform: scale(.7);
 	transform: scale(.7);
-	left: 0;
 	-webkit-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
+  @apply absolute w-2 h-2 left-0;
   }
   
   input[type="checkbox"].switch_1:checked:after{
 	left: calc(100% - 0.5em);
-  background: #8000FF;
+  background: var(--purpleColor);
   }
 
 .competation-confirm-popup .btn--group.form--actions {
@@ -2208,11 +2202,8 @@ Sidebar wrapper styles
 Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
 */
 .bm-menu-wrap {
-  position: fixed;
-  height: 100%;
-  top: 0;
   box-shadow: var(--box-shadow);
-  @apply bg-white;
+  @apply bg-white h-full top-0 fixed;
 }
 
 /* General sidebar styles */
@@ -2246,10 +2237,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  @apply inset-0;
 }
 html{
   font-size: 3.25vw;
@@ -2980,8 +2968,8 @@ table.order-table th {
 }
 .paginationReact>ul > .previous >a,.paginationReact>ul > .next >a{
   @apply border-0;
+  color: var(--purpleColor);
   font-size: 40px;
-  color: #8000ff;
 }
 
 .paginationReact>ul > .disabled >a{
@@ -2991,7 +2979,7 @@ table.order-table th {
   cursor:no-drop;
 }
 .paginationReact >ul>.selected>a{
-  background-color: #8000ff;
+  background: var(--purpleColor);
   @apply text-white font-bold;
 }
 
@@ -3047,11 +3035,11 @@ table.order-table th {
   padding:'10px'
 }
 .done:hover{
-  background-color: #8000ff;
+  background: var(--purpleColor);
   @apply text-white font-bold;
 }
 .cancel:hover{
-  background-color:#8000ff;
+  background: var(--purpleColor);
   @apply font-bold text-white;
 }
 
@@ -3227,7 +3215,7 @@ table.order-table th {
   /* font-weight: bold; */
 }
 .currentUser{
-  background: #8000ff;
+  background: var(--purpleColor);
   @apply text-white;
 }
 
@@ -3238,8 +3226,9 @@ table.order-table th {
   @apply w-full;
 }
 input:disabled{
-  border: 2px solid #dfdbdb;
-  background-color: #f5f0f0;
+  border: 1px solid #999999;
+  @apply bg-transparent;
+  /* background-color: #f5f0f0; */
 }
 button:disabled{
   background-color: rgb(185, 179, 179);
@@ -3265,9 +3254,9 @@ input[type="checkbox"] {
 .downloadLeaderBoard>button{
   padding: 0.85rem 2.389rem;
   border: 0.0625rem solid #8000ff;
-  color: #8000ff;
   border-radius: 4px;
   @apply font-bold;
+  color: var(--purpleColor);
 }
 .activeSubscription{
   /* background-color: #c5cecc !important; */
@@ -3291,7 +3280,7 @@ input[type="checkbox"] {
   @apply text-white font-bold;
 }
 .tab-graph-active{
-  background: #8000ff;
+  background: var(--purpleColor);
 }
 .profileContainerRank .rankText span {
   font-size: 0.85rem;
@@ -3306,7 +3295,7 @@ input[type="checkbox"] {
   font-size: 1.5rem;
 }
 .rankText h4 .textBlue{
-  color: #8000ff;
+  color: var(--purpleColor);
   font-size: 1.5rem;
   @apply mr-4;
 }
@@ -3378,7 +3367,7 @@ input[type="checkbox"] {
   background-color: #f6f7f8;
   background: linear-gradient(to right, #eeeeee 8%, #bbbbbb 18%, #eeeeee 33%);
   background-size: 800px 104px;
-  position: relative;
+  @apply relative;
 }
 .highLight{
   height: 55px;
@@ -3459,10 +3448,9 @@ input[type="checkbox"] {
 }
 .clearBtn {
   width: 10rem;
-  background: transparent;
   color: #ff0016;
   font-size: 1.125rem;
-  @apply mt-0 ml-auto;
+  @apply mt-0 ml-auto bg-transparent;
 }
 .rightAlign {
   @apply text-right;
