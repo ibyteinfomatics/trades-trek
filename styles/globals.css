@@ -1879,7 +1879,9 @@ input[type="checkbox"].switch_1:checked{
 	transform: scale(.7);
 	-webkit-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
-  @apply absolute w-2 h-2 left-0;
+  width: 0.5em;
+  height: 0.5em;
+  @apply absolute left-0;
   }
   
   input[type="checkbox"].switch_1:checked:after{
@@ -2479,7 +2481,7 @@ html{
   @apply p-6;
 }
 .time {
-  max-width: 7rem;
+  max-width: 8rem;
   @apply w-full;
 }
 .pageHeight{
