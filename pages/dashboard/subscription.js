@@ -126,7 +126,7 @@ export default function Sub() {
       <div className="site--content">
         <div className="page--title--block">
           <div className="card-no-gap">
-            <h1 style={{ textAlign: "center", fontSize: "20px" }}>
+            <h1 className="mt--20" style={{ textAlign: "center", fontSize: "20px" }}>
               Subscription History
             </h1>
             <div className="trade-data wrapper--text card--grid card-col-gap">

@@ -955,7 +955,7 @@ td.sector--gain {
   @apply cursor-pointer whitespace-nowrap font-semi-bold;
 }
 .data-title{
-  @apply flex gap-12;
+  @apply flex gap-12 items-center;
 }
 .data-title span {
   @apply boldFont;
@@ -3532,4 +3532,10 @@ input[type="checkbox"] {
   display: none !important;
   max-width: 130px;
   max-height: 55px !important;
+}
+.tab-data .stocks--form--group .form--label button.mantine-UnstyledButton-root {
+  height: 1.88rem;
+}
+.mt--20{
+  @apply mt-6;
 }

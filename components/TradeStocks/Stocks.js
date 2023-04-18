@@ -206,7 +206,7 @@ export default function Stocks({ setShowTrade, setStockName, setStockAction }) {
         draggable
         pauseOnHover
       />
-      <div className="stocks-form">
+      <div className="stocks-form market--data">
         <form className="site--form">
           <div className="stocks--form--group">
             <div
