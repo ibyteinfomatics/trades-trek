@@ -52,11 +52,10 @@ export default function Signup() {
     }
   }, [isBrowser, isTablet, isMobileOnly]);
 
- 
   const onSubmit = async (data) => {
     setIsLoading(true);
     data.phone = phone;
-    data.device=device
+    data.device = device;
     userService
       .signup(data)
       .then((res) => {

@@ -6,7 +6,7 @@ export const IncreaseDecrease = (change, changePer) => {
       {change < 0 ? (
         <td className="text-red">
           <div className="flexBox">
-          ₦{change?.toFixed(2)*-1} ({changePer?.toFixed(2)*-1}%)
+            ₦-{change?.toFixed(2)} (-{changePer?.toFixed(2)}%)
             <svg
               className="ml-12"
               width="16"
@@ -24,14 +24,13 @@ export const IncreaseDecrease = (change, changePer) => {
       ) : change == 0 ? (
         <td>
           <div className="flexBox ">
-          ₦{change?.toFixed(2)} ({changePer?.toFixed(2)}%)
-           -
+            ₦{change?.toFixed(2)} ({changePer?.toFixed(2)}%) -
           </div>
         </td>
       ) : (
         <td>
           <div className="flexBox text-light-green">
-          ₦{change?.toFixed(2)} ({changePer?.toFixed(2)}%)
+            ₦{change?.toFixed(2)} ({changePer?.toFixed(2)}%)
             <svg
               className="ml-12"
               width="16"
